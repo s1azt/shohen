@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グループシステム部 イントラサイト</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #root {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Icon components
+        const IconCalendar = (props) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}>
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                <line x1="16" x2="16" y1="2" y2="6"></line>
+                <line x1="8" x2="8" y1="2" y2="6"></line>
+                <line x1="3" x2="21" y1="10" y2="10"></line>
+            </svg>
+        );
+
+        const IconClock = (props) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}>
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+        );
+
+        const IconHome = (props) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}>
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+        );
+
+        const IconInfo = (props) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}>
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+            </svg>
+        );
+
+        const IconSearch = (props) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={props.className}>
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+        );
+
+        function App() {
+            const [currentTime, setCurrentTime] = useState(new Date());
+            const [activeTab, setActiveTab] = useState("home");
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setCurrentTime(new Date());
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const menuItems = [
+                { id: "home", label: "ホーム", icon: <IconHome size={20} /> },
+                { id: "announcements", label: "お知らせ", icon: <IconInfo size={20} /> },
+            ];
+
+            const announcements = [
+                {
+                    id: 1,
+                    title: "四半期会議のお知らせ",
+                    date: "2026-01-15",
+                    content: "次回の四半期会議は1月20日14:00から会議室Aで開催されます。全員参加をお願いします。",
+                    author: "田中部長",
+                },
+                {
+                    id: 2,
+                    title: "新システム導入について",
+                    date: "2026-01-10",
+                    content: "来月から新しい文書管理システムを導入します。詳細は添付ファイルをご確認ください。",
+                    author: "IT部 佐藤",
+                },
+            ];
+
+            return (
+                <div className="flex flex-col h-screen bg-gray-50" style={{fontFamily: "'Noto Sans JP', sans-serif"}}>
+                    <header className="relative text-white shadow-md" style={{
+                        backgroundImage: "url(https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1950&q=80)",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        height: "150px"
+                    }}>
+                        <div className="relative container mx-auto px-6 py-10 h-full flex items-center">
+                            <div className="flex justify-between items-center w-full">
+                                <div className="flex items-center space-x-5">
+                                    <div className="flex flex-col">
+                                        <div className="font-bold text-3xl drop-shadow mb-2">
+                                            グループシステム部 イントラサイト
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        placeholder="検索キーワードを入力"
+                                        className="py-3 px-6 pr-12 rounded-full text-base bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-teal-300 shadow-lg border border-teal-300 w-80"
+                                    />
+                                    <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                        <IconSearch size={22} />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <nav className="bg-teal-700 text-white shadow-md">
+                        <div className="w-full mx-auto">
+                            <div className="flex divide-x divide-gray-600/50">
+                                {menuItems.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        className={`flex-1 flex flex-col items-center justify-center py-4 transition-colors ${
+                                            activeTab === item.id ? "bg-teal-800 border-b-3 border-white" : "hover:bg-teal-600"
+                                        }`}
+                                        onClick={() => setActiveTab(item.id)}
+                                    >
+                                        {item.icon}
+                                        <span className="text-sm mt-2 font-medium">{item.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div className="flex-grow flex flex-col md:flex-row overflow-hidden">
+                        <aside className="w-72 flex-shrink-0 bg-white shadow-md p-6 pt-10">
+                            <div className="mb-8">
+                                <h3 className="font-medium text-lg text-gray-700 mb-3 flex items-center">
+                                    <IconClock size={20} className="mr-2 text-teal-500" />
+                                    現在時刻
+                                </h3>
+                                <div className="text-2xl font-bold text-teal-600 p-2 rounded shadow bg-blue-500 bg-opacity-50 text-white">
+                                    {currentTime.toLocaleTimeString("ja-JP")}
+                                </div>
+                                <div className="text-base text-gray-700 mt-1">
+                                    {currentTime.toLocaleDateString("ja-JP", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                        weekday: "long",
+                                    })}
+                                </div>
+                            </div>
+                        </aside>
+
+                        <main className="flex-grow p-6 overflow-auto">
+                            {activeTab === "home" && (
+                                <div className="bg-white rounded-lg shadow-md p-6">
+                                    <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                                        <IconInfo size={24} className="mr-3 text-teal-500" />
+                                        最新のお知らせ
+                                    </h2>
+                                    <div className="space-y-5">
+                                        {announcements.slice(0, 3).map((announcement) => (
+                                            <div key={announcement.id} className="border-b pb-4 last:border-0 last:pb-0">
+                                                <div className="flex justify-between items-start">
+                                                    <h3 className="font-semibold text-lg text-teal-700">{announcement.title}</h3>
+                                                    <span className="text-sm text-gray-500">
+                                                        {new Date(announcement.date).toLocaleDateString("ja-JP")}
+                                                    </span>
+                                                </div>
+                                                <p className="text-gray-800 mt-2 text-base">{announcement.content}</p>
+                                                <div className="text-sm text-gray-600 mt-2">投稿者: {announcement.author}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === "announcements" && (
+                                <div className="bg-white rounded-lg shadow-md p-6">
+                                    <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                                        <IconInfo size={24} className="mr-3 text-teal-500" />
+                                        お知らせ一覧
+                                    </h2>
+                                    <div className="space-y-6">
+                                        {announcements.map((announcement) => (
+                                            <div key={announcement.id} className="border-b pb-5 last:border-0 last:pb-0">
+                                                <div className="flex justify-between items-start">
+                                                    <h3 className="font-semibold text-xl text-teal-700">{announcement.title}</h3>
+                                                    <span className="text-sm text-gray-500">
+                                                        {new Date(announcement.date).toLocaleDateString("ja-JP")}
+                                                    </span>
+                                                </div>
+                                                <p className="text-gray-800 mt-3 text-base">{announcement.content}</p>
+                                                <div className="text-sm text-gray-600 mt-3">投稿者: {announcement.author}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </main>
+                    </div>
+
+                    <footer className="bg-gray-100 py-8 mt-auto border-t border-gray-200">
+                        <div className="container mx-auto px-6 text-center">
+                            <p className="text-sm text-gray-600">© 2026 システム開発部門</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
