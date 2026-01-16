@@ -20,7 +20,7 @@
 git init
 
 # ② GitHubへの接続設定
-git remote add origin https://github.com/s1azt/uxui-labo.git
+git remote add origin https://github.com/s1azt/shohen.git
 
 # ※ 設定確認
 git remote -v
@@ -34,7 +34,7 @@ git branch -c main
 git branch -M main
 
 # ④ ローカル起動テスト
-npx http-server ./docs
+npx http-server -o
 Ctrl＋C で停止
 ```
 
@@ -59,14 +59,14 @@ git add .
 git status
 
 # コミット（メッセージ内の日付は適宜変更）
-git commit -m "UXUIサイトコミット20251224"
+git commit -m "GSイントラリニューアルサイト新規ページ追加20260116"
 
 # GitHubへ送信
 git push origin main
 
 ```
 
-* **反映確認**: [GitHubリポジトリ (docs)](https://github.com/s1azt/uxui-labo/tree/main/docs)
+* **反映確認**: [GitHubリポジトリ（仮環境）](https://github.com/s1azt/shohen/) 内に新規ページが追加されていることを確認。
 
 ### サーバーリリース
 
@@ -77,45 +77,9 @@ git push origin main
 | **ID** | `VPC-901-100566\Administrator` |
 | **PASS** | `HWYL3A6Sy2` |
 2. **ファイル配置**: 以下のパスに、作成した資産を貼り付ける。
-* `C:¥Bitnami¥wordpress¥apps¥wordpress¥htdocs¥UXUI-LAB¥docs`
+* `C:¥Bitnami¥wordpress¥apps¥wordpress¥htdocs¥gs-intra-new¥docs`
 
 
-3. **公開確認**: [UXUI浸透活動ポータル](http://192.168.8.205/wordpress/UIUX-LAB/docs/index.html)
-
----
-
-## 3. 「お知らせ」と「コラム」の更新手順
-
-※メインページ（index.html）内の更新
-
-### 編集フロー
-
-1. **更新ファイルの確認**:
-* お知らせ: `docs/data/news.js`
-* コラム: `docs/data/columns.js`
-
-
-2. **修正**: `UPDATE_GUIDE.md` の記述ルールに従って修正を行う。
-
-### GitHubへの登録
-
-```bash
-git add .
-git status
-git commit -m "UXUIサイトコミット20251224"
-git push origin main
-
-```
-
-### サーバーリリース
-
-1. **サーバーログイン**: 上記「リリース」項目の情報を参照。
-2. **ファイル配置**: 修正したJSファイルを以下のデータフォルダへ上書きする。
-* `C:¥Bitnami¥wordpress¥apps¥wordpress¥htdocs¥UXUI-LAB¥docs¥data`
-
-
-3. **公開確認**: [UXUI浸透活動ポータル](http://192.168.8.205/wordpress/UIUX-LAB/docs/index.html)
+3. **公開確認**: [UXUI浸透活動ポータル](http://192.168.8.205/wordpress/gs-intra-new/index.html)
 
 ---
-
-こちらの内容で、チームへの共有や自身の備忘録として活用いただけます。追加したい項目や修正点があればお申し付けください。
