@@ -1,0 +1,31 @@
+/* src/index.css */
+@import "tailwindcss";
+
+@source "./**/*.{js,ts,jsx,tsx}";
+
+@theme {
+  /* 共通のフォントファミリーを定義 */
+  --font-sans: "Inter", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
+@layer base {
+  html, body {
+    /* 全ての要素にこのフォントを強制適用 */
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply bg-[#f7faf9] text-[#2d332a];
+  }
+
+  /* 入力フォームやボタンなども個別に指定しないとズレるため一括設定 */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+}
+
+/* otamesi.htmlのパーツ */
+@layer components {
+  .animate-in {
+    animation: fadeIn 500ms forwards;
+  }
+}

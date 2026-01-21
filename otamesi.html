@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS Portal | Complete Edition</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background: #f7faf9; color: #2d332a; margin: 0; }
+        .fresh-card { background: #ffffff; border-radius: 16px; border: 1px solid #e2ece9; box-shadow: 0 4px 20px rgba(0, 50, 0, 0.03); }
+        .interactive-btn { border: 1.5px solid #6b8c66; transition: all 0.2s ease; background: #ffffff; cursor: pointer; text-align: center; }
+        .interactive-btn:hover { background-color: #6b8c66 !important; color: #ffffff !important; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(107, 140, 102, 0.2); }
+        .interactive-btn:hover * { color: #ffffff !important; }
+        .hero-morning { background: linear-gradient(135deg, #448a76 0%, #5a7a54 100%); color: #ffffff; border: none; }
+        .nav-link { transition: all 0.3s ease; font-weight: 800; color: #ffffff; opacity: 0.8; font-size: 0.8rem; white-space: nowrap; }
+        .nav-active { opacity: 1; border-bottom: 4px solid #f9faf0; padding-bottom: 2px; }
+        .sidebar-time { font-size: 3rem; color: #065f46; font-weight: 900; line-height: 1.1; }
+        .btn-quick-blue { background: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 12px; }
+        .btn-quick-green { background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; }
+        .deadline-morning-red { background: #fff5f5; border: 1px solid #feb2b2; border-left: 10px solid #e53e3e; color: #742a2a; }
+        .serif { font-family: 'Noto Serif JP', serif; }
+        .font-num { font-family: 'Outfit', sans-serif; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [activeTab, setActiveTab] = useState("home");
+            const [time, setTime] = useState(new Date());
+            const [linkSearchQuery, setLinkSearchQuery] = useState("");
+            const [activeCategory, setActiveCategory] = useState("all");
+            const [activeSectionId, setActiveSectionId] = useState("HC10");
+
+            useEffect(() => {
+                const timer = setInterval(() => setTime(new Date()), 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            // --- データ定義 ---
+            const newsItems = [
+                { date: "2026.01.21", title: "経営戦略共有会議のアジェンダを公開しました", cat: "会議", content: "資料を文書ページに掲載しました。各自事前確認をお願いします。" },
+                { date: "2026.01.15", title: "システム臨時メンテナンスのお知らせ(1/24)", cat: "重要", content: "土曜日10時よりサーバーメンテナンスを行います。" }
+            ];
+
+            const deadlines = [
+                { id: 1, title: "年末調整書類提出", date: "2026-12-10", dept: "総務部", desc: "必要書類を提出してください。" },
+                { id: 2, title: "第3四半期予算申請", date: "2026-02-15", dept: "経理部", desc: "次期予算の申請期限です。" }
+            ];
+
+            const linkCollection = [
+                { title: "カニシステム（勤怠情報）", url: "#", category: "system" },
+                { title: "ヤマト関連ポータル", url: "http://gs.nekonet.co.jp/", category: "portal" },
+                { title: "GSうぃき", url: "http://gs.nekonet.co.jp/GS_wiki/", category: "document" }
+            ];
+
+            const documentLinks = [
+                { title: "部会資料", url: "#", desc: "定例部会資料アーカイブ" },
+                { title: "2025年度社内公募", url: "#", desc: "キャリアチャレンジ制度詳細" }
+            ];
+
+            const organizationData = {
+                director: { name: "田中 誠一", title: "部長" },
+                sections: [
+                    {
+                        id: "HC10", smg: "佐藤 健太", desc: "システム設計・開発部門。アーキテクチャからUI/UXまで幅広く担当。",
+                        units: [
+                            { name: "システム設計チーム", leader: "鈴木 拓也", members: 5, manager: "山田 哲也", desc: "全社システムの設計・構成管理を担当。" },
+                            { name: "インフラ構築チーム", leader: "大野 亮介", members: 6, manager: "山田 哲也", desc: "クラウド環境の構築と運用を担当。" }
+                        ]
+                    },
+                    { id: "HC60", smg: "小林 達也", desc: "データ基盤とバックエンド開発部門。", units: [] },
+                    { id: "HC70", smg: "斎藤 秀樹", desc: "プロジェクト管理・運用部門。", units: [] },
+                    { id: "HD10", smg: "伊藤 健", desc: "サービス企画部門。", units: [] },
+                    { id: "HD70", smg: "渡辺 篤史", desc: "先端技術研究開発部門。", units: [] }
+                ]
+            };
+
+            // 今後31日以内の締め切りを抽出
+            const upcomingDeadlines = deadlines.filter(d => {
+                const diff = (new Date(d.date) - new Date()) / (1000 * 60 * 60 * 24);
+                return diff >= -1 && diff <= 31;
+            });
+
+            // --- ページレンダラー ---
+            const RenderHome = () => (
+                <div className="space-y-8 animate-in fade-in duration-700">
+                    <section>
+                        <h2 className="text-[13px] font-black text-[#5a7a54] mb-3 uppercase tracking-tighter">🚨 今朝の重点タスク</h2>
+                        <div className="deadline-morning-red p-5 rounded-r-xl flex justify-between items-center shadow-sm font-bold">
+                            <div className="flex items-center gap-6"><span className="text-3xl">🚩</span><div><h4 className="font-black text-lg text-[#742a2a]">年末調整書類提出</h4><p className="text-[11px] opacity-80 font-num tracking-widest">DUE: 2026.12.10 / 総務部</p></div></div>
+                            <button onClick={() => setActiveTab("deadlines")} className="bg-[#e53e3e] text-white px-5 py-2 rounded-lg font-black text-xs">詳細確認</button>
+                        </div>
+                    </section>
+                    
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div className="hero-morning p-10 rounded-2xl flex flex-col items-center justify-center text-center group shadow-xl">
+                            <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">🌱</div>
+                            <h3 className="serif text-4xl font-black mb-1">社活サイト</h3>
+                            <p className="text-[11px] font-black tracking-[0.3em] uppercase mb-8 opacity-90">Daily Activity Log</p>
+                            <a href="http://aemlinux3.nekonet.co.jp/aem/aem.php" target="_blank" className="bg-white text-[#448a76] py-3 px-12 rounded-full text-xs font-black shadow-lg">入力を開始</a>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <div className="fresh-card interactive-btn flex-1 flex flex-col items-center justify-center p-6 group">
+                                <div className="text-4xl mb-2">📅</div>
+                                <h4 className="font-black text-lg tracking-widest uppercase">Booking</h4>
+                                <p className="text-[11px] font-bold mt-2 opacity-60 text-slate-500">会議室・備品予約</p>
+                            </div>
+                            <div className="fresh-card interactive-btn flex-1 flex flex-col items-center justify-center p-6 group">
+                                <div className="text-4xl mb-2">📖</div>
+                                <h4 className="font-black text-lg tracking-widest uppercase text-center">Wiki</h4>
+                                <p className="text-[11px] font-bold mt-2 opacity-60 text-center text-slate-500">部内ナレッジ共有</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[{l:"在宅勤務申請", i:"🏠"}, {l:"研修受講", i:"🎓"}, {l:"よくある質問", i:"❓"}, {l:"相談窓口", i:"🤝"}].map(x => (
+                            <button key={x.l} className="fresh-card interactive-btn p-5 flex flex-col items-center justify-center gap-2 font-black text-xs text-[#5a7a54]">
+                                <span className="text-2xl text-center w-full">{x.i}</span>{x.l}
+                            </button>
+                        ))}
+                    </section>
+
+                    <section className="fresh-card p-8">
+                        <h2 className="text-[12px] font-black text-[#5a7a54] mb-6 border-b-2 border-[#f0f4f2] pb-3 uppercase">📢 Latest News</h2>
+                        <div className="space-y-4 font-bold text-sm">
+                            {newsItems.map((item, i) => (
+                                <div key={i} onClick={() => setActiveTab("news")} className="flex gap-8 items-center group cursor-pointer border-b border-[#f7faf9] pb-4 last:border-0">
+                                    <div className="text-[11px] text-slate-400 font-num">{item.date}</div>
+                                    <div className="flex-1 text-slate-700 group-hover:text-[#5a7a54] transition-colors">{item.title}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            );
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <header className="bg-[#2d4032] border-b-4 border-[#8ba68c] text-white py-6 px-12 flex justify-between items-center sticky top-0 z-50 shadow-xl">
+                        <h1 className="serif font-black tracking-tighter text-2xl uppercase">GS Portal</h1>
+                        <nav className="flex gap-8">
+                            {[{id:"home", l:"ホーム"}, {id:"news", l:"お知らせ"}, {id:"deadlines", l:"締め切り"}, {id:"docs", l:"文書"}, {id:"links", l:"リンク集"}, {id:"team", l:"チーム紹介"}].map(m => (
+                                <button key={m.id} onClick={() => setActiveTab(m.id)} 
+                                    className={`nav-link pb-1 ${activeTab === m.id ? "nav-active" : ""}`}>{m.l}</button>
+                            ))}
+                        </nav>
+                    </header>
+
+                    <div className="container mx-auto flex flex-col md:flex-row gap-6 p-10 flex-grow max-w-[1500px]">
+                        <aside className="w-full md:w-80 space-y-6 flex-shrink-0">
+                            <div className="fresh-card p-6 text-center shadow-lg">
+                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase tracking-widest text-left ml-2">Current Status</p>
+                                <div className="text-base font-bold text-slate-600 mb-1 font-num">{time.toLocaleDateString('ja-JP', {month:'long', day:'numeric', weekday:'long'})}</div>
+                                <div className="sidebar-time font-black font-num tracking-tight">{time.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})}</div>
+                            </div>
+                            
+                            <div className="fresh-card p-6 space-y-3">
+                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase tracking-widest text-left ml-2">Quick Access</p>
+                                <button className="w-full btn-quick-blue p-4 rounded-xl flex items-center gap-4 group transition-all shadow-sm"><span className="text-2xl">💺</span><span className="font-black text-[#1e3a8a] text-sm">全社座席表</span></button>
+                                <button className="w-full btn-quick-green p-4 rounded-xl flex items-center gap-4 group transition-all shadow-sm"><span className="text-2xl">📰</span><span className="font-black text-[#14532d] text-sm">今週のコラム</span></button>
+                            </div>
+
+                            {/* 直近の締め切り欄 - 復活 */}
+                            <div className="fresh-card p-6 border-l-8 border-red-400">
+                                <p className="text-[10px] font-black text-red-500 mb-3 uppercase tracking-widest flex items-center gap-2">
+                                    <span className="w-2 h-2 bg-red-500 rounded-full animate-ping"></span> Upcoming Deadline
+                                </p>
+                                {upcomingDeadlines.length > 0 ? upcomingDeadlines.map(d => (
+                                    <div key={d.id} className="mb-4 last:mb-0 cursor-pointer hover:opacity-70" onClick={() => setActiveTab("deadlines")}>
+                                        <h4 className="font-black text-slate-800 text-[13px] leading-tight mb-1">{d.title}</h4>
+                                        <p className="text-[10px] text-slate-500 font-bold font-num tracking-wider">{d.date}</p>
+                                    </div>
+                                )) : (
+                                    <p className="text-[10px] text-slate-400 font-bold">直近の締め切りはありません</p>
+                                )}
+                            </div>
+
+                            <div className="fresh-card p-6 bg-emerald-50/30">
+                                <p className="text-[11px] font-black text-slate-400 mb-4 uppercase tracking-widest text-center border-b border-emerald-100 pb-2">Org Charts (PDF)</p>
+                                <div className="grid grid-cols-2 gap-2 font-num text-[10px]">
+                                    {["HC10", "HC60", "HC70", "HD10", "HD70"].map(sec => (
+                                        <button key={sec} onClick={() => {setActiveTab("team"); setActiveSectionId(sec);}} className="p-3 bg-white text-slate-800 font-black rounded-lg border border-slate-100 hover:bg-[#448a76] hover:text-white transition-all shadow-sm">{sec}</button>
+                                    ))}
+                                </div>
+                            </div>
+                        </aside>
+
+                        <main className="flex-grow">
+                            {activeTab === "home" && <RenderHome />}
+                            {activeTab === "news" && (
+                                <div className="space-y-6 animate-in slide-in-from-bottom duration-500">
+                                    <h2 className="text-2xl font-black text-[#2d4032] serif border-b-4 border-emerald-100 pb-2">お知らせアーカイブ</h2>
+                                    <div className="space-y-4">
+                                        {newsItems.map((item, i) => (
+                                            <div key={i} className="fresh-card p-6 border-l-8 border-[#6b8c66]">
+                                                <div className="flex items-center gap-3 mb-2">
+                                                    <span className="text-[10px] font-black bg-[#f0fdf4] text-[#166534] px-2 py-1 rounded">{item.cat}</span>
+                                                    <span className="text-xs text-slate-400 font-num font-bold">{item.date}</span>
+                                                </div>
+                                                <h3 className="text-lg font-black text-[#2d4032] mb-2">{item.title}</h3>
+                                                <p className="text-sm text-slate-600 leading-relaxed font-medium">{item.content}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {activeTab === "deadlines" && (
+                                <div className="space-y-6 animate-in slide-in-from-bottom duration-500">
+                                    <h2 className="text-2xl font-black text-[#2d4032] serif border-b-4 border-emerald-100 pb-2">締め切り一覧</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {deadlines.map(d => (
+                                            <div key={d.id} className="fresh-card p-6 border-l-[12px] border-red-500 bg-red-50/30">
+                                                <h3 className="text-xl font-black text-slate-800">{d.title}</h3>
+                                                <p className="text-[11px] font-black text-slate-400 mt-1 uppercase tracking-widest">{d.dept} | DUE: {d.date}</p>
+                                                <p className="text-sm text-slate-600 mt-4 leading-relaxed font-medium">{d.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {activeTab === "docs" && (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in slide-in-from-bottom duration-500">
+                                    {documentLinks.map((doc, i) => (
+                                        <a key={i} href={doc.url} className="fresh-card p-8 hover:border-[#448a76] transition-all group">
+                                            <div className="text-3xl mb-4">📁</div>
+                                            <h3 className="text-xl font-black text-slate-800 group-hover:text-[#448a76]">{doc.title}</h3>
+                                            <p className="text-sm text-gray-500 mt-2 font-medium leading-relaxed">{doc.desc}</p>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                            {activeTab === "links" && (
+                                <div className="space-y-6 animate-in fade-in">
+                                    <div className="fresh-card p-6 flex flex-col md:flex-row gap-4 items-center">
+                                        <input type="text" placeholder="リンクを検索..." className="flex-1 p-3 border rounded-xl outline-none font-bold" value={linkSearchQuery} onChange={(e) => setLinkSearchQuery(e.target.value)}/>
+                                        <div className="flex gap-2">
+                                            {["all", "system", "portal", "document"].map(cat => (
+                                                <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-4 py-2 rounded-full text-xs font-black uppercase transition-all ${activeCategory === cat ? 'bg-[#6b8c66] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>{cat === "all" ? "すべて" : cat}</button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="fresh-card overflow-hidden divide-y divide-gray-100">
+                                        {linkCollection.filter(l => l.title.includes(linkSearchQuery)).map((link, i) => (
+                                            <a key={i} href={link.url} target="_blank" className="flex items-center justify-between p-4 hover:bg-emerald-50 transition-colors group">
+                                                <div className="flex items-center gap-6"><span className="bg-emerald-100 text-[#5a7a54] px-3 py-1 rounded text-[10px] font-black w-24 text-center uppercase">{link.category}</span><h4 className="font-bold text-sm text-gray-700 group-hover:text-[#5a7a54]">{link.title}</h4></div>
+                                                <span className="text-gray-300 group-hover:translate-x-1 transition-transform">→</span>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {activeTab === "team" && (
+                                <div className="space-y-6 animate-in slide-in-from-bottom duration-500">
+                                    <div className="hero-morning rounded-xl p-8 flex items-center gap-8 shadow-md">
+                                        <div className="bg-white/20 p-5 rounded-full text-4xl text-white font-bold text-center w-20">👤</div>
+                                        <div><h3 className="text-sm font-black opacity-80 uppercase tracking-widest text-white">Director</h3><p className="text-4xl font-black text-white">{organizationData.director.name}</p></div>
+                                    </div>
+                                    <div className="flex border-b-2 border-slate-100 overflow-x-auto scrollbar-hide">
+                                        {organizationData.sections.map(s => (
+                                            <button key={s.id} onClick={() => setActiveSectionId(s.id)}
+                                                className={`px-10 py-4 font-black text-sm transition-all whitespace-nowrap ${activeSectionId === s.id ? "text-[#448a76] border-b-4 border-[#448a76] bg-emerald-50/30" : "text-slate-400 hover:text-slate-600"}`}>{s.id}</button>
+                                        ))}
+                                    </div>
+                                    <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-6">
+                                        <p className="font-bold text-[#448a76] mb-1">SMG: {organizationData.sections.find(s=>s.id===activeSectionId).smg}</p>
+                                        <p className="text-sm text-slate-600 font-medium leading-relaxed">{organizationData.sections.find(s=>s.id===activeSectionId).desc}</p>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {organizationData.sections.find(s=>s.id===activeSectionId).units.map((u, i) => (
+                                            <div key={i} className="fresh-card p-6 border-t-4 border-[#448a76] h-full flex flex-col">
+                                                <h5 className="font-black text-[#448a76] text-lg mb-1">{u.name}</h5>
+                                                <p className="text-[11px] font-bold text-slate-400 mb-4 uppercase tracking-tighter">リーダー: {u.leader} ({u.members}名)</p>
+                                                <p className="text-xs text-slate-500 font-medium mb-4 flex-grow">{u.desc}</p>
+                                                <div className="pt-4 border-t border-slate-50 font-black text-slate-700 text-[10px]">担当マネージャー: {u.manager}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </main>
+                    </div>
+
+                    <footer className="py-10 bg-white border-t border-[#e2ece9] text-center space-y-8">
+                        <div><a href="#" className="inline-flex items-center gap-3 px-12 py-4 rounded-full bg-[#fdf2f2] text-[#c53030] text-sm font-black hover:bg-[#fbdada] transition-all border border-[#feb2b2] shadow-sm">✍️ サイトの修正・改善依頼はこちら</a></div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.8em]">© 2026 GS Portal / Professional Hub</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

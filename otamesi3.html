@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS Portal | Morning Full Specs</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background: #f7faf9; color: #2d332a; margin: 0; }
+        .fresh-card { background: #ffffff; border-radius: 16px; border: 1px solid #e2ece9; box-shadow: 0 4px 20px rgba(0, 50, 0, 0.03); }
+        .interactive-btn { border: 1.5px solid #6b8c66; transition: all 0.2s ease; background: #ffffff; cursor: pointer; text-align: center; }
+        .interactive-btn:hover { background-color: #6b8c66 !important; color: #ffffff !important; transform: translateY(-2px); box-shadow: 0 8px 15px rgba(107, 140, 102, 0.2); }
+        .interactive-btn:hover * { color: #ffffff !important; }
+        .hero-morning { background: linear-gradient(135deg, #5a7a54 0%, #76996f 100%); color: #ffffff; border: none; }
+        .nav-link { transition: all 0.3s ease; font-weight: 800; color: #ffffff; opacity: 0.8; font-size: 0.85rem; white-space: nowrap; }
+        .nav-active { opacity: 1; border-bottom: 4px solid #f9faf0; padding-bottom: 2px; }
+        .serif { font-family: 'Noto Serif JP', serif; }
+        .font-num { font-family: 'Outfit', sans-serif; }
+        .deadline-morning-red { background: #fff5f5; border: 1px solid #feb2b2; border-left: 10px solid #e53e3e; color: #742a2a; }
+        .deadline-morning-yellow { background: #fffff0; border: 1px solid #fef08a; border-left: 10px solid #d97706; color: #78350f; }
+        .sidebar-time { font-size: 3.5rem; color: #065f46; line-height: 1; }
+        .btn-quick { background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; transition: all 0.2s; }
+        .btn-quick:hover { background: #f1f5f9; transform: translateX(4px); }
+        .btn-column { background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; }
+        .btn-column:hover { background: #dcfce7; transform: translateX(4px); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [activeTab, setActiveTab] = useState("home");
+            const [time, setTime] = useState(new Date());
+            const [linkSearchQuery, setLinkSearchQuery] = useState("");
+            const [activeCategory, setActiveCategory] = useState("all");
+            const [activeSectionId, setActiveSectionId] = useState("HC10");
+
+            useEffect(() => {
+                const timer = setInterval(() => setTime(new Date()), 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            // --- 組織図データ ---
+            const organizationData = {
+                director: {
+                    name: "田中 誠一",
+                    title: "部長",
+                    sections: [
+                        {
+                            id: "HC10", name: "HC10", smg: "佐藤 健太",
+                            description: "システム設計・開発部門。システムアーキテクチャの設計からUI/UX、モバイル開発まで幅広く担当。",
+                            directMembers: [],
+                            managers: [
+                                {
+                                    id: "HC10-MG1", name: "山田 哲也", role: "技術マネージャー",
+                                    description: "バックエンドとインフラを中心とした技術チームを統括。安定したシステム基盤の構築とセキュリティ対策を推進。",
+                                    teams: [
+                                        { id: "HC10-MG1-T1", name: "システム設計チーム", leader: "鈴木 拓也", members: 5, description: "全社システムの設計・構成管理を担当。" },
+                                        { id: "HC10-MG1-T2", name: "インフラ構築チーム", leader: "大野 亮介", members: 6, description: "クラウドインフラとオンプレミスの構築・運用を担当。" },
+                                        { id: "HC10-MG1-T3", name: "セキュリティチーム", leader: "佐々木 真由美", members: 4, description: "情報セキュリティ対策の実装と監査を担当。" }
+                                    ]
+                                },
+                                {
+                                    id: "HC10-MG2", name: "中村 洋子", role: "フロントエンド開発マネージャー",
+                                    description: "UI/UXとフロントエンド開発チームを統括。ユーザー体験を最重視したインターフェース開発を推進。",
+                                    teams: [
+                                        { id: "HC10-MG2-T1", name: "UI/UX設計チーム", leader: "山本 恵", members: 4, description: "ユーザーインターフェースとユーザーエクスペリエンスの設計を担当。" },
+                                        { id: "HC10-MG2-T2", name: "フロントエンド開発チーム", leader: "岡田 直人", members: 6, description: "最新のフロントエンド技術を活用した開発を担当。" },
+                                        { id: "HC10-MG2-T3", name: "モバイル開発チーム", leader: "井上 美紀", members: 5, description: "iOS/Android向けのアプリ開発を担当。" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "HC60", name: "HC60", smg: "小林 達也",
+                            description: "データ基盤とバックエンド開発部門。データベース設計、API開発、自動化基盤の構築を担当。",
+                            directMembers: [],
+                            managers: [
+                                {
+                                    id: "HC60-MG1", name: "木村 誠", role: "バックエンド開発マネージャー",
+                                    description: "バックエンドシステムとデータ基盤の開発・運用チームを統括。",
+                                    teams: [
+                                        { id: "HC60-MG1-T1", name: "データベースチーム", leader: "渡辺 拓也", members: 4, description: "データベース設計・最適化・運用を担当。" },
+                                        { id: "HC60-MG1-T2", name: "バックエンド開発チーム", leader: "藤田 健太", members: 7, description: "コアシステムのバックエンド開発を担当。" },
+                                        { id: "HC60-MG1-T6", name: "DevOpsチーム", leader: "松本 直子", members: 5, description: "開発と運用の統合を推進。自動化ツール開発を担当。" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "HC70", name: "HC70", smg: "斎藤 秀樹",
+                            description: "プロジェクト管理・品質保証・運用部門。プロジェクト全体の進行管理と品質向上、運用効率化を担当。",
+                            directMembers: [
+                                { id: "HC70-DM1", name: "吉田 健一", role: "テクニカルスペシャリスト", description: "高度な技術課題の解決とアーキテクチャ設計のサポートを担当。" }
+                            ],
+                            managers: [
+                                {
+                                    id: "HC70-MG1", name: "池田 雄太", role: "プロジェクト管理マネージャー",
+                                    description: "プロジェクト全体の管理と品質保証を統括。",
+                                    teams: [
+                                        { id: "HC70-MG1-T1", name: "プロジェクト管理チーム", leader: "橋本 明", members: 6, description: "プロジェクト計画立案・進捗管理を担当。" },
+                                        { id: "HC70-MG1-T2", name: "品質保証チーム", leader: "村上 真理子", members: 5, description: "品質基準の策定とテスト計画・実行を担当。" }
+                                    ]
+                                },
+                                {
+                                    id: "HC70-MG4", name: "山下 拓也", role: "データアナリティクスマネージャー",
+                                    description: "ビジネスインテリジェンスとデータ分析を統括。",
+                                    teams: [
+                                        { id: "HC70-MG4-T1", name: "ビジネスインテリジェンスチーム", leader: "永井 俊介", members: 4, description: "経営データの収集・分析・可視化を担当。" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "HD10", name: "HD10", smg: "伊藤 健",
+                            description: "サービス企画・開発部門。新規サービスの企画からリサーチ、開発までを一貫して担当。",
+                            directMembers: [],
+                            managers: [
+                                {
+                                    id: "HD10-MG1", name: "前田 雅人", role: "サービス開発マネージャー",
+                                    description: "サービス企画から開発までの一連のプロセスを統括。",
+                                    teams: [
+                                        { id: "HD10-MG1-T1", name: "サービス企画チーム", leader: "山田 涼子", members: 5, description: "新規サービスの企画・立案を担当。" },
+                                        { id: "HD10-MG1-T3", name: "サービス開発チーム", leader: "後藤 優子", members: 6, description: "プロトタイピングから製品化までを担当。" }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            id: "HD70", name: "HD70", smg: "渡辺 篤史",
+                            description: "先端技術研究開発部門。AIやデータサイエンス、最新技術の実用化を担当。",
+                            directMembers: [],
+                            managers: [
+                                {
+                                    id: "HD70-MG1", name: "坂本 真悠子", role: "研究開発マネージャー",
+                                    description: "先端技術の研究開発を統括。AI、新技術の実用化を推進。",
+                                    teams: [
+                                        { id: "HD70-MG1-T1", name: "AI開発チーム", leader: "近藤 大樹", members: 5, description: "機械学習モデルの開発を担当。" },
+                                        { id: "HD70-MG1-T3", name: "研究開発チーム", leader: "金子 麻衣", members: 6, description: "最新技術のリサーチと実験プロジェクトを担当。" }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            };
+
+            // --- コンテンツデータ ---
+            const deadlines = [
+                { id: 1, title: "年末調整書類提出", date: "2026-12-10", dept: "総務部", type: "red", desc: "年末調整に必要な全ての書類を期日までに提出してください。" },
+                { id: 2, title: "第3四半期予算申請", date: "2026-02-15", dept: "経理部", type: "yellow", desc: "次期プロジェクト予算の申請フォーマット入力完了期限です。" },
+                { id: 3, title: "情報セキュリティ研修", date: "2026-01-31", dept: "IT推進部", type: "red", desc: "e-Learningによる全社員必須の受講科目です。" }
+            ];
+
+            const upcomingDeadlines = deadlines.filter(d => {
+                const diff = (new Date(d.date) - new Date()) / (1000*60*60*24);
+                return diff >= 0 && diff <= 31;
+            }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const documentLinks = [
+                { title: "部会資料", url: "http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", desc: "定例部会および共有会議資料アーカイブ" },
+                { title: "2025年度社内公募", url: "http://192.168.8.205/wordpress/syanaikoubo.html", desc: "キャリアチャレンジ制度詳細" }
+            ];
+
+            const linkCollection = [
+                { title: "カニシステム（勤怠情報）", url: "http://vo-ov.nekonet.co.jp/YadokariWeb/SRC01Action_doInit.action", category: "system", desc: "勤怠入力・管理" },
+                { title: "感染症罹患報告（Redmine）", url: "http://syshon-redmine.nekonet.co.jp/...", category: "system", desc: "罹患時の報告用" },
+                { title: "Oneデジタルポータルサイト", url: "https://sites.google.com/...", category: "portal", desc: "社内総合ポータル" },
+                { title: "ヤマト関連ポータル", url: "http://gs.nekonet.co.jp/", category: "portal", desc: "ヤマトグループ内情報" },
+                { title: "GSうぃき", url: "http://gs.nekonet.co.jp/GS_wiki/", category: "document", desc: "部内Wikiポータル" },
+                { title: "おべんとねっと", url: "https://www.obentonet.jp/...", category: "portal", desc: "弁当注文" },
+                { title: "タレントパレット", url: "https://tyix8755.talent-p.net/", category: "system", desc: "人事システム" }
+            ];
+
+            const newsItems = [
+                { date: "2026.01.21", title: "経営戦略共有会議のアジェンダを公開しました", cat: "会議", content: "資料を文書ページに掲載しました。" },
+                { date: "2026.01.15", title: "システム臨時メンテナンスのお知らせ(1/24)", cat: "重要", content: "土曜日にサーバーを停止します。" }
+            ];
+
+            // --- 各ページレンダラー ---
+            const RenderHome = () => (
+                <div className="space-y-8 animate-in fade-in duration-700">
+                    <section>
+                        <h2 className="text-[13px] font-black text-[#5a7a54] mb-3 uppercase tracking-tighter">🚨 今朝の重点タスク</h2>
+                        <div className="flex flex-col gap-3 font-bold">
+                            <div className="deadline-morning-red p-5 rounded-r-xl flex justify-between items-center shadow-sm">
+                                <div className="flex items-center gap-6"><span className="text-3xl">🚩</span><div><h4 className="font-black text-lg">年末調整書類提出</h4><p className="text-[11px] opacity-80 font-num">DUE: 2026.12.10 / 総務部</p></div></div>
+                                <button onClick={() => setActiveTab("deadlines")} className="bg-[#e53e3e] text-white px-5 py-2 rounded-lg font-black text-xs">詳細確認</button>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div className="hero-morning p-10 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer group shadow-xl">
+                            <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">🌱</div>
+                            <h3 className="serif text-4xl font-black mb-1">社活サイト</h3>
+                            <p className="text-[11px] font-black tracking-[0.3em] uppercase mb-8 opacity-90">Daily Activity Log</p>
+                            <a href="http://aemlinux3.nekonet.co.jp/aem/aem.php" target="_blank" className="bg-white text-[#5a7a54] py-3 px-12 rounded-full text-xs font-black shadow-lg">入力を開始</a>
+                        </div>
+                        <div className="flex flex-col gap-5">
+                            <div className="fresh-card interactive-btn flex-1 flex flex-col items-center justify-center p-6 group">
+                                <div className="text-4xl mb-2 text-[#5a7a54]">📅</div>
+                                <h4 className="font-black text-lg tracking-widest uppercase">Booking</h4>
+                                <p className="text-[11px] font-bold mt-2 opacity-60 text-slate-500">会議室・備品予約管理</p>
+                            </div>
+                            <div className="fresh-card interactive-btn flex-1 flex flex-col items-center justify-center p-6 group">
+                                <div className="text-4xl mb-2 text-[#5a7a54]">📖</div>
+                                <h4 className="font-black text-lg tracking-widest uppercase text-center">Wiki</h4>
+                                <p className="text-[11px] font-bold mt-2 opacity-60 text-center text-slate-500">部内ナレッジ共有</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[{l:"在宅勤務申請", i:"🏠"}, {l:"研修受講", i:"🎓"}, {l:"よくある質問", i:"❓"}, {l:"相談窓口", i:"🤝"}].map(x => (
+                            <button key={x.l} className="fresh-card interactive-btn p-5 flex flex-col items-center justify-center gap-2 font-black text-xs text-[#5a7a54]">
+                                <span className="text-2xl w-full text-center">{x.i}</span>{x.l}
+                            </button>
+                        ))}
+                    </section>
+
+                    <section className="fresh-card p-8">
+                        <h2 className="text-[12px] font-black text-[#5a7a54] mb-6 border-b-2 border-[#f0f4f2] pb-3 uppercase">📢 Latest News</h2>
+                        <div className="space-y-4 font-bold text-sm">
+                            {newsItems.map((item, i) => (
+                                <div key={i} onClick={() => setActiveTab("news")} className="flex gap-8 items-center group cursor-pointer border-b border-[#f7faf9] pb-4 last:border-0">
+                                    <div className="text-[11px] text-slate-400 font-num">{item.date}</div>
+                                    <div className="flex-1 text-slate-700 group-hover:text-[#5a7a54] transition-colors">{item.title}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            );
+
+            const RenderNews = () => (
+                <div className="space-y-6 animate-in slide-in-from-bottom duration-500">
+                    <h2 className="text-2xl font-black text-[#2d4032] serif border-b-4 border-emerald-100 pb-2">お知らせ一覧</h2>
+                    <div className="space-y-4">
+                        {newsItems.map((item, i) => (
+                            <div key={i} className="fresh-card p-6 border-l-8 border-[#6b8c66]">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <span className="text-[10px] font-black bg-[#f0fdf4] text-[#166534] px-2 py-1 rounded">{item.cat}</span>
+                                    <span className="text-xs text-slate-400 font-num font-bold">{item.date}</span>
+                                </div>
+                                <h3 className="text-lg font-black text-[#2d4032] mb-2">{item.title}</h3>
+                                <p className="text-sm text-slate-600 leading-relaxed">{item.content}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const RenderDeadlines = () => (
+                <div className="space-y-6 animate-in slide-in-from-bottom duration-500">
+                    <h2 className="text-2xl font-black text-[#2d4032] serif border-b-4 border-emerald-100 pb-2">締め切り一覧</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {deadlines.map(d => (
+                            <div key={d.id} className={`fresh-card p-6 border-l-[12px] ${d.type === 'red' ? 'border-red-500 bg-red-50/30' : 'border-amber-500 bg-amber-50/30'}`}>
+                                <h3 className="text-xl font-black text-slate-800">{d.title}</h3>
+                                <p className="text-[11px] font-black text-slate-400 mt-1 uppercase tracking-widest">{d.dept} | DUE: {d.date}</p>
+                                <p className="text-sm text-slate-600 mt-4 leading-relaxed font-medium">{d.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const RenderDocs = () => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in slide-in-from-bottom duration-500">
+                    {documentLinks.map((doc, i) => (
+                        <a key={i} href={doc.url} target="_blank" className="fresh-card p-8 hover:border-[#6b8c66] transition-all group">
+                            <div className="text-3xl mb-4">📁</div>
+                            <h3 className="text-xl font-black text-[#2d4032] group-hover:text-[#5a7a54]">{doc.title}</h3>
+                            <p className="text-sm text-gray-500 mt-2 font-medium leading-relaxed">{doc.desc}</p>
+                        </a>
+                    ))}
+                </div>
+            );
+
+            const RenderLinks = () => {
+                const filtered = linkCollection.filter(l => l.title.includes(linkSearchQuery) && (activeCategory === "all" || l.category === activeCategory));
+                return (
+                    <div className="space-y-6 animate-in fade-in">
+                        <div className="fresh-card p-6 flex flex-col md:flex-row gap-4 items-center">
+                            <input type="text" placeholder="リンクを検索..." className="flex-1 p-3 border rounded-xl focus:ring-2 focus:ring-[#6b8c66] outline-none font-bold" value={linkSearchQuery} onChange={(e) => setLinkSearchQuery(e.target.value)}/>
+                            <div className="flex gap-2">
+                                {["all", "system", "portal", "document"].map(cat => (
+                                    <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all ${activeCategory === cat ? 'bg-[#6b8c66] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
+                                        {cat === "all" ? "すべて" : cat === "system" ? "システム" : cat === "portal" ? "ポータル" : "文書"}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                        {activeCategory === "all" ? (
+                            <div className="fresh-card overflow-hidden">
+                                <div className="divide-y divide-gray-100">
+                                    {filtered.map((link, i) => (
+                                        <a key={i} href={link.url} target="_blank" className="flex items-center justify-between p-4 hover:bg-emerald-50/50 transition-colors group">
+                                            <div className="flex items-center gap-6">
+                                                <span className="bg-emerald-100 text-[#5a7a54] px-3 py-1 rounded text-[10px] font-black w-24 text-center">{link.category.toUpperCase()}</span>
+                                                <h4 className="font-bold text-sm text-gray-700 group-hover:text-[#5a7a54]">{link.title}</h4>
+                                            </div>
+                                            <span className="text-gray-300 group-hover:translate-x-1 transition-transform">→</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {filtered.map((link, i) => (
+                                    <a key={i} href={link.url} target="_blank" className="fresh-card p-6 hover:border-[#6b8c66] transition-all group h-full">
+                                        <h4 className="font-black text-[#5a7a54] group-hover:underline">{link.title}</h4>
+                                        <p className="text-xs text-gray-500 mt-2">{link.desc}</p>
+                                    </a>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
+            const RenderTeam = () => {
+                const activeSection = organizationData.director.sections.find(s => s.id === activeSectionId);
+                return (
+                    <div className="flex flex-col md:flex-row gap-6 animate-in fade-in duration-700">
+                        <aside className="w-full md:w-64 space-y-2">
+                            <div className="bg-[#2d4032] text-white p-4 rounded-t-xl"><h2 className="font-black text-sm uppercase tracking-widest">Sections</h2></div>
+                            <nav className="bg-white border border-[#e2ece9] rounded-b-xl overflow-hidden">
+                                {organizationData.director.sections.map((s) => (
+                                    <button key={s.id} onClick={() => setActiveSectionId(s.id)}
+                                        className={`w-full text-left px-4 py-3 text-sm font-bold flex justify-between items-center ${activeSectionId === s.id ? "bg-emerald-50 text-[#5a7a54] border-l-4 border-[#5a7a54]" : "text-slate-500 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                                        {s.name} {activeSectionId === s.id && "→"}
+                                    </button>
+                                ))}
+                            </nav>
+                            <div className="fresh-card p-4 mt-6 bg-gradient-to-br from-[#5a7a54] to-[#76996f] text-white shadow-md">
+                                <p className="text-[10px] font-black opacity-80 uppercase tracking-widest">Director</p>
+                                <h3 className="text-lg font-black">{organizationData.director.name}</h3>
+                                <p className="text-xs opacity-90">{organizationData.director.title}</p>
+                            </div>
+                        </aside>
+                        <main className="flex-1 space-y-6">
+                            <section className="fresh-card p-6 border-t-8 border-[#5a7a54]">
+                                <div className="mb-4">
+                                    <h2 className="text-3xl font-black text-[#2d4032] serif">{activeSection.name}</h2>
+                                    <p className="text-[#5a7a54] font-bold text-lg">SMG: {activeSection.smg}</p>
+                                </div>
+                                <p className="text-slate-600 leading-relaxed text-sm font-medium border-l-4 border-emerald-100 pl-4">{activeSection.description}</p>
+                            </section>
+                            {activeSection.directMembers.length > 0 && (
+                                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center gap-4">
+                                    <div className="text-2xl">🌟</div>
+                                    <div><h4 className="font-black text-[#874d00]">{activeSection.directMembers[0].name}</h4><p className="text-xs font-bold text-amber-700">{activeSection.directMembers[0].role} — {activeSection.directMembers[0].description}</p></div>
+                                </div>
+                            )}
+                            <div className="space-y-8">
+                                {activeSection.managers.map((m) => (
+                                    <div key={m.id} className="space-y-4">
+                                        <div className="flex items-center gap-2 border-b-2 border-slate-100 pb-2"><h3 className="text-lg font-black text-[#2d4032]">{m.name} <span className="text-xs text-slate-400 font-bold ml-2">/ {m.role}</span></h3></div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                            {m.teams.map((t) => (
+                                                <div key={t.id} className="fresh-card p-5 hover:shadow-md transition-shadow group border-l-4 border-transparent hover:border-[#5a7a54]">
+                                                    <div className="flex justify-between items-start mb-3"><div className="bg-emerald-50 p-2 rounded-lg text-[#5a7a54] group-hover:bg-[#5a7a54] group-hover:text-white transition-colors">👥</div><span className="text-[10px] font-black text-slate-400 bg-slate-50 px-2 py-1 rounded">{t.members} Members</span></div>
+                                                    <h4 className="font-black text-[#2d4032] mb-1">{t.name}</h4><p className="text-[11px] text-[#5a7a54] font-bold mb-2">Leader: {t.leader}</p><p className="text-xs text-slate-500 leading-relaxed">{t.description}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </main>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <header className="bg-[#2d4032] border-b-4 border-[#8ba68c] text-white py-6 px-12 flex justify-between items-center sticky top-0 z-50 shadow-xl">
+                        <h1 className="serif font-black tracking-tighter text-2xl uppercase">GS Portal</h1>
+                        <nav className="flex gap-10">
+                            {[{id:"home", l:"ホーム"}, {id:"news", l:"お知らせ"}, {id:"deadlines", l:"締め切り"}, {id:"docs", l:"文書"}, {id:"links", l:"リンク集"}, {id:"team", l:"チーム紹介"}].map(m => (
+                                <button key={m.id} onClick={() => setActiveTab(m.id)} 
+                                    className={`nav-link pb-1 ${activeTab === m.id ? "nav-active" : ""}`}>{m.l}</button>
+                            ))}
+                        </nav>
+                    </header>
+
+                    <div className="container mx-auto flex flex-col md:flex-row gap-6 p-10 flex-grow max-w-[1500px]">
+                        <aside className="w-full md:w-80 space-y-6 flex-shrink-0">
+                            <div className="fresh-card p-6 text-center">
+                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase tracking-widest text-left">Current Status</p>
+                                <div className="text-lg font-bold text-slate-600 mb-1">{time.toLocaleDateString('ja-JP', {month:'long', day:'numeric', weekday:'long'})}</div>
+                                <div className="sidebar-time font-black font-num tracking-tight">{time.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})}</div>
+                            </div>
+                            <div className="fresh-card p-6 space-y-3">
+                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase tracking-widest">Quick Access</p>
+                                <button className="w-full btn-quick p-4 flex items-center gap-4 group"><span className="text-2xl">💺</span><span className="font-black text-slate-700 text-sm">全社座席表</span></button>
+                                <button className="w-full btn-column p-4 flex items-center gap-4 group"><span className="text-2xl">📰</span><span className="font-black text-slate-700 text-sm">今週のコラム</span></button>
+                            </div>
+                            <div className="fresh-card p-6">
+                                <p className="text-[10px] font-black text-red-500 mb-3 uppercase tracking-widest flex items-center gap-2">
+                                    <span className="w-2 h-2 bg-red-500 rounded-full animate-ping"></span> Upcoming Deadline
+                                </p>
+                                {upcomingDeadlines.length > 0 ? upcomingDeadlines.map(d => (
+                                    <div key={d.id} className="mb-4 last:mb-0 border-l-4 border-slate-100 pl-3">
+                                        <h4 className="font-black text-slate-800 text-[14px] leading-snug mb-1">{d.title}</h4>
+                                        <p className="text-xs text-slate-500 font-bold font-num">{d.date}</p>
+                                    </div>
+                                )) : <p className="text-xs text-slate-400 font-bold">直近の締め切りはありません</p>}
+                                <button onClick={() => setActiveTab("deadlines")} className="mt-4 text-[10px] font-black text-teal-600 uppercase tracking-widest">All Deadlines →</button>
+                            </div>
+                            <div className="fresh-card p-6 bg-emerald-50/30">
+                                <p className="text-[11px] font-black text-slate-400 mb-4 uppercase tracking-widest text-center">Org Charts (PDF)</p>
+                                <div className="grid grid-cols-2 gap-2 font-num text-[10px]">
+                                    {["HC10", "HC60", "HC70", "HD10", "HD70"].map(sec => (
+                                        <button key={sec} className="p-3 bg-white text-slate-800 font-black text-center rounded-lg border border-slate-100 hover:bg-[#5a7a54] hover:text-white transition-all">{sec}</button>
+                                    ))}
+                                </div>
+                            </div>
+                        </aside>
+
+                        <main className="flex-grow">
+                            {activeTab === "home" && <RenderHome />}
+                            {activeTab === "news" && <RenderNews />}
+                            {activeTab === "deadlines" && <RenderDeadlines />}
+                            {activeTab === "docs" && <RenderDocs />}
+                            {activeTab === "links" && <RenderLinks />}
+                            {activeTab === "team" && <RenderTeam />}
+                        </main>
+                    </div>
+
+                    <footer className="py-12 bg-white border-t border-[#e2ece9] text-center space-y-8">
+                        <div>
+                            <a href="#" className="inline-flex items-center gap-3 px-12 py-4 rounded-full bg-[#fdf2f2] text-[#c53030] text-sm font-black hover:bg-[#fbdada] transition-all border border-[#feb2b2] shadow-sm">
+                                ✍️ サイトの修正・改善依頼はこちら
+                            </a>
+                        </div>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.8em]">© 2026 GS Portal / Professional Hub</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -1,3 +1,39 @@
-@import './fonts.css';
-@import './tailwind.css';
-@import './theme.css';
+/* Tailwind CSS v4 の読み込み（これ1行で base, components, utilities を含みます） */
+@import "tailwindcss";
+
+/* Reactコンポーネント内のクラス名(bg-white等)を読み取るための設定 */
+@source "./**/*.{js,ts,jsx,tsx}";
+
+/* 変数やカスタムアニメーションの定義 */
+@theme {
+  --color-gs-green: #448a76;
+  
+  /* アニメーションの定義 */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideIn {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+/* 基本スタイルの設定 */
+@layer base {
+  body {
+    margin: 0;
+    @apply antialiased bg-[#f7faf9] text-[#2d332a];
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  }
+}
+
+/* otamesi.htmlから移植したアニメーション用クラス */
+@layer components {
+  .animate-in {
+    animation: fadeIn 500ms forwards;
+  }
+  .animate-slide-in {
+    animation: slideIn 500ms forwards;
+  }
+}
