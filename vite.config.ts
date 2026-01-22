@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite' // Tailwind v4を動かすためのプラグイン
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(), // これを有効にすることでCSSが正しく処理されます
+    tailwindcss(),
   ],
+  // ここから下を追加してください
+  build: {
+    outDir: 'docs', // ビルドしたファイルを docs フォルダに出力する
+    emptyOutDir: true, // ビルドのたびに docs フォルダ内をきれいに掃除する
+  },
+  base: './', // GitHub Pages などで画像やCSSのパスがずれないようにする設定
 })
