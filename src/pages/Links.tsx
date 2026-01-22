@@ -1,64 +1,70 @@
 import React, { useState } from "react";
-import { ExternalLink, Hash, List as ListIcon, LayoutGrid } from "lucide-react";
+import { linkCollection } from "../data/links";
+import { ExternalLink, List as ListIcon, LayoutGrid, Search } from "lucide-react";
 
-export const Links: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState("ALL");
+type LinkItem = typeof linkCollection[number];
 
-  const categories = ["ALL", "業務ツール", "勤怠・経費", "社内規定", "福利厚生"];
+export const Links = () => {
+  // 初期状態を "list" (全一覧) に設定
+  const [viewMode, setViewMode] = useState<"list" | "card">("list");
   
-  const links = [
-    { title: "社活サイト", cat: "業務ツール", url: "#", desc: "日々の活動記録・工数入力" },
-    { title: "楽楽精算", cat: "勤怠・経費", url: "#", desc: "経費精算・交通費精算" },
-    { title: "コンプライアンス規程", cat: "社内規定", url: "#", desc: "社内ルール・コンプラ指針" },
-    { title: "ベネフィットステーション", cat: "福利厚生", url: "#", desc: "各種優待サービス・割引" },
-    { title: "会議室予約(Booking)", cat: "業務ツール", url: "#", desc: "会議室および備品予約" },
-  ];
-
-  const filteredLinks = activeCategory === "ALL" ? links : links.filter(l => l.cat === activeCategory);
+  // カテゴリーの重複を除去してリスト化
+  const categories = Array.from(new Set(linkCollection.map(l => l.category)));
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
-      {/* ヘッダー & フィルター */}
-      <div className="bg-white p-8 rounded-2xl border border-[#e2ece9] shadow-sm">
-        <h2 className="text-2xl font-black text-slate-800 mb-6 flex items-center gap-2">
-          <ExternalLink className="text-[#448a76]" /> リンク集
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-xs font-black transition-all ${
-                activeCategory === cat ? "bg-[#448a76] text-white shadow-lg" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-              }`}
-            >
-              {cat === "ALL" ? <span className="flex items-center gap-1"><Hash size={12}/> ALL</span> : cat}
-            </button>
-          ))}
+      {/* ページヘッダー */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="flex items-center gap-3">
+          <div className="bg-emerald-50 p-2 rounded-lg">
+            <ListIcon size={24} className="text-[#065f46]" />
+          </div>
+          <h2 className="text-xl font-black text-slate-800">リンク集</h2>
+        </div>
+        
+        {/* 表示モード切り替えスイッチ */}
+        <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <button 
+            onClick={() => setViewMode("list")}
+            className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-black transition-all ${viewMode === "list" ? "bg-white text-[#065f46] shadow-md" : "text-slate-400 hover:text-slate-600"}`}
+          >
+            <ListIcon size={16} /> 全一覧
+          </button>
+          <button 
+            onClick={() => setViewMode("card")}
+            className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-black transition-all ${viewMode === "card" ? "bg-white text-[#065f46] shadow-md" : "text-slate-400 hover:text-slate-600"}`}
+          >
+            <LayoutGrid size={16} /> カテゴリー別
+          </button>
         </div>
       </div>
 
-      {/* コンテンツ表示：ALLならリスト、それ以外ならカード */}
-      {activeCategory === "ALL" ? (
-        /* リスト形式 (ALL表示時) */
-        <div className="bg-white rounded-2xl border border-[#e2ece9] overflow-hidden">
-          <table className="w-full text-left">
+      {/* 表示メインコンテンツ */}
+      {viewMode === "list" ? (
+        /* --- デフォルト：全一覧（リスト形式） --- */
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <table className="w-full text-left text-sm border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-[#e2ece9] text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                <th className="px-6 py-4">カテゴリ</th>
-                <th className="px-6 py-4">リンク名</th>
-                <th className="px-6 py-4">概要</th>
-                <th className="px-6 py-4 text-right px-10">OPEN</th>
+              <tr className="bg-[#065f46] text-white">
+                <th className="px-6 py-4 font-black text-[11px] uppercase tracking-[0.2em] w-1/4 border-r border-emerald-700/50">カテゴリー</th>
+                <th className="px-6 py-4 font-black text-[11px] uppercase tracking-[0.2em]">名称 / サイト概要</th>
+                <th className="px-6 py-4 w-12 text-center">Link</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {filteredLinks.map((link, i) => (
-                <tr key={i} className="hover:bg-emerald-50/30 transition-colors group">
-                  <td className="px-6 py-4"><span className="text-[10px] font-black bg-slate-100 px-2 py-1 rounded text-slate-500">{link.cat}</span></td>
-                  <td className="px-6 py-4 font-black text-slate-700">{link.title}</td>
-                  <td className="px-6 py-4 text-xs text-slate-400">{link.desc}</td>
-                  <td className="px-6 py-4 text-right px-10">
-                    <a href={link.url} target="_blank" className="text-[#448a76] opacity-0 group-hover:opacity-100 transition-opacity"><ExternalLink size={18}/></a>
+              {(linkCollection as LinkItem[]).map((link) => (
+                <tr key={link.id} className="hover:bg-emerald-50/30 transition-colors group cursor-pointer" onClick={() => window.open(link.url, '_blank')}>
+                  <td className="px-6 py-4">
+                    <span className="bg-emerald-50 text-[#065f46] text-[10px] font-black px-3 py-1 rounded-full border border-emerald-100 uppercase tracking-wider">
+                      {link.category}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="font-bold text-slate-800 group-hover:text-[#065f46] transition-colors">{link.title}</div>
+                    <div className="text-[11px] text-slate-400 mt-1 font-medium">{link.desc}</div>
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <ExternalLink size={16} className="text-slate-300 group-hover:text-[#065f46] transition-colors mx-auto" />
                   </td>
                 </tr>
               ))}
@@ -66,16 +72,36 @@ export const Links: React.FC = () => {
           </table>
         </div>
       ) : (
-        /* カード形式 (カテゴリー選択時) */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filteredLinks.map((link, i) => (
-            <a key={i} href={link.url} target="_blank" className="bg-white p-6 rounded-2xl border border-[#e2ece9] hover:border-[#448a76] hover:shadow-xl transition-all group">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-black text-slate-800 text-lg group-hover:text-[#448a76]">{link.title}</h3>
-                <ExternalLink size={16} className="text-slate-300" />
+        /* --- 切り替え用：カテゴリー別（カード形式） --- */
+        <div className="space-y-8">
+          {categories.map(cat => (
+            <section key={cat} className="space-y-4">
+              <div className="flex items-center gap-3 ml-2">
+                <div className="w-1.5 h-5 bg-[#065f46] rounded-full"></div>
+                <h3 className="font-black text-slate-800 text-base">{cat}</h3>
               </div>
-              <p className="text-sm text-slate-500">{link.desc}</p>
-            </a>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {linkCollection.filter(l => l.category === cat).map((link) => (
+                  <a 
+                    key={link.id} 
+                    href={link.url} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-[#065f46] hover:shadow-xl transition-all group relative overflow-hidden"
+                  >
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="font-black text-slate-800 group-hover:text-[#065f46] transition-colors">{link.title}</span>
+                        <ExternalLink size={16} className="text-slate-200 group-hover:text-[#065f46] transition-colors" />
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed font-medium">{link.desc}</p>
+                    </div>
+                    {/* ホバー時の背景装飾 */}
+                    <div className="absolute top-0 left-0 w-1 h-full bg-[#065f46] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  </a>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       )}

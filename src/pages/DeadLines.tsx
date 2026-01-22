@@ -1,82 +1,98 @@
-// src/pages/Deadlines.tsx
 import React from "react";
-import { AlertCircle, Clock, CheckCircle2 } from "lucide-react";
+import { allDeadlines } from "../data/deadlines";
+import { 
+  ReceiptText, 
+  CircleDollarSign, 
+  Activity, 
+  Clipboard, 
+  Clock, 
+  ChevronRight, 
+  Calendar 
+} from "lucide-react";
 
 export const Deadlines: React.FC = () => {
-  // 運用時はこのリストを書き換えるだけでOKです
-  const deadlineList = [
-    {
-      id: 1,
-      title: "年末調整書類提出",
-      date: "2026.12.10",
-      dept: "総務部",
-      priority: "high", // high, medium, low
-      status: "未完了",
-      desc: "原本の提出が必要です。各階の専用ポストへ投函してください。"
-    },
-    {
-      id: 2,
-      title: "e-Learningコンプライアンス研修",
-      date: "2026.01.31",
-      dept: "人事部",
-      priority: "medium",
-      status: "完了",
-      desc: "全社員必須のオンライン研修です。LMSから受講してください。"
-    },
-    {
-      id: 3,
-      title: "第3四半期 予算申請",
-      date: "2026.02.15",
-      dept: "経理部",
-      priority: "low",
-      status: "未完了",
-      desc: "次年度プロジェクトに関わる予算は別途承認フローが必要です。"
-    }
-  ];
+  // アイコン名からコンポーネントを呼び出すためのマップ
+  const IconMap: { [key: string]: React.ReactNode } = {
+    ReceiptText: <ReceiptText size={32} />,
+    CircleDollarSign: <CircleDollarSign size={32} />,
+    Activity: <Activity size={32} />,
+    Clipboard: <Clipboard size={32} />
+  };
+
+  // 今日から数えて何日後かを計算する関数
+  const getDaysRemaining = (dateString: string) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const targetDate = new Date(dateString);
+    targetDate.setHours(0, 0, 0, 0);
+    const diffTime = targetDate.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
+  // すべての締め切りを日付順にソート
+  const sortedDeadlines = [...allDeadlines].sort((a, b) => a.date.localeCompare(b.date));
 
   return (
-    <div className="space-y-6 animate-in slide-in-from-bottom duration-500">
-      {/* ページヘッダー */}
-      <div className="bg-white p-8 rounded-2xl border border-[#e2ece9] shadow-sm">
-        <h2 className="text-2xl font-black text-slate-800 mb-2 flex items-center gap-3">
-          <AlertCircle className="text-red-500" /> 締め切り・提出物
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <header className="flex items-center justify-between border-b-4 border-[#065f46] pb-4">
+        <h2 className="text-3xl font-black text-slate-800 flex items-center gap-4">
+          <Clock className="text-[#065f46]" size={36} />
+          締め切り一覧
         </h2>
-        <p className="text-sm text-slate-500 font-medium">現在対応が必要なタスクの一覧です。</p>
-      </div>
+        <span className="text-slate-400 font-bold">全 {sortedDeadlines.length} 件</span>
+      </header>
 
-      {/* リスト表示 */}
-      <div className="grid grid-cols-1 gap-4">
-        {deadlineList.map((item) => (
-          <div 
-            key={item.id} 
-            className={`bg-white p-6 rounded-2xl border-l-[10px] shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4 ${
-              item.priority === 'high' ? 'border-red-500' : 
-              item.priority === 'medium' ? 'border-amber-400' : 'border-emerald-400'
-            }`}
-          >
-            <div className="flex-grow">
-              <div className="flex items-center gap-3 mb-1">
-                <span className={`text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest ${
-                  item.status === '完了' ? 'bg-slate-100 text-slate-400' : 'bg-red-50 text-red-500'
-                }`}>
-                  {item.status}
-                </span>
-                <span className="text-xs font-bold text-slate-400">{item.dept}</span>
-              </div>
-              <h3 className="text-lg font-black text-slate-800">{item.title}</h3>
-              <p className="text-sm text-slate-500 mt-1 font-medium">{item.desc}</p>
-            </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {sortedDeadlines.map((item) => {
+          const daysLeft = getDaysRemaining(item.date);
+          const isOverdue = daysLeft < 0;
 
-            <div className="flex flex-col items-end min-w-[120px]">
-              <div className="flex items-center gap-2 text-slate-400 font-black text-xs uppercase tracking-tighter mb-1">
-                <Clock size={14} /> Deadline
+          return (
+            <div 
+              key={item.id} 
+              className={`bg-white rounded-[2rem] border-2 border-slate-100 overflow-hidden shadow-sm transition-all hover:shadow-xl hover:border-[#065f46] group`}
+            >
+              <div className={`${item.bg} p-8 border-b border-slate-50 flex items-start justify-between`}>
+                <div className="flex items-center gap-5">
+                  <div className={`${item.text} p-4 bg-white rounded-2xl shadow-sm`}>
+                    {IconMap[item.iconName] || <Clipboard size={32} />}
+                  </div>
+                  <div>
+                    <h3 className={`text-2xl font-black ${item.text} leading-tight mb-1`}>
+                      {item.title}
+                    </h3>
+                    <p className="text-sm font-bold opacity-60 uppercase tracking-widest">
+                      {item.dept}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className={`text-xl font-black ${item.priority === 'high' ? 'text-red-600' : 'text-slate-700'}`}>
-                {item.date}
+
+              <div className="p-8 space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3 text-slate-500 font-bold">
+                    <Calendar size={20} />
+                    <span>提出期限: {item.date.replace(/-/g, '.')}</span>
+                  </div>
+                  
+                  {/* ステータスバッジ */}
+                  <div className={`px-4 py-2 rounded-full font-black text-sm shadow-sm ${
+                    isOverdue ? "bg-slate-100 text-slate-400" : 
+                    daysLeft <= 7 ? "bg-red-500 text-white animate-pulse" : 
+                    "bg-[#065f46] text-white"
+                  }`}>
+                    {isOverdue ? "終了" : `あと ${daysLeft} 日`}
+                  </div>
+                </div>
+
+                <button className="w-full py-4 bg-slate-50 rounded-xl text-slate-600 font-black flex items-center justify-center gap-2 group-hover:bg-[#065f46] group-hover:text-white transition-all">
+                  詳細・申請フォームを開く
+                  <ChevronRight size={18} />
+                </button>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
