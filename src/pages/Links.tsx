@@ -1,110 +1,142 @@
 import React, { useState } from "react";
+import { Search, Globe, LayoutGrid, List as ListIcon, ArrowUpRight, ExternalLink } from "lucide-react";
 import { linkCollection } from "../data/links";
-import { ExternalLink, List as ListIcon, LayoutGrid, Search } from "lucide-react";
 
-type LinkItem = typeof linkCollection[number];
-
-export const Links = () => {
-  // 初期状態を "list" (全一覧) に設定
+export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<"list" | "card">("list");
-  
-  // カテゴリーの重複を除去してリスト化
-  const categories = Array.from(new Set(linkCollection.map(l => l.category)));
+
+  const filteredLinks = (linkCollection || []).filter(link => 
+    link.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    link.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
-      {/* ページヘッダー */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="bg-emerald-50 p-2 rounded-lg">
-            <ListIcon size={24} className="text-[#065f46]" />
+    <div className="page-main-container">
+      {/* 💡 極太アンダーラインヘッダー：全ページ共通規格 */}
+      <header className={`header-underline-bold ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
+        <div className="flex flex-col md:flex-row justify-between items-end">
+          <div className="flex items-center gap-7">
+            {/* Squircle アイコン */}
+            <div className={`header-icon-squircle ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
+              <Globe size={32} strokeWidth={1.5} />
+            </div>
+            
+            <div className="text-left">
+              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+                Links
+              </h2>
+              <div className="flex gap-6 mt-4 ml-1">
+                {/* 表示モード切替ボタンもタイポグラフィを統一 */}
+                <button 
+                  onClick={() => setViewMode("list")}
+                  className={`flex items-center gap-2 text-[10px] font-[1000] uppercase tracking-[0.2em] transition-colors ${
+                    viewMode === "list" ? (isMidnight ? "text-blue-400" : "text-[#064e3b]") : "text-slate-300 hover:text-slate-500"
+                  }`}
+                >
+                  <ListIcon size={14} strokeWidth={3} /> All List
+                </button>
+                <button 
+                  onClick={() => setViewMode("card")}
+                  className={`flex items-center gap-2 text-[10px] font-[1000] uppercase tracking-[0.2em] transition-colors ${
+                    viewMode === "card" ? (isMidnight ? "text-blue-400" : "text-[#064e3b]") : "text-slate-300 hover:text-slate-500"
+                  }`}
+                >
+                  <LayoutGrid size={14} strokeWidth={3} /> Categories
+                </button>
+              </div>
+            </div>
           </div>
-          <h2 className="text-xl font-black text-slate-800">リンク集</h2>
-        </div>
-        
-        {/* 表示モード切り替えスイッチ */}
-        <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
-          <button 
-            onClick={() => setViewMode("list")}
-            className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-black transition-all ${viewMode === "list" ? "bg-white text-[#065f46] shadow-md" : "text-slate-400 hover:text-slate-600"}`}
-          >
-            <ListIcon size={16} /> 全一覧
-          </button>
-          <button 
-            onClick={() => setViewMode("card")}
-            className={`flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-black transition-all ${viewMode === "card" ? "bg-white text-[#065f46] shadow-md" : "text-slate-400 hover:text-slate-600"}`}
-          >
-            <LayoutGrid size={16} /> カテゴリー別
-          </button>
-        </div>
-      </div>
 
-      {/* 表示メインコンテンツ */}
+          {/* 検索窓 */}
+          <div className="relative w-full md:w-80 mt-8 md:mt-0 group pb-1">
+            <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+              <Search 
+                className={`transition-colors ${isMidnight ? 'text-slate-500 group-focus-within:text-blue-400' : 'text-slate-300 group-focus-within:text-[#064e3b]'}`} 
+                size={18} 
+                strokeWidth={3} 
+              />
+            </div>
+            <input 
+              type="text" 
+              placeholder="Search resources..." 
+              className={`w-full pl-14 pr-6 py-4 rounded-2xl font-bold text-sm outline-none border transition-all ${
+                isMidnight 
+                  ? 'bg-slate-900 border-slate-800 text-white focus:border-blue-500/50' 
+                  : 'bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50'
+              }`}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* 💡 コンテンツ：表示モードによって切り替え */}
       {viewMode === "list" ? (
-        /* --- デフォルト：全一覧（リスト形式） --- */
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <table className="w-full text-left text-sm border-collapse">
-            <thead>
-              <tr className="bg-[#065f46] text-white">
-                <th className="px-6 py-4 font-black text-[11px] uppercase tracking-[0.2em] w-1/4 border-r border-emerald-700/50">カテゴリー</th>
-                <th className="px-6 py-4 font-black text-[11px] uppercase tracking-[0.2em]">名称 / サイト概要</th>
-                <th className="px-6 py-4 w-12 text-center">Link</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {(linkCollection as LinkItem[]).map((link) => (
-                <tr key={link.id} className="hover:bg-emerald-50/30 transition-colors group cursor-pointer" onClick={() => window.open(link.url, '_blank')}>
-                  <td className="px-6 py-4">
-                    <span className="bg-emerald-50 text-[#065f46] text-[10px] font-black px-3 py-1 rounded-full border border-emerald-100 uppercase tracking-wider">
-                      {link.category}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-bold text-slate-800 group-hover:text-[#065f46] transition-colors">{link.title}</div>
-                    <div className="text-[11px] text-slate-400 mt-1 font-medium">{link.desc}</div>
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    <ExternalLink size={16} className="text-slate-300 group-hover:text-[#065f46] transition-colors mx-auto" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className={`standard-card divide-y shadow-xl ${
+          isMidnight ? 'bg-slate-800/60 border-slate-700 divide-slate-700' : 'bg-white border-transparent divide-slate-50'
+        }`}>
+          {filteredLinks.map((link) => (
+            <a 
+              key={link.id} 
+              href={link.url} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="flex items-center justify-between p-7 group hover:bg-slate-50/50 transition-all"
+            >
+              <div className="flex items-center gap-8 min-w-0">
+                <span className={`w-24 text-[9px] font-[1000] uppercase tracking-widest shrink-0 ${
+                  isMidnight ? 'text-blue-400' : 'text-slate-300'
+                }`}>
+                  {link.category}
+                </span>
+                <h4 className={`text-lg font-black truncate tracking-tight transition-transform group-hover:translate-x-1 ${
+                  isMidnight ? 'text-slate-200 group-hover:text-blue-400' : 'text-[#1a2e25] group-hover:text-[#064e3b]'
+                }`}>
+                  {link.title}
+                </h4>
+              </div>
+              <ArrowUpRight size={20} strokeWidth={2.5} className="text-slate-200 group-hover:text-slate-400 transition-all" />
+            </a>
+          ))}
         </div>
       ) : (
-        /* --- 切り替え用：カテゴリー別（カード形式） --- */
-        <div className="space-y-8">
-          {categories.map(cat => (
-            <section key={cat} className="space-y-4">
-              <div className="flex items-center gap-3 ml-2">
-                <div className="w-1.5 h-5 bg-[#065f46] rounded-full"></div>
-                <h3 className="font-black text-slate-800 text-base">{cat}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {filteredLinks.map((link) => (
+            <a 
+              key={link.id} 
+              href={link.url} 
+              target="_blank" 
+              rel="noreferrer" 
+              className={`p-8 standard-card border-none shadow-md hover:shadow-2xl aspect-[16/10] flex flex-col justify-between group transition-all duration-500 ${
+                isMidnight ? 'bg-slate-800/60 hover:border-blue-500' : 'bg-white hover:border-emerald-100'
+              }`}
+            >
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
+                isMidnight 
+                  ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' 
+                  : 'bg-slate-50 text-slate-300 group-hover:bg-[#1a2e25] group-hover:text-white'
+              }`}>
+                <ExternalLink size={24} strokeWidth={2} />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {linkCollection.filter(l => l.category === cat).map((link) => (
-                  <a 
-                    key={link.id} 
-                    href={link.url} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="bg-white p-5 rounded-2xl border border-slate-200 hover:border-[#065f46] hover:shadow-xl transition-all group relative overflow-hidden"
-                  >
-                    <div className="relative z-10">
-                      <div className="flex justify-between items-start mb-2">
-                        <span className="font-black text-slate-800 group-hover:text-[#065f46] transition-colors">{link.title}</span>
-                        <ExternalLink size={16} className="text-slate-200 group-hover:text-[#065f46] transition-colors" />
-                      </div>
-                      <p className="text-xs text-slate-400 leading-relaxed font-medium">{link.desc}</p>
-                    </div>
-                    {/* ホバー時の背景装飾 */}
-                    <div className="absolute top-0 left-0 w-1 h-full bg-[#065f46] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  </a>
-                ))}
+              <div>
+                <span className="text-[10px] font-[1000] text-slate-300 uppercase tracking-[0.2em] mb-2 block">
+                  {link.category}
+                </span>
+                <h4 className={`text-xl font-black leading-tight tracking-tight ${
+                  isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'
+                }`}>
+                  {link.title}
+                </h4>
               </div>
-            </section>
+            </a>
           ))}
         </div>
       )}
+
+      <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.5em] pt-8 opacity-40">
+        End of internal resources
+      </p>
     </div>
   );
 };

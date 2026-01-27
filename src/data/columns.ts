@@ -1,7 +1,9 @@
+//今週のコラム
+
 export const columnArchives = [
   {
     id: 1,
-    date: "2026-01-21",
+    date: "2026-01-25",
     title: "「AIエージェント」が変える仕事の未来",
     tags: ["#AIエージェント", "#業務効率化"],
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1470&q=80",

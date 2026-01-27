@@ -1,7 +1,8 @@
-import { ReceiptText, CircleDollarSign, Activity, Clipboard } from "lucide-react";
-import React from "react";
+// 締め切りデータ
 
-export const allDeadlines: Deadline[] = [ // Deadline[] と指定
+import { ReceiptText, CircleDollarSign, Activity, Clipboard } from "lucide-react";
+
+export const allDeadlines = [
   {
     id: 1,
     title: "年末調整書類提出",
@@ -12,30 +13,46 @@ export const allDeadlines: Deadline[] = [ // Deadline[] と指定
     bg: "bg-[#fff5f5]",
     border: "border-[#feb2b2]",
     text: "text-[#742a2a]",
-    btn: "bg-[#e53e3e]"
+    btn: "bg-[#e53e3e]",
+    url: "https://example.com/nencho-system" 
   },
   {
     id: 2,
-    title: "第3四半期予算申請",
-    date: "2026-11-30",
+    title: "【全従業者対象】54期 第2回 YSD全社メール教育 実施のご案内",
+    date: "2026-01-30", // 月のフォーマットを統一しておくと安全です
     dept: "経理部",
     iconName: "CircleDollarSign",
     accent: "border-l-[#d97706]",
     bg: "bg-[#fffbeb]",
     border: "border-[#fde68a]",
     text: "text-[#92400e]",
-    btn: "bg-[#d97706]"
+    btn: "bg-[#d97706]",
+    url: "http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/630E1E1FD564992C49258D760015D41B" 
   },
   {
     id: 3,
     title: "健康診断予約",
-    date: "2026-03-01",
+    date: "2026-01-28",
     dept: "総務部",
     iconName: "Activity",
     accent: "border-l-[#059669]",
     bg: "bg-[#f0fdf4]",
     border: "border-[#bbf7d0]",
     text: "text-[#166534]",
-    btn: "bg-[#059669]"
+    btn: "bg-[#059669]",
+    url: "https://clinic.example.com/reserve" // 👈 追加
+  },
+  {
+    id: 4,
+    title: "E-ラン受講",
+    date: "2026-02-25",
+    dept: "総務部",
+    iconName: "Activity",
+    accent: "border-l-[#059669]",
+    bg: "bg-[#f0fdf4]",
+    border: "border-[#bbf7d0]",
+    text: "text-[#166534]",
+    btn: "bg-[#059669]",
+    url: "https://clipline.jp/training/#/students" // 👈 追加
   }
 ];

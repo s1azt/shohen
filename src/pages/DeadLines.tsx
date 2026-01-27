@@ -1,93 +1,77 @@
-import React from "react";
+import React, { useState } from "react";
 import { allDeadlines } from "../data/deadlines";
-import { 
-  ReceiptText, 
-  CircleDollarSign, 
-  Activity, 
-  Clipboard, 
-  Clock, 
-  ChevronRight, 
-  Calendar 
-} from "lucide-react";
+import { Clock, AlertTriangle, CheckCircle, Calendar, ChevronRight } from "lucide-react";
 
-export const Deadlines: React.FC = () => {
-  // アイコン名からコンポーネントを呼び出すためのマップ
-  const IconMap: { [key: string]: React.ReactNode } = {
-    ReceiptText: <ReceiptText size={32} />,
-    CircleDollarSign: <CircleDollarSign size={32} />,
-    Activity: <Activity size={32} />,
-    Clipboard: <Clipboard size={32} />
+export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
+  const [filter, setFilter] = useState("すべて");
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const getDeadlineStatus = (dateStr: string) => {
+    const deadline = new Date(dateStr);
+    const diffDays = Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    if (diffDays < 0) return { label: "完了", style: "bg-slate-100 text-slate-400 border-slate-200", icon: <CheckCircle size={20} /> };
+    if (diffDays <= 3) return { label: `あと ${diffDays} 日`, style: "bg-red-50 text-red-600 border-red-100", icon: <AlertTriangle size={20} className="animate-pulse" /> };
+    return { label: `あと ${diffDays} 日`, style: "bg-emerald-50 text-[#064e3b] border-emerald-100", icon: <Clock size={20} /> };
   };
 
-  // 今日から数えて何日後かを計算する関数
-  const getDaysRemaining = (dateString: string) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const targetDate = new Date(dateString);
-    targetDate.setHours(0, 0, 0, 0);
-    const diffTime = targetDate.getTime() - today.getTime();
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  };
+  const filteredDeadlines = allDeadlines
+    .filter(item => filter === "すべて" || item.dept === filter)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  // すべての締め切りを日付順にソート
-  const sortedDeadlines = [...allDeadlines].sort((a, b) => a.date.localeCompare(b.date));
+  const departments = ["すべて", ...Array.from(new Set(allDeadlines.map(d => d.dept)))];
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="flex items-center justify-between border-b-4 border-[#065f46] pb-4">
-        <h2 className="text-3xl font-black text-slate-800 flex items-center gap-4">
-          <Clock className="text-[#065f46]" size={36} />
-          締め切り一覧
-        </h2>
-        <span className="text-slate-400 font-bold">全 {sortedDeadlines.length} 件</span>
+    <div className="page-main-container">
+      <header className={`header-underline-bold ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
+        <div className="flex flex-col md:flex-row justify-between items-end">
+          <div className="flex items-center gap-7">
+            <div className={`header-icon-squircle ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
+              <Calendar size={32} strokeWidth={1.5} />
+            </div>
+            <div className="text-left">
+              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+                Deadlines
+              </h2>
+              <div className="flex items-center gap-3 mt-4">
+                <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
+                <p className="header-subtitle-sub">Strategic Control</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2 mt-8 md:mt-0 pb-1">
+            {departments.map(dept => (
+              <button key={dept} onClick={() => setFilter(dept)} 
+                className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                  filter === dept ? (isMidnight ? "bg-blue-600 text-white shadow-lg" : "bg-[#064e3b] text-white shadow-lg") : "text-slate-400 hover:text-slate-600"
+                }`}>
+                {dept}
+              </button>
+            ))}
+          </div>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {sortedDeadlines.map((item) => {
-          const daysLeft = getDaysRemaining(item.date);
-          const isOverdue = daysLeft < 0;
-
+      <div className="space-y-4">
+        {filteredDeadlines.map((item) => {
+          const status = getDeadlineStatus(item.date);
           return (
-            <div 
-              key={item.id} 
-              className={`bg-white rounded-[2rem] border-2 border-slate-100 overflow-hidden shadow-sm transition-all hover:shadow-xl hover:border-[#065f46] group`}
-            >
-              <div className={`${item.bg} p-8 border-b border-slate-50 flex items-start justify-between`}>
-                <div className="flex items-center gap-5">
-                  <div className={`${item.text} p-4 bg-white rounded-2xl shadow-sm`}>
-                    {IconMap[item.iconName] || <Clipboard size={32} />}
-                  </div>
-                  <div>
-                    <h3 className={`text-2xl font-black ${item.text} leading-tight mb-1`}>
-                      {item.title}
-                    </h3>
-                    <p className="text-sm font-bold opacity-60 uppercase tracking-widest">
-                      {item.dept}
-                    </p>
-                  </div>
-                </div>
+            <div key={item.id} className={`p-6 standard-card border-none shadow-md hover:shadow-xl flex flex-col md:flex-row items-center group transition-all duration-300 ${isMidnight ? 'bg-slate-800/60' : 'bg-white'}`}>
+              <div className={`w-16 h-16 rounded-[1.5rem] border flex flex-col items-center justify-center mb-4 md:mb-0 md:mr-8 flex-shrink-0 transition-transform group-hover:scale-105 ${status.style}`}>
+                {status.icon}
+                <span className="text-[9px] font-[1000] mt-1 uppercase tracking-tighter">{status.label.replace("あと ", "")}</span>
               </div>
-
-              <div className="p-8 space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-slate-500 font-bold">
-                    <Calendar size={20} />
-                    <span>提出期限: {item.date.replace(/-/g, '.')}</span>
-                  </div>
-                  
-                  {/* ステータスバッジ */}
-                  <div className={`px-4 py-2 rounded-full font-black text-sm shadow-sm ${
-                    isOverdue ? "bg-slate-100 text-slate-400" : 
-                    daysLeft <= 7 ? "bg-red-500 text-white animate-pulse" : 
-                    "bg-[#065f46] text-white"
-                  }`}>
-                    {isOverdue ? "終了" : `あと ${daysLeft} 日`}
-                  </div>
+              <div className="flex-grow min-w-0 text-center md:text-left">
+                <span className="text-[10px] font-black text-[#064e3b] opacity-40 uppercase tracking-[0.2em]">{item.dept}</span>
+                <h4 className={`text-xl font-black truncate tracking-tight ${isMidnight ? 'text-slate-200 group-hover:text-blue-400' : 'text-[#1a2e25] group-hover:text-[#064e3b]'}`}>{item.title}</h4>
+              </div>
+              <div className="flex items-center gap-10 mt-6 md:mt-0 md:ml-10 shrink-0">
+                <div className="text-right hidden sm:block">
+                  <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Target</p>
+                  <p className={`text-lg font-black tabular-nums ${isMidnight ? 'text-slate-300' : 'text-[#1a2e25]'}`}>{item.date}</p>
                 </div>
-
-                <button className="w-full py-4 bg-slate-50 rounded-xl text-slate-600 font-black flex items-center justify-center gap-2 group-hover:bg-[#065f46] group-hover:text-white transition-all">
-                  詳細・申請フォームを開く
-                  <ChevronRight size={18} />
+                <button onClick={() => window.open(item.url, "_blank")} className={`h-14 px-8 rounded-full font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-3 transition-all ${isMidnight ? 'bg-slate-900/50 text-blue-400 hover:bg-blue-600 hover:text-white' : 'bg-slate-50 text-slate-400 hover:bg-[#064e3b] hover:text-white'}`}>
+                  Execute <ChevronRight size={14} strokeWidth={3} />
                 </button>
               </div>
             </div>

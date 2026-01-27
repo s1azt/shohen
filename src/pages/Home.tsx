@@ -1,137 +1,190 @@
 import React from "react";
 import { 
-  Activity, 
-  Calendar, 
-  HelpCircle, 
-  FileText, 
-  Clipboard, 
-  GraduationCap, 
-  ExternalLink, 
-  ChevronRight, 
-  ReceiptText, 
-  CircleDollarSign 
+  Activity, Calendar, FileText, ClipboardList, Zap, 
+  GraduationCap, Clock, ChevronRight, ReceiptText, 
+  CircleDollarSign, Clipboard
 } from "lucide-react";
-
-// 1. データファイルをインポート
 import { allDeadlines } from "../data/deadlines";
 import { allNews } from "../data/news";
-
-type Deadline = typeof allDeadlines[number];
-type NewsItem = typeof allNews[number];
+import { externalLinks } from "../data/links"; // 💡 links.ts からインポート
 
 interface HomeProps {
   setActiveTab: (tab: string) => void;
+  isMidnight?: boolean;
 }
 
-export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
-  const IconMap: { [key: string]: React.ReactNode } = {
-    ReceiptText: <ReceiptText size={28} />,
-    CircleDollarSign: <CircleDollarSign size={28} />,
-    Activity: <Activity size={28} />,
-    Clipboard: <Clipboard size={28} />
-  };
+export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  const today = new Date().toISOString().split('T')[0];
-  const homeDeadlines = (allDeadlines as Deadline[])
-    .filter(item => item.date >= today)
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 2);
+  const oneMonthLater = new Date();
+  oneMonthLater.setMonth(today.getMonth() + 1);
 
-  const homeNews = (allNews as NewsItem[]).slice(0, 3);
+  // 1. 締め切りデータの加工とソート
+  const displayDeadlines = (allDeadlines || [])
+    .map(d => ({ 
+      ...d, 
+      dateObj: new Date(d.date),
+      diffDays: Math.ceil((new Date(d.date).getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+    }))
+    .filter(d => d.dateObj >= today && d.dateObj <= oneMonthLater)
+    .sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime())
+    .slice(0, 3);
 
-  // 写真の配色に基づいたクイックリンク設定
-  const quickLinks = [
-    { id: 1, title: "社活サイト", desc: "日報入力はこちら", icon: <Activity />, border: "border-[#cbd5c0]", bg: "bg-[#f4f7f0]", iconCol: "text-[#6b7a5f]", url: "http://aemlinux3.nekonet.co.jp/aem/aem.php" },
-    { id: 2, title: "会議室予約", desc: "施設の予約・状況確認", icon: <Calendar />, border: "border-[#cbd5c0]", bg: "bg-[#f4f7f0]", iconCol: "text-[#6b7a5f]", url: "#" },
-    { id: 3, title: "社内FAQ", desc: "よくある質問とルール", icon: <HelpCircle />, border: "border-[#cbd5c0]", bg: "bg-[#f4f7f0]", iconCol: "text-[#6b7a5f]", url: "#" },
-    { id: 4, title: "GSうぃき", desc: "ナレッジ・マニュアル", icon: <FileText />, border: "border-[#cbd5c0]", bg: "bg-[#f4f7f0]", iconCol: "text-[#6b7a5f]", url: "http://gs.nekonet.co.jp/GS_wiki/" },
-    { id: 5, title: "TW申請", desc: "テレワークの申請・報告", icon: <Clipboard />, border: "border-[#cbd5c0]", bg: "bg-[#f4f7f0]", iconCol: "text-[#6b7a5f]", url: "http://dominoap.nekonet.co.jp/tyo/tyo0993.nsf/MainFrame?OpenFrameSet" },
-    { id: 6, title: "E-learning", desc: "スキルアップ・社内研修", icon: <GraduationCap />, border: "border-[#cbd5c0]", bg: "bg-[#f4f7f0]", iconCol: "text-[#6b7a5f]", url: "https://clipline.jp/training/#/" },
+  // 2. お知らせを更新日の新しい順にソート（最新3件）
+  const latestNews = [...(allNews || [])]
+    .sort((a, b) => {
+      const dateA = new Date(a.date.replace(/\./g, '/')).getTime();
+      const dateB = new Date(b.date.replace(/\./g, '/')).getTime();
+      return dateB - dateA;
+    })
+    .slice(0, 3);
+
+  // 3. クイックアクセスボタンの定義（links.ts の定数を使用）
+  const quickAccessLinks = [
+    { label: "勤怠・日報", sub: "Attendance", icon: <Activity size={24} />, url: externalLinks.homeQuickAccess.attendance },
+    { label: "会議室可視化アプリ", sub: "Reservation", icon: <Calendar size={24} />, url: externalLinks.homeQuickAccess.roomReservation },
+    { label: "社内FAQ", sub: "Knowledge", icon: <FileText size={24} />, url: externalLinks.homeQuickAccess.faq },
+    { label: "TW申請", sub: "Telework", icon: <ClipboardList size={24} />, url: externalLinks.homeQuickAccess.telework },
+    { label: "GSうぃき", sub: "Wiki", icon: <Zap size={24} />, url: externalLinks.homeQuickAccess.wiki },
+    { label: "E-ラン", sub: "Training", icon: <GraduationCap size={24} />, url: externalLinks.homeQuickAccess.training },
   ];
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <div className={`space-y-10 animate-in fade-in duration-700 max-w-6xl mx-auto pb-10 px-4 text-left transition-colors duration-[3000ms]`}>
       
-      {/* --- 1. 重要な締め切り（写真のカード風デザイン） --- */}
-      <div className="flex flex-col gap-3">
-        {homeDeadlines.map((item) => (
-          <section 
-            key={item.id} 
-            className={`bg-white border border-[#cbd5c0] border-l-[10px] ${item.accent} p-5 rounded-r-2xl shadow-sm flex justify-between items-center transition-all hover:shadow-md`}
-          >
-            <div className="flex items-center gap-6">
-              <div className="text-[#6b7a5f] opacity-80">
-                {IconMap[item.iconName as string] || <Clipboard size={28} />}
-              </div>
-              <div>
-                <h4 className="font-black text-lg text-[#3e4a36]">{item.title}</h4>
-                <p className="text-[11px] font-bold text-[#6b7a5f] uppercase tracking-widest mt-0.5">
-                  DUE: {item.date.replace(/-/g, '.')} / {item.dept}
-                </p>
-              </div>
+      {/* 1. CRITICAL DEADLINES */}
+      <section className="space-y-5">
+        <div className="flex items-center justify-between px-2">
+          <div className="flex items-center gap-3">
+            <div className={`p-2 rounded-lg text-white shadow-md transition-colors duration-[3000ms] ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
+              <Clock size={18} />
             </div>
-            <button 
-              onClick={() => setActiveTab("deadlines")} 
-              className="bg-[#6b7a5f] text-white px-5 py-2 rounded-lg font-black text-xs hover:bg-[#3e4a36] transition-all"
-            >
-              詳細確認
-            </button>
-          </section>
-        ))}
-      </div>
-
-      {/* --- 2. クイックアクセスリンク（写真のグリッドを再現） --- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-        {quickLinks.map((link) => (
-          <a
-            key={link.id}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`h-36 rounded-2xl border border-transparent bg-white p-5 shadow-sm cursor-pointer group relative flex items-center transition-all hover:border-[#cbd5c0] hover:shadow-md hover:-translate-y-1`}
-          >
-            <div className={`${link.bg} p-4 rounded-xl mr-5 ${link.iconCol} flex-shrink-0 transition-transform group-hover:scale-105 shadow-inner`}>
-              {React.cloneElement(link.icon as React.ReactElement, { size: 40 })}
+            <div>
+              <h3 className={`text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-[3000ms] ${isMidnight ? 'text-blue-400' : 'text-[#064e3b]'}`}>Critical Deadlines</h3>
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Next 30 Days</p>
             </div>
-            <div className="min-w-0 flex-1">
-              <h3 className="font-black text-lg mb-0.5 text-[#3e4a36] tracking-tighter whitespace-nowrap truncate">
-                {link.title}
-              </h3>
-              <p className="text-[#6b7a5f] text-[13px] whitespace-nowrap truncate opacity-80 font-medium">
-                {link.desc}
-              </p>
-            </div>
-            <div className={`absolute bottom-3 right-3 text-[#6b7a5f] opacity-0 group-hover:opacity-100 transition-opacity`}>
-              <ExternalLink size={18} />
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* --- 3. 最新のお知らせ欄（抹茶色のアクセント） --- */}
-      <section className="bg-white rounded-[2.5rem] p-8 border border-[#cbd5c0] shadow-sm mt-8">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-black text-[#3e4a36] flex items-center gap-3 italic">
-            <span className="w-10 h-10 bg-[#6b7a5f] text-white rounded-lg flex items-center justify-center text-lg not-italic shadow-md">N</span> 
-            Latest News
-          </h3>
-          <button onClick={() => setActiveTab("news")} className="text-[#6b7a5f] font-black text-xs hover:text-[#3e4a36] transition-colors">すべて見る →</button>
+          </div>
+          <button onClick={() => setActiveTab("deadlines")} className="text-[10px] font-black text-slate-400 hover:text-emerald-600 transition-colors uppercase tracking-widest">
+            View All ↗
+          </button>
         </div>
-        <div className="space-y-1">
-          {homeNews.map((item) => (
-            <div 
-              key={item.id} 
-              onClick={() => setActiveTab("news")} 
-              className="flex items-center gap-6 p-4 rounded-xl hover:bg-[#f4f7f0] transition-colors border-b border-[#cbd5c0]/30 last:border-0 group cursor-pointer"
-            >
-              <span className="text-sm font-bold text-[#6b7a5f] font-mono opacity-60">{item.date}</span>
-              <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border border-[#cbd5c0] text-[#6b7a5f] uppercase tracking-widest`}>
-                {item.category}
-              </span>
-              <span className="font-bold text-[#3e4a36] text-base group-hover:text-[#6b7a5f] flex-grow truncate">{item.title}</span>
-              <ChevronRight className="text-[#cbd5c0] group-hover:text-[#6b7a5f]" size={18} />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {displayDeadlines.length > 0 ? (
+            displayDeadlines.map((item) => {
+              const IconMap: any = { ReceiptText, CircleDollarSign, Activity, Clipboard };
+              const Icon = IconMap[item.iconName] || Clipboard;
+              const isUrgent = item.diffDays <= 3;
+
+              return (
+                <a 
+                  key={item.id}
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`group relative flex flex-col p-6 rounded-[2.5rem] border-2 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl border-l-[6px] shadow-sm 
+                    ${isMidnight ? 'bg-slate-800/40 border-slate-700/50' : item.bg + ' ' + item.border} 
+                    ${isUrgent && !isMidnight ? 'ring-4 ring-orange-500/10' : ''}`}
+                >
+                  {isUrgent && (
+                    <div className="absolute -top-2 -right-2 bg-orange-500 text-white text-[8px] font-black px-3 py-1 rounded-full shadow-lg animate-pulse z-10">URGENT</div>
+                  )}
+
+                  <div className="flex justify-between items-start mb-5">
+                    <div className={`p-3 rounded-2xl shadow-inner transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-white/80 ' + item.text}`}>
+                      <Icon size={24} strokeWidth={2.5} />
+                    </div>
+                    <div className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-800/50 border-slate-600 text-slate-400' : 'bg-white/50 border-white ' + item.text}`}>
+                      {item.dept}
+                    </div>
+                  </div>
+
+                  <h3 className={`text-[15px] font-black leading-tight mb-6 group-hover:underline decoration-2 underline-offset-4 transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-200' : item.text}`}>
+                    {item.title}
+                  </h3>
+                  
+                  <div className="flex items-end justify-between mt-auto">
+                    <div className="flex flex-col">
+                      <span className={`text-[8px] font-black uppercase opacity-40 tracking-tighter transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-500' : item.text}`}>Due Date</span>
+                      <span className={`text-sm font-black tabular-nums transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-300' : item.text}`}>{item.date}</span>
+                    </div>
+                    <div className={`flex items-center gap-2 px-4 py-2 rounded-xl text-white font-black text-[10px] transition-all group-hover:brightness-110 shadow-md ${isMidnight ? 'bg-blue-600' : item.btn}`}>
+                      手続きへ <ChevronRight size={12} strokeWidth={3} />
+                    </div>
+                  </div>
+                </a>
+              );
+            })
+          ) : (
+            <div className={`col-span-full py-12 text-center rounded-[2.5rem] border border-dashed transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-800/20 border-slate-700' : 'bg-slate-50 border-slate-200'}`}>
+              <p className="text-slate-400 text-xs font-black uppercase tracking-[0.2em]">直近1ヶ月以内の締め切りはありません</p>
             </div>
-          ))}
+          )}
+        </div>
+      </section>
+
+      {/* 2. QUICK ACCESS */}
+      <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {quickAccessLinks.map((link, i) => (
+          <button 
+            key={i} 
+            onClick={() => window.open(link.url, "_blank")}
+            className={`group flex flex-col items-center p-6 rounded-[2.5rem] border shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ${isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'}`}
+          >
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all shadow-inner ${isMidnight ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' : 'bg-slate-50 text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'}`}>
+              {link.icon}
+            </div>
+            <div className={`text-[12px] font-black leading-tight mb-1 text-center transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.label}</div>
+            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">{link.sub}</div>
+          </button>
+        ))}
+      </section>
+
+      {/* 3. LATEST NEWS */}
+      <section className={`rounded-[3rem] p-10 border shadow-sm space-y-8 transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'}`}>
+        <div className="flex items-center justify-between px-2">
+          <div className="flex items-center gap-4">
+            <div className={`w-2 h-8 rounded-full transition-colors duration-[3000ms] ${isMidnight ? 'bg-blue-500' : 'bg-[#064e3b]'}`} />
+            <h2 className={`text-2xl font-black tracking-tighter italic transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-100' : 'text-[#1a2e25]'}`}>Latest News</h2>
+          </div>
+          <button onClick={() => setActiveTab("news")} className={`text-[10px] font-black transition-all uppercase tracking-[0.2em] ${isMidnight ? 'text-blue-400' : 'text-emerald-600 hover:underline'}`}>
+            View Archives ↗
+          </button>
+        </div>
+        
+        <div className={`divide-y ${isMidnight ? 'divide-slate-700' : 'divide-slate-100'}`}>
+          {latestNews.map((news, i) => {
+            const newsDate = new Date(news.date.replace(/\./g, '/'));
+            const diffDays = Math.floor((today.getTime() - newsDate.getTime()) / (1000 * 60 * 60 * 24));
+            const isNew = diffDays >= 0 && diffDays <= 3;
+
+            return (
+              <a 
+                key={i} 
+                href={news.url} 
+                target="_blank"
+                rel="noreferrer"
+                className="py-6 first:pt-0 last:pb-0 group flex items-center gap-8 transition-all"
+              >
+                <div className="text-[12px] font-bold text-slate-400 tabular-nums w-24 shrink-0">{news.date}</div>
+                <div className="flex items-center gap-4 flex-grow min-w-0">
+                  {isNew && (
+                    <span className="bg-orange-500 text-white text-[8px] font-black px-2 py-0.5 rounded shadow-sm shrink-0 animate-pulse">NEW</span>
+                  )}
+                  <span className={`text-[9px] font-black px-3 py-1 rounded border shrink-0 uppercase tracking-widest ${isMidnight ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : news.color.replace('text-', 'border-').replace('text-', 'bg-') + '/10 ' + news.color}`}>
+                    {news.category}
+                  </span>
+                  <div className={`text-[16px] font-black group-hover:translate-x-2 transition-all truncate tracking-tight ${isMidnight ? 'text-slate-300 group-hover:text-blue-400' : 'text-[#1a2e25] group-hover:text-[#064e3b]'}`}>
+                    {news.title}
+                  </div>
+                </div>
+                <div className={`p-2.5 rounded-full transition-all shadow-sm ${isMidnight ? 'bg-slate-700 text-slate-500 group-hover:bg-blue-600 group-hover:text-white' : 'bg-slate-50 text-slate-200 group-hover:bg-[#064e3b] group-hover:text-white'}`}>
+                  <ChevronRight size={16} />
+                </div>
+              </a>
+            );
+          })}
         </div>
       </section>
     </div>

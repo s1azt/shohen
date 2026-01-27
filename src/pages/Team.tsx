@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-import { organizationData } from "../data/organization";
-import { Users, User, ChevronDown, FileText, UserCheck, LayoutGrid } from "lucide-react";
+import { getAllSections, getSectionById, organizationData } from "../data/organization";
+import { Users, ChevronDown, FileText, UserCheck, LayoutGrid } from "lucide-react";
 
-export const Team: React.FC = () => {
-  const [activeSectionId, setActiveSectionId] = useState("HC10");
+interface TeamProps {
+  // 💡 App.tsx から渡される activeSectionId は「初期値」としてのみ利用するか、無視します
+  activeSectionId: string;
+  isMidnight?: boolean;
+}
+
+export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnight }) => {
+  // 💡 ページ内部で独自のステートを持つことで、サイドバーと切り離します
+  const [localActiveId, setLocalActiveId] = useState(initialId || "HC10");
   const [expandedTeams, setExpandedTeams] = useState<string[]>([]);
 
-  const sections = organizationData.director.sections;
-  const currentSection = sections.find((s) => s.id === activeSectionId);
-
-  const pdfLinks: { [key: string]: string } = {
-    HC10: "https://drive.google.com/file/d/1C_2a2B4le1Z-gmYxKRncCe4In6vBsKyd/view",
-    HC60: "https://drive.google.com/file/d/18kjEhWoa0aQD1G2kGvvZoxi4tLzlba1T/view",
-    HC70: "https://drive.google.com/file/d/194tY_gPIeW-GIK-8DMi4uuusaU6Gg4QU/view",
-    HD10: "https://drive.google.com/file/d/1ps8E9tpXB_jfPsepurDv3JJ-bsEn3p00/view",
-    HD70: "https://drive.google.com/file/d/1YRtZ6BvclHZhG3ahVyHy_N3TnzjMD-8s/view",
-  };
+  const sections = getAllSections();
+  const currentSection = getSectionById(localActiveId);
 
   const toggleTeam = (teamId: string) => {
     setExpandedTeams((prev) =>
@@ -24,104 +23,142 @@ export const Team: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
-      {/* 1. 部長カード：標準サイズに変更 */}
-      <div className="bg-[#064e3b] rounded-2xl p-6 text-white shadow-lg flex items-center gap-6 relative overflow-hidden">
-        <div className="bg-white/10 p-4 rounded-xl backdrop-blur-md border border-white/20">
-          <Users size={32} />
+    <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-1000 pb-10 px-4">
+      
+      {/* 1. スリムヘッダー */}
+      <div className={`rounded-[2.5rem] p-5 shadow-xl flex flex-col lg:flex-row items-center gap-6 transition-colors duration-[3000ms] ${
+        isMidnight ? "bg-[#112240]" : "bg-[#064e3b]"
+      }`}>
+        {/* 部長バッジ */}
+        <div className="flex items-center gap-5 px-6 border-r border-white/10 shrink-0">
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+            isMidnight ? "bg-blue-400/20 text-blue-400" : "bg-white/10 text-emerald-300"
+          }`}>
+            <Users size={24} />
+          </div>
+          <div className="text-left text-white">
+            <div className={`text-[9px] font-black uppercase tracking-widest leading-none mb-1 ${
+              isMidnight ? "text-blue-400" : "text-emerald-400"
+            }`}>Director</div>
+            <div className="text-xl font-black tracking-tighter leading-none">{organizationData.director.name}</div>
+          </div>
         </div>
-        <div>
-          <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-300 opacity-80">Group Systems Dept. Director</h2>
-          <p className="text-2xl font-black">
-            {organizationData.director.name} 
-            <span className="text-sm not-italic font-medium ml-2 opacity-80">部長</span>
-          </p>
+
+        {/* セクション選択タブ：localActiveId を更新するように修正 */}
+        <div className="flex bg-black/10 p-1.5 rounded-2xl flex-grow overflow-x-auto scrollbar-hide">
+          {sections.map((sec) => (
+            <button
+              key={sec.id}
+              onClick={() => setLocalActiveId(sec.id)} // 💡 ページ内のステートのみ更新
+              className={`flex-1 min-w-[110px] py-3 px-6 rounded-xl font-black transition-all text-[11px] tracking-widest ${
+                localActiveId === sec.id
+                  ? (isMidnight ? "bg-blue-500 text-white shadow-lg" : "bg-white text-[#064e3b] shadow-lg")
+                  : "text-emerald-100/50 hover:text-white"
+              }`}
+            >
+              {sec.id}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* 2. セクション選択タブ */}
-      <div className="flex bg-[#065f46] p-1 rounded-xl shadow-inner overflow-x-auto no-scrollbar">
-        {sections.map((sec) => (
-          <button
-            key={sec.id}
-            onClick={() => setActiveSectionId(sec.id)}
-            className={`flex-1 min-w-[100px] py-2 px-4 rounded-lg font-bold transition-all text-sm ${
-              activeSectionId === sec.id
-                ? "bg-white text-[#065f46] shadow-sm"
-                : "text-emerald-100 hover:bg-emerald-700/50"
-            }`}
-          >
-            {sec.name}
-          </button>
-        ))}
-      </div>
-
-      {/* 3. セクション詳細エリア */}
+      {/* 2. セクションインテリジェンス */}
       {currentSection && (
-        <div className="space-y-5">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <div className="flex items-center gap-2">
-                    <span className="bg-emerald-50 text-[#065f46] text-[10px] font-black px-2 py-0.5 rounded border border-emerald-100 uppercase">Section Info</span>
-                    <h3 className="text-2xl font-black text-slate-800 tracking-tight">{currentSection.name}</h3>
+        <div className="space-y-6">
+          <div className={`p-10 rounded-[3rem] border shadow-sm relative overflow-hidden transition-colors duration-[3000ms] ${
+            isMidnight ? "bg-slate-800/50 border-slate-700" : "bg-white border-slate-100"
+          }`}>
+            <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+              <div className="flex-grow text-left">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-1.5 h-6 rounded-full ${isMidnight ? "bg-blue-500" : "bg-emerald-500"}`} />
+                  <span className={`text-[10px] font-black uppercase tracking-[0.4em] opacity-80 ${
+                    isMidnight ? "text-blue-400" : "text-[#064e3b]"
+                  }`}>Section Intelligence</span>
                 </div>
-                <p className="text-[#065f46] text-sm font-bold mt-1 flex items-center gap-1.5">
-                    <UserCheck size={16} /> SMG: {currentSection.smg || "（未設定）"}
-                </p>
+                <h3 className={`text-4xl font-black tracking-tighter mb-5 italic ${
+                  isMidnight ? "text-slate-100" : "text-[#1a2e25]"
+                }`}>{currentSection.name}</h3>
+                <div className="flex items-center gap-6">
+                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${
+                    isMidnight ? "bg-slate-800 border-slate-700" : "bg-slate-50 border-slate-100"
+                  }`}>
+                    <UserCheck size={14} className={isMidnight ? "text-blue-400" : "text-emerald-600"} />
+                    <span className={`text-[11px] font-black uppercase ${
+                      isMidnight ? "text-slate-400" : "text-slate-600"
+                    }`}>SMG: {currentSection.smg || "NOT SET"}</span>
+                  </div>
+                  <a 
+                    href={currentSection.pdfUrl} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className={`text-[11px] font-black flex items-center gap-1.5 hover:underline decoration-2 underline-offset-4 ${
+                      isMidnight ? "text-blue-400" : "text-emerald-600"
+                    }`}
+                  >
+                    <FileText size={14} /> VIEW PDF CHART ↗
+                  </a>
+                </div>
               </div>
-              <a 
-                href={pdfLinks[currentSection.id]} 
-                target="_blank" 
-                className="flex items-center gap-2 bg-slate-800 text-white px-4 py-2 rounded-xl font-bold hover:bg-[#065f46] transition-all text-xs"
-              >
-                <FileText size={14} /> 体制図(PDF)
-              </a>
+              <p className={`leading-relaxed text-[15px] font-medium max-w-sm md:text-right italic ${
+                isMidnight ? "text-slate-400" : "text-slate-500"
+              }`}>
+                {currentSection.description}
+              </p>
             </div>
-            <p className="text-slate-600 leading-relaxed text-sm border-l-3 border-slate-200 pl-4">
-              {currentSection.description}
-            </p>
           </div>
 
-          {/* 4. ユニット一覧：文字を1列に収めるレイアウトを維持 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
             {currentSection.managers.map((manager) =>
               manager.teams.map((team) => (
                 <div 
                   key={team.id}
-                  className={`rounded-2xl border transition-all duration-300 ${
+                  className={`rounded-[2.2rem] border transition-all duration-300 overflow-hidden ${
                     expandedTeams.includes(team.id) 
-                    ? "border-[#065f46] bg-emerald-50/20 shadow-md" 
-                    : "border-slate-200 bg-white shadow-sm hover:border-emerald-200"
-                  } overflow-hidden`}
+                      ? (isMidnight ? "border-blue-500 bg-slate-800 shadow-xl" : "border-emerald-500 bg-white shadow-xl")
+                      : (isMidnight ? "border-slate-700 bg-slate-800/40 hover:border-blue-900" : "border-slate-100 bg-white hover:border-emerald-200")
+                  }`}
                 >
-                  <button 
-                    onClick={() => toggleTeam(team.id)}
-                    className="w-full p-4 flex items-center justify-between text-left"
-                  >
-                    <div className="flex items-center gap-4 min-w-0 flex-1">
-                      <div className={`p-3 rounded-xl flex-shrink-0 ${expandedTeams.includes(team.id) ? "bg-[#065f46] text-white" : "bg-emerald-50 text-[#065f46]"}`}>
-                        <LayoutGrid size={20} />
+                  <button onClick={() => toggleTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left">
+                    <div className="flex items-center gap-5 min-w-0">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
+                        expandedTeams.includes(team.id) 
+                          ? (isMidnight ? "bg-blue-600 text-white" : "bg-[#064e3b] text-white") 
+                          : (isMidnight ? "bg-slate-700 text-slate-500" : "bg-slate-50 text-slate-400")
+                      }`}>
+                        <LayoutGrid size={24} />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="font-bold text-slate-800 text-base tracking-tight whitespace-nowrap truncate">{team.name}</h4>
-                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5 whitespace-nowrap truncate">
-                          Leader: {team.leader} / MG: {manager.name}
-                        </p>
+                      <div className="min-w-0">
+                        <h4 className={`font-black text-[17px] tracking-tight mb-1 truncate ${
+                          isMidnight ? "text-slate-100" : "text-[#1a2e25]"
+                        }`}>{team.name}</h4>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Leader: {team.leader}</span>
+                        </div>
                       </div>
                     </div>
-                    <ChevronDown size={18} className={`text-slate-300 flex-shrink-0 ml-2 transition-transform ${expandedTeams.includes(team.id) ? "rotate-180" : ""}`} />
+                    <div className={`p-2 rounded-full transition-all ${
+                      expandedTeams.includes(team.id) 
+                        ? (isMidnight ? "rotate-180 bg-blue-600 text-white" : "rotate-180 bg-[#064e3b] text-white") 
+                        : (isMidnight ? "text-slate-500 bg-slate-700" : "text-slate-200 bg-slate-50")
+                    }`}>
+                      <ChevronDown size={18} />
+                    </div>
                   </button>
                   
                   {expandedTeams.includes(team.id) && (
-                    <div className="px-6 pb-6 animate-in slide-in-from-top-2 duration-300">
-                      <div className="pt-4 border-t border-slate-100">
-                        <p className="text-slate-600 text-sm leading-relaxed mb-3">
-                          {team.description}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[9px] font-black bg-slate-800 text-white px-2 py-0.5 rounded uppercase">{team.members}名</span>
-                          <span className="text-[9px] font-black bg-white border border-slate-200 text-slate-400 px-2 py-0.5 rounded uppercase">ID: {team.id}</span>
+                    <div className="px-10 pb-10 animate-in slide-in-from-top-2 text-left">
+                      <div className={`pt-6 border-t space-y-5 ${isMidnight ? "border-slate-700" : "border-slate-50"}`}>
+                        <p className={`text-[14px] font-medium leading-relaxed ${
+                          isMidnight ? "text-slate-300" : "text-slate-500"
+                        }`}>{team.description}</p>
+                        <div className="flex items-center gap-3">
+                          <span className={`text-[9px] font-black px-3 py-1 rounded-lg uppercase tracking-widest ${
+                            isMidnight ? "bg-blue-900/40 text-blue-400" : "bg-emerald-50 text-emerald-700"
+                          }`}>
+                            {team.members} Members
+                          </span>
+                          <span className="text-[9px] font-black text-slate-400 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
                         </div>
                       </div>
                     </div>

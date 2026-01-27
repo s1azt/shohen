@@ -1,16 +1,122 @@
 @import "tailwindcss";
 
+
+@layer components {
+  /* 💡 全ページ共通のタイトルサイズ規格 */
+  .header-title-main {
+    font-family: 'Inter', sans-serif;
+    /* text-5xl（48px）で全ページ統一 */
+    @apply text-5xl font-[1000] tracking-[-0.06em] uppercase leading-none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 💡 ヘッダーの底辺ラインと余白の規格 */
+  .header-underline-bold {
+    /* pb-8 で高さを確保し、mb-10 でコンテンツとの距離を固定 */
+    @apply border-b-[6px] transition-colors duration-500 pb-8 mb-10;
+  }
+}
+
 @theme {
   --font-sans: "Inter", "Noto Sans JP", sans-serif;
+  /* 共通の角丸をテーマ変数として定義 */
+  --radius-card: 2.5rem;
 }
 
 @layer base {
   body {
     font-family: var(--font-sans);
-    @apply antialiased;
+    @apply antialiased bg-[#f8fafc];
   }
-  /* 全ての太字を少し力強くして「かっこいい」印象に */
-  .font-black, .font-bold {
-    letter-spacing: -0.02em;
+}
+
+@layer components {
+  /* 💡 英語タイポグラフィの格上げ規格 */
+  .header-title-main {
+    /* 斜体を廃止し、垂直で重厚なフォントへ。InterのBlack(900-1000)を想定 */
+    font-family: 'Inter', sans-serif;
+    @apply text-6xl font-[1000] tracking-[-0.06em] uppercase leading-none;
+    -webkit-font-smoothing: antialiased;
   }
+
+  .header-subtitle-sub {
+    /* サブテキストは極端に文字間を広げて建築的な美しさを出す */
+    @apply text-[11px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none;
+  }
+
+  /* 💡 極太アンダーラインの規格 */
+  .header-underline-bold {
+    /* 6pxの厚みで画面を引き締める */
+    @apply border-b-[6px] transition-colors duration-500 pb-6 mb-10;
+  }
+
+  /* 💡 アイコンボックスを Squircle（超楕円）化 */
+  .header-icon-squircle {
+    @apply w-16 h-16 rounded-[1.8rem] flex items-center justify-center text-white shadow-xl flex-shrink-0;
+    /* わずかな回転でプロっぽさを演出 */
+    transform: rotate(-2deg);
+  }
+
+  /* ページ全体の共通コンテナ (ホームのサイズ感) */
+  .page-main-container {
+    max-width: 72rem; /* max-w-6xl 相当 */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    /* 💡 gapを微調整してヘッダーとコンテンツの距離を最適化 */
+    gap: 1.5rem; 
+    text-align: left;
+    transition-property: color, background-color, border-color;
+    transition-duration: 3000ms;
+  }
+
+  /* 標準カード (島) */
+  .standard-card {
+    border-radius: var(--radius-card);
+    border-width: 1px;
+    border-color: #e2e8f0; /* border-slate-200 */
+    background-color: white;
+    /* 💡 影を少し強めて「島」の浮遊感をアップ */
+    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+    transition-property: all;
+    transition-duration: 500ms;
+    overflow: hidden;
+  }
+
+  /* 泡のアニメーション */
+  @keyframes bubble-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 0.4; }
+    100% { transform: translateY(-160px) scale(1.4); opacity: 0; }
+  }
+  .animate-bubble {
+    animation: bubble-rise linear infinite;
+  }
+
+  /* 雨のアニメーション */
+  @keyframes fall {
+    to { transform: translateY(110vh); }
+  }
+  .rain-drop {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 1px;
+    height: 80px;
+    top: -100px;
+    animation: fall linear infinite;
+    pointer-events: none;
+    z-index: 9999;
+  }
+}
+
+/* 深夜モードのユーティリティ */
+.is-midnight .bg-white {
+  background-color: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
 }
