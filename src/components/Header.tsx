@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className={activeTab === item.id ? "scale-110 transition-transform duration-300" : ""}>
                 {item.icon}
               </div>
-              <span className="text-[10px] mt-2 font-black uppercase tracking-widest">{item.label}</span>
+              <span className="text-[14px] mt-2 font-black uppercase tracking-widest">{item.label}</span>
               {activeTab === item.id && (
                 <div className={`absolute top-0 left-0 w-full h-1 shadow-[0_2px_10px_rgba(16,185,129,0.5)] transition-colors duration-[3000ms] ${
                   isMidnight ? "bg-blue-500" : "bg-emerald-500"
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
               : "text-emerald-50/70 hover:text-white hover:bg-white/5"
             }`}>
               <MapPin size={18} />
-              <span className="text-[10px] mt-2 font-black uppercase tracking-widest">拠点情報</span>
+              <span className="text-[14px] mt-2 font-black uppercase tracking-widest">拠点情報</span>
               {(showLocationDropdown || activeTab === "construction") && (
                 <div className={`absolute top-0 left-0 w-full h-1 shadow-[0_2px_10px_rgba(16,185,129,0.5)] transition-colors duration-[3000ms] ${
                   isMidnight ? "bg-blue-500" : "bg-emerald-500"
