@@ -25,7 +25,7 @@ export const Documents: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
             <div className="text-left">
               {/* プロ仕様タイポグラフィ：Inter 1000 weight */}
               <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                Documents
+                ドキュメント
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>

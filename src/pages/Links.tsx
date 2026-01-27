@@ -50,7 +50,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
             
             <div className="text-left">
               <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                Links
+                リンク集
               </h2>
               <nav className="flex flex-wrap gap-x-6 gap-y-2 mt-4 ml-1">
                 {categories.map((cat) => (

@@ -22,7 +22,7 @@ export const Guide: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
             </div>
             <div className="text-left">
               <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                Guide
+                新人ガイド
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
