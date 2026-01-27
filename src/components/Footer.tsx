@@ -30,18 +30,22 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* 右側：修正依頼ボタン */}
+       {/* 右側：修正依頼ボタン */}
         <div className="w-full md:w-auto">
-          <button className="group w-full md:w-80 flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all active:scale-95">
+          {/* 修正ポイント：背景を白10%に上げ、境界線を白20%に強化。影を追加 */}
+          <button className="group w-full md:w-80 flex items-center justify-between p-5 bg-white/10 hover:bg-emerald-500/20 border border-white/20 rounded-2xl transition-all active:scale-95 shadow-lg">
             <div className="flex items-center gap-4 text-white text-left">
-              <div className="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-lg group-hover:bg-emerald-500 group-hover:text-[#064e3b] transition-all">
-                <Edit3 size={18} />
+              {/* アイコンの背景色を少し明るく */}
+              <div className="p-3 bg-emerald-400/20 text-emerald-400 rounded-xl group-hover:bg-emerald-400 group-hover:text-[#064e3b] transition-all">
+                <Edit3 size={20} />
               </div>
               <div>
-                <div className="text-[13px] font-black leading-none mb-1">修正・更新を依頼する</div>
-                <div className="text-[9px] font-bold text-emerald-400/40 uppercase tracking-widest">Update Request</div>
+                <div className="text-[14px] font-[1000] leading-none mb-1.5 tracking-tight">修正・更新を依頼する</div>
+                {/* 修正ポイント：透明度を 40% -> 80% に引き上げ、視認性を確保 */}
+                <div className="text-[10px] font-black text-emerald-400/80 uppercase tracking-[0.2em]">Update Request</div>
               </div>
             </div>
-            <ChevronRight size={16} className="text-emerald-500 group-hover:translate-x-1 transition-transform" />
+            <ChevronRight size={18} className="text-emerald-500 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

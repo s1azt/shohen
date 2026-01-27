@@ -26,7 +26,7 @@
 @layer base {
   body {
     font-family: var(--font-sans);
-    @apply antialiased text-5xl bg-[#f8fafc];
+    @apply antialiased text-[30px] bg-[#f8fafc];
   }
 }
 
@@ -41,7 +41,7 @@
 
   .header-subtitle-sub {
     /* サブテキストは極端に文字間を広げて建築的な美しさを出す */
-    @apply text-[11px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none;
+    @apply text-[18px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none;
   }
 
   /* 💡 極太アンダーラインの規格 */
