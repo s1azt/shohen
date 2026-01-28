@@ -3,18 +3,17 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  // サーバー上の公開パスに合わせる
-    plugins: [
+  plugins: [
     react(),
     tailwindcss(),
   ],
-  base: '/gs-intra-new/docs/', 
+  // 💡 ここを './' にするのが最大のポイントです
+  base: './', 
   build: {
-    outDir: 'docs', // ビルド先をdocsフォルダに指定
+    outDir: 'docs',
+    emptyOutDir: true,
   },
-  // ...
 })
-
 /*
 export default defineConfig({
   plugins: [
