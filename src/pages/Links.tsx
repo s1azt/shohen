@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { Search, Globe, ArrowUpRight, ExternalLink } from "lucide-react";
 import { linkCollection, LinkItem } from "../data/links";
 
-/**
- * カテゴリ定義
- */
-const categories = ["一覧", "業務・申請", "揮発・運用", "ナレッジ", "ポータル", "社内生活"] as const;
+const categories = ["一覧", "work", "development", "knowledge", "portal", "life"] as const;
 
-/**
- * カラーマッピング（リストバッジ用とカードアクセント用を統合）
- */
 const categoryStyles: Record<string, { badge: string; border: string; icon: string }> = {
   work: { 
     badge: "bg-blue-50 text-blue-600 border-blue-100", 
@@ -52,7 +46,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
 
   return (
     <div className="page-main-container">
-      {/* 💡 ヘッダー：共通規格 */}
+      {/* ヘッダー：共通規格 */}
       <header className={`header-underline-bold ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
         <div className="flex flex-col md:flex-row justify-between items-end gap-8">
           <div className="flex items-center gap-7">
@@ -60,13 +54,13 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
               <Globe size={32} strokeWidth={1.5} />
             </div>
             
-            <div className="text-left">
-              <h2 className={`header-title-main text-6xl ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                リンク集
+             <div className="text-left">
+              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+              リンク集
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
-                <p className="header-subtitle-sub">Internal Resource Directory</p>
+                <p className="header-subtitle-sub">Internal Resource Dictionary</p>
               </div>
             </div>
           </div>
@@ -93,7 +87,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
         </div>
       </header>
 
-      {/* 💡 カテゴリーフィルター（ご指定の深緑デザインを維持） */}
+      {/* カテゴリーフィルター（深緑デザイン） */}
       <div className="flex gap-4 overflow-x-auto pb-8 px-1 scrollbar-hide">
         {categories.map(cat => (
           <button 
@@ -110,15 +104,15 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
         ))}
       </div>
 
-      {/* 💡 表示ロジックの切り替え */}
+      {/* 表示ロジックの切り替え */}
       {activeCategory === "一覧" ? (
-        /* --- 一覧モード: お知らせ風のリスト形式 --- */
-        <div className={`standard-card divide-y shadow-xl animate-in fade-in duration-500 ${
-          isMidnight ? 'bg-slate-800/60 border-slate-700 divide-slate-700' : 'bg-white border-transparent divide-slate-50'
+        /* --- 一覧モード: IDを削除し、遷移時のチラつきを抑えるために border-none を明示 --- */
+        <div className={`rounded-[2.5rem] overflow-hidden divide-y shadow-xl animate-in fade-in duration-500 border-none ${
+          isMidnight ? 'bg-slate-800/60 divide-slate-700' : 'bg-white divide-slate-50'
         }`}>
           {filteredLinks.map((link) => (
             <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-7 hover:bg-slate-50/50 transition-all group">
-              <div className="text-[12px] font-bold text-slate-400 font-mono tracking-tighter w-20 shrink-0">{link.id}</div>
+              {/* ID列を削除しました */}
               <div className="flex items-center gap-5 flex-grow min-w-0">
                 <span className={`text-[9px] font-[1000] px-3 py-1 rounded uppercase tracking-widest border shrink-0 ${
                   isMidnight ? 'bg-slate-700 text-slate-300 border-slate-600' : categoryStyles[link.category].badge
@@ -133,7 +127,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
           ))}
         </div>
       ) : (
-        /* --- カテゴリ別モード: リッチなカード形式 --- */
+        /* --- カテゴリ別モード: カード形式 --- */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in zoom-in-95 duration-500">
           {filteredLinks.map((link) => {
             const style = categoryStyles[link.category];
@@ -143,7 +137,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
                 href={link.url} 
                 target="_blank" 
                 rel="noreferrer" 
-                className={`p-8 standard-card border-none border-t-[5px] shadow-md hover:shadow-2xl aspect-[16/10] flex flex-col justify-between group transition-all duration-500 ${
+                className={`p-8 rounded-[2.5rem] shadow-md hover:shadow-2xl aspect-[16/10] flex flex-col justify-between group transition-all duration-500 border-none border-t-[5px] ${
                   isMidnight ? 'bg-slate-800/60' : 'bg-white'
                 } ${style.border}`}
               >
@@ -160,7 +154,6 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
         </div>
       )}
 
-      {/* 検索結果がゼロの場合 */}
       {filteredLinks.length === 0 && (
         <div className="py-32 text-center text-slate-400 italic text-sm">No resources found matching your search.</div>
       )}

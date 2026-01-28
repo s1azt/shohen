@@ -4,9 +4,9 @@ import { allNews } from "../data/news";
 
 export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState("すべて");
+  const [activeCategory, setActiveCategory] = useState("一覧");
 
-  const categories = ["すべて", "重要", "社内", "通達", "イベント"];
+  const categories = ["一覧", "重要", "社内", "通達", "イベント"];
   
   // NEWバッジの判定ロジック (3日以内)
   const isNewPost = (dateStr: string) => {
@@ -19,7 +19,7 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
 
   const filteredNews = (allNews || []).filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = activeCategory === "すべて" || item.category === activeCategory;
+    const matchesCategory = activeCategory === "一覧" || item.category === activeCategory;
     return matchesSearch && matchesCategory;
   }).sort((a, b) => {
     return new Date(b.date.replace(/\./g, '/')).getTime() - new Date(a.date.replace(/\./g, '/')).getTime();
@@ -35,8 +35,8 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
               <Bell size={32} strokeWidth={1.5} />
             </div>
             <div className="text-left">
-              <h2 className={`header-title-main text-6xl ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                お知らせ
+              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+              お知らせ
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
@@ -62,7 +62,7 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
       {/* カテゴリーフィルター */}
       <div className="flex gap-2 overflow-x-auto pb-4 px-1 scrollbar-hide">
         {categories.map(cat => (
-          <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-6 py-2.5 rounded-xl text-[10px] font-black tracking-widest uppercase transition-all ${activeCategory === cat ? (isMidnight ? "bg-blue-600 text-white shadow-lg" : "bg-[#064e3b] text-white shadow-lg") : "text-slate-400 hover:text-slate-700"}`}>{cat}</button>
+          <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-6 py-2.5 rounded-xl text-[20px] font-black tracking-widest uppercase transition-all ${activeCategory === cat ? (isMidnight ? "bg-blue-600 text-white shadow-lg" : "bg-[#064e3b] text-white shadow-lg") : "text-slate-400 hover:text-slate-700"}`}>{cat}</button>
         ))}
       </div>
 
