@@ -1,32 +1,37 @@
-export const syohen2025 = [
+import { SyohenActivity } from "./index"; // 型を利用する場合
+
+export const syohen2025: SyohenActivity[] = [
   {
     id: 202501,
-    team: "HC60 運用自動化班",
-    members: ["近藤 雅人", "井塚 寛章"],
-    title: "リリース・インフラ情報のカレンダー連携自動化",
-    description: "リリース管理統合システム等をソースとし、HC60関連のリリース・インフラ情報を運用アカウントのカレンダーへ自動連携。Googleカレンダー上でイベントをリアルタイム参照可能に。",
-    results: "情報検索コストを大幅削減し、拠点内の月次レポート作成時間を10%短縮。状況把握の迅速化を実現。",
-    technologies: ["GAS", "API Integration", "Google Workspace"],
-    image: "https://images.unsplash.com/photo-1526401485004-2fda9ca1286e?q=80&w=1470&auto=format&fit=crop"
-  },
-  {
-    id: 202502,
-    team: "HC10 デザイン最適化班",
-    members: ["星崎", "古田", "澤田"],
-    title: "会議室予約システムのUI/UX刷新",
-    description: "操作ステップを最小化し、直感的なフロアマップから空き状況を確認できるインターフェースへ改善。",
-    results: "予約完了までの平均時間が45秒短縮。不適切な重複予約や入力ミスをゼロに。",
-    technologies: ["React", "Tailwind CSS", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=1470&auto=format&fit=crop"
+    team: "Aチーム",
+    category: "DX推進",
+    members: ["中村 未優", "多田 颯真", "西村 勇紀"],
+    title: "社内FAQアプリ　QAST",
+    description: "リリース管理統合システム等をソースとし、HC60関連のリリース・インフラ情報を運用アカウントのカレンダーへ自動連携。",
+    results: "情報検索コストを大幅削減し、拠点内の月次レポート作成時間を10%短縮。",
+    technologies: ["QAST", "API Integration"],
+    pdfUrl: "/pdfs/report_202501.pdf"
   },
   {
     id: 202503,
-    team: "HD70 技術探究班",
-    members: ["新井 隆文", "石鍋 伸悟"],
-    title: "生成AIによる社内ナレッジ検索（RAG）",
-    description: "社内Wiki等の膨大な資料群を対象に、生成AIが回答を生成するナレッジ検索ボットの開発。",
-    results: "サポートデスクへの一次回答待ち時間を解消し、問い合わせ件数を月間20%削減。",
-    technologies: ["Python", "OpenAI API", "Vector Database"],
-    image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?q=80&w=1470&auto=format&fit=crop"
-  }
+    team: "Bチーム",
+    category: "DX推進",
+    members: ["藤本 脩史", "工藤 巧","長井 都珠", "萩森 結斗"],
+    title: "会議室予約状況可視化アプリ",
+    description: "リリース管理統合システム等をソースとし、HC60関連のリリース・インフラ情報を運用アカウントのカレンダーへ自動連携。",
+    results: "情報検索コストを大幅削減し、拠点内の月次レポート作成時間を10%短縮。",
+    technologies: ["GAS", "API Integration"],
+    pdfUrl: "/pdfs/report_202501.pdf"
+  },
+  {
+    id: 202503,
+    team: "Cチーム",
+    category: "DX推進",
+    members: ["正治 悠真", "原 百花", "藤田 彩花", "藤野 奨馬"],
+    title: "GSイントラサイトリニューアル",
+    description: "リリース管理統合システム等をソースとし、HC60関連のリリース・インフラ情報を運用アカウントのカレンダーへ自動連携。",
+    results: "情報検索コストを大幅削減し、拠点内の月次レポート作成時間を10%短縮。",
+    technologies: ["Figma", "API Integration"],
+    pdfUrl: "https://drive.google.com/drive/folders/1x6dYdG9FP3FryZdQJJkN2htzUyYVILiV"
+  },
 ];

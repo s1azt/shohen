@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Search, Globe, ArrowUpRight, ExternalLink } from "lucide-react";
-import { linkCollection, LinkItem } from "../data/links";
+import { linkCollection } from "../data/links";
 
 const categories = ["一覧", "work", "development", "knowledge", "portal", "life"] as const;
 
@@ -56,11 +56,11 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
             
              <div className="text-left">
               <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-              リンク集
+                リンク集
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
-                <p className="header-subtitle-sub">Internal Resource Dictionary</p>
+                <p className="header-subtitle-sub">Link Assets</p>
               </div>
             </div>
           </div>
@@ -87,32 +87,31 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
         </div>
       </header>
 
-      {/* カテゴリーフィルター（深緑デザイン） */}
-      <div className="flex gap-4 overflow-x-auto pb-8 px-1 scrollbar-hide">
+      {/* カテゴリーフィルター（お知らせページとサイズを完全同期） */}
+      <div className="flex gap-2 overflow-x-auto pb-6 px-1 scrollbar-hide">
         {categories.map(cat => (
           <button 
             key={cat} 
             onClick={() => setActiveCategory(cat)} 
-            className={`px-5 py-2 rounded-lg text-sm font-bold tracking-wider transition-all whitespace-nowrap ${
+            className={`px-6 py-2.5 rounded-xl text-[20px] font-black tracking-widest uppercase transition-all whitespace-nowrap ${
               activeCategory === cat 
-                ? (isMidnight ? "bg-blue-600 text-white shadow-md" : "bg-[#14532d] text-white shadow-md") 
-                : (isMidnight ? "text-slate-400 hover:text-slate-200" : "text-slate-600 hover:text-[#14532d]")
+                ? (isMidnight ? "bg-blue-600 text-white shadow-lg" : "bg-[#064e3b] text-white shadow-lg") 
+                : "text-slate-400 hover:text-slate-700"
             }`}
           >
-            {cat === "一覧" ? "一覧" : cat.charAt(0).toUpperCase() + cat.slice(1)}
+            {cat}
           </button>
         ))}
       </div>
 
-      {/* 表示ロジックの切り替え */}
+      {/* コンテンツエリア */}
       {activeCategory === "一覧" ? (
-        /* --- 一覧モード: IDを削除し、遷移時のチラつきを抑えるために border-none を明示 --- */
-        <div className={`rounded-[2.5rem] overflow-hidden divide-y shadow-xl animate-in fade-in duration-500 border-none ${
+        /* 一覧モード：リスト形式 */
+        <div className={`standard-card divide-y shadow-xl animate-in fade-in duration-500 ${
           isMidnight ? 'bg-slate-800/60 divide-slate-700' : 'bg-white divide-slate-50'
         }`}>
           {filteredLinks.map((link) => (
             <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-7 hover:bg-slate-50/50 transition-all group">
-              {/* ID列を削除しました */}
               <div className="flex items-center gap-5 flex-grow min-w-0">
                 <span className={`text-[9px] font-[1000] px-3 py-1 rounded uppercase tracking-widest border shrink-0 ${
                   isMidnight ? 'bg-slate-700 text-slate-300 border-slate-600' : categoryStyles[link.category].badge
@@ -127,7 +126,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
           ))}
         </div>
       ) : (
-        /* --- カテゴリ別モード: カード形式 --- */
+        /* カテゴリ別モード：カード形式 */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in zoom-in-95 duration-500">
           {filteredLinks.map((link) => {
             const style = categoryStyles[link.category];
@@ -137,8 +136,8 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
                 href={link.url} 
                 target="_blank" 
                 rel="noreferrer" 
-                className={`p-8 rounded-[2.5rem] shadow-md hover:shadow-2xl aspect-[16/10] flex flex-col justify-between group transition-all duration-500 border-none border-t-[5px] ${
-                  isMidnight ? 'bg-slate-800/60' : 'bg-white'
+                className={`p-8 rounded-[2.5rem] shadow-md hover:shadow-2xl aspect-[16/10] flex flex-col justify-between group transition-all duration-500 border-t-[5px] ${
+                  isMidnight ? 'bg-slate-800/60' : 'bg-white border-white'
                 } ${style.border}`}
               >
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-sm group-hover:scale-110 ${style.icon}`}>

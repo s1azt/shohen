@@ -1,22 +1,26 @@
-export const syohen2023 = [
+import { SyohenActivity } from "./index"; // 型を利用する場合
+
+export const syohen2023: SyohenActivity[] = [
   {
-    id: 202301,
-    team: "ナレッジ基盤構築班",
-    members: ["鯨井 利毅", "岩井"],
-    title: "全社共通技術Wikiの導入と定着化",
-    description: "属人化していたナレッジを組織知へ変えるため、Markdown形式の技術共有Wikiを構築。",
-    results: "蓄積ドキュメント数が初年度で1000件突破。新人研修期間の2週間短縮に貢献。",
-    technologies: ["Next.js", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1531403001835-42a13a0050d1?q=80&w=1470&auto=format&fit=crop"
+    id: 202501,
+    team: "Aチーム",
+    category: "デザイン最適化",
+    members: ["中村 未優", "多田 颯真", "西村 勇紀"],
+    title: "CI/CDパイプラインの自動化刷新",
+    description: "テストからデプロイまでのプロセスを完全に自動化し、人的作業によるリリースミスを排除。",
+    results: "デプロイ時間が30分から3分へ。リリース頻度が週1回からオンデマンド（毎日）へ向上。",
+    technologies: ["GitHub Actions", "Docker", "Terraform"],
+    pdfUrl: "/pdfs/report_202501.pdf"
   },
   {
-    id: 202302,
-    team: "大阪 ネットワーク改善班",
-    members: ["四方 裕之", "山口 光一郎"],
-    title: "拠点間テレビ会議システムの品質安定化",
-    description: "東京-大阪拠点の専用線帯域制御と通信プロトコルの最適化による品質向上プロジェクト。",
-    results: "会議中の切断率がほぼゼロになり、拠点間コミュニケーションのストレスを解消。",
-    technologies: ["WebRTC", "Network QoS"],
-    image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1470&auto=format&fit=crop"
-  }
+    id: 202503,
+    team: "Bチーム",
+    category: "デザイン最適化",
+    members: ["石田 雄大", "加藤 優子"],
+    title: "勤怠管理システムのモバイル最適化対応",
+    description: "外出先やリモート環境からワンタップで打刻・確認が可能なモバイル専用インターフェースの開発。",
+    results: "打刻忘れが前年比90%減。管理工数が月間約5時間削減され、正確な勤怠管理を支援。",
+    technologies: ["React Native", "Firebase"],
+    pdfUrl: "/pdfs/report_202501.pdf"
+  },
 ];
