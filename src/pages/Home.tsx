@@ -124,22 +124,42 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
         </div>
       </section>
 
-      {/* 2. QUICK ACCESS */}
-      <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {quickAccessLinks.map((link, i) => (
-          <button 
-            key={i} 
-            onClick={() => window.open(link.url, "_blank")}
-            className={`group flex flex-col items-center p-6 rounded-[2.5rem] border shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 ${isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'}`}
-          >
-            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all shadow-inner ${isMidnight ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' : 'bg-slate-50 text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'}`}>
-              {link.icon}
-            </div>
-            <div className={`text-[12px] font-black leading-tight mb-1 text-center transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.label}</div>
-            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">{link.sub}</div>
-          </button>
-        ))}
-      </section>
+ {/* 2. QUICK ACCESS */}
+<section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+  {quickAccessLinks.map((link, i) => (
+    <button 
+      key={i} 
+      onClick={() => window.open(link.url, "_blank")}
+      className={`group flex flex-col items-center py-10 px-6 rounded-[2.5rem] border-[1.5px] shadow-sm hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 ${
+        isMidnight 
+          ? 'bg-slate-800/40 border-slate-500' // 深夜：枠線を500に強化
+          : 'bg-white border-slate-300'       // 通常：枠線を300に強化
+      }`}
+    >
+      {/* アイコンボックスを w-16 → w-20 (80px) に拡大 */}
+      <div className={`w-20 h-20 rounded-[1.8rem] flex items-center justify-center mb-6 transition-all shadow-inner ${
+        isMidnight 
+          ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' 
+          : 'bg-slate-50 text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'
+      }`}>
+        {/* アイコンのサイズを調整（親要素に合わせたスケールアップ） */}
+        {React.cloneElement(link.icon as React.ReactElement, { size: 32, strokeWidth: 2.5 })}
+      </div>
+
+      {/* メインラベルを 13.5px → 15px へ拡大 */}
+      <div className={`text-[15px] font-[1000] leading-none mb-2 text-center whitespace-nowrap transition-colors duration-[3000ms] ${
+        isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'
+      }`}>
+        {link.label}
+      </div>
+
+      {/* サブラベルを 9px → 10px へ拡大 */}
+      <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em]">
+        {link.sub}
+      </div>
+    </button>
+  ))}
+</section>
 
       {/* 3. LATEST NEWS */}
       <section className={`rounded-[3rem] p-10 border shadow-sm space-y-8 transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'}`}>
