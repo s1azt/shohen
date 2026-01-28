@@ -69,8 +69,8 @@ export const Header: React.FC<HeaderProps> = ({
             isMidnight ? "bg-blue-400/20" : "bg-emerald-400/15"
           }`} />
 
-          <h1 className="text-4xl font-black text-white tracking-tighter italic relative z-10">
-            GS PORTAL <span className={`transition-colors duration-[3000ms] ${isMidnight ? "text-blue-400" : "text-emerald-300"}`}>2026</span>
+          <h1 className="text-4xl font-black text-white tracking-tighter  relative z-10">
+            グループシステム部イントラサイト <span className={`transition-colors duration-[3000ms] ${isMidnight ? "text-blue-400" : "text-emerald-300"}`}></span>
           </h1>
           <p className="text-emerald-100/50 text-[10px] font-bold uppercase tracking-[0.5em] mt-1 ml-1 relative z-10">
             Group Systems Department
