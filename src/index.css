@@ -27,7 +27,9 @@
 /* 💡 コンポーネント規格：全ページ共通のデザインルール */
 @layer components {
   
-  /* 1. 【最重要】共通ヘッダータイトル：News, Deadlines, Links等すべてで共通 */
+  /* 1. 【最重要】共通ヘッダータイトル：News, Deadlines, Links等すべてで共通 */  
+  /* お知らせだけ反映してないみたい
+  */
   .header-title-main {
     font-family: 'Inter', sans-serif;
     /* text-6xl (60px) + 極太ウェイト + 詰めた文字間隔 */
@@ -68,6 +70,24 @@
     border-radius: var(--radius-card);
     @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden;
   }
+
+
+  @layer components {
+  /* 💡 ガイド専用：清潔感と構造美を重視したカード */
+  .guide-card {
+    border-radius: var(--radius-card);
+    @apply bg-white border border-slate-100 shadow-sm transition-all duration-500 overflow-hidden flex flex-col;
+  }
+  
+  .guide-card:hover {
+    @apply shadow-2xl -translate-y-1 border-emerald-100;
+  }
+
+  /* 💡 ステップのドット：メインカラーをアクセントに使用 */
+  .guide-step-dot {
+    @apply w-2 h-2 rounded-full bg-[#064e3b] opacity-30 group-hover/step:opacity-100 group-hover/step:scale-125 transition-all;
+  }
+}
 
   /* 7. アニメーション：雨エフェクト */
   @keyframes fall {

@@ -35,8 +35,8 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
               <Bell size={32} strokeWidth={1.5} />
             </div>
             <div className="text-left">
-              <h2 className={`header-title-main text-6xl ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                お知らせ
+              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+              お知らせ
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
