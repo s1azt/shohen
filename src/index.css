@@ -1,104 +1,75 @@
 @import "tailwindcss";
 
-
-@layer components {
-  /* 💡 全ページ共通のタイトルサイズ規格 */
-  .header-title-main {
-    font-family: 'Inter', sans-serif;
-    /* text-5xl（48px）で全ページ統一 */
-    @apply text-5xl font-[1000] tracking-[-0.06em] uppercase leading-none;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* 💡 ヘッダーの底辺ラインと余白の規格 */
-  .header-underline-bold {
-    /* pb-8 で高さを確保し、mb-10 でコンテンツとの距離を固定 */
-    @apply border-b-[6px] transition-colors duration-500 pb-8 mb-10;
-  }
-}
-
+/* 💡 プロジェクト固有の変数を定義 */
 @theme {
   --font-sans: "Inter", "Noto Sans JP", sans-serif;
-  /* 共通の角丸をテーマ変数として定義 */
   --radius-card: 2.5rem;
 }
 
+/* 💡 ベーススタイルの調整 */
 @layer base {
   body {
     font-family: var(--font-sans);
-    @apply antialiased text-[30px] bg-[#f8fafc];
+    /* デフォルトの文字サイズを標準化 */
+    @apply antialiased bg-[#f8fafc] text-[#1a2e25];
+  }
+
+  /* スクロールバーのカスタマイズ（ミニマルデザイン） */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
+/* 💡 コンポーネント規格：全ページ共通のデザインルール */
 @layer components {
-  /* 💡 英語タイポグラフィの格上げ規格 */
+  
+  /* 1. 【最重要】共通ヘッダータイトル：News, Deadlines, Links等すべてで共通 */
   .header-title-main {
-    /* 斜体を廃止し、垂直で重厚なフォントへ。InterのBlack(900-1000)を想定 */
     font-family: 'Inter', sans-serif;
-    @apply text-6xl font-[1000] tracking-[-0.06em] uppercase leading-none;
+    /* text-6xl (60px) + 極太ウェイト + 詰めた文字間隔 */
+    @apply text-4xl font-[1000] tracking-[-0.06em] uppercase leading-none;
     -webkit-font-smoothing: antialiased;
   }
 
+  /* 2. サブタイトル：建築的な広がりを持たせたタイポグラフィ */
   .header-subtitle-sub {
-    /* サブテキストは極端に文字間を広げて建築的な美しさを出す */
-    @apply text-[18px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none;
+    @apply text-[20px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none;
   }
 
-  /* 💡 極太アンダーラインの規格 */
+  /* 3. 極太アンダーライン：画面に水平方向の安定感を与える */
   .header-underline-bold {
-    /* 6pxの厚みで画面を引き締める */
-    @apply border-b-[6px] transition-colors duration-500 pb-6 mb-10;
+    /* 6pxのボーダー、適度なパディング、下部との距離を固定 */
+    @apply border-b-[6px] transition-colors duration-500 pb-8 mb-10;
   }
 
-  /* 💡 アイコンボックスを Squircle（超楕円）化 */
+  /* 4. アイコンボックス：Squircle（超楕円）+ わずかな回転 */
   .header-icon-squircle {
     @apply w-16 h-16 rounded-[1.8rem] flex items-center justify-center text-white shadow-xl flex-shrink-0;
-    /* わずかな回転でプロっぽさを演出 */
     transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+  .header-icon-squircle:hover {
+    transform: rotate(0deg) scale(1.05);
   }
 
-  /* ページ全体の共通コンテナ (ホームのサイズ感) */
+  /* 5. ページ全体の共通コンテナ：コンテンツの幅と余白を固定 */
   .page-main-container {
-    max-width: 72rem; /* max-w-6xl 相当 */
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 2.5rem;
-    padding-bottom: 6rem;
-    display: flex;
-    flex-direction: column;
-    /* 💡 gapを微調整してヘッダーとコンテンツの距離を最適化 */
-    gap: 1.5rem; 
-    text-align: left;
-    transition-property: color, background-color, border-color;
-    transition-duration: 3000ms;
+    max-width: 72rem; /* max-w-6xl */
+    @apply mx-auto px-6 pt-10 pb-24 flex flex-col gap-8 text-left;
+    transition: background-color 3000ms, color 3000ms;
   }
 
-  /* 標準カード (島) */
+  /* 6. 標準カード (島)：浮遊感と角丸を強調 */
   .standard-card {
     border-radius: var(--radius-card);
-    border-width: 1px;
-    border-color: #e2e8f0; /* border-slate-200 */
-    background-color: white;
-    /* 💡 影を少し強めて「島」の浮遊感をアップ */
-    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-    transition-property: all;
-    transition-duration: 500ms;
-    overflow: hidden;
+    @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden;
   }
 
-  /* 泡のアニメーション */
-  @keyframes bubble-rise {
-    0% { transform: translateY(0) scale(1); opacity: 0; }
-    20% { opacity: 0.4; }
-    100% { transform: translateY(-160px) scale(1.4); opacity: 0; }
-  }
-  .animate-bubble {
-    animation: bubble-rise linear infinite;
-  }
-
-  /* 雨のアニメーション */
+  /* 7. アニメーション：雨エフェクト */
   @keyframes fall {
     to { transform: translateY(110vh); }
   }
@@ -112,11 +83,21 @@
     pointer-events: none;
     z-index: 9999;
   }
-}
 
-/* 深夜モードのユーティリティ */
-.is-midnight .bg-white {
-  background-color: rgba(30, 41, 59, 0.7) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  color: #e2e8f0 !important;
+  /* 8. アニメーション：泡（バブル） */
+  @keyframes bubble-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 0.4; }
+    100% { transform: translateY(-160px) scale(1.4); opacity: 0; }
+  }
+  .animate-bubble {
+    animation: bubble-rise linear infinite;
+  }
+
+  /* 9. 深夜モード専用のカードスタイル上書き */
+  .is-midnight .standard-card {
+    background-color: rgba(30, 41, 59, 0.6) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(12px);
+  }
 }

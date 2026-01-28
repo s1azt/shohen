@@ -6,12 +6,12 @@ import { linkCollection, LinkItem } from "../data/links";
  * カテゴリ定義
  */
 const categories = [
-  { id: "all", label: "All Resources", desc: "すべて" },
-  { id: "work", label: "Work", desc: "業務・申請" },
-  { id: "development", label: "Development", desc: "開発・運用" },
-  { id: "knowledge", label: "Knowledge", desc: "ナレッジ" },
-  { id: "portal", label: "Portal", desc: "ポータル" },
-  { id: "life", label: "Life", desc: "社内生活" },
+  { id: "all", label: "一覧", desc: "すべて" },
+  { id: "work", label: "業務・申請", desc: "業務・申請" },
+  { id: "development", label: "開発・運用", desc: "開発・運用" },
+  { id: "knowledge", label: "ナレッジ", desc: "ナレッジ" },
+  { id: "portal", label: "ポータル", desc: "ポータル" },
+  { id: "life", label: "社内生活", desc: "社内生活" },
 ] as const;
 
 /**
@@ -59,7 +59,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
                     onClick={() => setActiveCategory(cat.id)}
                     className="group flex flex-col items-start transition-all"
                   >
-                    <span className={`text-[10px] font-[1000] uppercase tracking-[0.2em] leading-none ${
+                    <span className={`text-[16px] font-[1000] uppercase tracking-[0.2em] leading-none ${
                       activeCategory === cat.id 
                         ? (isMidnight ? "text-blue-400" : "text-[#064e3b]") 
                         : "text-slate-300 hover:text-slate-500"
@@ -98,6 +98,29 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
         </div>
       </header>
 
+      <nav className="flex flex-wrap gap-x-6 gap-y-2 mt-4 ml-1">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className="group flex flex-col items-start transition-all"
+                  >
+                    <span className={`text-[16px] font-[1000] uppercase tracking-[0.2em] leading-none ${
+                      activeCategory === cat.id 
+                        ? (isMidnight ? "text-blue-400" : "text-[#064e3b]") 
+                        : "text-slate-300 hover:text-slate-500"
+                    }`}>
+                      {cat.label}
+                    </span>
+                    <div className={`h-1 mt-1 rounded-full transition-all duration-300 ${
+                      activeCategory === cat.id 
+                        ? `w-full ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}` 
+                        : 'w-0 group-hover:w-4 bg-slate-200'
+                    }`} />
+                  </button>
+                ))}
+              </nav>
+
       {/* 💡 コンテンツエリア：モード切替 */}
       {activeCategory === "all" ? (
         /* --- ALLモード: 全カテゴリーを1つのリストで一括表示 --- */
@@ -105,7 +128,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
           <div className="flex items-baseline gap-4 mb-6 ml-1">
             <div className="w-2 h-8 rounded-full bg-slate-400 opacity-80" />
             <h3 className={`text-2xl font-[1000] tracking-tighter uppercase ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-              Master Index
+              一覧
             </h3>
           </div>
           
