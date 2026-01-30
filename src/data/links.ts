@@ -15,10 +15,11 @@ export interface LinkItem {
 export const linkCollection: LinkItem[] = [
   // 業務・申請 (W-xxx)
   { id: "W-01", title: "カニシステム", url: "http://vo-ov.nekonet.co.jp/YadokariWeb/SRC01Action_doInit.action", desc: "勤怠情報入力・管理", category: "work" },
-  { id: "W-02", title: "感染症罹患報告", url: "http://syshon-redmine.nekonet.co.jp/login?back_url=http%3A%2F%2Fsyshon-redmine.nekonet.co.jp%2Fprojects%2Frikan%2Fissues%3Fquery_id%3D355", desc: "Redmineによる罹患報告・管理", category: "work" },
-  { id: "W-03", title: "SyncTrust", url: "https://synctrust.nekonet.co.jp/smp/login.seam", desc: "認証・ID管理・シングルサインオン", category: "work" },
-  { id: "W-04", title: "タレントパレット", url: "https://tyix8755.talent-p.net/", desc: "人事評価・スキル管理・タレントマネジメント", category: "work" },
+  { id: "W-02", title: "タレントパレット", url: "https://tyix8755.talent-p.net/", desc: "人事評価・スキル管理・タレントマネジメント", category: "work" },
   { id: "W-05", title: "受講管理Web", url: "https://www.appsheet.com/start/69c129f9-7d1e-4afb-97d4-a97611a55be7", desc: "AppSheetによる研修受講・履歴管理", category: "work" },
+  { id: "W-03", title: "感染症罹患報告", url: "http://syshon-redmine.nekonet.co.jp/login?back_url=http%3A%2F%2Fsyshon-redmine.nekonet.co.jp%2Fprojects%2Frikan%2Fissues%3Fquery_id%3D355", desc: "Redmineによる罹患報告・管理", category: "work" },
+  { id: "W-04", title: "SyncTrust", url: "https://synctrust.nekonet.co.jp/smp/login.seam", desc: "認証・ID管理・シングルサインオン", category: "work" },
+  
 
   // 開発・品質・運用 (D-xxx)
   { id: "D-01", title: "NEKO基準ドキュメント", url: "http://gs.nekonet.co.jp/GS_System/systemkaihatu_unyoumanual_kanren.html", desc: "システム開発・運用マニュアル関連資料", category: "development" },
@@ -64,10 +65,10 @@ export const externalLinks = {
 
   // ホーム画面のクイックアクセス用
   homeQuickAccess: {
-    attendance: "http://vo-ov.nekonet.co.jp/YadokariWeb/SRC01Action_doInit.action", // カニシステム
+    attendance: "http://aemlinux3.nekonet.co.jp/aem/aem.php", 
     roomReservation: "https://www.appsheet.com/start/fb74da15-8b0d-498d-8b69-aca67b200277?platform=desktop#appName=%E4%BC%9A%E8%AD%B0%E5%AE%A4%E7%A9%BA%E3%81%8D%E7%8A%B6%E6%B3%81-893884900&vss=H4sIAAAAAAAAA6WOMQ7CMBAE_7K1X-AWUSAEDYgGU5j4IlkkdhQ7QGS5p-MR9Pwq_8AmIOqI8uY0uxtw1nTZeFmcwPfhdy2pB0cQ2PYNCXCBmTW-tZUAE1jLeoTD8zbcHwIR8cC-ticHHqbI_J9mBq3IeF1qanNS9lLCx0rv7CQwGogMdeflsaL31GTEmFhpi86R2qUZk-vdwsyvjTRqZVUKLGXlKL4ALpQxuFsBAAA=&view=%E5%AE%88%E5%8F%A3",
     faq: "https://yneko.qast.jp/home",
-    telework: "https://synctrust.nekonet.co.jp/smp/login.seam", // SyncTrust 等を想定
+    telework: "http://dominoap.nekonet.co.jp/tyo/tyo0993.nsf/MainFrame?OpenFrameSet", 
     wiki: "http://gs.nekonet.co.jp/GS_wiki/",
     training: "https://clipline.jp/training/#/", // E-learn
   }

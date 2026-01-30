@@ -2,25 +2,25 @@ import { SyohenActivity } from "./index"; // 型を利用する場合
 
 export const syohen2023: SyohenActivity[] = [
   {
-    id: 202501,
+    id: 202301,
     team: "Aチーム",
-    category: "デザイン最適化",
-    members: ["中村 未優", "多田 颯真", "西村 勇紀"],
-    title: "CI/CDパイプラインの自動化刷新",
-    description: "テストからデプロイまでのプロセスを完全に自動化し、人的作業によるリリースミスを排除。",
-    results: "デプロイ時間が30分から3分へ。リリース頻度が週1回からオンデマンド（毎日）へ向上。",
-    technologies: ["GitHub Actions", "Docker", "Terraform"],
-    pdfUrl: "/pdfs/report_202501.pdf"
+    category: "技術探究",
+    members: ["海老原 慎也", "西 萌海", "淺井 航志", "志賀 瑞果"],
+    title: "上位職による若手社員向け講義制度構築",
+    description: "ネットワークが広がり、年次を超えて新しい提案が生まれる環境を創出。",
+    results: "コミュニケーションを促し、若い人材に知見やノウハウが共有されていく環境作りに貢献。",
+    technologies: ["knowledge", "communication" ],
+    pdfUrl: "https://drive.google.com/file/d/1qiTLiGr4xgkjE1ggXExICxUR0yfiPe9G/view"
   },
   {
-    id: 202503,
+    id: 202302,
     team: "Bチーム",
-    category: "デザイン最適化",
-    members: ["石田 雄大", "加藤 優子"],
-    title: "勤怠管理システムのモバイル最適化対応",
-    description: "外出先やリモート環境からワンタップで打刻・確認が可能なモバイル専用インターフェースの開発。",
-    results: "打刻忘れが前年比90%減。管理工数が月間約5時間削減され、正確な勤怠管理を支援。",
-    technologies: ["React Native", "Firebase"],
-    pdfUrl: "/pdfs/report_202501.pdf"
+    category: "技術探究",
+    members: ["大高 海音", "篠田 陽介", "鈴木 亜侑", "東野 舜馬"],
+    title: "GS部社員のSQLチューニング知識の向上施策",
+    description: "グループシステム部内共通のSQLチューニング教材の作成。",
+    results: "社員のSQLスキルアップを支援。",
+    technologies: ["SQL", "スキル"],
+    pdfUrl: "https://drive.google.com/file/d/1PDeoVNeoYw-WKn3c-cjToYqzjiptcF78/view"
   },
 ];

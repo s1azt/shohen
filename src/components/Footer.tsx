@@ -1,5 +1,5 @@
 import React from "react";
-import { Phone, Mail, MapPin, Edit3, ChevronRight } from "lucide-react";
+import { User, Phone, Mail, MapPin, Edit3, ChevronRight } from "lucide-react";
 
 interface FooterProps {
   isRaining?: boolean;
@@ -90,12 +90,16 @@ export const Footer: React.FC<FooterProps> = ({ isRaining, isMidnight }) => {
           
           <div className="space-y-3 px-1 opacity-90">
             <div className="flex items-center gap-4">
+              <User size={15} className={isRaining ? 'text-yellow-400' : 'text-emerald-400'} />
+              <span className="text-xs font-bold tabular-nums tracking-wide font-sans">54期小変Cチーム(正治、原、藤田、藤野)</span>
+            </div>
+            <div className="flex items-center gap-4">
               <Phone size={15} className={isRaining ? 'text-yellow-400' : 'text-emerald-400'} />
-              <span className="text-xs font-bold tabular-nums tracking-wide font-sans">03-xxxx-xxxx</span>
+              <span className="text-xs font-bold tabular-nums tracking-wide font-sans">080-6539-3904</span>
             </div>
             <div className="flex items-center gap-4">
               <Mail size={15} className={isRaining ? 'text-yellow-400' : 'text-emerald-400'} />
-              <span className="text-xs font-bold tracking-tight font-sans">gs-portal-support@example.com</span>
+              <span className="text-xs font-bold tracking-tight font-sans">yshoji@nekonet.co.jp</span>
             </div>
           </div>
         </div>
