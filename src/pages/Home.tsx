@@ -121,39 +121,53 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
         </div>
       </section>
 
-      {/* 2. MEGA QUICK ACCESS (3列 × 2段構成に強化) */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {quickAccessLinks.map((link, i) => (
-          <button 
-            key={i} 
-            onClick={() => window.open(link.url, "_blank")}
-            className={`group flex items-center p-10 rounded-[3rem] border-[2px] shadow-sm hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 ${
-              isMidnight 
-                ? 'bg-slate-800/40 border-slate-500' 
-                : 'bg-white border-slate-300'
-            }`}
-          >
-            {/* アイコンボックスをさらに大きく (w-20 → w-24) */}
-            <div className={`w-24 h-24 rounded-[2rem] flex items-center justify-center transition-all shadow-inner shrink-0 ${
-              isMidnight 
-                ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' 
-                : 'bg-slate-50 text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'
-            }`}>
-              {/* アイコンサイズを 32 → 40 へ拡大 */}
-              {React.cloneElement(link.icon as React.ReactElement, { size: 40, strokeWidth: 2.5 })}
-            </div>
+    {/* 2. MEGA QUICK ACCESS BLOCK (枠線をさらに太く強調) */}
+<section className={`rounded-[3rem] p-10 border shadow-sm space-y-8 transition-colors duration-[3000ms] ${
+  isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'
+}`}>
+  {/* セクション見出し */}
+  <div className="flex items-center gap-4 px-2">
+    <div className={`w-2 h-8 rounded-full transition-colors duration-[3000ms] ${isMidnight ? 'bg-blue-500' : 'bg-[#064e3b]'}`} />
+    <h2 className={`text-2xl font-black tracking-tighter transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-100' : 'text-[#1a2e25]'}`}>
+      クイックアクセス
+    </h2>
+  </div>
 
-            <div className="ml-8 text-left">
-              <div className={`text-[20px] font-[1000] leading-none mb-2 transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
-                {link.label}
-              </div>
-              <div className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">
-                {link.sub}
-              </div>
-            </div>
-          </button>
-        ))}
-      </section>
+  {/* グリッドレイアウト */}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {quickAccessLinks.map((link, i) => (
+      <button 
+        key={i} 
+        onClick={() => window.open(link.url, "_blank")}
+        // 💡 border-[1.5px] → border-[2.5px] へ強化
+        // 💡 視認性を上げるため、通常時の透明度を /20 → /40 へアップ
+        className={`group flex items-center p-8 rounded-[2.5rem] border-[2.5px] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+          isMidnight 
+            ? 'bg-slate-900/40 border-emerald-500/40 hover:border-emerald-500/80' 
+            : 'bg-slate-50/30 border-emerald-600/40 hover:bg-white hover:border-[#064e3b]'
+        }`}
+      >
+        {/* アイコンボックス */}
+        <div className={`w-20 h-20 rounded-[1.8rem] flex items-center justify-center transition-all shadow-inner shrink-0 ${
+          isMidnight 
+            ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' 
+            : 'bg-white text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'
+        }`}>
+          {React.cloneElement(link.icon as React.ReactElement, { size: 36, strokeWidth: 2.5 })}
+        </div>
+
+        <div className="ml-6 text-left">
+          <div className={`text-[18px] font-[1000] leading-none mb-1.5 transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
+            {link.label}
+          </div>
+          <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em]">
+            {link.sub}
+          </div>
+        </div>
+      </button>
+    ))}
+  </div>
+</section>
 
       {/* 3. LATEST NEWS (変更なし) */}
       <section className={`rounded-[3rem] p-10 border shadow-sm space-y-8 transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'}`}>
