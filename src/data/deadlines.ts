@@ -20,7 +20,7 @@ export const allDeadlines = [
     id: 2,
     title: "【全従業者対象】54期 第2回 YSD全社メール教育 実施のご案内",
     date: "2026-01-30", // 月のフォーマットを統一しておくと安全です
-    dept: "経理部",
+    dept: "全社",
     iconName: "CircleDollarSign",
     accent: "border-l-[#d97706]",
     bg: "bg-[#fffbeb]",
@@ -31,16 +31,16 @@ export const allDeadlines = [
   },
   {
     id: 3,
-    title: "健康診断予約",
-    date: "2026-01-28",
-    dept: "総務部",
+    title: "「新GSイントラアンケート」回答お願いします。",
+    date: "2026-02-04",
+    dept: "小変Cチーム",
     iconName: "Activity",
     accent: "border-l-[#059669]",
     bg: "bg-[#f0fdf4]",
     border: "border-[#bbf7d0]",
     text: "text-[#166534]",
     btn: "bg-[#059669]",
-    url: "https://clinic.example.com/reserve" // 👈 追加
+    url: "https://forms.gle/TdjoT5nTijufFfMJA" // 👈 追加
   },
   {
     id: 4,
