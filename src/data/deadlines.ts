@@ -35,11 +35,11 @@ export const allDeadlines = [
     date: "2026-02-04",
     dept: "小変Cチーム",
     iconName: "Activity",
-    accent: "border-l-[#dc2626]", // 濃い赤（Red 600）
-    bg: "bg-[#fef2f2]",         // ごく薄い赤（Red 50）
-    border: "border-[#fecaca]",   // 薄い赤の境界線（Red 200）
-    text: "text-[#7f1d1d]",       // 深みのある赤文字（Red 900）
-    btn: "bg-[#dc2626]",          // ボタン用の鮮やかな赤（Red 600）
+    accent: "border-l-[#059669]",
+    bg: "bg-[#f0fdf4]",
+    border: "border-[#bbf7d0]",
+    text: "text-[#166534]",
+    btn: "bg-[#059669]",
     url: "https://forms.gle/TdjoT5nTijufFfMJA" // 👈 追加
   },
   {
