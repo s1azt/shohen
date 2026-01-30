@@ -44,11 +44,17 @@ export default function App() {
     e.preventDefault();
     const query = searchQuery.trim();
     
-    // 軽量版「雨」
-    if (query === "雨" || query === "rain") {
+    // 💡 「雨」または「rain」で環境変化
+    if (query === "雨" || query.toLowerCase() === "rain") {
       setIsRaining(true);
       setSearchQuery("");
+      // 30秒後に自動で止む
       setTimeout(() => setIsRaining(false), 30000);
+      return;
+    }
+
+    if (query === "") {
+      setIsRaining(false);
       return;
     }
 
@@ -69,18 +75,27 @@ export default function App() {
     "documents", "syohen", "column", "construction", "search"
   ];
 
-  // 💡 3. 夜間専用の検索プレースホルダー
-  const searchPlaceholder = isMidnight 
-    ? "静かな夜ですね。何をお探しですか？" 
-    : "社内情報を検索...";
+  // 💡 プレースホルダーの動的切り替え
+  const searchPlaceholder = isRaining
+    ? "雨の音が心地よいですね..."
+    : isMidnight 
+      ? "静かな夜ですね。何をお探しですか？" 
+      : "社内情報を検索...";
 
   return (
-    /* 💡 1. text色の動的変更を追加 (深夜は slate-300 = 薄いグレー) */
-    <div className={`min-h-screen flex flex-col transition-colors duration-[3000ms] ${
+    <div className={`min-h-screen flex flex-col transition-all duration-[3000ms] ease-in-out ${
       isMidnight 
         ? 'bg-[#0a0f1a] text-slate-300' 
-        : 'bg-[#f1f3f5] text-[#064e3b]'
-    } font-sans relative`}>
+        : isRaining 
+          ? 'bg-[#e2e8f0] text-[#1e293b]' 
+          : 'bg-[#f1f3f5] text-[#064e3b]'
+    } font-sans relative`}
+    style={isRaining ? {
+      backgroundImage: isMidnight 
+        ? "radial-gradient(circle at top right, #1e293b, #0a0f1a)" 
+        : "radial-gradient(circle at top right, #f1f5f9, #e2e8f0)"
+    } : {}}
+    >
       
       {/* 軽量雨エフェクト */}
       {isRaining && (
@@ -100,7 +115,6 @@ export default function App() {
         </div>
       )}
 
-      {/* 💡 placeholder プロパティを Header に渡す */}
       <Header 
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -113,7 +127,7 @@ export default function App() {
         placeholder={searchPlaceholder}
       />
 
-      <div className="container mx-auto flex flex-col md:flex-row items-start gap-12 px-6 pb-20">
+      <div className="container mx-auto flex flex-col md:flex-row items-start gap-12 px-6 pb-20 relative z-10">
         <div className="w-full md:w-80 flex-shrink-0 md:sticky md:top-8 h-fit">
           <Sidebar 
             setActiveTab={setActiveTab} 
@@ -123,6 +137,7 @@ export default function App() {
         </div>
         
         <main className="flex-grow min-w-0">
+          {/* 💡 元のPropsなしの形式に戻し、赤波線を解消 */}
           {activeTab === "home" && <Home setActiveTab={setActiveTab} />}
           {activeTab === "deadlines" && <Deadlines />}
           {activeTab === "news" && <News />}
@@ -139,7 +154,8 @@ export default function App() {
         </main>
       </div>
 
-      <Footer />
+      {/* 💡 フッターには状態を渡してカエルを出現させる */}
+      <Footer isRaining={isRaining} isMidnight={isMidnight} />
     </div>
   );
 }
