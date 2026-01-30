@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, Users, Phone, Clock, AlertCircle, CheckCircle2, ChevronRight, FileText, ChevronDown, Headset } from "lucide-react";
+import { MessageSquare, Map, Users, Clock, AlertCircle, ChevronRight, FileText, ChevronDown, Headset, ExternalLink } from "lucide-react";
 import { getAllSections } from "../data/organization";
 import { allDeadlines } from "../data/deadlines";
-import { externalLinks } from "../data/links"; // 💡 追加
+import { externalLinks } from "../data/links";
 
-export const Sidebar: React.FC<{ setActiveTab: any, setActiveSectionId: any, isMidnight?: boolean }> = ({ setActiveTab, setActiveSectionId, isMidnight }) => {
+interface SidebarProps {
+  setActiveTab: (tab: string) => void;
+  setActiveSectionId: (id: string) => void;
+  isMidnight?: boolean;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSectionId, isMidnight }) => {
   const [time, setTime] = useState(new Date());
-  const [showSupport, setShowSupport] = useState(false); // 💡 お問い合わせ先表示用
+  const [showSupport, setShowSupport] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -27,15 +33,14 @@ export const Sidebar: React.FC<{ setActiveTab: any, setActiveSectionId: any, isM
     .slice(0, 5);
 
   return (
-    <aside className="w-full space-y-4 animate-in fade-in duration-500">
+    <aside className="w-full space-y-4 animate-in fade-in duration-500 font-sans">
       
-      {/* 1. CLOCK */}
+      {/* 1. CLOCK (💡 秒針表示を維持) */}
       <div className={`rounded-[2.5rem] p-7 text-center shadow-xl relative overflow-hidden transition-colors duration-[3000ms] ${isMidnight ? 'bg-[#112240]' : 'bg-[#064e3b]'}`}>
         <div className="relative z-10 text-white">
           <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">
             {time.toLocaleDateString('ja-JP', { month: '2-digit', day: '2-digit', weekday: 'short' })}
           </div>
-          {/* 💡 second: '2-digit' を追加 */}
           <div className="text-4xl font-black tabular-nums tracking-tighter leading-none">
             {time.toLocaleTimeString('ja-JP', { 
               hour: '2-digit', 
@@ -71,7 +76,7 @@ export const Sidebar: React.FC<{ setActiveTab: any, setActiveSectionId: any, isM
 
       {/* 3. MENU */}
       <div className="space-y-2">
-        <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group">
+        <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
               <MessageSquare size={18} />
@@ -83,39 +88,39 @@ export const Sidebar: React.FC<{ setActiveTab: any, setActiveSectionId: any, isM
 
         <button 
           onClick={() => window.open(externalLinks.seatingChart, "_blank")} 
-          className="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group"
+          className="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left"
         >
           <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
             <Map size={18} />
           </div>
-          <span className="text-[12px] font-black text-[#1a2e25] text-left">全社座席表</span>
+          <span className="text-[12px] font-black text-[#1a2e25]">全社座席表</span>
         </button>
       </div>
 
-      {/* 4. ORGANIZATION */}
+      {/* 4. ORGANIZATION (💡 ID のみを表示 / PDF直リンク) */}
       <div className="bg-white rounded-[2.5rem] p-5 border border-slate-100 shadow-sm text-left">
         <div className="flex items-center gap-2 mb-3 px-2">
           <Users size={14} className="text-slate-300" />
-          <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Org Charts</h3>
+          <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Org Charts (PDF)</h3>
         </div>
         <div className="space-y-2">
           {sections.map((section) => (
-            <div key={section.id} className="flex gap-1 group/item">
-              <button 
-                onClick={() => { setActiveSectionId(section.id); setActiveTab("team"); }}
-                className="flex-grow flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-[#064e3b] text-[#1a2e25] hover:text-white rounded-l-xl rounded-r-sm text-[12px] font-black transition-all"
-              >
-                <span>{section.id}</span>
-              </button>
-              <button onClick={(e) => { e.stopPropagation(); window.open(section.pdfUrl, "_blank"); }} className="px-3 bg-slate-50 hover:bg-emerald-600 text-slate-300 hover:text-white rounded-r-xl rounded-l-sm transition-all">
-                <FileText size={14} />
-              </button>
-            </div>
+            <button 
+              key={section.id}
+              onClick={() => window.open(section.pdfUrl, "_blank")}
+              className="w-full flex items-center justify-between px-5 py-4 bg-slate-50 hover:bg-[#064e3b] text-[#1a2e25] hover:text-white rounded-2xl transition-all group shadow-sm text-left"
+            >
+              <div className="flex items-center gap-4">
+                <FileText size={18} className="text-slate-300 group-hover:text-emerald-400 transition-colors" />
+                <span className="text-[14px] font-[1000] tracking-tight">{section.id}</span>
+              </div>
+              <ExternalLink size={14} className="text-slate-200 group-hover:text-white opacity-0 group-hover:opacity-100 transition-all" />
+            </button>
           ))}
         </div>
       </div>
 
-      {/* 5. SUPPORT (お問い合わせ先一覧) */}
+      {/* 5. SUPPORT */}
       <div className="space-y-2">
         <button 
           onClick={() => setShowSupport(!showSupport)}
@@ -123,7 +128,7 @@ export const Sidebar: React.FC<{ setActiveTab: any, setActiveSectionId: any, isM
             showSupport ? "bg-white text-[#064e3b] border-2 border-[#064e3b]" : "bg-[#064e3b] text-white"
           }`}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-left">
             <Headset size={14} /> <span>お問い合わせ先一覧</span>
           </div>
           <ChevronDown size={14} className={`transition-transform ${showSupport ? "rotate-180" : ""}`} />

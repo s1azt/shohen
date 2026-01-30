@@ -1,101 +1,133 @@
 @import "tailwindcss";
 
-
-@layer components {
-  /* 💡 全ページ共通のタイトルサイズ規格 */
-  .header-title-main {
-    font-family: 'Inter', sans-serif;
-    /* text-5xl（48px）で全ページ統一 */
-    @apply text-5xl font-[1000] tracking-[-0.06em] uppercase leading-none;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* 💡 ヘッダーの底辺ラインと余白の規格 */
-  .header-underline-bold {
-    /* pb-8 で高さを確保し、mb-10 でコンテンツとの距離を固定 */
-    @apply border-b-[6px] transition-colors duration-500 pb-8 mb-10;
-  }
-}
-
+/* 💡 テーマ・変数定義：サイト全体の共通ルール */
 @theme {
   --font-sans: "Inter", "Noto Sans JP", sans-serif;
-  --radius-card: 2.5rem;
+  --radius-card: 2.5rem; /* 島（カード）の角丸を40pxに固定 */
 }
 
-/* 💡 ベーススタイルの調整 */
+/* 💡 ベーススタイル：html, bodyなどの基本設定 */
 @layer base {
   body {
     font-family: var(--font-sans);
+    /* サイト全体で一貫したテキストと背景色を設定 */
     @apply antialiased text-[30px] bg-[#f8fafc];
   }
 }
 
-/* 💡 コンポーネント規格：全ページ共通のデザインルール */
+/* 💡 コンポーネント規格：全ページ共通のデザインパーツ */
 @layer components {
-  
-  /* 1. 【最重要】共通ヘッダータイトル：News, Deadlines, Links等すべてで共通 */  
-  /* お知らせだけ反映してないみたい
-  */
+
+  /* 1. ページ全体を包むコンテナ：幅と余白を固定 */
+  .page-main-container {
+    max-width: 72rem; /* 最大幅 1152px */
+    @apply mx-auto px-6 pt-10 pb-24 flex flex-col gap-8 text-left;
+    /* 背景色変更時に滑らかに変化させる（深夜モード切り替え用） */
+    transition: background-color 3000ms, color 3000ms;
+  }
+
+  /* 2. ヘッダータイトル：News, Deadlines, Links等すべてのページで共通 */
   .header-title-main {
     font-family: 'Inter', sans-serif;
-    /* text-6xl (60px) + 極太ウェイト + 詰めた文字間隔 */
+    /* text-4xl(36px相当) + 極太ウェイト + 詰めた文字間隔 */
     @apply text-4xl font-[1000] tracking-[-0.06em] uppercase leading-none;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* 2. サブタイトル：建築的な広がりを持たせたタイポグラフィ */
+  /* 3. サブタイトル：装飾的なタイポグラフィ */
   .header-subtitle-sub {
     @apply text-[20px] font-black text-slate-400 uppercase tracking-[0.5em] leading-none;
   }
 
-  /* 3. 極太アンダーライン：画面に水平方向の安定感を与える */
+  /* 4. 極太アンダーライン：ヘッダーの下線規格 */
   .header-underline-bold {
-    /* 6pxのボーダー、適度なパディング、下部との距離を固定 */
+    /* 6pxの太い線 + 下部余白 pb-8 + コンテンツとの距離 mb-10 */
     @apply border-b-[6px] transition-colors duration-500 pb-8 mb-10;
   }
 
-  /* 4. アイコンボックス：Squircle（超楕円）+ わずかな回転 */
+  /* 5. アイコンボックス：超楕円（Squircle）＋ わずかな回転 */
   .header-icon-squircle {
     @apply w-16 h-16 rounded-[1.8rem] flex items-center justify-center text-white shadow-xl flex-shrink-0;
-    transform: rotate(-2deg);
+    transform: rotate(-2deg); /* 少し傾けて遊び心を持たせる */
     transition: transform 0.3s ease;
   }
   .header-icon-squircle:hover {
-    transform: rotate(0deg) scale(1.05);
+    transform: rotate(0deg) scale(1.05); /* ホバー時に水平に戻って少し大きく */
   }
 
-  /* 5. ページ全体の共通コンテナ：コンテンツの幅と余白を固定 */
-  .page-main-container {
-    max-width: 72rem; /* max-w-6xl */
-    @apply mx-auto px-6 pt-10 pb-24 flex flex-col gap-8 text-left;
-    transition: background-color 3000ms, color 3000ms;
+  /* --- 💡 カテゴリータブ規格：お知らせ（News）のデザインにミリ単位で統合 --- */
+
+  /* タブコンテナ：スクロール可能かつスクロールバーを非表示にする */
+  .category-tab-container {
+    @apply flex gap-2 overflow-x-auto pb-6 px-1;
+    -ms-overflow-style: none; /* IE/Edge 用 */
+    scrollbar-width: none;  /* Firefox 用 */
+  }
+  .category-tab-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari 用 */
   }
 
-  /* 6. 標準カード (島)：浮遊感と角丸を強調 */
+  /* タブボタン：お知らせページの「20px」極太規格を強制 */
+  .category-tab-button {
+    @apply px-6 py-2.5 rounded-xl text-[20px] font-black tracking-widest uppercase transition-all whitespace-nowrap border-none cursor-pointer;
+  }
+
+  /* タブのアクティブ状態：通常モード時 */
+  .tab-active-normal {
+    @apply bg-[#064e3b] text-white shadow-lg;
+  }
+  /* タブのアクティブ状態：深夜モード時 */
+  .tab-active-midnight {
+    @apply bg-blue-600 text-white shadow-lg;
+  }
+  /* タブの非アクティブ状態 */
+  .tab-inactive {
+    @apply text-slate-400 hover:text-slate-700 hover:bg-slate-50;
+  }
+
+  /* --- 💡 リスト行の規格 --- */
+
+  /* 標準リスト（お知らせ用）：p-8 のゆったりとしたサイズ */
+  .standard-list-row {
+    @apply flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-8 transition-all relative no-underline;
+  }
+  .standard-list-row:hover {
+    @apply bg-slate-50/50;
+  }
+
+  /* コンパクトリスト（リンク集用）：p-4 で密度を高めたサイズ */
+  .list-row-compact {
+    @apply flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-4 px-8 transition-all relative no-underline;
+  }
+  .list-row-compact:hover {
+    @apply bg-slate-50/50;
+  }
+
+  /* --- 💡 共通ブロック・パーツ --- */
+
+  /* 標準カード（島）：浮遊感のある白い背景ブロック */
   .standard-card {
     border-radius: var(--radius-card);
-    @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden;
+    @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden divide-y divide-slate-50;
   }
 
-
-  @layer components {
-  /* 💡 ガイド専用：清潔感と構造美を重視したカード */
+  /* ガイド専用カード（新人ガイド用） */
   .guide-card {
     border-radius: var(--radius-card);
     @apply bg-white border border-slate-100 shadow-sm transition-all duration-500 overflow-hidden flex flex-col;
   }
-  
   .guide-card:hover {
     @apply shadow-2xl -translate-y-1 border-emerald-100;
   }
 
-  /* 💡 ステップのドット：メインカラーをアクセントに使用 */
+  /* ステップのドット装飾 */
   .guide-step-dot {
-    @apply w-2 h-2 rounded-full bg-[#064e3b] opacity-30 group-hover/step:opacity-100 group-hover/step:scale-125 transition-all;
+    @apply w-2 h-2 rounded-full bg-[#064e3b] opacity-30 transition-all;
   }
-}
 
-  /* 7. アニメーション：雨エフェクト */
+  /* --- 💡 特殊エフェクト ＆ アニメーション --- */
+
+  /* 雨エフェクト（深夜・雨天用） */
   @keyframes fall {
     to { transform: translateY(110vh); }
   }
@@ -110,7 +142,7 @@
     z-index: 9999;
   }
 
-  /* 8. アニメーション：泡（バブル） */
+  /* 泡エフェクト（深夜・晴天用） */
   @keyframes bubble-rise {
     0% { transform: translateY(0) scale(1); opacity: 0; }
     20% { opacity: 0.4; }
@@ -120,10 +152,11 @@
     animation: bubble-rise linear infinite;
   }
 
-  /* 9. 深夜モード専用のカードスタイル上書き */
+  /* 深夜モード専用の上書き設定 */
   .is-midnight .standard-card {
     background-color: rgba(30, 41, 59, 0.6) !important;
     border-color: rgba(255, 255, 255, 0.1) !important;
     backdrop-filter: blur(12px);
+    @apply divide-slate-700;
   }
 }
