@@ -35,8 +35,14 @@ export const Sidebar: React.FC<{ setActiveTab: any, setActiveSectionId: any, isM
           <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">
             {time.toLocaleDateString('ja-JP', { month: '2-digit', day: '2-digit', weekday: 'short' })}
           </div>
+          {/* 💡 second: '2-digit' を追加 */}
           <div className="text-4xl font-black tabular-nums tracking-tighter leading-none">
-            {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+            {time.toLocaleTimeString('ja-JP', { 
+              hour: '2-digit', 
+              minute: '2-digit', 
+              second: '2-digit', 
+              hour12: false 
+            })}
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { allDeadlines } from "../data/deadlines";
 import { allNews } from "../data/news";
-import { externalLinks } from "../data/links"; // 💡 links.ts からインポート
+import { externalLinks } from "../data/links";
 
 interface HomeProps {
   setActiveTab: (tab: string) => void;
@@ -20,7 +20,6 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
   const oneMonthLater = new Date();
   oneMonthLater.setMonth(today.getMonth() + 1);
 
-  // 1. 締め切りデータの加工とソート
   const displayDeadlines = (allDeadlines || [])
     .map(d => ({ 
       ...d, 
@@ -31,7 +30,6 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
     .sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime())
     .slice(0, 3);
 
-  // 2. お知らせを更新日の新しい順にソート（最新3件）
   const latestNews = [...(allNews || [])]
     .sort((a, b) => {
       const dateA = new Date(a.date.replace(/\./g, '/')).getTime();
@@ -40,20 +38,19 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
     })
     .slice(0, 3);
 
-  // 3. クイックアクセスボタンの定義（links.ts の定数を使用）
   const quickAccessLinks = [
-    { label: "勤怠・日報", sub: "Attendance", icon: <Activity size={24} />, url: externalLinks.homeQuickAccess.attendance },
-    { label: "会議室可視化アプリ", sub: "Reservation", icon: <Calendar size={24} />, url: externalLinks.homeQuickAccess.roomReservation },
-    { label: "社内FAQ", sub: "Knowledge", icon: <FileText size={24} />, url: externalLinks.homeQuickAccess.faq },
-    { label: "TW申請", sub: "Telework", icon: <ClipboardList size={24} />, url: externalLinks.homeQuickAccess.telework },
-    { label: "GSうぃき", sub: "Wiki", icon: <Zap size={24} />, url: externalLinks.homeQuickAccess.wiki },
-    { label: "E-ラン", sub: "Training", icon: <GraduationCap size={24} />, url: externalLinks.homeQuickAccess.training },
+    { label: "勤怠・日報", sub: "Attendance", icon: <Activity />, url: externalLinks.homeQuickAccess.attendance },
+    { label: "会議室予約", sub: "Reservation", icon: <Calendar />, url: externalLinks.homeQuickAccess.roomReservation },
+    { label: "社内FAQ", sub: "Knowledge", icon: <FileText />, url: externalLinks.homeQuickAccess.faq },
+    { label: "TW申請", sub: "Telework", icon: <ClipboardList />, url: externalLinks.homeQuickAccess.telework },
+    { label: "GSうぃき", sub: "Wiki", icon: <Zap />, url: externalLinks.homeQuickAccess.wiki },
+    { label: "E-ラン", sub: "Training", icon: <GraduationCap />, url: externalLinks.homeQuickAccess.training },
   ];
 
   return (
-    <div className={`space-y-10 animate-in fade-in duration-700 max-w-6xl mx-auto pb-10 px-4 text-left transition-colors duration-[3000ms]`}>
+    <div className={`space-y-12 animate-in fade-in duration-700 max-w-6xl mx-auto pb-10 px-4 text-left transition-colors duration-[3000ms]`}>
       
-      {/* 1. CRITICAL DEADLINES */}
+      {/* 1. CRITICAL DEADLINES (変更なし) */}
       <section className="space-y-5">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center gap-3">
@@ -124,44 +121,41 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
         </div>
       </section>
 
- {/* 2. QUICK ACCESS */}
-<section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-  {quickAccessLinks.map((link, i) => (
-    <button 
-      key={i} 
-      onClick={() => window.open(link.url, "_blank")}
-      className={`group flex flex-col items-center py-10 px-6 rounded-[2.5rem] border-[1.5px] shadow-sm hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 ${
-        isMidnight 
-          ? 'bg-slate-800/40 border-slate-500' // 深夜：枠線を500に強化
-          : 'bg-white border-slate-300'       // 通常：枠線を300に強化
-      }`}
-    >
-      {/* アイコンボックスを w-16 → w-20 (80px) に拡大 */}
-      <div className={`w-20 h-20 rounded-[1.8rem] flex items-center justify-center mb-6 transition-all shadow-inner ${
-        isMidnight 
-          ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' 
-          : 'bg-slate-50 text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'
-      }`}>
-        {/* アイコンのサイズを調整（親要素に合わせたスケールアップ） */}
-        {React.cloneElement(link.icon as React.ReactElement, { size: 32, strokeWidth: 2.5 })}
-      </div>
+      {/* 2. MEGA QUICK ACCESS (3列 × 2段構成に強化) */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {quickAccessLinks.map((link, i) => (
+          <button 
+            key={i} 
+            onClick={() => window.open(link.url, "_blank")}
+            className={`group flex items-center p-10 rounded-[3rem] border-[2px] shadow-sm hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 ${
+              isMidnight 
+                ? 'bg-slate-800/40 border-slate-500' 
+                : 'bg-white border-slate-300'
+            }`}
+          >
+            {/* アイコンボックスをさらに大きく (w-20 → w-24) */}
+            <div className={`w-24 h-24 rounded-[2rem] flex items-center justify-center transition-all shadow-inner shrink-0 ${
+              isMidnight 
+                ? 'bg-slate-700 text-blue-400 group-hover:bg-blue-600 group-hover:text-white' 
+                : 'bg-slate-50 text-[#064e3b] group-hover:bg-[#064e3b] group-hover:text-white'
+            }`}>
+              {/* アイコンサイズを 32 → 40 へ拡大 */}
+              {React.cloneElement(link.icon as React.ReactElement, { size: 40, strokeWidth: 2.5 })}
+            </div>
 
-      {/* メインラベルを 13.5px → 15px へ拡大 */}
-      <div className={`text-[15px] font-[1000] leading-none mb-2 text-center whitespace-nowrap transition-colors duration-[3000ms] ${
-        isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'
-      }`}>
-        {link.label}
-      </div>
+            <div className="ml-8 text-left">
+              <div className={`text-[20px] font-[1000] leading-none mb-2 transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
+                {link.label}
+              </div>
+              <div className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">
+                {link.sub}
+              </div>
+            </div>
+          </button>
+        ))}
+      </section>
 
-      {/* サブラベルを 9px → 10px へ拡大 */}
-      <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em]">
-        {link.sub}
-      </div>
-    </button>
-  ))}
-</section>
-
-      {/* 3. LATEST NEWS */}
+      {/* 3. LATEST NEWS (変更なし) */}
       <section className={`rounded-[3rem] p-10 border shadow-sm space-y-8 transition-colors duration-[3000ms] ${isMidnight ? 'bg-slate-800/40 border-slate-700' : 'bg-white border-slate-100'}`}>
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center gap-4">

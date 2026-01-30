@@ -54,9 +54,9 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
               <Globe size={32} strokeWidth={1.5} />
             </div>
             
-             <div className="text-left">
+              <div className="text-left">
               <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
-                リンク集
+              リンク集
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
@@ -65,7 +65,6 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
             </div>
           </div>
 
-          {/* 検索窓 */}
           <div className="relative w-full md:w-80 group pb-1">
             <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
               <Search 
@@ -87,16 +86,16 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
         </div>
       </header>
 
-      {/* カテゴリーフィルター（お知らせページとサイズを完全同期） */}
-      <div className="flex gap-2 overflow-x-auto pb-6 px-1 scrollbar-hide">
+      {/* カテゴリーフィルター：サイズ調整とスクロールバー非表示 */}
+      <div className="flex gap-3 overflow-x-auto pb-6 px-1 no-scrollbar [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {categories.map(cat => (
           <button 
             key={cat} 
             onClick={() => setActiveCategory(cat)} 
-            className={`px-6 py-2.5 rounded-xl text-[20px] font-black tracking-widest uppercase transition-all whitespace-nowrap ${
+            className={`px-5 py-2 rounded-xl text-[13px] font-black tracking-[0.15em] uppercase transition-all whitespace-nowrap ${
               activeCategory === cat 
                 ? (isMidnight ? "bg-blue-600 text-white shadow-lg" : "bg-[#064e3b] text-white shadow-lg") 
-                : "text-slate-400 hover:text-slate-700"
+                : "text-slate-400 hover:text-slate-700 hover:bg-slate-50"
             }`}
           >
             {cat}
@@ -106,28 +105,28 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
 
       {/* コンテンツエリア */}
       {activeCategory === "一覧" ? (
-        /* 一覧モード：リスト形式 */
-        <div className={`standard-card divide-y shadow-xl animate-in fade-in duration-500 ${
+        /* 一覧モード：サイズダウンして密度を向上 */
+        <div className={`rounded-[2rem] overflow-hidden divide-y shadow-xl animate-in fade-in duration-500 ${
           isMidnight ? 'bg-slate-800/60 divide-slate-700' : 'bg-white divide-slate-50'
         }`}>
           {filteredLinks.map((link) => (
-            <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-7 hover:bg-slate-50/50 transition-all group">
+            <a key={link.id} href={link.url} target="_blank" rel="noreferrer" className="flex items-center gap-6 p-4 px-8 hover:bg-slate-50/50 transition-all group">
               <div className="flex items-center gap-5 flex-grow min-w-0">
-                <span className={`text-[9px] font-[1000] px-3 py-1 rounded uppercase tracking-widest border shrink-0 ${
+                <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-widest border shrink-0 w-20 text-center ${
                   isMidnight ? 'bg-slate-700 text-slate-300 border-slate-600' : categoryStyles[link.category].badge
                 }`}>{link.category}</span>
                 <div className="min-w-0">
-                  <h4 className={`text-lg font-black truncate tracking-tight transition-transform group-hover:translate-x-1 ${isMidnight ? 'text-slate-200 group-hover:text-blue-400' : 'text-[#1a2e25] group-hover:text-[#064e3b]'}`}>{link.title}</h4>
-                  <p className="text-xs font-bold text-slate-400 truncate mt-0.5 group-hover:translate-x-1 transition-transform">{link.desc}</p>
+                  <h4 className={`text-[15px] font-black truncate tracking-tight transition-transform group-hover:translate-x-1 ${isMidnight ? 'text-slate-200 group-hover:text-blue-400' : 'text-[#1a2e25] group-hover:text-[#064e3b]'}`}>{link.title}</h4>
+                  <p className="text-[11px] font-bold text-slate-400 truncate group-hover:translate-x-1 transition-transform">{link.desc}</p>
                 </div>
               </div>
-              <ArrowUpRight size={18} strokeWidth={2.5} className="opacity-0 group-hover:opacity-100 transition-all text-slate-400" />
+              <ArrowUpRight size={16} strokeWidth={3} className="opacity-0 group-hover:opacity-100 transition-all text-slate-400 shrink-0" />
             </a>
           ))}
         </div>
       ) : (
-        /* カテゴリ別モード：カード形式 */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in zoom-in-95 duration-500">
+        /* カテゴリ別モード：サイズを一元化 */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in zoom-in-95 duration-500">
           {filteredLinks.map((link) => {
             const style = categoryStyles[link.category];
             return (
@@ -136,15 +135,15 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
                 href={link.url} 
                 target="_blank" 
                 rel="noreferrer" 
-                className={`p-8 rounded-[2.5rem] shadow-md hover:shadow-2xl aspect-[16/10] flex flex-col justify-between group transition-all duration-500 border-t-[5px] ${
+                className={`p-8 rounded-[2.5rem] shadow-md hover:shadow-2xl flex flex-col justify-between group transition-all duration-500 border-t-[6px] h-full min-h-[220px] aspect-[16/10] ${
                   isMidnight ? 'bg-slate-800/60' : 'bg-white border-white'
                 } ${style.border}`}
               >
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-sm group-hover:scale-110 ${style.icon}`}>
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all shadow-sm group-hover:scale-110 shrink-0 ${style.icon}`}>
                   <ExternalLink size={24} strokeWidth={2.5} />
                 </div>
-                <div>
-                  <h4 className={`text-xl font-black leading-tight tracking-tight mb-2 ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.title}</h4>
+                <div className="mt-6">
+                  <h4 className={`text-xl font-black leading-tight tracking-tight mb-2 line-clamp-2 ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.title}</h4>
                   <p className="text-xs font-bold text-slate-400 leading-relaxed line-clamp-2">{link.desc}</p>
                 </div>
               </a>
