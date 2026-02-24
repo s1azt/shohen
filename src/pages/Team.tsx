@@ -7,12 +7,16 @@ interface TeamProps {
   isMidnight?: boolean;
 }
 
+// ... 前略 (import部分は変更なし)
+
 export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnight }) => {
   const [localActiveId, setLocalActiveId] = useState(() => {
     return localStorage.getItem("team_selected_section") || initialId || "HC10";
   });
-  // 💡 アニメーションのために、文字列の配列ではなく、オブジェクトのマップやSetで管理する方が効率的ですが、
-  // 既存ロジックを維持しつつアニメーションを実現するため、ここではレンダリングロジック側を変更します。
+  
+  // 💡 expandedTeams は string | null にして、一度に一つだけ開く仕様にするとシンプルです
+  // 複数同時に開けるようにしたい場合は配列のまま filter を使いますが、
+  // 既存の「openした時に他を閉じる」意図を汲み、トグル式に書き換えます。
   const [expandedTeams, setExpandedTeams] = useState<string[]>([]);
 
   useEffect(() => {
@@ -22,12 +26,13 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnig
   const sections = getAllSections();
   const currentSection = getSectionById(localActiveId);
 
-  const openTeam = (teamId: string) => {
-    setExpandedTeams([teamId]); 
-  };
-
-  const closeTeam = (teamId: string) => {
-    setExpandedTeams((prev) => prev.filter((id) => id !== teamId));
+  // 💡 クリックで開閉を切り替えるロジック
+  const toggleTeam = (teamId: string) => {
+    setExpandedTeams((prev) => 
+      prev.includes(teamId) 
+        ? [] // 既に開いていれば閉じる
+        : [teamId] // 閉じていればそのチームを開く（他は閉じる）
+    );
   };
 
   return (
@@ -37,6 +42,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnig
       <div className={`rounded-[2.5rem] p-5 shadow-xl flex flex-col lg:flex-row items-center gap-6 transition-colors duration-[3000ms] ${
         isMidnight ? "bg-[#112240]" : "bg-[#064e3b]"
       }`}>
+        {/* ...ヘッダー中身 (変更なし) */}
         <div className="flex items-center gap-5 px-6 border-r border-white/10 shrink-0">
           <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
             isMidnight ? "bg-blue-400/20 text-blue-400" : "bg-white/10 text-emerald-300"
@@ -68,9 +74,10 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnig
         </div>
       </div>
 
-      {/* 2. セクションインテリジェンス (変更なし) */}
+      {/* 2. セクションインテリジェンス */}
       {currentSection && (
         <div className="space-y-6">
+          {/* ...セクションIntelligence部分 (変更なし) */}
           <div className={`p-10 rounded-[3rem] border shadow-sm relative overflow-hidden transition-colors duration-[3000ms] ${
             isMidnight ? "bg-slate-800/50 border-slate-700" : "bg-white border-slate-100"
           }`}>
@@ -121,15 +128,15 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnig
                 return (
                   <div 
                     key={team.id}
-                    onMouseLeave={() => closeTeam(team.id)}
-                    // 💡 外枠のトランジションも少しゆっくりに調整
+                    // 💡 onMouseLeave を削除しました
                     className={`rounded-[2.2rem] border transition-all duration-500 overflow-hidden ${
                       isExpanded
                         ? (isMidnight ? "border-blue-500 bg-slate-800 shadow-xl" : "border-emerald-500 bg-white shadow-xl")
                         : (isMidnight ? "border-slate-700 bg-slate-800/40 hover:border-blue-900" : "border-slate-100 bg-white hover:border-emerald-200")
                     }`}
                   >
-                    <button onClick={() => openTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left group">
+                    {/* 💡 openTeam(team.id) を toggleTeam(team.id) に変更 */}
+                    <button onClick={() => toggleTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left group">
                       <div className="flex items-center gap-5 min-w-0">
                         <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
                           isExpanded
@@ -148,21 +155,18 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnig
                         </div>
                       </div>
                       
-                      {/* 💡 アイコンの色を濃く調整 */}
                       <div className={`p-2 rounded-full transition-all ${
                         isExpanded
                           ? (isMidnight ? "rotate-180 bg-blue-600 text-white" : "rotate-180 bg-[#064e3b] text-white") 
-                          // 未選択時の色を濃く変更
                           : (isMidnight 
-                              ? "text-slate-300 bg-slate-800 group-hover:bg-slate-700" // 深夜モード
-                              : "text-slate-400 bg-slate-100 group-hover:bg-slate-200" // 通常モード
+                              ? "text-slate-300 bg-slate-800 group-hover:bg-slate-700" 
+                              : "text-slate-400 bg-slate-100 group-hover:bg-slate-200"
                             )
                       }`}>
                         <ChevronDown size={18} />
                       </div>
                     </button>
                     
-                    {/* 💡 滑らかな折りたたみアニメーションの実装 (CSS Grid trick) */}
                     <div className={`grid transition-all duration-400 ease-in-out ${
                       isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     }`}>
@@ -175,9 +179,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId, isMidnig
                             <div className="flex items-center gap-3">
                               <span className={`text-[9px] font-black px-3 py-1 rounded-lg uppercase tracking-widest ${
                                 isMidnight ? "bg-blue-900/40 text-blue-400" : "bg-emerald-50 text-emerald-700"
-                              }`}>
-                                {team.members} Members
-                              </span>
+                              }`}>{team.members} Members</span>
                               <span className="text-[9px] font-black text-slate-400 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
                             </div>
                           </div>
