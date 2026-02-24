@@ -50,9 +50,9 @@ export const organizationData = {
             role: "技術マネージャー",
             description: "バックエンドとインフラを中心とした技術チームを統括。",
             teams: [
-              { id: "HC10-MG1-T1", name: "システム設計チーム", leader: "高橋(仁)", members: 5, description: "全社システムの設計・構成管理を担当。" },
-              { id: "HC10-MG1-T2", name: "インフラ構築チーム", leader: "板橋", members: 6, description: "クラウドインフラとオンプレミスの構築・運用を担当。" },
-              { id: "HC10-MG1-T3", name: "セキュリティチーム", leader: "髙井", members: 4, description: "情報セキュリティ対策の実装と監査を担当。" }
+              { id: "HC10-MG1-T1", name: "収支管理組織運営チーム", leader: "高橋(仁)", members: 5, description: "予算策定、実績管理、および利益率の可視化を行う計数管理システムの開発・運用を担当。" },
+              { id: "HC10-MG1-T2", name: "営業管理請求管理チーム", leader: "板橋", members: 6, description: "受注から契約、請求発行、入金消込までの販売管理プロセスをデジタル化し、正確な債権管理を実現するシステムの構築を担当。" },
+              { id: "HC10-MG1-T3", name: "デジタル業務変革チーム", leader: "髙井", members: 4, description: "情既存のレガシーな業務フローを分析し、最新のIT技術や自動化ツールを用いて社内オペレーションの抜本的な改善を担当。" }
             ]
           },
           {
@@ -61,9 +61,9 @@ export const organizationData = {
             role: "フロントエンド開発マネージャー",
             description: "UI/UXとフロントエンド開発チームを統括。",
             teams: [
-              { id: "HC10-MG2-T1", name: "UI/UX設計チーム", leader: "澤田", members: 4, description: "ユーザーインターフェースとユーザーエクスペリエンスの設計を担当。" },
-              { id: "HC10-MG2-T2", name: "フロントエンド開発チーム", leader: "堀川", members: 6, description: "最新のフロントエンド技術を活用したウェブアプリケーション開発を担当。" },
-              { id: "HC10-MG2-T3", name: "モバイル開発チーム", leader: "國友", members: 5, description: "iOS/Android向けのネイティブ・ハイブリッドアプリ開発を担当。" }
+              { id: "HC10-MG2-T1", name: "資産・委託管理チーム", leader: "澤田", members: 4, description: "社内のハードウェア資産やソフトウェアライセンス、および外部パートナーとの委託契約を一元管理するフロントエンド基盤の構築を担当。" },
+              { id: "HC10-MG2-T2", name: "働き方改革チーム", leader: "堀川", members: 6, description: "リモートワーク支援、コミュニケーション活性化など、従業員のエンゲージメントを高めるための社内ポータルやツールの開発を担当。" },
+              { id: "HC10-MG2-T3", name: "デジタル技術推進チーム", leader: "國友", members: 5, description: "最新のWebフレームワークやモバイル技術の導入検証を行い、プロダクト全体の操作性向上や技術スタックの刷新を担当。" }
             ]
           }
         ]

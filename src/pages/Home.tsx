@@ -107,7 +107,7 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab, isMidnight }) => {
                       <span className={`text-sm font-black tabular-nums transition-colors duration-[3000ms] ${isMidnight ? 'text-slate-300' : item.text}`}>{item.date}</span>
                     </div>
                     <div className={`flex items-center gap-2 px-4 py-2 rounded-xl text-white font-black text-[10px] transition-all group-hover:brightness-110 shadow-md ${isMidnight ? 'bg-blue-600' : item.btn}`}>
-                      手続きへ <ChevronRight size={12} strokeWidth={3} />
+                      詳細へ <ChevronRight size={12} strokeWidth={3} />
                     </div>
                   </div>
                 </a>

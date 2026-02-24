@@ -67,7 +67,7 @@ export const Construction: React.FC<{ target: string, isMidnight?: boolean }> = 
             <Settings size={44} strokeWidth={1} className="text-slate-300" />
           </div>
           <h3 className={`text-3xl font-[1000] mb-4 tracking-tighter uppercase ${isMidnight ? 'text-white' : 'text-slate-800'}`}>
-            Synchronizing...
+            工事中👷...
           </h3>
           <p className="text-slate-400 text-sm max-w-sm leading-relaxed font-bold tracking-tight uppercase opacity-60">
             Fetching latest deployment data for {target} facility.
