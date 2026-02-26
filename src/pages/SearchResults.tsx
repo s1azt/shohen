@@ -1,24 +1,19 @@
 import React from "react";
-// 💡 指定された5つのデータソースのみをインポート
+// 💡 データソースのインポート（プロジェクトの命名規則に準拠）
 import { allDeadlines } from "../data/deadlines";
 import { allNews } from "../data/news";
-import { linkCollection } from "../data/links"; 
+import { linkCollection, externalLinks } from "../data/links"; 
 import { allDocuments } from "../data/documents";
-import { getAllSections } from "../data/organization"; // チーム紹介
+import { getAllSections } from "../data/organization";
+import { allSyohenActivities } from "../data/syohen";
+import { Guide } from "../data/guides"; // 💡 Guide.tsx/guides.ts に対応
+import { Construction } from "../data/locations"; // 💡 index.ts から Construction を取得
 
 import { 
   Search, Clock, ExternalLink, ChevronRight, 
-  AlertCircle, Bell, FileText, Users, ArrowUpRight 
+  AlertCircle, Bell, FileText, Users, ArrowUpRight, 
+  LayoutGrid, Headset, Sparkles, GraduationCap, MapPin 
 } from "lucide-react";
-
-// 💡 リンク集用のカテゴリー色設定
-const linkCategoryStyles: Record<string, string> = {
-  work: "bg-blue-50 text-blue-600 border-blue-100",
-  development: "bg-emerald-50 text-emerald-600 border-emerald-100",
-  knowledge: "bg-amber-50 text-amber-600 border-amber-100",
-  life: "bg-rose-50 text-rose-600 border-rose-100",
-  portal: "bg-indigo-50 text-indigo-600 border-indigo-100",
-};
 
 interface SearchResultsProps {
   query: string;
@@ -32,41 +27,73 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
 
   if (!q) return null;
 
-  // --- 🔍 指定5カテゴリのスキャンエンジン ---
+  // --- 🔍 全方位スキャンエンジン ---
   
-  // 1. 締め切り
+  // 1. 拠点情報 (Construction)
+  const foundLocations = (Construction || []).filter(item => 
+    [item.name, item.address].some(text => text?.toLowerCase().includes(q))
+  );
+
+  // 2. 新人ガイド (Guide)
+  const foundGuides = (Guide || []).filter(item => 
+    [item.title, item.description].some(text => text?.toLowerCase().includes(q))
+  );
+
+  // 3. 締め切り
   const foundDeadlines = (allDeadlines || []).filter(item => 
     [item.title, item.dept].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 2. お知らせ
+  // 4. お知らせ
   const foundNews = (allNews || []).filter(item => 
-    [item.title, item.content, item.category].some(text => text?.toLowerCase().includes(q))
+    [item.title, item.category].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 3. リンク集
+  // 5. リンク集
   const foundLinks = (linkCollection || []).filter(item => 
     [item.title, item.desc, item.category].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 4. ドキュメント
+  // 6. ドキュメント
   const foundDocs = (allDocuments || []).filter(item => 
-    [item.title, item.desc].some(text => text?.toLowerCase().includes(q))
+    [item.title, item.category].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 5. チーム紹介 (セクション名とID)
+  // 7. チーム紹介
   const foundTeams = (getAllSections() || []).filter(item => 
     [item.name, item.id].some(text => text?.toLowerCase().includes(q))
   );
 
-  const totalCount = foundDeadlines.length + foundNews.length + foundLinks.length + foundDocs.length + foundTeams.length;
+  // 8. 小変活動
+  const foundSyohen = (allSyohenActivities || []).filter(item => 
+    [item.title, item.description, item.leader].some(text => text?.toLowerCase().includes(q))
+  );
+
+  // 9. ポータル・サイドバー・お問い合わせ先
+  const portalAndSupportItems = [
+    { title: "部会資料アーカイブ", url: "http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", category: "Sidebar", icon: <FileText size={18} /> },
+    { title: "全社座席表", url: externalLinks.seatingChart, category: "Sidebar", icon: <Users size={18} /> },
+    ...(externalLinks.support || []).map(link => ({
+      title: link.label,
+      url: link.url,
+      category: "Support Info",
+      icon: <Headset size={18} />
+    }))
+  ];
+
+  const foundCommon = portalAndSupportItems.filter(item => 
+    item.title.toLowerCase().includes(q)
+  );
+
+  const totalCount = foundDeadlines.length + foundNews.length + foundLinks.length + 
+                   foundDocs.length + foundTeams.length + foundCommon.length + 
+                   foundSyohen.length + foundGuides.length + foundLocations.length;
 
   return (
     <div className="page-main-container font-sans text-left">
-      {/* 共通ヘッダー規格 */}
       <header className={`header-underline-bold ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
-        <div className="flex flex-col md:flex-row justify-between items-end pb-1">
-          <div className="flex items-center gap-7">
+        <div className="flex flex-col md:flex-row justify-between items-end pb-1 gap-6">
+          <div className="flex items-center gap-7 text-left">
             <div className={`header-icon-squircle ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
               <Search size={32} strokeWidth={1.5} className="text-white" />
             </div>
@@ -74,28 +101,96 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
                 「{query}」の検索結果
               </h2>
-              <div className="flex items-center gap-3 mt-4">
+              <div className="flex items-center gap-3 mt-4 opacity-40 italic">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
-                <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Refined Search</p>
+                <p className="header-subtitle-sub uppercase tracking-[0.4em]">Global Search</p>
               </div>
             </div>
           </div>
-          <div className="bg-[#f4f7f0] px-8 py-3 rounded-3xl border border-[#cbd5c0]/50 text-right">
-            <span className="text-4xl font-[1000] text-[#064e3b] tracking-tighter tabular-nums">{totalCount}</span>
-            <span className="text-[10px] font-black text-[#6b7a5f] uppercase ml-1">Hits</span>
+          <div className={`px-8 py-3 rounded-3xl border ${isMidnight ? 'bg-slate-800 border-slate-700' : 'bg-[#f4f7f0] border-[#cbd5c0]/50'}`}>
+            <span className={`text-4xl font-black tracking-tighter tabular-nums ${isMidnight ? 'text-blue-400' : 'text-[#064e3b]'}`}>{totalCount}</span>
+            <span className="text-[10px] font-black text-slate-400 uppercase ml-2">Hits Found</span>
           </div>
         </div>
       </header>
 
       {totalCount === 0 ? (
-        <div className="py-24 text-center bg-white/50 rounded-[2.5rem] border-2 border-dashed border-[#cbd5c0]">
-          <AlertCircle size={40} className="mx-auto text-[#cbd5c0] mb-4" />
-          <p className="text-[#6b7a5f] font-bold text-lg">一致する情報は見つかりませんでした</p>
+        <div className="py-24 text-center bg-white/50 rounded-[2.5rem] border-2 border-dashed border-slate-200">
+          <p className="text-slate-400 font-bold tracking-widest uppercase italic">No matching assets found</p>
         </div>
       ) : (
-        <div className="space-y-12">
+        <div className="space-y-12 animate-in fade-in duration-500">
           
-          {/* --- 1. 締め切り --- */}
+          {/* --- 拠点情報 (Construction) --- */}
+          {foundLocations.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <MapPin size={14} /> Construction Info ({foundLocations.length})
+              </h3>
+              <div className="standard-card">
+                {foundLocations.map((item, idx) => (
+                  <div key={`loc-${idx}`} onClick={() => setActiveTab("locations")} className="standard-list-row group cursor-pointer">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-slate-50 text-slate-600'}`}>
+                      <MapPin size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow">
+                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.name}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.address}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* --- 新人ガイド (Guide) --- */}
+          {foundGuides.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <GraduationCap size={14} /> Newcomer Guide ({foundGuides.length})
+              </h3>
+              <div className="standard-card">
+                {foundGuides.map((item, idx) => (
+                  <div key={`ob-${idx}`} onClick={() => setActiveTab("onboarding")} className="standard-list-row group cursor-pointer">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-indigo-400' : 'bg-indigo-50 text-indigo-600'}`}>
+                      <GraduationCap size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow">
+                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guide Detail</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* --- お知らせ (News) --- */}
+          {foundNews.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <Bell size={14} /> News Updates ({foundNews.length})
+              </h3>
+              <div className="standard-card">
+                {foundNews.map((item, idx) => (
+                  <div key={`nw-${idx}`} onClick={() => setActiveTab("news")} className="standard-list-row group cursor-pointer">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-emerald-50 text-emerald-600'}`}>
+                      <Bell size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow">
+                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.date} • {item.category}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* --- 締め切り (Deadlines) --- */}
           {foundDeadlines.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-orange-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -103,66 +198,45 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundDeadlines.map((item, idx) => (
-                  <div key={`dl-${idx}`} onClick={() => setActiveTab("deadlines")} className="standard-list-row cursor-pointer">
-                    <div className="w-1.5 h-10 rounded-full bg-orange-400 mr-6"></div>
-                    <div className="flex flex-col flex-grow">
-                      <h4 className={`text-lg font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
-                      <p className="text-[11px] font-bold text-orange-500 uppercase">DUE: {item.date} / {item.dept}</p>
+                  <div key={`dl-${idx}`} onClick={() => setActiveTab("deadlines")} className="standard-list-row group cursor-pointer">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-orange-400' : 'bg-orange-50 text-orange-500'}`}>
+                      <Clock size={18} />
                     </div>
-                    <ChevronRight size={18} className="text-slate-300" />
+                    <div className="flex flex-col flex-grow">
+                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Due: {item.date} • {item.dept}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
                   </div>
                 ))}
               </div>
             </section>
           )}
 
-          {/* --- 2. お知らせ --- */}
-          {foundNews.length > 0 && (
-            <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
-                <Bell size={14} /> Latest News ({foundNews.length})
-              </h3>
-              <div className="standard-card">
-                {foundNews.map((item, idx) => (
-                  <div key={`nw-${idx}`} onClick={() => setActiveTab("news")} className="standard-list-row cursor-pointer">
-                    <div className="bg-emerald-50 p-2 rounded-xl text-emerald-600 mr-4"><Bell size={20} /></div>
-                    <div className="flex flex-col flex-grow">
-                      <h4 className={`text-lg font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
-                      <p className="text-[11px] font-bold text-slate-400">{item.date} | {item.category}</p>
-                    </div>
-                    <ChevronRight size={18} className="text-slate-300" />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* --- 3. リンク集 (コンパクト規格) --- */}
+          {/* --- リンク集 (Links) --- */}
           {foundLinks.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
-                <ExternalLink size={14} /> Quick Links ({foundLinks.length})
+                <ExternalLink size={14} /> Links ({foundLinks.length})
               </h3>
               <div className="standard-card">
                 {foundLinks.map((link, idx) => (
-                  <a key={`lk-${idx}`} href={link.url} target="_blank" rel="noreferrer" className="list-row-compact">
-                    <div className="flex items-center gap-4 w-32 shrink-0">
-                      <span className={`text-[9px] font-[1000] px-3 py-1 rounded uppercase tracking-widest border shrink-0 w-full text-center ${linkCategoryStyles[link.category] || 'bg-slate-100'}`}>
-                        {link.category}
-                      </span>
+                  <a key={`lk-${idx}`} href={link.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-blue-50 text-blue-500'}`}>
+                      <ExternalLink size={18} />
                     </div>
                     <div className="flex flex-col flex-grow min-w-0">
-                      <h4 className={`text-[15px] font-[1000] truncate ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.title}</h4>
-                      <p className="text-[11px] font-bold text-slate-400 truncate mt-0.5 opacity-70">{link.desc}</p>
+                      <h4 className={`text-[17px] font-black truncate ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{link.category} • {link.desc}</p>
                     </div>
-                    <ArrowUpRight size={16} className="text-slate-300" />
+                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-[#064e3b]" />
                   </a>
                 ))}
               </div>
             </section>
           )}
 
-          {/* --- 4. ドキュメント --- */}
+          {/* --- ドキュメント (Documents) --- */}
           {foundDocs.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -170,33 +244,83 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundDocs.map((doc, idx) => (
-                  <a key={`doc-${idx}`} href={doc.url} target="_blank" rel="noreferrer" className="standard-list-row">
-                    <div className="bg-indigo-50 p-2 rounded-xl text-indigo-600 mr-4"><FileText size={20} /></div>
-                    <div className="flex flex-col flex-grow">
-                      <h4 className={`text-lg font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{doc.title}</h4>
-                      <p className="text-[11px] font-bold text-slate-400">{doc.desc}</p>
+                  <a key={`doc-${idx}`} href={doc.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-indigo-400' : 'bg-indigo-50 text-indigo-500'}`}>
+                      <FileText size={18} />
                     </div>
-                    <ExternalLink size={18} className="text-slate-300" />
+                    <div className="flex flex-col flex-grow">
+                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{doc.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{doc.category}</p>
+                    </div>
+                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-[#064e3b]" />
                   </a>
                 ))}
               </div>
             </section>
           )}
 
-          {/* --- 5. チーム紹介 --- */}
+          {/* --- ポータル & サポート --- */}
+          {foundCommon.length > 0 && (
+            <section className="space-y-4">
+              <h3 className={`text-[10px] font-black uppercase tracking-[0.3em] ml-2 flex items-center gap-2 ${isMidnight ? 'text-blue-400' : 'text-slate-500'}`}>
+                <LayoutGrid size={14} /> Portal & Support ({foundCommon.length})
+              </h3>
+              <div className="standard-card">
+                {foundCommon.map((item, idx) => (
+                  <a key={`cm-${idx}`} href={item.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-slate-50 text-slate-400 group-hover:bg-[#064e3b] group-hover:text-white transition-all'}`}>
+                      {item.icon}
+                    </div>
+                    <div className="flex flex-col flex-grow text-left">
+                      <h4 className={`text-[17px] font-black tracking-tight ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</p>
+                    </div>
+                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-[#064e3b]" />
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* --- チーム紹介 (Organization) --- */}
           {foundTeams.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-indigo-900 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Users size={14} /> Organization ({foundTeams.length})
               </h3>
               <div className="standard-card">
                 {foundTeams.map((team, idx) => (
-                  <div key={`tm-${idx}`} onClick={() => { setActiveTab("team"); setActiveSectionId?.(team.id); }} className="standard-list-row cursor-pointer">
-                    <div className="bg-slate-100 p-2 rounded-xl text-slate-600 mr-4"><Users size={20} /></div>
-                    <h4 className={`text-lg font-[1000] flex-grow ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
-                      {team.id} <span className="text-blue-600 ml-2">| {team.name}</span>
+                  <div key={`tm-${idx}`} onClick={() => { setActiveTab("team"); setActiveSectionId?.(team.id); }} className="standard-list-row group cursor-pointer">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                      <Users size={18} />
+                    </div>
+                    <h4 className={`text-[17px] font-black flex-grow text-left ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
+                      {team.id} <span className="ml-2 opacity-50">| {team.name}</span>
                     </h4>
-                    <ChevronRight size={18} className="text-slate-300" />
+                    <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* --- 小変活動 (Syohen) --- */}
+          {foundSyohen.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-[#064e3b] uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <Sparkles size={14} /> Syohen ({foundSyohen.length})
+              </h3>
+              <div className="standard-card">
+                {foundSyohen.map((item, idx) => (
+                  <div key={`sy-${idx}`} onClick={() => setActiveTab("syohen")} className="standard-list-row group cursor-pointer">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-emerald-50 text-[#064e3b]'}`}>
+                      <Sparkles size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow text-left">
+                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Leader: {item.leader}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />
                   </div>
                 ))}
               </div>
@@ -205,6 +329,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
 
         </div>
       )}
+
+      <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.5em] pt-20 opacity-40">
+        End of Global Search Result
+      </p>
     </div>
   );
 };
