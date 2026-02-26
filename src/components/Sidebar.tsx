@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, Users, Clock, AlertCircle, ChevronRight, FileText, ChevronDown, Headset, ExternalLink } from "lucide-react";
-import { getAllSections } from "../data/organization";
+import { MessageSquare, Map, Clock, AlertCircle, ChevronRight, ChevronDown, Headset, FileBox, ExternalLink } from "lucide-react";
 import { allDeadlines } from "../data/deadlines";
 import { externalLinks } from "../data/links";
 
@@ -19,14 +18,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
     return () => clearInterval(timer);
   }, []);
 
-  const sections = getAllSections();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   const upcomingDeadlines = (allDeadlines || [])
     .map(d => ({ 
       ...d, 
-      diffDays: Math.ceil((new Date(d.date).getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) 
+      diffDays: Math.ceil((new Date(d.date.replace(/\./g, '/')).getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) 
     }))
     .filter(d => d.diffDays >= 0 && d.diffDays <= 7)
     .sort((a, b) => a.diffDays - b.diffDays)
@@ -35,46 +33,41 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
   return (
     <aside className="w-full space-y-4 animate-in fade-in duration-500 font-sans">
       
-      {/* 1. CLOCK (💡 秒針表示を維持) */}
+      {/* 1. CLOCK */}
       <div className={`rounded-[2.5rem] p-7 text-center shadow-xl relative overflow-hidden transition-colors duration-[3000ms] ${isMidnight ? 'bg-[#112240]' : 'bg-[#064e3b]'}`}>
         <div className="relative z-10 text-white">
-          <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">
+          <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1 opacity-80 text-center">
             {time.toLocaleDateString('ja-JP', { month: '2-digit', day: '2-digit', weekday: 'short' })}
           </div>
-          <div className="text-4xl font-black tabular-nums tracking-tighter leading-none">
-            {time.toLocaleTimeString('ja-JP', { 
-              hour: '2-digit', 
-              minute: '2-digit', 
-              second: '2-digit', 
-              hour12: false 
-            })}
+          <div className="text-4xl font-black tabular-nums tracking-tighter leading-none text-center">
+            {time.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
           </div>
         </div>
       </div>
 
       {/* 2. UPCOMING DEADLINES */}
-      <div className="bg-white rounded-[2rem] p-4 border border-slate-100 shadow-sm text-left">
-        <div className="flex items-center gap-2 mb-3 px-1">
+      <div className={`rounded-[2rem] p-5 border shadow-sm text-left ${isMidnight ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'}`}>
+        <div className="flex items-center gap-2 mb-4 px-1">
           <AlertCircle size={14} className="text-orange-500" />
           <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Upcoming Deadlines</h3>
         </div>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {upcomingDeadlines.length > 0 ? (
             upcomingDeadlines.map((d, i) => (
-              <div key={i} onClick={() => setActiveTab("deadlines")} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${d.diffDays <= 1 ? "bg-orange-50 border-orange-100 text-orange-700 shadow-sm" : "bg-slate-50 border-transparent text-slate-600 hover:border-slate-200"}`}>
-                <div className="text-[11px] font-black truncate leading-tight pr-2">{d.title}</div>
-                <div className={`shrink-0 text-[9px] font-black px-2 py-0.5 rounded-full ${d.diffDays <= 1 ? "bg-orange-500 text-white" : "bg-slate-200 text-slate-500"}`}>
+              <div key={i} onClick={() => setActiveTab("deadlines")} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${d.diffDays <= 1 ? "bg-red-50 border-red-100 text-red-700 shadow-sm" : "bg-slate-50 border-transparent text-slate-600 hover:border-slate-200"}`}>
+                <div className="text-[11px] font-black truncate pr-2">{d.title}</div>
+                <div className={`shrink-0 text-[8px] font-black px-2 py-0.5 rounded-full ${d.diffDays <= 1 ? "bg-red-500 text-white" : "bg-slate-200 text-slate-500"}`}>
                   {d.diffDays === 0 ? "TODAY" : `あと${d.diffDays}日`}
                 </div>
               </div>
             ))
           ) : (
-            <div className="py-4 text-center text-slate-300 text-[10px] font-black tracking-widest uppercase">No Urgent Tasks</div>
+            <div className="py-4 text-center text-slate-300 text-[10px] font-black tracking-widest uppercase italic">No Urgent Tasks</div>
           )}
         </div>
       </div>
 
-      {/* 3. MENU */}
+      {/* 3. MENU (コラム・座席表) */}
       <div className="space-y-2">
         <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
           <div className="flex items-center gap-4">
@@ -88,37 +81,39 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
 
         <button 
           onClick={() => window.open(externalLinks.seatingChart, "_blank")} 
-          className="w-full flex items-center gap-4 p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left"
+          className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left"
         >
-          <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
-            <Map size={18} />
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
+              <Map size={18} />
+            </div>
+            <span className="text-[12px] font-black text-[#1a2e25]">全社座席表</span>
           </div>
-          <span className="text-[12px] font-black text-[#1a2e25]">全社座席表</span>
+          <ChevronRight size={14} className="text-slate-200" />
         </button>
       </div>
 
-      {/* 4. ORGANIZATION (💡 ID のみを表示 / PDF直リンク) */}
-      <div className="bg-white rounded-[2.5rem] p-5 border border-slate-100 shadow-sm text-left">
-        <div className="flex items-center gap-2 mb-3 px-2">
-          <Users size={14} className="text-slate-300" />
-          <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Org Charts (PDF)</h3>
+      {/* 💡 4. 部会資料バナー (ご指定の4番目に配置) */}
+      <button 
+        onClick={() => window.open("http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", "_blank")}
+        className={`w-full group relative overflow-hidden rounded-[2rem] p-6 text-left transition-all hover:shadow-2xl hover:-translate-y-1 border-none shadow-lg ${
+          isMidnight ? 'bg-slate-800' : 'bg-gradient-to-br from-[#1a2e25] to-[#064e3b] text-white'
+        }`}
+      >
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-2">
+            <div className={`p-1.5 rounded-lg ${isMidnight ? 'bg-blue-600' : 'bg-white/10'}`}>
+              <FileBox size={14} className="text-white" />
+            </div>
+            <span className="text-[9px] font-[1000] uppercase tracking-[0.2em] opacity-60">Strategic Docs</span>
+          </div>
+          <h4 className="text-[14px] font-black leading-tight mb-1">部会資料アーカイブ</h4>
+          <p className="text-[9px] font-bold opacity-50 flex items-center gap-1 uppercase tracking-widest">
+            Execute Detail <ExternalLink size={8} />
+          </p>
         </div>
-        <div className="space-y-2">
-          {sections.map((section) => (
-            <button 
-              key={section.id}
-              onClick={() => window.open(section.pdfUrl, "_blank")}
-              className="w-full flex items-center justify-between px-5 py-4 bg-slate-50 hover:bg-[#064e3b] text-[#1a2e25] hover:text-white rounded-2xl transition-all group shadow-sm text-left"
-            >
-              <div className="flex items-center gap-4">
-                <FileText size={18} className="text-slate-300 group-hover:text-emerald-400 transition-colors" />
-                <span className="text-[14px] font-[1000] tracking-tight">{section.id}</span>
-              </div>
-              <ExternalLink size={14} className="text-slate-200 group-hover:text-white opacity-0 group-hover:opacity-100 transition-all" />
-            </button>
-          ))}
-        </div>
-      </div>
+        <FileBox size={80} className="absolute -right-4 -bottom-4 opacity-10 rotate-12" />
+      </button>
 
       {/* 5. SUPPORT */}
       <div className="space-y-2">
