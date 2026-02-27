@@ -1,18 +1,16 @@
 import React from "react";
-// 💡 データソースのインポート（プロジェクトの命名規則に準拠）
+// 💡 確実に存在するデータソースのみをインポート
 import { allDeadlines } from "../data/deadlines";
 import { allNews } from "../data/news";
 import { linkCollection, externalLinks } from "../data/links"; 
 import { allDocuments } from "../data/documents";
 import { getAllSections } from "../data/organization";
-import { allSyohenActivities } from "../data/syohen";
-import { Guide } from "../data/guides"; // 💡 Guide.tsx/guides.ts に対応
-import { Construction } from "../data/locations"; // 💡 index.ts から Construction を取得
+import { allGuides } from "../data/guides"; 
 
 import { 
   Search, Clock, ExternalLink, ChevronRight, 
   AlertCircle, Bell, FileText, Users, ArrowUpRight, 
-  LayoutGrid, Headset, Sparkles, GraduationCap, MapPin 
+  LayoutGrid, Headset, GraduationCap 
 } from "lucide-react";
 
 interface SearchResultsProps {
@@ -27,49 +25,39 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
 
   if (!q) return null;
 
-  // --- 🔍 全方位スキャンエンジン ---
+  // --- 🔍 スキャンエンジン（安定版：エラー要因を排除） ---
   
-  // 1. 拠点情報 (Construction)
-  const foundLocations = (Construction || []).filter(item => 
-    [item.name, item.address].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 2. 新人ガイド (Guide)
-  const foundGuides = (Guide || []).filter(item => 
+  // 1. 新人ガイド (Guide)
+  const foundGuides = (allGuides || []).filter(item => 
     [item.title, item.description].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 3. 締め切り
+  // 2. 締め切り
   const foundDeadlines = (allDeadlines || []).filter(item => 
     [item.title, item.dept].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 4. お知らせ
+  // 3. お知らせ
   const foundNews = (allNews || []).filter(item => 
     [item.title, item.category].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 5. リンク集
+  // 4. リンク集
   const foundLinks = (linkCollection || []).filter(item => 
     [item.title, item.desc, item.category].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 6. ドキュメント
+  // 5. ドキュメント
   const foundDocs = (allDocuments || []).filter(item => 
     [item.title, item.category].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 7. チーム紹介
+  // 6. チーム紹介
   const foundTeams = (getAllSections() || []).filter(item => 
     [item.name, item.id].some(text => text?.toLowerCase().includes(q))
   );
 
-  // 8. 小変活動
-  const foundSyohen = (allSyohenActivities || []).filter(item => 
-    [item.title, item.description, item.leader].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 9. ポータル・サイドバー・お問い合わせ先
+  // 7. ポータル・サイドバー・お問い合わせ先
   const portalAndSupportItems = [
     { title: "部会資料アーカイブ", url: "http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", category: "Sidebar", icon: <FileText size={18} /> },
     { title: "全社座席表", url: externalLinks.seatingChart, category: "Sidebar", icon: <Users size={18} /> },
@@ -85,9 +73,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
     item.title.toLowerCase().includes(q)
   );
 
+  // 💡 合計カウントの計算（安全な項目のみ）
   const totalCount = foundDeadlines.length + foundNews.length + foundLinks.length + 
                    foundDocs.length + foundTeams.length + foundCommon.length + 
-                   foundSyohen.length + foundGuides.length + foundLocations.length;
+                   foundGuides.length;
 
   return (
     <div className="page-main-container font-sans text-left">
@@ -109,7 +98,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           </div>
           <div className={`px-8 py-3 rounded-3xl border ${isMidnight ? 'bg-slate-800 border-slate-700' : 'bg-[#f4f7f0] border-[#cbd5c0]/50'}`}>
             <span className={`text-4xl font-black tracking-tighter tabular-nums ${isMidnight ? 'text-blue-400' : 'text-[#064e3b]'}`}>{totalCount}</span>
-            <span className="text-[10px] font-black text-slate-400 uppercase ml-2">Hits Found</span>
+            <span className="text-[10px] font-black text-slate-400 uppercase ml-2 tracking-widest">Hits Found</span>
           </div>
         </div>
       </header>
@@ -121,30 +110,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
       ) : (
         <div className="space-y-12 animate-in fade-in duration-500">
           
-          {/* --- 拠点情報 (Construction) --- */}
-          {foundLocations.length > 0 && (
-            <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
-                <MapPin size={14} /> Construction Info ({foundLocations.length})
-              </h3>
-              <div className="standard-card">
-                {foundLocations.map((item, idx) => (
-                  <div key={`loc-${idx}`} onClick={() => setActiveTab("locations")} className="standard-list-row group cursor-pointer">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-slate-50 text-slate-600'}`}>
-                      <MapPin size={18} />
-                    </div>
-                    <div className="flex flex-col flex-grow">
-                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.name}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.address}</p>
-                    </div>
-                    <ChevronRight size={18} className="text-slate-200" />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* --- 新人ガイド (Guide) --- */}
+          {/* 1. 新人ガイド (Guide) */}
           {foundGuides.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -156,7 +122,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-indigo-400' : 'bg-indigo-50 text-indigo-600'}`}>
                       <GraduationCap size={18} />
                     </div>
-                    <div className="flex flex-col flex-grow">
+                    <div className="flex flex-col flex-grow text-left">
                       <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guide Detail</p>
                     </div>
@@ -167,7 +133,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
             </section>
           )}
 
-          {/* --- お知らせ (News) --- */}
+          {/* 2. お知らせ (News) */}
           {foundNews.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -179,7 +145,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-emerald-50 text-emerald-600'}`}>
                       <Bell size={18} />
                     </div>
-                    <div className="flex flex-col flex-grow">
+                    <div className="flex flex-col flex-grow text-left">
                       <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.date} • {item.category}</p>
                     </div>
@@ -190,7 +156,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
             </section>
           )}
 
-          {/* --- 締め切り (Deadlines) --- */}
+          {/* 3. 締め切り (Deadlines) */}
           {foundDeadlines.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-orange-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -202,7 +168,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-orange-400' : 'bg-orange-50 text-orange-500'}`}>
                       <Clock size={18} />
                     </div>
-                    <div className="flex flex-col flex-grow">
+                    <div className="flex flex-col flex-grow text-left">
                       <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
                       <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Due: {item.date} • {item.dept}</p>
                     </div>
@@ -213,7 +179,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
             </section>
           )}
 
-          {/* --- リンク集 (Links) --- */}
+          {/* 4. リンク集 (Links) */}
           {foundLinks.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -225,7 +191,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-blue-50 text-blue-500'}`}>
                       <ExternalLink size={18} />
                     </div>
-                    <div className="flex flex-col flex-grow min-w-0">
+                    <div className="flex flex-col flex-grow min-w-0 text-left">
                       <h4 className={`text-[17px] font-black truncate ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{link.category} • {link.desc}</p>
                     </div>
@@ -236,7 +202,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
             </section>
           )}
 
-          {/* --- ドキュメント (Documents) --- */}
+          {/* 5. ドキュメント (Documents) */}
           {foundDocs.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -248,7 +214,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-indigo-400' : 'bg-indigo-50 text-indigo-500'}`}>
                       <FileText size={18} />
                     </div>
-                    <div className="flex flex-col flex-grow">
+                    <div className="flex flex-col flex-grow text-left">
                       <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{doc.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{doc.category}</p>
                     </div>
@@ -259,7 +225,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
             </section>
           )}
 
-          {/* --- ポータル & サポート --- */}
+          {/* 6. ポータル & サポート */}
           {foundCommon.length > 0 && (
             <section className="space-y-4">
               <h3 className={`text-[10px] font-black uppercase tracking-[0.3em] ml-2 flex items-center gap-2 ${isMidnight ? 'text-blue-400' : 'text-slate-500'}`}>
@@ -282,7 +248,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
             </section>
           )}
 
-          {/* --- チーム紹介 (Organization) --- */}
+          {/* 7. チーム紹介 (Organization) */}
           {foundTeams.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
@@ -297,29 +263,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <h4 className={`text-[17px] font-black flex-grow text-left ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
                       {team.id} <span className="ml-2 opacity-50">| {team.name}</span>
                     </h4>
-                    <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* --- 小変活動 (Syohen) --- */}
-          {foundSyohen.length > 0 && (
-            <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-[#064e3b] uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
-                <Sparkles size={14} /> Syohen ({foundSyohen.length})
-              </h3>
-              <div className="standard-card">
-                {foundSyohen.map((item, idx) => (
-                  <div key={`sy-${idx}`} onClick={() => setActiveTab("syohen")} className="standard-list-row group cursor-pointer">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-emerald-50 text-[#064e3b]'}`}>
-                      <Sparkles size={18} />
-                    </div>
-                    <div className="flex flex-col flex-grow text-left">
-                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Leader: {item.leader}</p>
-                    </div>
                     <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />
                   </div>
                 ))}
