@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MessageSquare, Map, Clock, AlertCircle, ChevronRight, ChevronDown, Headset, FileBox, ExternalLink } from "lucide-react";
-import { allDeadlines } from "../data/deadlines";
+// import { allDeadlines } from "../data/deadlines"; // 不要なインポートをコメントアウト
 import { externalLinks } from "../data/links";
 
 interface SidebarProps {
@@ -21,6 +21,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  // --- 締め切り関連の計算ロジックをコメントアウト ---
+  /*
   const upcomingDeadlines = (allDeadlines || [])
     .map(d => ({ 
       ...d, 
@@ -29,6 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
     .filter(d => d.diffDays >= 0 && d.diffDays <= 7)
     .sort((a, b) => a.diffDays - b.diffDays)
     .slice(0, 5);
+  */
 
   return (
     <aside className="w-full space-y-4 animate-in fade-in duration-500 font-sans">
@@ -45,8 +48,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         </div>
       </div>
 
-      {/* 2. UPCOMING DEADLINES */}
-      <div className={`rounded-[2rem] p-5 border shadow-sm text-left ${isMidnight ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'}`}>
+      {/* --- 2. UPCOMING DEADLINES セクション全体をコメントアウト --- */}
+      {/* <div className={`rounded-[2rem] p-5 border shadow-sm text-left ${isMidnight ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'}`}>
         <div className="flex items-center gap-2 mb-4 px-1">
           <AlertCircle size={14} className="text-orange-500" />
           <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Upcoming Deadlines</h3>
@@ -66,6 +69,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
           )}
         </div>
       </div>
+      */}
 
       {/* 3. MENU (コラム・座席表) */}
       <div className="space-y-2">
@@ -93,7 +97,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         </button>
       </div>
 
-      {/* 💡 4. 部会資料バナー (ご指定の4番目に配置) */}
+      {/* 4. 部会資料バナー */}
       <button 
         onClick={() => window.open("http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", "_blank")}
         className={`w-full group relative overflow-hidden rounded-[2rem] p-6 text-left transition-all hover:shadow-2xl hover:-translate-y-1 border-none shadow-lg ${

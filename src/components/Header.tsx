@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const menuItems = [
     { id: "home", label: "ホーム", icon: <Home size={18} /> },
-    { id: "deadlines", label: "締め切り", icon: <Clock size={18} /> },
+    // { id: "deadlines", label: "締め切り", icon: <Clock size={18} /> }, // 💡 締め切りをコメントアウト
     { id: "news", label: "お知らせ", icon: <Info size={18} /> },
     { id: "links", label: "リンク集", icon: <IconLink size={18} /> },
     { id: "team", label: "チーム紹介", icon: <Users size={18} /> },
