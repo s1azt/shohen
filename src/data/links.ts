@@ -46,6 +46,7 @@ export const linkCollection: LinkItem[] = [
   { id: "L-03", title: "貸出備品(HC10)", url: "https://docs.google.com/spreadsheets/d/1SSVyY4SXMohWEZOgTUE5uJDULUcGZbzNQnmThNnAjrw/edit?gid=926235174", desc: "HC10管理の貸出備品スプレッドシート", category: "life" },
   { id: "L-04", title: "おべんとねっと", url: "https://www.obentonet.jp/item_list.html?deliveryDate=today", desc: "昼食予約・お弁当注文システム", category: "life" },
   { id: "L-05", title: "サイネージ", url: "http://sysign.nekonet.co.jp/signagesp/login", desc: "社内サイネージコンテンツ管理", category: "life" },
+  { id: "L-06", title: "倉庫・ラック管理", url: "https://chat.google.com/room/AAQADe1EbAw/CXZIP6d2wFw/CXZIP6d2wFw?cls=10", desc: "", category: "life" },
 ];
 
 /**
