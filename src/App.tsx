@@ -143,7 +143,8 @@ export default function App() {
           {activeTab === "news" && <News />}
           {activeTab === "links" && <Links />}
           {activeTab === "team" && <Team activeSectionId={activeSectionId} />}
-          {activeTab === "guide" && <Guide />}
+          {/*{activeTab === "guide" && <Guide />}*/}
+          {activeTab === "guide" && <Construction target="新人ガイド" />}
           {activeTab === "documents" && <Documents />}
           {activeTab === "syohen" && <Syohen />}
           {activeTab === "column" && <Column />} 
