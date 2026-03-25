@@ -1,11 +1,11 @@
 export const allNews = [
   { 
     id: 1, 
-    date: "2026.01.22", 
+    date: "2026.03.17", 
     category: "重要", 
-    title: "セキュリティソフトのアップデートについて", 
+    title: "【即時対応必須】ブラウザのアップデート実施のお願い", 
     color: "text-red-500",
-    url: "/news/security-update" // 社内リンクまたは外部URL
+    url: "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1c05_VnX__sp2yg4GGAtNJI18ac6Xq1R6/view?usp=drive_link" // 社内リンクまたは外部URL
   },
   { 
     id: 2, 
@@ -17,19 +17,19 @@ export const allNews = [
   },
   { 
     id: 3, 
-    date: "2026.01.10", 
-    category: "通達", 
-    title: "新任マネージャー研修の実施について", 
+    date: "2026.03.25", 
+    category: "イベント", 
+    title: "【UXUI推進】Figma活用イベント～スプシ/エクセル設計書→Figma移行デモ～3/25　13:00）", 
     color: "text-blue-600",
-    url: "/news/training-2026"
+    url: "http://192.168.8.205/wordpress/UIUX-LAB/docs/figma-demo-event.html"
   },
   { 
     id: 4, 
-    date: "2026.01.05", 
-    category: "イベント", 
-    title: "社内親睦ゴルフコンペのご案内", 
+    date: "2026.03.17", 
+    category: "通達", 
+    title: "《2025年度下期》目標達成度評価実施のご案内", 
     color: "text-emerald-600",
-    url: "/news/golf-event"
+    url: "http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C96226947B2E3EA249258DBD00262F3B"
   },
   { 
     id: 5, 
