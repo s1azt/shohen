@@ -39,14 +39,14 @@ export const organizationData = {
       {
         id: "HC10",
         name: "HC10",
-        smg: "星崎",
+        smg: "星崎 修司",
         //description: "システム設計・開発部門。システムアーキテクチャの設計からUI/UX、モバイル開発まで幅広く担当。",
         pdfUrl: "https://drive.google.com/file/d/1C_2a2B4le1Z-gmYxKRncCe4In6vBsKyd/view",
         directMembers: [],
         managers: [
           {
             id: "HC10-MG1",
-            name: "倉澤",
+            name: "倉澤 昭博",
             role: "技術マネージャー",
             description: "バックエンドとインフラを中心とした技術チームを統括。",
             teams: [
@@ -57,7 +57,7 @@ export const organizationData = {
           },
           {
             id: "HC10-MG2",
-            name: "古田",
+            name: "古田 祥市",
             role: "フロントエンド開発マネージャー",
             description: "UI/UXとフロントエンド開発チームを統括。",
             teams: [
@@ -141,14 +141,14 @@ export const organizationData = {
       {
         id: "HD10",
         name: "HD10",
-        smg: "岩井",
+        smg: "岩井 卓也",
         //description: "サービス企画・開発部門。新規サービスの企画からリサーチ、開発までを一貫して担当。",
         pdfUrl: "https://drive.google.com/file/d/1ps8E9tpXB_jfPsepurDv3JJ-bsEn3p00/view",
         directMembers: [],
         managers: [
           {
             id: "HD10-MG1",
-            name: "山田",
+            name: "山田 真一",
             role: "サービス開発マネージャー",
             teams: [
               { id: "HD10-MG1-T1", name: "機販サプライチーム", leader: "湯上", members: 4, description: "" },
