@@ -138,9 +138,7 @@ export const Documents: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
         )}
       </div>
 
-      <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.5em] pt-12 opacity-40">
-        Strategic Library Endpoint
-      </p>
+
     </div>
   );
 };

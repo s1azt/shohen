@@ -62,16 +62,18 @@ export const allDocuments = [
     id: 8, 
     title: "ユニット長向けの収支勉強会", 
     category: "施策・研修情報", 
-    url: "https://〇〇.com", 
+    url: "https://drive.google.com/file/d/1vyBvab2N0qiwt6ftGRUgOpneL3LLNK-h/view?usp=sharing", 
     updateDate: "2025-09-12" 
   },
   { 
     id: 9, 
     title: "バックオフィス業務のDX対応事例", 
     category: "施策・研修情報", 
-    url: "https://〇〇.com", 
+    url: "https://drive.google.com/file/d/1DdVVcJSsYKNW5M3UNB_NzS_DXdxnTRHs/view?usp=sharing", 
     updateDate: "2025-09-12" 
   },
+ 
+ /*
   { 
     id: 10, 
     title: "キャリアカフェ", 
@@ -79,4 +81,6 @@ export const allDocuments = [
     url: "https://〇〇.com", 
     updateDate: "2025-09-12" 
   },
+
+  */
 ];
