@@ -39,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
       {/* 1. CLOCK */}
       <div className={`rounded-[2.5rem] p-7 text-center shadow-xl relative overflow-hidden transition-colors duration-[3000ms] ${isMidnight ? 'bg-[#112240]' : 'bg-[#064e3b]'}`}>
         <div className="relative z-10 text-white">
-          <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1 opacity-80 text-center">
+          <div className="text-[20px] font-black text-emerald-400 uppercase tracking-widest mb-1 opacity-80 text-center">
             {time.toLocaleDateString('ja-JP', { month: '2-digit', day: '2-digit', weekday: 'short' })}
           </div>
           <div className="text-4xl font-black tabular-nums tracking-tighter leading-none text-center">
@@ -73,30 +73,32 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
 
       {/* 3. MENU (コラム・座席表) */}
       <div className="space-y-2">
-        <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
-              <MessageSquare size={18} />
-            </div>
-            <span className="text-[12px] font-black text-[#1a2e25]">今週のコラム</span>
-          </div>
-          <ChevronRight size={14} className="text-slate-200" />
-        </button>
 
         <button 
           onClick={() => window.open(externalLinks.seatingChart, "_blank")} 
           className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
-              <Map size={18} />
+            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
+              <Map size={20} />
             </div>
-            <span className="text-[12px] font-black text-[#1a2e25]">全社座席表</span>
+            <span className="text-[15px] font-black text-[#1a2e25]">全社座席表</span>
           </div>
           <ChevronRight size={14} className="text-slate-200" />
         </button>
-      </div>
+      
 
+        <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-[#064e3b] group-hover:text-white transition-all">
+              <MessageSquare size={20} />
+            </div>
+            <span className="text-[15px] font-black text-[#1a2e25]">今週のコラム</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-200" />
+        </button>
+</div>
+        
       {/* 4. 部会資料バナー */}
       <button 
         onClick={() => window.open("http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", "_blank")}
@@ -111,9 +113,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
             </div>
             <span className="text-[9px] font-[1000] uppercase tracking-[0.2em] opacity-60">Strategic Docs</span>
           </div>
-          <h4 className="text-[14px] font-black leading-tight mb-1">部会資料アーカイブ</h4>
+          <h4 className="text-[20px] font-black leading-tight mb-1">部会資料アーカイブ</h4>
           <p className="text-[9px] font-bold opacity-50 flex items-center gap-1 uppercase tracking-widest">
-            Execute Detail <ExternalLink size={8} />
+           
           </p>
         </div>
         <FileBox size={80} className="absolute -right-4 -bottom-4 opacity-10 rotate-12" />
