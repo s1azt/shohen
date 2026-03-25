@@ -26,7 +26,7 @@ export const allDocuments = [
   { 
     id: 3, 
     title: "AI活用PoC", 
-    category: "AI活用PoC_遺伝的アルゴリズム", 
+    category: "AI活用PoC", 
     url: "http://192.168.8.205/wordpress/wp-content/uploads/2023/08/3edcb91e801dc7fe33342f2df2be83f0.pdf", 
     updateDate: "2023-06-30" 
   },

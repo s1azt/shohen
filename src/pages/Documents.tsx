@@ -4,14 +4,14 @@ import { allDocuments } from "../data/documents";
 
 export const Documents: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("すべて");
+  const [activeTab, setActiveTab] = useState("一覧");
 
   // カテゴリー一覧を自動生成
-  const categories = ["すべて", ...Array.from(new Set(allDocuments.map(doc => doc.category)))];
+  const categories = ["一覧", ...Array.from(new Set(allDocuments.map(doc => doc.category)))];
 
   // フィルタリングロジック
   const filteredDocs = (allDocuments || []).filter(doc => {
-    const matchesTab = activeTab === "すべて" || doc.category === activeTab;
+    const matchesTab = activeTab === "一覧" || doc.category === activeTab;
     const matchesSearch = doc.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           doc.category.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesTab && matchesSearch;
@@ -32,7 +32,7 @@ export const Documents: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
-                <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Library & Templates</p>
+                <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Documents</p>
               </div>
             </div>
           </div>
