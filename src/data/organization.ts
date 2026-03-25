@@ -50,9 +50,9 @@ export const organizationData = {
             role: "技術マネージャー",
             description: "バックエンドとインフラを中心とした技術チームを統括。",
             teams: [
-              { id: "HC10-MG1-T1", name: "収支管理組織運営チーム", leader: "高橋(仁)", members: 5, description: "" },
-              { id: "HC10-MG1-T2", name: "営業管理請求管理チーム", leader: "板橋", members: 6, description: "" },
-              { id: "HC10-MG1-T3", name: "デジタル業務変革チーム", leader: "髙井", members: 4, description: "" }
+              { id: "HC10-MG1-T1", name: "収支管理組織運営チーム", leader: "高橋 仁", members: 5, description: "" },
+              { id: "HC10-MG1-T2", name: "営業管理請求管理チーム", leader: "板橋 美智子", members: 6, description: "" },
+              { id: "HC10-MG1-T3", name: "デジタル業務変革チーム", leader: "髙井 勇輝", members: 4, description: "" }
             ]
           },
           {
@@ -61,9 +61,9 @@ export const organizationData = {
             role: "フロントエンド開発マネージャー",
             description: "UI/UXとフロントエンド開発チームを統括。",
             teams: [
-              { id: "HC10-MG2-T1", name: "資産・委託管理チーム", leader: "澤田", members: 4, description: "" },
-              { id: "HC10-MG2-T2", name: "働き方改革チーム", leader: "堀川", members: 6, description: "" },
-              { id: "HC10-MG2-T3", name: "デジタル技術推進チーム", leader: "國友", members: 5, description: "" }
+              { id: "HC10-MG2-T1", name: "資産・委託管理チーム", leader: "澤田 ひとみ", members: 4, description: "" },
+              { id: "HC10-MG2-T2", name: "働き方改革チーム", leader: "堀川 沙智", members: 6, description: "" },
+              { id: "HC10-MG2-T3", name: "デジタル技術推進チーム", leader: "國友 輝美", members: 5, description: "" }
             ]
           }
         ]
@@ -151,9 +151,9 @@ export const organizationData = {
             name: "山田 真一",
             role: "サービス開発マネージャー",
             teams: [
-              { id: "HD10-MG1-T1", name: "機販サプライチーム", leader: "湯上", members: 4, description: "" },
-              { id: "HD10-MG1-T2", name: "情報系NWチーム", leader: "小野崎", members: 3, description: "" },
-              { id: "HD10-MG1-T3", name: "保守チーム", leader: "中村", members: 2, description: "" }
+              { id: "HD10-MG1-T1", name: "機販サプライチーム", leader: "湯上 恵利佳", members: 4, description: "" },
+              { id: "HD10-MG1-T2", name: "情報系NWチーム", leader: "小野崎 竜也", members: 3, description: "" },
+              { id: "HD10-MG1-T3", name: "保守チーム", leader: "中村 都", members: 2, description: "" }
             ]
           }
         ]
