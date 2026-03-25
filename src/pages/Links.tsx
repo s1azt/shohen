@@ -4,24 +4,23 @@ import { linkCollection } from "../data/links";
 
 export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState("すべて");
+  const [activeCategory, setActiveCategory] = useState("一覧");
 
-  const categories = ["すべて", "業務ツール", "開発・技術", "ナレッジ", "ポータル", "社内生活"] as const;
+  const categories = ["一覧", "勤怠・業務管理", "開発・運用関連", "晴海オフィス関連", "人材育成関連"] as const;
 
   const categoryMap: Record<string, string> = {
-    "すべて": "すべて",
-    "業務ツール": "work",
-    "開発・技術": "development",
-    "ナレッジ": "knowledge",
-    "ポータル": "portal",
-    "社内生活": "life"
+    "一覧": "一覧",
+    "勤怠・業務管理": "work",
+    "開発・運用関連": "development",
+    "晴海オフィス関連": "life",
+    "人材育成関連": "portal",
   };
 
   // カテゴリごとの配色定義
   const colorMap: Record<string, { bg: string; text: string; border: string; icon: string }> = {
     work: { bg: "bg-emerald-50/50", text: "text-emerald-700", border: "border-emerald-100", icon: "text-emerald-500" },
     development: { bg: "bg-blue-50/50", text: "text-blue-700", border: "border-blue-100", icon: "text-blue-500" },
-    knowledge: { bg: "bg-amber-50/50", text: "text-amber-700", border: "border-amber-100", icon: "text-amber-500" },
+    harumi: { bg: "bg-amber-50/50", text: "text-amber-700", border: "border-amber-100", icon: "text-amber-500" },
     portal: { bg: "bg-indigo-50/50", text: "text-indigo-700", border: "border-indigo-100", icon: "text-indigo-500" },
     life: { bg: "bg-rose-50/50", text: "text-rose-700", border: "border-rose-100", icon: "text-rose-500" },
   };
@@ -31,7 +30,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
       link.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
       link.desc.toLowerCase().includes(searchTerm.toLowerCase());
     const activeKey = categoryMap[activeCategory];
-    const matchesCategory = activeKey === "すべて" || link.category === activeKey;
+    const matchesCategory = activeKey === "一覧" || link.category === activeKey;
     return matchesSearch && matchesCategory;
   });
 
@@ -82,7 +81,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
       </div>
 
       {/* 3. コンテンツ表示エリア */}
-      {activeCategory === "すべて" ? (
+      {activeCategory === "一覧" ? (
         /* --- 縦並びリスト形式（すべて表示時） --- */
         <div className={`standard-card overflow-hidden shadow-xl border-none divide-y transition-all duration-700 ${
           isMidnight ? 'bg-slate-800/60 border-slate-700 divide-slate-700' : 'bg-white border-transparent divide-slate-50'
@@ -145,7 +144,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
 
                 <div className={`mt-auto pt-4 border-t border-dashed ${isMidnight ? 'border-slate-700' : 'border-black/5'}`}>
                   <span className={`text-[9px] font-black uppercase tracking-[0.2em] ${isMidnight ? 'text-blue-400/60' : colors.text}`}>
-                    {activeCategory} Asset
+                    {activeCategory} 
                   </span>
                 </div>
               </a>
