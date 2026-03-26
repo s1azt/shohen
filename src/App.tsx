@@ -162,7 +162,7 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-[3000ms] ease-in-out ${
       themeName === 'black'
-        ? 'bg-[#09090b] text-slate-200'
+        ? 'bg-[#1a1a22] text-slate-200'
         : isRaining 
           ? 'bg-[#e2e8f0] text-[#1e293b]' 
           : 'bg-[#f1f3f5] text-[#064e3b]'
