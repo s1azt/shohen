@@ -115,27 +115,32 @@ export const Links: React.FC = () => {
                 href={link.url} 
                 target="_blank" 
                 rel="noreferrer" 
-                className={`group flex flex-col p-7 rounded-[2.5rem] border-2 transition-none hover:-translate-y-2 hover:shadow-2xl no-underline text-left relative overflow-hidden ${colors.bg} ${colors.border} hover:brightness-105`}
+                className={`group flex flex-col rounded-[2.5rem] border transition-none hover:-translate-y-2 hover:shadow-2xl no-underline text-left relative overflow-hidden bg-(--gs-card-bg) border-slate-100 hover:border-slate-200`}
               >
-                <div className="flex justify-between items-start mb-6">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white`}>
-                    <ExternalLink size={24} />
-                  </div>
-                  <ArrowUpRight size={20} strokeWidth={3} className={`${colors.icon} group-hover:text-(--gs-text-primary)`} />
-                </div>
-                
-                <h4 className={`text-[17px] font-[1000] tracking-tight leading-tight mb-3 ${colors.text}`}>
-                  {link.title}
-                </h4>
-                
-                <p className={`text-[12px] font-bold leading-relaxed line-clamp-3 mb-4 ${colors.text}/70`}>
-                  {link.desc}
-                </p>
+                {/* カテゴリカラーの上部アクセントバー */}
+                <div className={`h-1.5 w-full ${colors.iconBg}`} />
 
-                <div className="mt-auto pt-4 border-t border-dashed border-black/5">
-                  <span className={`text-[9px] font-black uppercase tracking-[0.2em] ${colors.text}`}>
-                    {activeCategory} 
-                  </span>
+                <div className="p-7 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-colors`}>
+                      <ExternalLink size={24} />
+                    </div>
+                    <ArrowUpRight size={20} strokeWidth={3} className={`text-slate-200 group-hover:${colors.icon} transition-colors`} />
+                  </div>
+                  
+                  <h4 className="text-[17px] font-[1000] tracking-tight leading-tight mb-3 text-(--gs-text-primary)">
+                    {link.title}
+                  </h4>
+                  
+                  <p className="text-[12px] font-bold leading-relaxed line-clamp-3 mb-4 text-(--gs-text-primary)/50">
+                    {link.desc}
+                  </p>
+
+                  <div className="mt-auto pt-4 border-t border-dashed border-black/5">
+                    <span className={`text-[9px] font-black uppercase tracking-[0.2em] ${colors.text}`}>
+                      {activeCategory} 
+                    </span>
+                  </div>
                 </div>
               </a>
             );
