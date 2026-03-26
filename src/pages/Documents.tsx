@@ -48,7 +48,7 @@ export const Documents: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
             </div>
             <input 
               type="text" 
-              placeholder="Search library..." 
+              placeholder="ドキュメント内検索" 
               className={`w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border transition-all ${
                 isMidnight 
                   ? 'bg-slate-900 border-slate-800 text-white focus:border-blue-500/50' 

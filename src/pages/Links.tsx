@@ -57,7 +57,7 @@ export const Links: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
             <Search className={`absolute left-5 top-1/2 -translate-y-1/2 transition-colors ${isMidnight ? 'text-slate-500 group-focus-within:text-blue-400' : 'text-slate-300 group-focus-within:text-[#064e3b]'}`} size={16} strokeWidth={3} />
             <input 
               type="text" 
-              placeholder="Search library..." 
+              placeholder="リンク集内検索" 
               className={`w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border transition-all ${
                 isMidnight ? 'bg-slate-900 border-slate-800 text-white focus:border-blue-500/50' : 'bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50'
               }`}
