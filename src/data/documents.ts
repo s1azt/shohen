@@ -72,7 +72,48 @@ export const allDocuments = [
     url: "https://drive.google.com/file/d/1DdVVcJSsYKNW5M3UNB_NzS_DXdxnTRHs/view?usp=sharing", 
     updateDate: "2025-09-12" 
   },
- 
+ { 
+    id: 10, 
+    title: "【10月度部会】GSキャリア支援施策について", 
+    category: "施策・研修情報", 
+    url: "https://drive.google.com/file/d/14tmRaNl7ehUCHOxFgQt2-_ZKeAtMZKX4/view?usp=sharing", 
+    updateDate: "2026-03/26" 
+  },
+  { 
+    id: 11, 
+    title: "20250805_キャリアカフェ実施内容（ITスペシャリスト）", 
+    category: "施策・研修情報", 
+    url: "https://drive.google.com/file/d/10Ty_0xnDp4_jfMaizkl7RUi4NOAP9Mj-/view?usp=sharing", 
+    updateDate: "2025-08/05" 
+  },
+  { 
+    id: 12, 
+    title: "20250820_キャリアカフェ実施内容（ITサービスマネージャー） (1)", 
+    category: "施策・研修情報", 
+    url: "https://drive.google.com/file/d/1QHy3ep1L2HeVZCW-qT5bzui6CtBbk7_R/view?usp=sharing", 
+    updateDate: "2025-08/20" 
+  },
+  { 
+    id: 13, 
+    title: "20250825_キャリアカフェ実施内容（テクニカルセールス）", 
+    category: "施策・研修情報", 
+    url: "https://drive.google.com/file/d/1C0GKxNq92Nxla5kGEcLCG5gaWW0L18z9/view?usp=sharing", 
+    updateDate: "2025-08/25" 
+  },
+  { 
+    id: 14, 
+    title: "20250827・29_キャリアカフェ実施内容（プロダクトスペシャリスト）", 
+    category: "施策・研修情報", 
+    url: "https://drive.google.com/file/d/1fKgpnf2q3_HAYfR3tZcGhJsOQ8L9aG15/view?usp=sharing", 
+    updateDate: "2025-08/29" 
+  },
+  { 
+    id: 15, 
+    title: "20250827・29_キャリアカフェ実施内容（プロジェクトマネージャー）", 
+    category: "施策・研修情報", 
+    url: "https://drive.google.com/file/d/1BkKs7mtrsPlxxrJEKC25EJmjMaPXoXYp/view?usp=sharing", 
+    updateDate: "2025-08/29" 
+  },
  /*
   { 
     id: 10, 
