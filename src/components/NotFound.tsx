@@ -27,7 +27,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ setActiveTab }) => {
       {/* テキストエリア */}
       <div className="max-w-md space-y-6 relative z-10">
         <div className="space-y-2">
-          <h2 className="text-4xl font-black text-[#064e3b] tracking-[0.2em] italic uppercase">
+          <h2 className="text-4xl font-black text-(--gs-accent) tracking-[0.2em] italic uppercase">
             404 <span className="text-slate-300 font-light">|</span> Lost
           </h2>
           <div className="w-12 h-1 bg-emerald-500 mx-auto rounded-full" />
@@ -47,7 +47,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ setActiveTab }) => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
           <button
             onClick={() => setActiveTab("home")}
-            className="group flex items-center gap-3 px-10 py-4 bg-[#064e3b] text-white rounded-2xl font-black text-[11px] tracking-[0.2em] hover:bg-[#065f46] transition-all shadow-2xl shadow-emerald-900/20 active:scale-95"
+            className="group flex items-center gap-3 px-10 py-4 bg-(--gs-accent) text-white rounded-2xl font-black text-[11px] tracking-[0.2em] hover:bg-(--gs-accent)/80 transition-all shadow-2xl active:scale-95"
           >
             <Home size={16} />
             BACK TO SURFACE

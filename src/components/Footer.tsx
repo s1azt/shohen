@@ -3,7 +3,6 @@ import { User, Phone, Mail, Edit3, ChevronRight } from "lucide-react";
 
 interface FooterProps {
   isRaining?: boolean;
-  isMidnight?: boolean;
 }
 
 const RainCat = () => (
@@ -48,14 +47,12 @@ const RainCat = () => (
   </div>
 );
 
-export const Footer: React.FC<FooterProps> = ({ isRaining, isMidnight }) => {
+export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
   // 💡 修正依頼のリンク先URL（必要に応じて書き換えてください）
   const UPDATE_REQUEST_URL = "https://docs.google.com/forms/d/1R41PDwRbSuzWT_diIDfa39fVxBtREcKTvT9tDm-04XU/edit";
 
   return (
-    <footer className={`relative w-full mt-20 text-white transition-all duration-[3000ms] ease-in-out ${
-      isMidnight ? 'bg-[#0a0f1a]' : 'bg-[#064e3b]'
-    }`}>
+    <footer className={`relative w-full mt-20 text-(--gs-on-primary) transition-all duration-[3000ms] ease-in-out bg-(--gs-primary)`}>
       
       {isRaining && <RainCat />}
 
@@ -64,23 +61,23 @@ export const Footer: React.FC<FooterProps> = ({ isRaining, isMidnight }) => {
         {/* Support Desk */}
         <div className="flex flex-col gap-5 text-left w-full md:w-auto">
           <div className="flex items-center gap-3">
-            <div className={`w-1.5 h-5 rounded-full transition-colors duration-[3000ms] ${isRaining ? 'bg-yellow-400' : 'bg-emerald-400'}`} />
-            <h3 className={`text-[11px] font-black uppercase tracking-[0.3em] transition-colors duration-[3000ms] ${isRaining ? 'text-yellow-400' : 'text-emerald-400'}`}>
+            <div className={`w-1.5 h-5 rounded-full transition-colors duration-[3000ms] ${isRaining ? 'bg-yellow-400' : 'bg-(--gs-on-primary)/70'}`} />
+            <h3 className={`text-[11px] font-black uppercase tracking-[0.3em] transition-colors duration-[3000ms] ${isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)/70'}`}>
               Support Desk {isRaining && " - Meow Mode"}
             </h3>
           </div>
           
           <div className="space-y-3 px-1 opacity-90">
             <div className="flex items-center gap-4">
-              <User size={15} className={isRaining ? 'text-yellow-400' : 'text-emerald-400'} />
+              <User size={15} className={isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)/70'} />
               <span className="text-xs font-bold tabular-nums tracking-wide font-sans">54期小変Cチーム(正治、原、藤田、藤野)</span>
             </div>
             <div className="flex items-center gap-4">
-              <Phone size={15} className={isRaining ? 'text-yellow-400' : 'text-emerald-400'} />
+              <Phone size={15} className={isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)/70'} />
               <span className="text-xs font-bold tabular-nums tracking-wide font-sans">080-6539-3904</span>
             </div>
             <div className="flex items-center gap-4">
-              <Mail size={15} className={isRaining ? 'text-yellow-400' : 'text-emerald-400'} />
+              <Mail size={15} className={isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)/70'} />
               <span className="text-xs font-bold tracking-tight font-sans">yshoji@nekonet.co.jp</span>
             </div>
           </div>
@@ -94,21 +91,21 @@ export const Footer: React.FC<FooterProps> = ({ isRaining, isMidnight }) => {
             className={`group w-full md:w-80 flex items-center justify-between p-6 border rounded-3xl transition-all active:scale-95 shadow-xl ${
               isRaining 
                 ? 'bg-white/5 border-white/10 hover:bg-yellow-500/10' 
-                : 'bg-white/10 border-white/20 hover:bg-emerald-500/20'
+                : 'bg-(--gs-on-primary)/10 border-(--gs-on-primary)/20 hover:bg-(--gs-on-primary)/20'
             }`}
           >
-            <div className="flex items-center gap-4 text-white text-left">
+            <div className="flex items-center gap-4 text-(--gs-on-primary) text-left">
               <div className={`p-3 rounded-2xl transition-all ${
                 isRaining 
                   ? 'bg-yellow-400/20 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-[#0a0f1a]' 
-                  : 'bg-emerald-400/20 text-emerald-400 group-hover:bg-emerald-400 group-hover:text-[#064e3b]'
+                  : 'bg-(--gs-on-primary)/20 text-(--gs-on-primary) group-hover:bg-(--gs-on-primary) group-hover:text-(--gs-primary)'
               }`}>
                 <Edit3 size={22} />
               </div>
               <div>
                 <div className="text-[15px] font-black leading-none mb-1.5 tracking-tight font-sans">修正・更新を依頼する</div>
                 <div className={`text-[10px] font-black uppercase tracking-[0.2em] opacity-60 font-sans ${
-                  isRaining ? 'text-yellow-400' : 'text-emerald-400'
+                  isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)'
                 }`}>Update Request</div>
               </div>
             </div>
@@ -118,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ isRaining, isMidnight }) => {
       </div>
 
       <div className="w-full bg-black/20 py-5 border-t border-white/5 text-center relative group/footer cursor-default overflow-hidden">
-        <p className="text-[10px] font-bold text-white/10 uppercase tracking-[0.5em] group-hover/footer:text-white/30 transition-all duration-700 font-sans">
+        <p className="text-[10px] font-bold text-(--gs-on-primary)/10 uppercase tracking-[0.5em] group-hover/footer:text-(--gs-on-primary)/30 transition-all duration-700 font-sans">
           &copy; 2026 Group Systems Department. All Rights Reserved.
         </p>
         <div className="absolute right-12 bottom-[-25px] group-hover/footer:bottom-4 transition-all duration-[1500ms] ease-out opacity-0 group-hover/footer:opacity-40 text-2xl pointer-events-none select-none">

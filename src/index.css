@@ -22,8 +22,6 @@
   .page-main-container {
     max-width: 72rem; /* 最大幅 1152px */
     @apply mx-auto px-6 pt-10 pb-24 flex flex-col gap-8 text-left;
-    /* 背景色変更時に滑らかに変化させる（深夜モード切り替え用） */
-    transition: background-color 3000ms, color 3000ms;
   }
 
   /* 2. ヘッダータイトル：News, Deadlines, Links等すべてのページで共通 */
@@ -69,16 +67,13 @@
 
   /* タブボタン：お知らせページの「20px」極太規格を強制 */
   .category-tab-button {
-    @apply px-6 py-2.5 rounded-xl text-[20px] font-black tracking-widest uppercase transition-all whitespace-nowrap border-none cursor-pointer;
+    @apply px-6 py-2.5 rounded-xl text-[20px] font-black tracking-widest uppercase whitespace-nowrap border-none cursor-pointer;
   }
 
   /* タブのアクティブ状態：通常モード時 */
   .tab-active-normal {
-    @apply bg-[#064e3b] text-white shadow-lg;
-  }
-  /* タブのアクティブ状態：深夜モード時 */
-  .tab-active-midnight {
-    @apply bg-blue-600 text-white shadow-lg;
+    background-color: var(--gs-accent);
+    @apply text-white shadow-lg;
   }
   /* タブの非アクティブ状態 */
   .tab-inactive {
@@ -89,7 +84,7 @@
 
   /* 標準リスト（お知らせ用）：p-8 のゆったりとしたサイズ */
   .standard-list-row {
-    @apply flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-8 transition-all relative no-underline;
+    @apply flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-8 relative no-underline;
   }
   .standard-list-row:hover {
     @apply bg-slate-50/50;
@@ -97,7 +92,7 @@
 
   /* コンパクトリスト（リンク集用）：p-4 で密度を高めたサイズ */
   .list-row-compact {
-    @apply flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-4 px-8 transition-all relative no-underline;
+    @apply flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-4 px-8 relative no-underline;
   }
   .list-row-compact:hover {
     @apply bg-slate-50/50;
@@ -108,7 +103,7 @@
   /* 標準カード（島）：浮遊感のある白い背景ブロック */
   .standard-card {
     border-radius: var(--radius-card);
-    @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden divide-y divide-slate-50;
+    @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] overflow-hidden divide-y divide-slate-50;
   }
 
   /* ガイド専用カード（新人ガイド用） */
@@ -122,7 +117,8 @@
 
   /* ステップのドット装飾 */
   .guide-step-dot {
-    @apply w-2 h-2 rounded-full bg-[#064e3b] opacity-30 transition-all;
+    background-color: var(--gs-accent);
+    @apply w-2 h-2 rounded-full opacity-30 transition-all;
   }
 
   /* --- 💡 特殊エフェクト ＆ アニメーション --- */
@@ -150,13 +146,5 @@
   }
   .animate-bubble {
     animation: bubble-rise linear infinite;
-  }
-
-  /* 深夜モード専用の上書き設定 */
-  .is-midnight .standard-card {
-    background-color: rgba(30, 41, 59, 0.6) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(12px);
-    @apply divide-slate-700;
   }
 }

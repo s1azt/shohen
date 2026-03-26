@@ -56,6 +56,7 @@ export const Column: React.FC = () => {
   }
 
   // 記事一覧表示
+  const latestColumn = columnArchives[0];
   return (
     <div className="space-y-10 animate-in fade-in duration-500">
       <header className="flex items-center justify-between border-b border-[#cbd5c0] pb-4">
@@ -67,21 +68,21 @@ export const Column: React.FC = () => {
 
       {/* 最新の注目記事 */}
       <div 
-        onClick={() => setSelectedColumnId(columnArchives[0].id)}
+        onClick={() => setSelectedColumnId(latestColumn.id)}
         className="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-[#cbd5c0] cursor-pointer group hover:shadow-md transition-all flex flex-col md:flex-row h-auto md:h-80"
       >
         <div className="md:w-1/2 overflow-hidden">
-          <img src={columnArchives[0].image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Latest" />
+          <img src={latestColumn.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Latest" />
         </div>
         <div className="md:w-1/2 p-8 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-3">
             <span className="bg-red-100 text-red-600 text-[10px] font-black px-2 py-0.5 rounded-full">NEW</span>
-            <span className="text-[#6b7a5f] text-xs font-bold">{columnArchives[0].date}</span>
+            <span className="text-[#6b7a5f] text-xs font-bold">{latestColumn.date}</span>
           </div>
           <h3 className="text-2xl font-black text-[#3e4a36] mb-4 group-hover:text-[#6b7a5f] transition-colors leading-tight">
-            {columnArchives[0].title}
+            {latestColumn.title}
           </h3>
-          <p className="text-[#6b7a5f] text-sm line-clamp-2 mb-6 font-medium">{columnArchives[0].content}</p>
+          <p className="text-[#6b7a5f] text-sm line-clamp-2 mb-6 font-medium">{latestColumn.content}</p>
           <div className="flex items-center text-[#6b7a5f] font-black text-sm">
             記事を読む <ChevronRight size={18} className="ml-1 group-hover:translate-x-1 transition-transform" />
           </div>

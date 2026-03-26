@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Bell, Search, ArrowUpRight } from "lucide-react";
 import { allNews } from "../data/news";
 
-export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
+export const News: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("一覧");
 
@@ -16,27 +16,28 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
     return diffDays >= 0 && diffDays <= 3;
   };
 
-  const filteredNews = (allNews || []).filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = activeCategory === "一覧" || item.category === activeCategory;
-    return matchesSearch && matchesCategory;
-  }).sort((a, b) => {
-    return new Date(b.date.replace(/\./g, '/')).getTime() - new Date(a.date.replace(/\./g, '/')).getTime();
-  });
+  const filteredNews = useMemo(() => {
+    const lq = searchTerm.toLowerCase();
+    return (allNews || []).filter(item => {
+      const matchesSearch = item.title.toLowerCase().includes(lq);
+      const matchesCategory = activeCategory === "一覧" || item.category === activeCategory;
+      return matchesSearch && matchesCategory;
+    }).sort((a, b) => b.date.localeCompare(a.date));
+  }, [searchTerm, activeCategory]);
 
   return (
     <div className="page-main-container font-sans">
       {/* 1. ヘッダー：他ページと共通の「タイトル＋検索」構成 */}
-      <header className={`header-underline-bold mb-4 ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
+      <header className="header-underline-bold mb-4 border-(--gs-accent)">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 pb-2">
           <div className="flex items-center gap-7 text-left">
-            <div className={`header-icon-squircle ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
+            <div className="header-icon-squircle bg-(--gs-accent)">
               <Bell size={32} strokeWidth={1.5} />
             </div>
             <div>
-              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>お知らせ</h2>
+              <h2 className="header-title-main text-[#1a2e25]">お知らせ</h2>
               <div className="flex items-center gap-3 mt-4">
-                <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
+                <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
                 <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Corporate Updates</p>
               </div>
             </div>
@@ -46,7 +47,7 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
           <div className="relative w-full md:w-80 group pb-1">
             <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
               <Search 
-                className={`transition-colors ${isMidnight ? 'text-slate-500 group-focus-within:text-blue-400' : 'text-slate-300 group-focus-within:text-[#064e3b]'}`} 
+                className="text-slate-300 group-focus-within:text-(--gs-accent)" 
                 size={16} 
                 strokeWidth={3} 
               />
@@ -54,11 +55,7 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
             <input 
               type="text" 
               placeholder="お知らせ内検索" 
-              className={`w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border transition-all ${
-                isMidnight 
-                  ? 'bg-slate-900 border-slate-800 text-white focus:border-blue-500/50' 
-                  : 'bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50'
-              }`}
+              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
@@ -71,11 +68,7 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
           <button 
             key={cat} 
             onClick={() => setActiveCategory(cat)} 
-            className={`category-tab-button ${
-              activeCategory === cat 
-                ? (isMidnight ? "tab-active-midnight" : "tab-active-normal") 
-                : "tab-inactive"
-            }`}
+            className={`category-tab-button ${activeCategory === cat ? "tab-active-normal" : "tab-inactive"}`}
           >
             {cat}
           </button>
@@ -104,15 +97,11 @@ export const News: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
                     <span className="w-1 h-1 rounded-full bg-orange-500 animate-pulse"></span>
                   </div>
                 )}
-                <h4 className={`text-[17px] font-black truncate tracking-tight transition-transform group-hover:translate-x-1 ${
-                  isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'
-                }`}>
+                <h4 className="text-[17px] font-black truncate tracking-tight transition-transform group-hover:translate-x-1 text-[#1a2e25]">
                   {item.title}
                 </h4>
               </div>
-              <div className={`p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100 ${
-                isMidnight ? 'text-blue-400 bg-slate-800' : 'text-slate-300 bg-slate-50'
-              }`}>
+              <div className="p-2 rounded-lg opacity-0 group-hover:opacity-100 text-slate-300 bg-slate-50">
                 <ArrowUpRight size={18} strokeWidth={3} />
               </div>
             </a>

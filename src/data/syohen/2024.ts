@@ -16,7 +16,7 @@ export const syohen2024: SyohenActivity[] = [
     id: 202402,
     team: "Bチーム",
     category: "モバイル推進班",
-    members: ["開田", "川本", "藤田", "藤井"],
+    members: ["開田 朱馬", "川本 京花", "藤田 誠弥", "藤井 ひなた"],
     title: "AIを活用したメール管理",
     description: "グループシステム部のメール管理の課題を解決するアプリを開発。",
     results: "期日をAIで読み取り、Todoリスト化。メールの要約やメール自動作成で業務改善。",

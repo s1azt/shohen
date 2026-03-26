@@ -7,7 +7,7 @@ import { syohen2023 } from "./2023";
 export interface SyohenActivity {
   id: number;
   team: string;
-  category: "DX推進" | "デザイン最適化" | "技術探究" | "事務改善";
+  category: string;
   members: string[];
   title: string;
   description: string;

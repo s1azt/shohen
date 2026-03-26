@@ -1,6 +1,13 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* テーマカラー（JS から setProperty で書き換え可能） */
+  --gs-primary: #064e3b;
+  --gs-primary-light: #065f46;
+  --gs-primary-dark: #1a2e25;
+  --gs-on-primary: #ffffff;
+  --gs-accent: #064e3b;
+
   --font-size: 40px;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { allDeadlines } from "../data/deadlines";
 import { Clock, AlertTriangle, CheckCircle, Calendar, ArrowUpRight } from "lucide-react";
 
-export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) => {
+const DEPARTMENTS = ["すべて", ...Array.from(new Set(allDeadlines.map(d => d.dept)))];
+
+export const Deadlines: React.FC = () => {
   const [filter, setFilter] = useState("すべて");
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -21,29 +23,29 @@ export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
     
     if (diffDays < 0) return { label: "完了", style: "bg-slate-100 text-slate-400 border-slate-200", icon: <CheckCircle size={20} /> };
     if (diffDays <= 3) return { label: `${diffDays}日`, style: "bg-red-50 text-red-600 border-red-100 shadow-[0_0_15px_rgba(239,68,68,0.1)]", icon: <AlertTriangle size={20} className="animate-pulse" /> };
-    return { label: `${diffDays}日`, style: "bg-emerald-50 text-[#064e3b] border-emerald-100", icon: <Clock size={20} /> };
+    return { label: `${diffDays}日`, style: "bg-slate-50 text-(--gs-accent) border-slate-100", icon: <Clock size={20} /> };
   };
 
-  const filteredDeadlines = (allDeadlines || [])
-    .filter(item => filter === "すべて" || item.dept === filter)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-  const departments = ["すべて", ...Array.from(new Set(allDeadlines.map(d => d.dept)))];
+  const filteredDeadlines = useMemo(() =>
+    (allDeadlines || [])
+      .filter(item => filter === "すべて" || item.dept === filter)
+      .sort((a, b) => a.date.localeCompare(b.date))
+  , [filter]);
 
   return (
     <div className="page-main-container">
       {/* 1. ヘッダー：タイトルエリアのみに整理 */}
-      <header className={`header-underline-bold mb-4 ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
+      <header className="header-underline-bold mb-4 border-(--gs-accent)">
         <div className="flex items-center gap-7 text-left pb-2">
-          <div className={`header-icon-squircle ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
+          <div className="header-icon-squircle bg-(--gs-accent)">
             <Calendar size={32} strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+            <h2 className="header-title-main text-[#1a2e25]">
               締め切り
             </h2>
             <div className="flex items-center gap-3 mt-4">
-              <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
+              <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
               <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Strategic Control</p>
             </div>
           </div>
@@ -52,15 +54,11 @@ export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
 
       {/* 2. カテゴリータブ：ヘッダーの下（境界線の外）に配置 */}
       <div className="category-tab-container mb-8">
-        {departments.map(dept => (
+        {DEPARTMENTS.map(dept => (
           <button 
             key={dept} 
             onClick={() => setFilter(dept)} 
-            className={`category-tab-button ${
-              filter === dept 
-                ? (isMidnight ? "tab-active-midnight" : "tab-active-normal") 
-                : "tab-inactive"
-            }`}
+            className={`category-tab-button ${filter === dept ? "tab-active-normal" : "tab-inactive"}`}
           >
             {dept}
           </button>
@@ -74,9 +72,7 @@ export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
           const isNew = isRecentlyUpdated(item.updateDate);
 
           return (
-            <div key={item.id} className={`group relative p-6 rounded-[var(--radius-card)] border flex flex-col md:flex-row items-center gap-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 ${
-              isMidnight ? 'bg-slate-800/60 border-slate-700' : 'bg-white border-slate-100 shadow-sm'
-            }`}>
+            <div key={item.id} className="group relative p-6 rounded-[var(--radius-card)] border flex flex-col md:flex-row items-center gap-8 hover:shadow-2xl hover:-translate-y-1 bg-white border-slate-100 shadow-sm">
               
               {/* NEW判定ラベル：サイズ微調整 */}
               {isNew && (
@@ -100,12 +96,10 @@ export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
               {/* ② テキスト・コンテンツ：文字サイズをtext-[17px]へ統一 */}
               <div className="flex-grow min-w-0 text-left">
                 <div className="flex items-center gap-3 mb-1 opacity-40">
-                  <div className={`h-[1px] w-4 ${isMidnight ? 'bg-blue-400' : 'bg-[#064e3b]'}`}></div>
+                  <div className="h-[1px] w-4 bg-(--gs-accent)"></div>
                   <span className="text-[9px] font-black uppercase tracking-widest">Target Timeline</span>
                 </div>
-                <h4 className={`text-[17px] font-black tracking-tight leading-tight transition-colors ${
-                  isMidnight ? 'text-slate-100 group-hover:text-blue-400' : 'text-[#1a2e25] group-hover:text-[#064e3b]'
-                }`}>
+                <h4 className="text-[17px] font-black tracking-tight leading-tight text-[#1a2e25] group-hover:text-(--gs-accent)">
                   「{item.title}」
                 </h4>
               </div>
@@ -114,17 +108,13 @@ export const Deadlines: React.FC<{ isMidnight?: boolean }> = ({ isMidnight }) =>
               <div className="shrink-0 flex items-center gap-6">
                 <div className="hidden md:block text-right">
                   <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">Due Date</p>
-                  <p className={`text-[14px] font-black tabular-nums leading-none ${isMidnight ? 'text-slate-400' : 'text-[#064e3b]'}`}>
+                  <p className="text-[14px] font-black tabular-nums leading-none text-(--gs-accent)">
                     {item.date}
                   </p>
                 </div>
                 <button 
                   onClick={() => window.open(item.url, "_blank")} 
-                  className={`h-11 px-6 rounded-xl font-black text-[10px] tracking-widest uppercase flex items-center gap-3 shadow-md transition-all group-hover:pr-8 ${
-                    isMidnight 
-                      ? 'bg-blue-600 text-white hover:bg-blue-500 shadow-blue-900/20' 
-                      : 'bg-[#064e3b] text-white hover:bg-[#1a2e25] shadow-emerald-900/10'
-                  }`}
+                  className="h-11 px-6 rounded-xl font-black text-[10px] tracking-widest uppercase flex items-center gap-3 shadow-md group-hover:pr-8 bg-(--gs-accent) text-white hover:bg-(--gs-accent)/80 shadow-black/10"
                 >
                   Execute <ArrowUpRight size={16} strokeWidth={3} />
                 </button>

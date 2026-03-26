@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 // 💡 確実に存在するデータソースのみをインポート
 import { allDeadlines } from "../data/deadlines";
 import { allNews } from "../data/news";
@@ -13,65 +13,52 @@ import {
   LayoutGrid, Headset, GraduationCap 
 } from "lucide-react";
 
+const ALL_SECTIONS = getAllSections();
+
+const PORTAL_ITEMS: { title: string; url: string; category: string; Icon: React.FC<{ size?: number }> }[] = [
+  { title: "部会資料アーカイブ", url: "http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", category: "Sidebar", Icon: FileText },
+  { title: "全社座席表", url: externalLinks.seatingChart, category: "Sidebar", Icon: Users },
+  ...(externalLinks.support || []).map(link => ({ title: link.label, url: link.url, category: "Support Info", Icon: Headset })),
+];
+
 interface SearchResultsProps {
   query: string;
   setActiveTab: (tab: string) => void;
   setActiveSectionId?: (id: string) => void;
-  isMidnight?: boolean;
 }
 
-export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTab, setActiveSectionId, isMidnight }) => {
+export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTab, setActiveSectionId }) => {
   const q = (query || "").toLowerCase().trim();
 
+  const foundGuides = useMemo(() =>
+    (allGuides || []).filter(item => [item.title, item.description].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundDeadlines = useMemo(() =>
+    (allDeadlines || []).filter(item => [item.title, item.dept].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundNews = useMemo(() =>
+    (allNews || []).filter(item => [item.title, item.category].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundLinks = useMemo(() =>
+    (linkCollection || []).filter(item => [item.title, item.desc, item.category].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundDocs = useMemo(() =>
+    (allDocuments || []).filter(item => [item.title, item.category].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundTeams = useMemo(() =>
+    (ALL_SECTIONS || []).filter(item => [item.name, item.id].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundCommon = useMemo(() =>
+    PORTAL_ITEMS.filter(item => item.title.toLowerCase().includes(q))
+  , [q]);
+
   if (!q) return null;
-
-  // --- 🔍 スキャンエンジン（安定版：エラー要因を排除） ---
-  
-  // 1. 新人ガイド (Guide)
-  const foundGuides = (allGuides || []).filter(item => 
-    [item.title, item.description].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 2. 締め切り
-  const foundDeadlines = (allDeadlines || []).filter(item => 
-    [item.title, item.dept].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 3. お知らせ
-  const foundNews = (allNews || []).filter(item => 
-    [item.title, item.category].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 4. リンク集
-  const foundLinks = (linkCollection || []).filter(item => 
-    [item.title, item.desc, item.category].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 5. ドキュメント
-  const foundDocs = (allDocuments || []).filter(item => 
-    [item.title, item.category].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 6. チーム紹介
-  const foundTeams = (getAllSections() || []).filter(item => 
-    [item.name, item.id].some(text => text?.toLowerCase().includes(q))
-  );
-
-  // 7. ポータル・サイドバー・お問い合わせ先
-  const portalAndSupportItems = [
-    { title: "部会資料アーカイブ", url: "http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", category: "Sidebar", icon: <FileText size={18} /> },
-    { title: "全社座席表", url: externalLinks.seatingChart, category: "Sidebar", icon: <Users size={18} /> },
-    ...(externalLinks.support || []).map(link => ({
-      title: link.label,
-      url: link.url,
-      category: "Support Info",
-      icon: <Headset size={18} />
-    }))
-  ];
-
-  const foundCommon = portalAndSupportItems.filter(item => 
-    item.title.toLowerCase().includes(q)
-  );
 
   // 💡 合計カウントの計算（安全な項目のみ）
   const totalCount = foundDeadlines.length + foundNews.length + foundLinks.length + 
@@ -80,24 +67,24 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
 
   return (
     <div className="page-main-container font-sans text-left">
-      <header className={`header-underline-bold ${isMidnight ? 'border-blue-600' : 'border-[#064e3b]'}`}>
+      <header className="header-underline-bold border-(--gs-accent)">
         <div className="flex flex-col md:flex-row justify-between items-end pb-1 gap-6">
           <div className="flex items-center gap-7 text-left">
-            <div className={`header-icon-squircle ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}>
+            <div className="header-icon-squircle bg-(--gs-accent)">
               <Search size={32} strokeWidth={1.5} className="text-white" />
             </div>
             <div>
-              <h2 className={`header-title-main ${isMidnight ? 'text-white' : 'text-[#1a2e25]'}`}>
+              <h2 className="header-title-main text-[#1a2e25]">
                 「{query}」の検索結果
               </h2>
               <div className="flex items-center gap-3 mt-4 opacity-40 italic">
-                <div className={`h-[2px] w-6 ${isMidnight ? 'bg-blue-600' : 'bg-[#064e3b]'}`}></div>
+                <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
                 <p className="header-subtitle-sub uppercase tracking-[0.4em]">Global Search</p>
               </div>
             </div>
           </div>
-          <div className={`px-8 py-3 rounded-3xl border ${isMidnight ? 'bg-slate-800 border-slate-700' : 'bg-[#f4f7f0] border-[#cbd5c0]/50'}`}>
-            <span className={`text-4xl font-black tracking-tighter tabular-nums ${isMidnight ? 'text-blue-400' : 'text-[#064e3b]'}`}>{totalCount}</span>
+          <div className="px-8 py-3 rounded-3xl border bg-[#f4f7f0] border-[#cbd5c0]/50">
+            <span className="text-4xl font-black tracking-tighter tabular-nums text-(--gs-accent)">{totalCount}</span>
             <span className="text-[10px] font-black text-slate-400 uppercase ml-2 tracking-widest">Hits Found</span>
           </div>
         </div>
@@ -118,13 +105,12 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundGuides.map((item, idx) => (
-                  <div key={`ob-${idx}`} onClick={() => setActiveTab("onboarding")} className="standard-list-row group cursor-pointer">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-indigo-400' : 'bg-indigo-50 text-indigo-600'}`}>
+                  <div key={`ob-${item.id}`} onClick={() => setActiveTab("guide")} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-indigo-50 text-indigo-600">
                       <GraduationCap size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guide Detail</p>
+                      <h4 className="text-[17px] font-black text-[#1a2e25]">{item.title}</h4>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -141,12 +127,12 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundNews.map((item, idx) => (
-                  <div key={`nw-${idx}`} onClick={() => setActiveTab("news")} className="standard-list-row group cursor-pointer">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-emerald-50 text-emerald-600'}`}>
+                  <div key={`nw-${item.id}`} onClick={() => setActiveTab("news")} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-emerald-50 text-emerald-600">
                       <Bell size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <h4 className="text-[17px] font-black text-[#1a2e25]">{item.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.date} • {item.category}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
@@ -164,12 +150,12 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundDeadlines.map((item, idx) => (
-                  <div key={`dl-${idx}`} onClick={() => setActiveTab("deadlines")} className="standard-list-row group cursor-pointer">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-orange-400' : 'bg-orange-50 text-orange-500'}`}>
+                  <div key={`dl-${item.id}`} onClick={() => setActiveTab("deadlines")} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-orange-50 text-orange-500">
                       <Clock size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <h4 className="text-[17px] font-black text-[#1a2e25]">{item.title}</h4>
                       <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Due: {item.date} • {item.dept}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
@@ -187,15 +173,15 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundLinks.map((link, idx) => (
-                  <a key={`lk-${idx}`} href={link.url} target="_blank" rel="noreferrer" className="standard-list-row group">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-blue-50 text-blue-500'}`}>
+                  <a key={`lk-${link.id}`} href={link.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-blue-50 text-blue-500">
                       <ExternalLink size={18} />
                     </div>
                     <div className="flex flex-col flex-grow min-w-0 text-left">
-                      <h4 className={`text-[17px] font-black truncate ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{link.title}</h4>
+                      <h4 className="text-[17px] font-black truncate text-[#1a2e25]">{link.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{link.category} • {link.desc}</p>
                     </div>
-                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-[#064e3b]" />
+                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
                   </a>
                 ))}
               </div>
@@ -210,15 +196,15 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundDocs.map((doc, idx) => (
-                  <a key={`doc-${idx}`} href={doc.url} target="_blank" rel="noreferrer" className="standard-list-row group">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-indigo-400' : 'bg-indigo-50 text-indigo-500'}`}>
+                  <a key={`doc-${doc.id}`} href={doc.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-indigo-50 text-indigo-500">
                       <FileText size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className={`text-[17px] font-black ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{doc.title}</h4>
+                      <h4 className="text-[17px] font-black text-[#1a2e25]">{doc.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{doc.category}</p>
                     </div>
-                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-[#064e3b]" />
+                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
                   </a>
                 ))}
               </div>
@@ -228,20 +214,20 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 6. ポータル & サポート */}
           {foundCommon.length > 0 && (
             <section className="space-y-4">
-              <h3 className={`text-[10px] font-black uppercase tracking-[0.3em] ml-2 flex items-center gap-2 ${isMidnight ? 'text-blue-400' : 'text-slate-500'}`}>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] ml-2 flex items-center gap-2 text-slate-500">
                 <LayoutGrid size={14} /> Portal & Support ({foundCommon.length})
               </h3>
               <div className="standard-card">
                 {foundCommon.map((item, idx) => (
-                  <a key={`cm-${idx}`} href={item.url} target="_blank" rel="noreferrer" className="standard-list-row group">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-blue-400' : 'bg-slate-50 text-slate-400 group-hover:bg-[#064e3b] group-hover:text-white transition-all'}`}>
-                      {item.icon}
+                  <a key={`cm-${item.title}`} href={item.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-slate-50 text-slate-400 group-hover:bg-(--gs-accent) group-hover:text-white">
+                      <item.Icon size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className={`text-[17px] font-black tracking-tight ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>{item.title}</h4>
+                      <h4 className="text-[17px] font-black tracking-tight text-[#1a2e25]">{item.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</p>
                     </div>
-                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-[#064e3b]" />
+                    <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
                   </a>
                 ))}
               </div>
@@ -256,11 +242,11 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               </h3>
               <div className="standard-card">
                 {foundTeams.map((team, idx) => (
-                  <div key={`tm-${idx}`} onClick={() => { setActiveTab("team"); setActiveSectionId?.(team.id); }} className="standard-list-row group cursor-pointer">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isMidnight ? 'bg-slate-700 text-slate-400' : 'bg-slate-100 text-slate-600'}`}>
+                  <div key={`tm-${team.id}`} onClick={() => { setActiveTab("team"); setActiveSectionId?.(team.id); }} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-slate-100 text-slate-600">
                       <Users size={18} />
                     </div>
-                    <h4 className={`text-[17px] font-black flex-grow text-left ${isMidnight ? 'text-slate-200' : 'text-[#1a2e25]'}`}>
+                    <h4 className="text-[17px] font-black flex-grow text-left text-[#1a2e25]">
                       {team.id} <span className="ml-2 opacity-50">| {team.name}</span>
                     </h4>
                     <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />
