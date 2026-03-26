@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { FileText, Search, Folder, ArrowUpRight, CheckCircle } from "lucide-react";
+﻿import React, { useState, useMemo } from "react";
+import { FileText, Search, Folder, ArrowUpRight } from "lucide-react";
 import { allDocuments } from "../data/documents";
 
 const DOCUMENT_CATEGORIES = ["一覧", ...Array.from(new Set(allDocuments.map(doc => doc.category)))];
@@ -28,7 +28,7 @@ export const Documents: React.FC = () => {
               <Folder size={32} strokeWidth={1.5} />
             </div>
             <div>
-              <h2 className="header-title-main text-[#1a2e25]">
+              <h2 className="header-title-main text-(--gs-text-primary)">
                 ドキュメント
               </h2>
               <div className="flex items-center gap-3 mt-4">
@@ -50,7 +50,7 @@ export const Documents: React.FC = () => {
             <input 
               type="text" 
               placeholder="ドキュメント内検索" 
-              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50"
+              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) focus:ring-4 focus:ring-emerald-50/50"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
@@ -71,7 +71,7 @@ export const Documents: React.FC = () => {
       </div>
 
       {/* 3. ドキュメントリスト（島形式） */}
-      <div className="standard-card overflow-hidden shadow-xl border-none divide-y bg-white border-transparent divide-slate-50">
+      <div className="standard-card overflow-hidden shadow-xl border-none divide-y bg-(--gs-card-bg) border-transparent divide-slate-50">
         {filteredDocs.length > 0 ? (
           filteredDocs.map((doc) => (
             <div 
@@ -95,17 +95,13 @@ export const Documents: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <h4 className="text-[17px] font-black tracking-tight truncate leading-tight group-hover:translate-x-1 text-slate-800">
+                  <h4 className="text-[17px] font-black tracking-tight truncate leading-tight group-hover:translate-x-1 text-(--gs-text-primary)">
                     {doc.title}
                   </h4>
                 </div>
               </div>
               
               <div className="flex items-center gap-8 shrink-0">
-                <div className="hidden md:flex items-center gap-1.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                   <CheckCircle size={12} />
-                   <span className="text-[9px] font-black uppercase tracking-tighter">Certified</span>
-                </div>
                 <div className="p-2.5 rounded-lg group-hover:translate-x-1 text-slate-300 group-hover:bg-(--gs-accent) group-hover:text-white">
                   <ArrowUpRight size={18} strokeWidth={3} />
                 </div>

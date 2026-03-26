@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette } from "lucide-react";
 import { THEMES } from "../data/themes";
 import { externalLinks } from "../data/links";
@@ -58,24 +58,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
 
         <button 
           onClick={() => window.open(externalLinks.seatingChart, "_blank")} 
-          className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left"
+          className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left"
         >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
               <Map size={20} />
             </div>
-            <span className="text-[15px] font-black text-[#1a2e25]">全社座席表</span>
+            <span className="text-[15px] font-black text-(--gs-text-primary)">全社座席表</span>
           </div>
           <ChevronRight size={14} className="text-slate-200" />
         </button>
       
 
-        <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
+        <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
               <MessageSquare size={20} />
             </div>
-            <span className="text-[15px] font-black text-[#1a2e25]">今週のコラム</span>
+            <span className="text-[15px] font-black text-(--gs-text-primary)">今週のコラム</span>
           </div>
           <ChevronRight size={14} className="text-slate-200" />
         </button>
@@ -116,12 +116,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         </button>
         
         {showSupport && (
-          <div className="bg-white border border-slate-100 rounded-3xl p-2 shadow-xl animate-in slide-in-from-top-2 duration-200">
+          <div className="bg-(--gs-card-bg) border border-slate-100 rounded-3xl p-2 shadow-xl animate-in slide-in-from-top-2 duration-200">
             {externalLinks.support.map((link, i) => (
               <button
                 key={i}
                 onClick={() => window.open(link.url, "_blank")}
-                className="w-full text-left px-4 py-3 text-[11px] font-black text-[#1a2e25] hover:bg-slate-50 hover:text-slate-700 rounded-xl transition-all border-b border-slate-50 last:border-none flex items-center justify-between group"
+                className="w-full text-left px-4 py-3 text-[11px] font-black text-(--gs-text-primary) hover:bg-slate-50 hover:text-slate-700 rounded-xl transition-all border-b border-slate-50 last:border-none flex items-center justify-between group"
               >
                 {link.label}
                 <ChevronRight size={12} className="text-slate-200 group-hover:text-slate-400" />
@@ -132,7 +132,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
       </div>
       {/* 6. テーマカラーピッカー */}
       {setThemeName && (
-        <div className="rounded-2xl p-4 border bg-white border-slate-100">
+        <div className="rounded-2xl p-4 border bg-(--gs-card-bg) border-slate-100">
           <div className="flex items-center gap-2 mb-3">
             <Palette size={12} className="text-slate-400" />
             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">テーマカラー</span>

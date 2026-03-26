@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Search, Home, Link as IconLink, Users, GraduationCap, MoreHorizontal, MapPin, Info, FileText } from "lucide-react";
 
 const MENU_ITEMS: { id: string; label: string; Icon: React.FC<{ size?: number }> }[] = [

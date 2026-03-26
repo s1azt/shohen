@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+﻿import React, { useMemo } from "react";
 import { 
   Activity, Calendar, ClipboardList, Zap, 
   GraduationCap, ChevronRight
@@ -32,11 +32,11 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
     <div className={`space-y-12 animate-in fade-in duration-700 max-w-6xl mx-auto pb-10 px-4 text-left transition-colors duration-[3000ms]`}>
       
       {/* 2. MEGA QUICK ACCESS BLOCK (5ボタン最適化版) */}
-      <section className="rounded-[2rem] sm:rounded-[3rem] p-5 sm:p-8 border shadow-sm space-y-6 sm:space-y-8 bg-white border-slate-100">
+      <section className="rounded-[2rem] sm:rounded-[3rem] p-5 sm:p-8 border shadow-sm space-y-6 sm:space-y-8 bg-(--gs-card-bg) border-slate-100">
         {/* セクション見出し */}
         <div className="flex items-center gap-4 px-2">
           <div className="w-2 h-6 sm:h-8 rounded-full bg-(--gs-accent)" />
-          <h2 className="text-xl sm:text-2xl font-black tracking-tighter text-[#1a2e25]">
+          <h2 className="text-xl sm:text-2xl font-black tracking-tighter text-(--gs-text-primary)">
             クイックアクセス
           </h2>
         </div>
@@ -62,7 +62,7 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
 
               {/* テキストエリア */}
               <div className="ml-4 lg:ml-0 lg:text-center min-w-0">
-                <div className="text-[14px] sm:text-[16px] lg:text-[14px] font-[1000] leading-tight mb-0.5 truncate text-[#1a2e25]">
+                <div className="text-[14px] sm:text-[16px] lg:text-[14px] font-[1000] leading-tight mb-0.5 truncate text-(--gs-text-primary)">
                   {link.label}
                 </div>
                 <div className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-[0.15em] truncate">
@@ -75,11 +75,11 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
       </section>
 
       {/* 3. LATEST NEWS */}
-      <section className="rounded-[3rem] p-10 border shadow-sm space-y-8 bg-white border-slate-100">
+      <section className="rounded-[3rem] p-10 border shadow-sm space-y-8 bg-(--gs-card-bg) border-slate-100">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center gap-4">
             <div className="w-2 h-8 rounded-full bg-(--gs-accent)" />
-            <h2 className="text-2xl font-black tracking-tighter italic text-[#1a2e25]">Latest News</h2>
+            <h2 className="text-2xl font-black tracking-tighter italic text-(--gs-text-primary)">Latest News</h2>
           </div>
           <button onClick={() => setActiveTab("news")} className="text-[10px] font-black uppercase tracking-[0.2em] text-(--gs-accent) hover:underline">
             View Archives ↗
@@ -108,7 +108,7 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
                   <span className={`text-[9px] font-black px-3 py-1 rounded border shrink-0 uppercase tracking-widest ${news.color.replace('text-', 'border-').replace('text-', 'bg-') + '/10 ' + news.color}`}>
                     {news.category}
                   </span>
-                  <div className="text-[16px] font-black group-hover:translate-x-2 transition-all truncate tracking-tight text-[#1a2e25] group-hover:text-(--gs-accent)">
+                  <div className="text-[16px] font-black group-hover:translate-x-2 transition-all truncate tracking-tight text-(--gs-text-primary) group-hover:text-(--gs-accent)">
                     {news.title}
                   </div>
                 </div>

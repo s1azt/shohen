@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { User, Phone, Mail, Edit3, ChevronRight } from "lucide-react";
 
 interface FooterProps {

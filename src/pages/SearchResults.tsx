@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+﻿import React, { useMemo } from "react";
 // 💡 確実に存在するデータソースのみをインポート
 import { allDeadlines } from "../data/deadlines";
 import { allNews } from "../data/news";
@@ -74,7 +74,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               <Search size={32} strokeWidth={1.5} className="text-white" />
             </div>
             <div>
-              <h2 className="header-title-main text-[#1a2e25]">
+              <h2 className="header-title-main text-(--gs-text-primary)">
                 「{query}」の検索結果
               </h2>
               <div className="flex items-center gap-3 mt-4 opacity-40 italic">
@@ -110,7 +110,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       <GraduationCap size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className="text-[17px] font-black text-[#1a2e25]">{item.title}</h4>
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{item.title}</h4>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -132,7 +132,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       <Bell size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className="text-[17px] font-black text-[#1a2e25]">{item.title}</h4>
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{item.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.date} • {item.category}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
@@ -155,7 +155,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       <Clock size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className="text-[17px] font-black text-[#1a2e25]">{item.title}</h4>
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{item.title}</h4>
                       <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Due: {item.date} • {item.dept}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
@@ -178,7 +178,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       <ExternalLink size={18} />
                     </div>
                     <div className="flex flex-col flex-grow min-w-0 text-left">
-                      <h4 className="text-[17px] font-black truncate text-[#1a2e25]">{link.title}</h4>
+                      <h4 className="text-[17px] font-black truncate text-(--gs-text-primary)">{link.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{link.category} • {link.desc}</p>
                     </div>
                     <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
@@ -201,7 +201,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       <FileText size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className="text-[17px] font-black text-[#1a2e25]">{doc.title}</h4>
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{doc.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{doc.category}</p>
                     </div>
                     <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
@@ -224,7 +224,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       <item.Icon size={18} />
                     </div>
                     <div className="flex flex-col flex-grow text-left">
-                      <h4 className="text-[17px] font-black tracking-tight text-[#1a2e25]">{item.title}</h4>
+                      <h4 className="text-[17px] font-black tracking-tight text-(--gs-text-primary)">{item.title}</h4>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</p>
                     </div>
                     <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
@@ -246,7 +246,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-slate-100 text-slate-600">
                       <Users size={18} />
                     </div>
-                    <h4 className="text-[17px] font-black flex-grow text-left text-[#1a2e25]">
+                    <h4 className="text-[17px] font-black flex-grow text-left text-(--gs-text-primary)">
                       {team.id} <span className="ml-2 opacity-50">| {team.name}</span>
                     </h4>
                     <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />

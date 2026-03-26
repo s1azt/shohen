@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+﻿import React, { useState, useMemo } from "react";
 import { History, FileText, TrendingUp, Users, Code, ArrowUpRight, Award } from "lucide-react";
 import { syohenActivities } from "../data/syohen";
 
@@ -31,7 +31,7 @@ export const Syohen: React.FC = () => {
               <Award size={32} strokeWidth={1.5} />
             </div>
             <div className="text-left">
-              <h2 className="header-title-main text-[#1a2e25]">小変活動</h2>
+              <h2 className="header-title-main text-(--gs-text-primary)">小変活動</h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
                 <p className="header-subtitle-sub opacity-40 uppercase tracking-[0.4em]">Kaizen Innovation Reports</p>
@@ -65,40 +65,40 @@ export const Syohen: React.FC = () => {
           return (
             <div 
               key={activity.id} 
-              className="group relative rounded-[2.5rem] border-none flex flex-col shadow-xl hover:shadow-2xl hover:-translate-y-2 overflow-hidden bg-white"
+              className="group relative rounded-[2.5rem] border-none flex flex-col shadow-xl hover:shadow-2xl hover:-translate-y-2 overflow-hidden bg-(--gs-card-bg)"
             >
               {/* カード上部の装飾的なアクセント */}
               <div className="h-2 w-full bg-slate-50" />
 
               <div className="p-10 pt-8 flex-grow">
                 <div className="flex justify-between items-start mb-8">
-                  <div className="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border bg-slate-50 text-slate-500 border-slate-100">
+                  <div className="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border bg-(--gs-primary)/5 text-(--gs-text-primary)/60 border-(--gs-primary)/10">
                     {activity.category}
                   </div>
                   <TrendingUp size={20} className="text-slate-200 group-hover:text-(--gs-accent) transition-colors duration-500" />
                 </div>
 
                 <div className="text-left">
-                  <h3 className="text-[26px] font-[1000] tracking-tight leading-[1.1] mb-6 text-[#1a2e25]">
+                  <h3 className="text-[26px] font-[1000] tracking-tight leading-[1.1] mb-6 text-(--gs-text-primary)">
                     {activity.title}
                   </h3>
                   
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center border bg-slate-50 border-slate-100 text-slate-400">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center border bg-(--gs-primary)/5 border-(--gs-primary)/10 text-(--gs-text-primary)/50">
                       <Users size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{activity.team}</p>
-                      <p className="text-[9px] font-bold text-slate-400">{activity.members?.join(' · ')}</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-(--gs-text-primary)/50">{activity.team}</p>
+                      <p className="text-[9px] font-bold text-(--gs-text-primary)/50">{activity.members?.join(' · ')}</p>
                     </div>
                   </div>
 
-                  <p className="text-[14px] font-medium leading-relaxed mb-10 opacity-70 text-slate-600">
+                  <p className="text-[14px] font-medium leading-relaxed mb-10 text-(--gs-text-primary)/70">
                     {activity.description}
                   </p>
 
                   {/* 💡 成果セクションを「高級な引用風」に */}
-                  <div className="relative p-7 rounded-3xl border-l-[6px] bg-[#f8faf9] border-(--gs-accent)">
+                  <div className="relative p-7 rounded-3xl border-l-[6px] bg-(--gs-primary)/5 border-(--gs-accent)">
                     <p className="text-[14.5px] font-bold leading-relaxed text-(--gs-accent)">
                       <span className="text-2xl mr-2 opacity-30">“</span>
                       {activity.results}

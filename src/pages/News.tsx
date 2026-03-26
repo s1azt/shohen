@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+﻿import React, { useState, useMemo } from "react";
 import { Bell, Search, ArrowUpRight } from "lucide-react";
 import { allNews } from "../data/news";
 
@@ -35,7 +35,7 @@ export const News: React.FC = () => {
               <Bell size={32} strokeWidth={1.5} />
             </div>
             <div>
-              <h2 className="header-title-main text-[#1a2e25]">お知らせ</h2>
+              <h2 className="header-title-main text-(--gs-text-primary)">お知らせ</h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
                 <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Corporate Updates</p>
@@ -55,7 +55,7 @@ export const News: React.FC = () => {
             <input 
               type="text" 
               placeholder="お知らせ内検索" 
-              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50"
+              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) focus:ring-4 focus:ring-emerald-50/50"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
@@ -97,7 +97,7 @@ export const News: React.FC = () => {
                     <span className="w-1 h-1 rounded-full bg-orange-500 animate-pulse"></span>
                   </div>
                 )}
-                <h4 className="text-[17px] font-black truncate tracking-tight transition-transform group-hover:translate-x-1 text-[#1a2e25]">
+                <h4 className="text-[17px] font-black truncate tracking-tight transition-transform group-hover:translate-x-1 text-(--gs-text-primary)">
                   {item.title}
                 </h4>
               </div>

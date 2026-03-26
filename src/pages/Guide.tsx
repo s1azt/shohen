@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { BookOpen, Clock, Clipboard, Server, MessageSquare, ShieldCheck } from "lucide-react";
 import { allGuides } from "../data/guides";
 
@@ -25,7 +25,7 @@ export const Guide: React.FC = () => {
               <BookOpen size={32} strokeWidth={1.5} />
             </div>
             <div className="text-left">
-              <h2 className="header-title-main text-[#1a2e25]">
+              <h2 className="header-title-main text-(--gs-text-primary)">
                 新人ガイド
               </h2>
               <div className="flex items-center gap-3 mt-4">
@@ -49,7 +49,7 @@ export const Guide: React.FC = () => {
           return (
             <div 
               key={guide.id} 
-              className={`standard-card shadow-xl border-none flex flex-col hover:shadow-2xl hover:-translate-y-1 bg-white`}
+              className={`standard-card shadow-xl border-none flex flex-col hover:shadow-2xl hover:-translate-y-1 bg-(--gs-card-bg)`}
             >
               {/* カードヘッダー */}
               <div className="p-8 pb-4 flex items-center gap-6">
@@ -57,7 +57,7 @@ export const Guide: React.FC = () => {
                   {(() => { const Icon = ICON_MAP[guide.iconName]; return Icon ? <Icon size={20} /> : null; })()}
                 </div>
                 <div className="text-left">
-                  <h3 className="text-[22px] font-[1000] tracking-tight leading-none text-[#1a2e25]">
+                  <h3 className="text-[22px] font-[1000] tracking-tight leading-none text-(--gs-text-primary)">
                     {guide.title}
                   </h3>
                   <p className={`text-[9px] font-black uppercase tracking-[0.25em] mt-2.5 ${scheme.light}`}>
@@ -86,7 +86,7 @@ export const Guide: React.FC = () => {
                       
                       {/* ステップ内容 */}
                       <div className="pt-0.5 flex-grow">
-                        <span className="text-[15px] font-semibold tracking-tight leading-relaxed text-[#1a2e25] opacity-90 group-hover/item:opacity-100 group-hover/item:text-black">
+                        <span className="text-[15px] font-semibold tracking-tight leading-relaxed text-(--gs-text-primary) opacity-90 group-hover/item:opacity-100 group-hover/item:text-black">
                           {step}
                         </span>
                       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+﻿import React, { useState, useMemo } from "react";
 import { allDeadlines } from "../data/deadlines";
 import { Clock, AlertTriangle, CheckCircle, Calendar, ArrowUpRight } from "lucide-react";
 
@@ -41,7 +41,7 @@ export const Deadlines: React.FC = () => {
             <Calendar size={32} strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className="header-title-main text-[#1a2e25]">
+            <h2 className="header-title-main text-(--gs-text-primary)">
               締め切り
             </h2>
             <div className="flex items-center gap-3 mt-4">
@@ -72,7 +72,7 @@ export const Deadlines: React.FC = () => {
           const isNew = isRecentlyUpdated(item.updateDate);
 
           return (
-            <div key={item.id} className="group relative p-6 rounded-[var(--radius-card)] border flex flex-col md:flex-row items-center gap-8 hover:shadow-2xl hover:-translate-y-1 bg-white border-slate-100 shadow-sm">
+            <div key={item.id} className="group relative p-6 rounded-[var(--radius-card)] border flex flex-col md:flex-row items-center gap-8 hover:shadow-2xl hover:-translate-y-1 bg-(--gs-card-bg) border-slate-100 shadow-sm">
               
               {/* NEW判定ラベル：サイズ微調整 */}
               {isNew && (
@@ -99,7 +99,7 @@ export const Deadlines: React.FC = () => {
                   <div className="h-[1px] w-4 bg-(--gs-accent)"></div>
                   <span className="text-[9px] font-black uppercase tracking-widest">Target Timeline</span>
                 </div>
-                <h4 className="text-[17px] font-black tracking-tight leading-tight text-[#1a2e25] group-hover:text-(--gs-accent)">
+                <h4 className="text-[17px] font-black tracking-tight leading-tight text-(--gs-text-primary) group-hover:text-(--gs-accent)">
                   「{item.title}」
                 </h4>
               </div>

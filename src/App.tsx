@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { THEMES } from "./data/themes";
 
 // HSL ユーティリティ（カスタムカラー用）
@@ -113,6 +113,8 @@ export default function App() {
     root.style.setProperty('--gs-primary-dark', dark);
     root.style.setProperty('--gs-on-primary', onPrimary);
     root.style.setProperty('--gs-accent', accent);
+    root.style.setProperty('--gs-text-primary', '#1a2e25');
+    root.style.setProperty('--gs-card-bg', '#ffffff');
     localStorage.setItem('gs-theme', themeName);
   }, [themeName, customColor]);
 

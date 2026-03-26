@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { getAllSections, getSectionById, organizationData } from "../data/organization";
 import { Users, ChevronDown, FileText, UserCheck, LayoutGrid } from "lucide-react";
 
@@ -64,7 +64,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
       {/* 2. セクションインテリジェンス */}
       {currentSection && (
         <div className="space-y-6">
-          <div className="p-10 rounded-[3rem] border shadow-sm relative overflow-hidden bg-white border-slate-100">
+          <div className="p-10 rounded-[3rem] border shadow-sm relative overflow-hidden bg-(--gs-card-bg) border-slate-100">
             <div className="flex flex-col md:flex-row justify-between items-start gap-8">
               <div className="flex-grow text-left">
                 <div className="flex items-center gap-3 mb-4">
@@ -73,12 +73,12 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                   <span className="text-[14px] font-black uppercase tracking-[0.4em] opacity-80 text-(--gs-accent)">部署コード</span>
                 </div>
                 {/* 💡 text-5xl font size */}
-                <h3 className="text-5xl font-black tracking-tighter mb-5 text-[#1a2e25]">{currentSection.name}</h3>
+                <h3 className="text-5xl font-black tracking-tighter mb-5 text-(--gs-text-primary)">{currentSection.name}</h3>
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border bg-slate-50 border-slate-100">
                     <UserCheck size={14} className="text-(--gs-accent)" />
                     {/* 💡 text-[14px] font size */}
-                    <span className="text-[14px] font-black uppercase text-slate-600">SMG: {currentSection.smg || "NOT SET"}</span>
+                    <span className="text-[14px] font-black uppercase text-(--gs-text-primary)/70">SMG: {currentSection.smg || "NOT SET"}</span>
                   </div>
                   {/* 💡 text-[14px] font size */}
                   <a 
@@ -92,7 +92,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                 </div>
               </div>
               {/* 💡 text-lg font size */}
-              <p className="leading-relaxed text-lg font-medium max-w-sm md:text-right text-slate-500">
+              <p className="leading-relaxed text-lg font-medium max-w-sm md:text-right text-(--gs-text-primary)/60">
                 {currentSection.description}
               </p>
             </div>
@@ -107,8 +107,8 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                     key={team.id}
                     className={`rounded-[2.2rem] border overflow-hidden ${
                       isExpanded
-                        ? "border-(--gs-accent) bg-white shadow-xl"
-                        : "border-slate-100 bg-white hover:border-(--gs-accent)/30"
+                        ? "border-(--gs-accent) bg-(--gs-card-bg) shadow-xl"
+                        : "border-slate-100 bg-(--gs-card-bg) hover:border-(--gs-accent)/30"
                     }`}
                   >
                     <button onClick={() => toggleTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left group">
@@ -122,10 +122,10 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                         </div>
                         <div className="min-w-0">
                           {/* 💡 text-xl font size */}
-                          <h4 className="font-black text-xl tracking-tight mb-1 truncate text-[#1a2e25]">{team.name}</h4>
+                          <h4 className="font-black text-xl tracking-tight mb-1 truncate text-(--gs-text-primary)">{team.name}</h4>
                           <div className="flex items-center gap-2">
                             {/* 💡 text-[11px] font size */}
-                            <span className="text-[14px] font-bold text-slate-400 uppercase tracking-widest">Leader: {team.leader}</span>
+                            <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">Leader: {team.leader}</span>
                           </div>
                         </div>
                       </div>
@@ -146,14 +146,14 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                         <div className="px-10 pb-10 text-left">
                             <div className="pt-6 border-t space-y-5 border-slate-50">
                             {/* 💡 text-base font size */}
-                              <p className="text-base font-medium leading-relaxed text-slate-500">{team.description}</p>
+                              <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
                             <div className="flex items-center gap-3">
                               {/* 💡 text-[11px] font size */}
                               <span className="text-[14px] font-black px-3 py-1 rounded-lg uppercase tracking-widest bg-(--gs-accent)/10 text-(--gs-accent)">
                                 {team.members} Members
                               </span>
                               {/* 💡 text-[11px] font size */}
-                              <span className="text-[14px] font-black text-slate-400 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
+                              <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
                             </div>
                           </div>
                         </div>

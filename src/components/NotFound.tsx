@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Home, ArrowLeft } from "lucide-react";
 
 interface NotFoundProps {
@@ -34,7 +34,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ setActiveTab }) => {
         </div>
 
         <div className="space-y-1">
-          <p className="text-lg font-black text-[#1a2e25] tracking-tight">
+          <p className="text-lg font-black text-(--gs-text-primary) tracking-tight">
             ここは光の届かない場所のようです。
           </p>
           <p className="text-xs font-medium text-slate-400 italic leading-relaxed">

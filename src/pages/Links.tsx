@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+﻿import React, { useState, useMemo } from "react";
 import { Globe, Search, ArrowUpRight, ExternalLink } from "lucide-react";
 import { linkCollection } from "../data/links";
 
@@ -45,7 +45,7 @@ export const Links: React.FC = () => {
               <Globe size={32} strokeWidth={1.5} className="text-white" />
             </div>
             <div>
-              <h2 className="header-title-main text-[#1a2e25]">リンク集</h2>
+              <h2 className="header-title-main text-(--gs-text-primary)">リンク集</h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
                 <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Link Assets</p>
@@ -58,7 +58,7 @@ export const Links: React.FC = () => {
             <input 
               type="text" 
               placeholder="リンク集内検索" 
-              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border transition-all bg-slate-50 border-slate-100 text-[#1a2e25] focus:bg-white focus:ring-4 focus:ring-emerald-50/50"
+              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border transition-all bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) focus:ring-4 focus:ring-emerald-50/50"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
@@ -80,7 +80,7 @@ export const Links: React.FC = () => {
 
       {/* 3. コンテンツ表示エリア */}
       {/* --- 縦並びリスト形式（すべて表示時） --- */}
-      <div className={`${activeCategory !== "一覧" ? "hidden" : ""} standard-card transition-none overflow-hidden shadow-xl border-none divide-y bg-white border-transparent divide-slate-50`}>
+      <div className={`${activeCategory !== "一覧" ? "hidden" : ""} standard-card transition-none overflow-hidden shadow-xl border-none divide-y bg-(--gs-card-bg) border-transparent divide-slate-50`}>
         {filteredLinks.map((link) => {
           const colors = COLOR_MAP[link.category] || COLOR_MAP.work;
           return (
@@ -91,7 +91,7 @@ export const Links: React.FC = () => {
                 </div>
                 <div className="text-left min-w-0">
                   <span className={`text-[8px] font-[1000] uppercase tracking-widest leading-none ${colors.text}`}>{link.category}</span>
-                  <h4 className="text-[15px] font-black tracking-tight truncate leading-tight text-slate-800">{link.title}</h4>
+                  <h4 className="text-[15px] font-black tracking-tight truncate leading-tight text-(--gs-text-primary)">{link.title}</h4>
                 </div>
               </div>
               <div className="flex items-center gap-4 shrink-0">
@@ -118,17 +118,17 @@ export const Links: React.FC = () => {
                 className={`group flex flex-col p-7 rounded-[2.5rem] border-2 transition-none hover:-translate-y-2 hover:shadow-2xl no-underline text-left relative overflow-hidden ${colors.bg} ${colors.border} hover:brightness-105`}
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-[#1a2e25] group-hover:text-white`}>
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white`}>
                     <ExternalLink size={24} />
                   </div>
-                  <ArrowUpRight size={20} strokeWidth={3} className={`${colors.icon} group-hover:text-[#1a2e25]`} />
+                  <ArrowUpRight size={20} strokeWidth={3} className={`${colors.icon} group-hover:text-(--gs-text-primary)`} />
                 </div>
                 
-                <h4 className="text-[17px] font-[1000] tracking-tight leading-tight mb-3 text-[#1a2e25]">
+                <h4 className={`text-[17px] font-[1000] tracking-tight leading-tight mb-3 ${colors.text}`}>
                   {link.title}
                 </h4>
                 
-                <p className="text-[12px] font-bold leading-relaxed line-clamp-3 mb-4 text-[#1a2e25]/60">
+                <p className={`text-[12px] font-bold leading-relaxed line-clamp-3 mb-4 ${colors.text}/70`}>
                   {link.desc}
                 </p>
 

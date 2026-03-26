@@ -103,13 +103,15 @@
   /* 標準カード（島）：浮遊感のある白い背景ブロック */
   .standard-card {
     border-radius: var(--radius-card);
-    @apply bg-white border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] overflow-hidden divide-y divide-slate-50;
+    background-color: var(--gs-card-bg);
+    @apply border border-slate-200 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.05)] overflow-hidden divide-y divide-slate-50;
   }
 
   /* ガイド専用カード（新人ガイド用） */
   .guide-card {
     border-radius: var(--radius-card);
-    @apply bg-white border border-slate-100 shadow-sm transition-all duration-500 overflow-hidden flex flex-col;
+    background-color: var(--gs-card-bg);
+    @apply border border-slate-100 shadow-sm transition-all duration-500 overflow-hidden flex flex-col;
   }
   .guide-card:hover {
     @apply shadow-2xl -translate-y-1 border-emerald-100;
