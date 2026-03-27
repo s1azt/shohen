@@ -98,71 +98,155 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-            {currentSection.managers.map((manager) =>
-              manager.teams.map((team) => {
-                const isExpanded = expandedTeams.includes(team.id);
-                return (
-                  <div 
-                    key={team.id}
-                    className={`rounded-[2.2rem] border overflow-hidden ${
-                      isExpanded
-                        ? "border-(--gs-accent) bg-(--gs-card-bg) shadow-xl"
-                        : "border-slate-100 bg-(--gs-card-bg) hover:border-(--gs-accent)/30"
-                    }`}
-                  >
-                    <button onClick={() => toggleTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left group">
-                      <div className="flex items-center gap-5 min-w-0">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
-                          isExpanded
-                            ? "bg-(--gs-accent) text-white" 
-                            : "bg-slate-50 text-slate-400"
-                        }`}>
-                          <LayoutGrid size={24} />
-                        </div>
-                        <div className="min-w-0">
-                          {/* 💡 text-xl font size */}
-                          <h4 className="font-black text-xl tracking-tight mb-1 truncate text-(--gs-text-primary)">{team.name}</h4>
-                          <div className="flex items-center gap-2">
-                            {/* 💡 text-[11px] font size */}
-                            <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">Leader: {team.leader}</span>
+          <div className="space-y-4">
+            {(() => {
+              // HC70: group フィールドがあればグループ別表示
+              const allTeamsWithManager = currentSection.managers.flatMap((manager) =>
+                manager.teams.map((team) => ({ team, manager }))
+              );
+              const hasGroups = allTeamsWithManager.some(({ team }) => team.group);
+
+              if (hasGroups) {
+                // グループごとに分類（順序保持）
+                const groupOrder: string[] = [];
+                const groupedMap = new Map<string, typeof allTeamsWithManager>();
+                for (const item of allTeamsWithManager) {
+                  const key = item.team.group ?? "その他";
+                  if (!groupedMap.has(key)) {
+                    groupOrder.push(key);
+                    groupedMap.set(key, []);
+                  }
+                  groupedMap.get(key)!.push(item);
+                }
+                return groupOrder.map((groupName) => (
+                  <div key={groupName}>
+                    <div className="flex items-center gap-3 mb-3 px-1">
+                      <div className="h-px flex-grow bg-slate-100" />
+                      <span className="text-[13px] font-black uppercase tracking-[0.25em] text-(--gs-accent)/70 shrink-0">{groupName}</span>
+                      <div className="h-px flex-grow bg-slate-100" />
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+                      {groupedMap.get(groupName)!.map(({ team, manager }) => {
+                        const isExpanded = expandedTeams.includes(team.id);
+                        return (
+                          <div
+                            key={team.id}
+                            className={`rounded-[2.2rem] border overflow-hidden ${
+                              isExpanded
+                                ? "border-(--gs-accent) bg-(--gs-card-bg) shadow-xl"
+                                : "border-slate-100 bg-(--gs-card-bg) hover:border-(--gs-accent)/30"
+                            }`}
+                          >
+                            <button onClick={() => toggleTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left group">
+                              <div className="flex items-center gap-5 min-w-0">
+                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
+                                  isExpanded
+                                    ? "bg-(--gs-accent) text-white"
+                                    : "bg-slate-50 text-slate-400"
+                                }`}>
+                                  <LayoutGrid size={24} />
+                                </div>
+                                <div className="min-w-0">
+                                  <h4 className="font-black text-xl tracking-tight mb-1 truncate text-(--gs-text-primary)">{team.name}</h4>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">Leader: {team.leader}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className={`p-2 rounded-full ${
+                                isExpanded
+                                  ? "rotate-180 bg-(--gs-accent) text-white"
+                                  : "text-slate-400 bg-slate-100 group-hover:bg-slate-200"
+                              }`}>
+                                <ChevronDown size={18} />
+                              </div>
+                            </button>
+                            <div className={`grid transition-all duration-400 ease-in-out ${
+                              isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                            }`}>
+                              <div className="overflow-hidden">
+                                <div className="px-10 pb-10 text-left">
+                                  <div className="pt-6 border-t space-y-5 border-slate-50">
+                                    <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
+                                    <div className="flex items-center gap-3">
+                                      <span className="text-[14px] font-black px-3 py-1 rounded-lg uppercase tracking-widest bg-(--gs-accent)/10 text-(--gs-accent)">
+                                        {team.members} Members
+                                      </span>
+                                      <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      
-                      <div className={`p-2 rounded-full ${
-                        isExpanded
-                          ? "rotate-180 bg-(--gs-accent) text-white" 
-                          : "text-slate-400 bg-slate-100 group-hover:bg-slate-200"
-                      }`}>
-                        <ChevronDown size={18} />
-                      </div>
-                    </button>
-                    
-                    <div className={`grid transition-all duration-400 ease-in-out ${
-                      isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}>
-                      <div className="overflow-hidden">
-                        <div className="px-10 pb-10 text-left">
-                            <div className="pt-6 border-t space-y-5 border-slate-50">
-                            {/* 💡 text-base font size */}
-                              <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
-                            <div className="flex items-center gap-3">
-                              {/* 💡 text-[11px] font size */}
-                              <span className="text-[14px] font-black px-3 py-1 rounded-lg uppercase tracking-widest bg-(--gs-accent)/10 text-(--gs-accent)">
-                                {team.members} Members
-                              </span>
-                              {/* 💡 text-[11px] font size */}
-                              <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ));
+              }
+
+              // グループなし: 従来のフラット表示
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+                  {allTeamsWithManager.map(({ team, manager }) => {
+                    const isExpanded = expandedTeams.includes(team.id);
+                    return (
+                      <div
+                        key={team.id}
+                        className={`rounded-[2.2rem] border overflow-hidden ${
+                          isExpanded
+                            ? "border-(--gs-accent) bg-(--gs-card-bg) shadow-xl"
+                            : "border-slate-100 bg-(--gs-card-bg) hover:border-(--gs-accent)/30"
+                        }`}
+                      >
+                        <button onClick={() => toggleTeam(team.id)} className="w-full p-7 flex items-center justify-between text-left group">
+                          <div className="flex items-center gap-5 min-w-0">
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
+                              isExpanded
+                                ? "bg-(--gs-accent) text-white"
+                                : "bg-slate-50 text-slate-400"
+                            }`}>
+                              <LayoutGrid size={24} />
+                            </div>
+                            <div className="min-w-0">
+                              <h4 className="font-black text-xl tracking-tight mb-1 truncate text-(--gs-text-primary)">{team.name}</h4>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">Leader: {team.leader}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={`p-2 rounded-full ${
+                            isExpanded
+                              ? "rotate-180 bg-(--gs-accent) text-white"
+                              : "text-slate-400 bg-slate-100 group-hover:bg-slate-200"
+                          }`}>
+                            <ChevronDown size={18} />
+                          </div>
+                        </button>
+                        <div className={`grid transition-all duration-400 ease-in-out ${
+                          isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        }`}>
+                          <div className="overflow-hidden">
+                            <div className="px-10 pb-10 text-left">
+                              <div className="pt-6 border-t space-y-5 border-slate-50">
+                                <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
+                                <div className="flex items-center gap-3">
+                                  <span className="text-[14px] font-black px-3 py-1 rounded-lg uppercase tracking-widest bg-(--gs-accent)/10 text-(--gs-accent)">
+                                    {team.members} Members
+                                  </span>
+                                  <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">Manager: {manager.name}</span>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })
-            )}
+                    );
+                  })}
+                </div>
+              );
+            })()}
           </div>
         </div>
       )}

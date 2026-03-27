@@ -49,7 +49,7 @@ const RainCat = () => (
 
 export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
   // 💡 修正依頼のリンク先URL（必要に応じて書き換えてください）
-  const UPDATE_REQUEST_URL = "https://docs.google.com/forms/d/1R41PDwRbSuzWT_diIDfa39fVxBtREcKTvT9tDm-04XU/edit";
+  const UPDATE_REQUEST_URL = "https://forms.gle/K7ojTAGr7hsFMzoj9";
 
   return (
     <footer className={`relative w-full mt-20 text-(--gs-on-primary) transition-all duration-[3000ms] ease-in-out bg-(--gs-primary)`}>

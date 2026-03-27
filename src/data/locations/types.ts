@@ -5,4 +5,5 @@ export interface LocationDetail {
   description: string;
   impact?: string;
   image?: string;
+  publishedAt?: string; // 例: "2026-03-27"
 }

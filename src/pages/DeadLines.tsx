@@ -1,6 +1,7 @@
 ﻿import React, { useState, useMemo } from "react";
 import { allDeadlines } from "../data/deadlines";
 import { Clock, AlertTriangle, CheckCircle, Calendar, ArrowUpRight } from "lucide-react";
+import { isWithinDays, DEADLINE_NEW_DAYS } from "../utils/newBadge";
 
 const DEPARTMENTS = ["すべて", ...Array.from(new Set(allDeadlines.map(d => d.dept)))];
 
@@ -9,13 +10,8 @@ export const Deadlines: React.FC = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // 💡 共通の新着判定（3日以内）
-  const isRecentlyUpdated = (dateStr?: string) => {
-    if (!dateStr) return false;
-    const updatedDate = new Date(dateStr.replace(/\./g, '/'));
-    const diffTime = today.getTime() - updatedDate.getTime();
-    return Math.floor(diffTime / 86400000) <= 3;
-  };
+  // 💡 共通の新着判定（1日以内）
+  const isRecentlyUpdated = (dateStr?: string) => isWithinDays(dateStr, DEADLINE_NEW_DAYS);
 
   const getDeadlineStatus = (dateStr: string) => {
     const deadline = new Date(dateStr.replace(/\./g, '/'));

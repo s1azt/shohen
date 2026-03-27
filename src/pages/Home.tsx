@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { allNews } from "../data/news";
 import { externalLinks } from "../data/links";
+import { isWithinDays, NEWS_NEW_DAYS } from "../utils/newBadge";
 
 const QUICK_ACCESS_LINKS: { label: string; sub: string; Icon: React.FC<{ size?: number; strokeWidth?: number }>; url: string }[] = [
   { label: "勤怠・日報",  sub: "Attendance",  Icon: Activity,     url: externalLinks.homeQuickAccess.attendance },
@@ -19,9 +20,6 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
   const latestNews = useMemo(() =>
     [...(allNews || [])]
       .sort((a, b) => b.date.localeCompare(a.date))
@@ -88,9 +86,7 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
         
         <div className="divide-y divide-slate-100">
           {latestNews.map((news, i) => {
-            const newsDate = new Date(news.date.replace(/\./g, '/'));
-            const diffDays = Math.floor((today.getTime() - newsDate.getTime()) / (1000 * 60 * 60 * 24));
-            const isNew = diffDays >= 0 && diffDays <= 3;
+            const isNew = isWithinDays(news.date, NEWS_NEW_DAYS);
 
             return (
               <a 

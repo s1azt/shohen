@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { MapPin, Settings, Trophy, ShieldCheck } from "lucide-react";
+import { MapPin, Settings, Trophy } from "lucide-react";
 import { locationData } from "../data/locations";
 
 export const Construction: React.FC<{ target: string }> = ({ target }) => {
@@ -25,12 +25,11 @@ export const Construction: React.FC<{ target: string }> = ({ target }) => {
             </div>
           </div>
           <div className="pb-1">
-            <div className="flex items-center gap-3 px-6 py-2.5 rounded-xl border bg-slate-50 border-slate-100 text-(--gs-accent)">
-              <ShieldCheck size={18} strokeWidth={2.5} />
-              <span className="text-[10px] font-[1000] uppercase tracking-widest">
-                {info.status === "ready" ? "Active Status" : "Under Construction"}
+            {info.publishedAt && (
+              <span className="text-[11px] font-bold text-(--gs-text-primary)/40 tracking-widest">
+                掲載日: {info.publishedAt.replace(/-/g, "/")}
               </span>
-            </div>
+            )}
           </div>
         </div>
       </header>
@@ -39,9 +38,11 @@ export const Construction: React.FC<{ target: string }> = ({ target }) => {
       {info.status === "ready" ? (
         <div className="standard-card p-12 shadow-xl border-none bg-(--gs-card-bg)">
           <div className="max-w-4xl">
-            <h3 className="text-2xl font-black mb-8 tracking-tight text-(--gs-text-primary)">
-              拠点概要
-            </h3>
+            {info.title && (
+              <h3 className="text-2xl font-black mb-8 tracking-tight text-(--gs-text-primary)">
+                {info.title}
+              </h3>
+            )}
             <p className="text-xl leading-relaxed mb-12 font-medium text-slate-600">
               {info.description}
             </p>

@@ -4,6 +4,7 @@ export interface TeamMember {
   leader: string;
   members: number;
   description: string;
+  group?: string;
 }
 
 export interface Manager {
@@ -106,8 +107,8 @@ export const organizationData = {
             name: "石上 博丈",
             role: "管理マネージャー",
             teams: [
-              { id: "HC70-MG1-T1", name: "企画チーム", leader: "山口 康信", members: 2, description: "" },
-              { id: "HC70-MG1-T2", name: "ＰＭＯチーム", leader: "坂井 信介", members: 2, description: "" }
+              { id: "HC70-MG1-T1", name: "企画チーム", leader: "山口 康信", members: 2, description: "", group: "企画・管理" },
+              { id: "HC70-MG1-T2", name: "ＰＭＯチーム", leader: "坂井 信介", members: 2, description: "", group: "企画・管理" }
             ]
           },
           {
@@ -115,8 +116,8 @@ export const organizationData = {
             name: "吾田 秀樹",
             role: "リリース管理マネージャー",
             teams: [
-              { id: "HC70-MG2-T1", name: "健保、団体チーム", leader: "山岸 大介", members: 4, description: "" },
-              { id: "HC70-MG2-T2", name: "UI/UX推進チーム", leader: "堤 圭佑", members: 2, description: "" }
+              { id: "HC70-MG2-T1", name: "健保、団体チーム", leader: "山岸 大介", members: 4, description: "", group: "健保・UXUI推進" },
+              { id: "HC70-MG2-T2", name: "UI/UX推進チーム", leader: "堤 圭佑", members: 2, description: "", group: "健保・UXUI推進" }
             ]
           },
           {
@@ -124,8 +125,8 @@ export const organizationData = {
             name: "中野 智士",
             role: "カスタマーサクセスマネージャー",
             teams: [
-              { id: "HC70-MG3-T1", name: "YAW基幹系企画開発チーム", leader: "室伏 邦博", members: 3, description: "" },
-              { id: "HC70-MG3-T2", name: "YAWサービス系企画開発チーム", leader: "加藤 佳紀", members: 3, description: "" }
+              { id: "HC70-MG3-T1", name: "YAW基幹系企画開発チーム", leader: "室伏 邦博", members: 3, description: "", group: "YAW" },
+              { id: "HC70-MG3-T2", name: "YAWサービス系企画開発チーム", leader: "加藤 佳紀", members: 3, description: "", group: "YAW" }
             ]
           },
           {
@@ -133,7 +134,35 @@ export const organizationData = {
             name: "今井田 悠",
             role: "データアナリティクスマネージャー",
             teams: [
-              { id: "HC70-MG4-T1", name: "YAWサービス系運用チーム", leader: "山﨑 恭伯", members: 6, description: "" }
+              { id: "HC70-MG4-T1", name: "YAWサービス系運用チーム", leader: "山﨑 恭伯", members: 6, description: "", group: "YAW" }
+            ]
+          },
+          {
+            id: "HC70-MG5",
+            name: "佐藤 総一郎",
+            role: "マネージャー",
+            teams: [
+              { id: "HC70-MG5-T1", name: "BC企画開発チーム", leader: "須藤 亮太", members: 5, description: "", group: "BC / YBC / YCF" },
+              { id: "HC70-MG5-T2", name: "YBC企画開発チーム", leader: "平山 正夫", members: 5, description: "", group: "BC / YBC / YCF" },
+              { id: "HC70-MG5-T3", name: "YCF企画開発チーム", leader: "小川 博義", members: 5, description: "", group: "BC / YBC / YCF" }
+            ]
+          },
+          {
+            id: "HC70-MG6",
+            name: "関 佐里奈",
+            role: "マネージャー",
+            teams: [
+              { id: "HC70-MG6-T1", name: "BC/YBC運用チーム", leader: "高橋 理奈", members: 4, description: "", group: "BC / YBC / YCF" },
+              { id: "HC70-MG6-T2", name: "YCF運用チーム", leader: "泉屋 里絵", members: 5, description: "", group: "BC / YBC / YCF" }
+            ]
+          },
+          {
+            id: "HC70-MG7",
+            name: "荒井 洋輔",
+            role: "マネージャー",
+            teams: [
+              { id: "HC70-MG7-T1", name: "ASC企画開発チーム", leader: "丸山 隼一", members: 3, description: "", group: "ASC" },
+              { id: "HC70-MG7-T2", name: "ASC運用チーム", leader: "秋元 健史", members: 4, description: "", group: "ASC" }
             ]
           }
         ]

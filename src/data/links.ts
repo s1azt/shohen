@@ -18,6 +18,7 @@ export const linkCollection: LinkItem[] = [
   { id: "W-02", title: "カニシステム", url: "http://vo-ov.nekonet.co.jp/YadokariWeb/SRC01Action_doInit.action", desc: "勤怠情報入力・管理", category: "work" },
   { id: "W-03", title: "タレントパレット", url: "https://tyix8755.talent-p.net/", desc: "人事評価・スキル管理・タレントマネジメント", category: "work" },
   { id: "W-04", title: "受講管理Web", url: "https://www.appsheet.com/start/69c129f9-7d1e-4afb-97d4-a97611a55be7", desc: "AppSheetによる研修受講・履歴管理", category: "work" },
+  { id: "W-07", title: "楽々精算", url: "https://rsiconology.rakurakuseisan.jp/0Hb3rSCKzTa/", desc: "経費精算・交通費申請", category: "work" },
   { id: "W-05", title: "感染症罹患報告", url: "http://syshon-redmine.nekonet.co.jp/login?back_url=http%3A%2F%2Fsyshon-redmine.nekonet.co.jp%2Fprojects%2Frikan%2Fissues%3Fquery_id%3D355", desc: "Redmineによる罹患報告・管理", category: "work" },
   { id:  "W-06", title: "E-learn", url: "https://clipline.jp/training/#/", desc: "ClipLine 動画研修・スキルアップ", category: "work" },
 
@@ -37,6 +38,7 @@ export const linkCollection: LinkItem[] = [
   { id: "D-12", title: "サイネージ", url: "http://sysign.nekonet.co.jp/signagesp/login", desc: "社内サイネージコンテンツ管理", category: "development" },
   { id: "D-13", title: "HC70 PMOチーム", url: "https://sites.google.com/nekonet.co.jp/hc70-pmo/", desc: "PMO活動・プロジェクト支援ポータル", category: "development" },
   { id: "D-14", title: "UI/UX支援ポータル", url: "https://sites.google.com/nekonet.co.jp/hc70-uiux-portal", desc: "UI/UXデザインガイド・改善支援", category: "development" },
+  { id: "D-16", title: "UXUI Labo", url: "http://192.168.8.205/wordpress/UIUX-LAB/docs/index.html", desc: "UX/UI推進活動・ドキュメント・イベント情報", category: "development" },
   { id: "D-15", title: "資産管理ポータル", url: "https://sites.google.com/nekonet.co.jp/hc10-asset/home", desc: "HC10資産管理ポータル", category: "development" },
 
   // 晴海オフィス関連 (L-xxx)

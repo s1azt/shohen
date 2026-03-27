@@ -1,6 +1,7 @@
 ﻿import React, { useState } from "react";
 import { columnArchives } from "../data/columns";
 import { ChevronRight, Newspaper, ExternalLink, Calendar } from "lucide-react";
+import { isWithinDays, COLUMN_NEW_DAYS } from "../utils/newBadge";
 
 export const Column: React.FC = () => {
   const [selectedColumnId, setSelectedColumnId] = useState<number | null>(null);
@@ -76,7 +77,9 @@ export const Column: React.FC = () => {
         </div>
         <div className="md:w-1/2 p-8 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-3">
-            <span className="bg-red-100 text-red-600 text-[10px] font-black px-2 py-0.5 rounded-full">NEW</span>
+            {isWithinDays(latestColumn.date, COLUMN_NEW_DAYS) && (
+              <span className="bg-red-100 text-red-600 text-[10px] font-black px-2 py-0.5 rounded-full">NEW</span>
+            )}
             <span className="text-[#6b7a5f] text-xs font-bold">{latestColumn.date}</span>
           </div>
           <h3 className="text-2xl font-black text-[#3e4a36] mb-4 group-hover:text-[#6b7a5f] transition-colors leading-tight">

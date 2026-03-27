@@ -1,7 +1,10 @@
 ﻿import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette } from "lucide-react";
+import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2 } from "lucide-react";
 import { THEMES } from "../data/themes";
 import { externalLinks } from "../data/links";
+import { columnArchives } from "../data/columns";
+import { allDocuments } from "../data/documents";
+import { isWithinDays, isBeforeUntil, COLUMN_NEW_DAYS } from "../utils/newBadge";
 
 interface SidebarProps {
   setActiveTab: (tab: string) => void;
@@ -15,6 +18,15 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSectionId, themeName, setThemeName, customColor, setCustomColor }) => {
   const [time, setTime] = useState(new Date());
   const [showSupport, setShowSupport] = useState(false);
+  const [showCompanies, setShowCompanies] = useState(false);
+
+  const COMPANIES = [
+    { abbr: "YAW", full: "ヤマトオートワークス株式会社", desc: "ヤマトグループの車両・施設管理会社。クロネコヤマトを支える車両整備や物流機器（ロールボックスパレット）のメンテナンスを担当。" },
+    { abbr: "BC", full: "ボックスチャーター株式会社", desc: "キャスター付き鉄製カゴ車（ボックス）単位で輸送する「JITBOXチャーター便」のフランチャイザー事業会社。" },
+    { abbr: "YBC", full: "ヤマトボックスチャーター株式会社", desc: "JITBOXチャーター便を中心に、小ロットから大型貨物まで柔軟に対応するヤマトグループの運送会社。" },
+    { abbr: "YCF", full: "ヤマトクレジットファイナンス株式会社", desc: "ヤマトグループの金融・決済専門会社。「クロネコ掛け払い」など物流と連携した与信・決済サービスで顧客の事業成長を支援。" },
+    { abbr: "ASC", full: "アートセッティングデリバリー株式会社", desc: "アート引越センターのグループ企業。2人1組の配送ネットワークを基盤に、家具・家電の輸送から開梱・設置・廃材回収までをワンセットで提供。" },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -23,6 +35,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  // 今週のコラム NEW判定
+  const latestColumn = columnArchives[0];
+  const isColumnNew = isWithinDays(latestColumn?.date, COLUMN_NEW_DAYS);
+
+  // 部会資料アーカイブ NEW判定
+  const bukaDoc = allDocuments.find(d => d.id === 1);
+  const isBukaNew = isBeforeUntil(bukaDoc?.newUntil);
 
   // --- 締め切り関連の計算ロジックをコメントアウト ---
   /*
@@ -76,6 +96,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
               <MessageSquare size={20} />
             </div>
             <span className="text-[15px] font-black text-(--gs-text-primary)">今週のコラム</span>
+            {isColumnNew && (
+              <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
+            )}
           </div>
           <ChevronRight size={14} className="text-slate-200" />
         </button>
@@ -92,6 +115,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
               <FileBox size={14} className="text-(--gs-on-primary)" />
             </div>
             <span className="text-[9px] font-[1000] uppercase tracking-[0.2em] opacity-60">Strategic Docs</span>
+            {isBukaNew && (
+              <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
+            )}
           </div>
           <h4 className="text-[20px] font-black leading-tight mb-1">部会資料アーカイブ</h4>
           <p className="text-[9px] font-bold opacity-50 flex items-center gap-1 uppercase tracking-widest">
@@ -101,7 +127,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         <FileBox size={80} className="absolute -right-4 -bottom-4 opacity-10 rotate-12" />
       </button>
 
-      {/* 5. SUPPORT */}
+      {/* 5. 関連会社紹介 */}
+      <div className="space-y-2">
+        <button
+          onClick={() => setShowCompanies(!showCompanies)}
+          className={`w-full p-4 rounded-[2rem] transition-all font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-between gap-2 shadow-lg ${
+            showCompanies ? "bg-white text-(--gs-accent) border-2 border-(--gs-accent)" : "bg-(--gs-primary) text-(--gs-on-primary)"
+          }`}
+        >
+          <div className="flex items-center gap-2 text-left">
+            <Building2 size={14} /> <span>関連会社紹介</span>
+          </div>
+          <ChevronDown size={14} className={`transition-transform ${showCompanies ? "rotate-180" : ""}`} />
+        </button>
+
+        {showCompanies && (
+          <div className="bg-(--gs-card-bg) border border-slate-100 rounded-3xl p-3 shadow-xl animate-in slide-in-from-top-2 duration-200 space-y-2">
+            {COMPANIES.map((c) => (
+              <div key={c.abbr} className="px-3 py-3 rounded-2xl border border-slate-100 bg-slate-50/50">
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="text-[13px] font-black text-(--gs-accent)">{c.abbr}</span>
+                  <span className="text-[10px] font-bold text-(--gs-text-primary)/50 leading-tight">{c.full}</span>
+                </div>
+                <p className="text-[11px] leading-relaxed text-(--gs-text-primary)/60">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* 6. SUPPORT */}
       <div className="space-y-2">
         <button 
           onClick={() => setShowSupport(!showSupport)}

@@ -1,26 +1,23 @@
 ﻿import React, { useState, useMemo } from "react";
 import { Bell, Search, ArrowUpRight } from "lucide-react";
 import { allNews } from "../data/news";
+import { isWithinDays, NEWS_NEW_DAYS } from "../utils/newBadge";
 
 export const News: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("一覧");
 
-  const categories = ["一覧", "重要", "社内", "通達", "イベント"];
+  const categories = ["一覧", "セキュリティ/危機管理", "社内業務", "人事関連", "教育/研修関連", "その他"];
+  const OTHER_CATEGORIES = ["社内行事", "通達", "お知らせ"];
   
-  const isNewPost = (dateStr: string) => {
-    const postDate = new Date(dateStr.replace(/\./g, '/'));
-    const today = new Date();
-    const diffTime = today.getTime() - postDate.getTime();
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    return diffDays >= 0 && diffDays <= 3;
-  };
+  const isNewPost = (dateStr: string) => isWithinDays(dateStr, NEWS_NEW_DAYS);
 
   const filteredNews = useMemo(() => {
     const lq = searchTerm.toLowerCase();
     return (allNews || []).filter(item => {
       const matchesSearch = item.title.toLowerCase().includes(lq);
-      const matchesCategory = activeCategory === "一覧" || item.category === activeCategory;
+      const matchesCategory = activeCategory === "一覧"
+        || (activeCategory === "その他" ? OTHER_CATEGORIES.includes(item.category) : item.category === activeCategory);
       return matchesSearch && matchesCategory;
     }).sort((a, b) => b.date.localeCompare(a.date));
   }, [searchTerm, activeCategory]);
@@ -85,7 +82,7 @@ export const News: React.FC = () => {
               </div>
               <div className="flex items-center gap-4 flex-grow min-w-0 text-left">
                 <span className={`text-[9px] font-[1000] px-3 py-1 rounded uppercase tracking-widest border shrink-0 ${
-                  item.category === "重要" 
+                  item.category === "セキュリティ/危機管理" 
                     ? "bg-red-50 text-red-600 border-red-100 shadow-sm" 
                     : "bg-slate-50 text-slate-500 border-slate-200"
                 }`}>
