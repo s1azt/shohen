@@ -6,11 +6,14 @@ import { linkCollection, externalLinks } from "../data/links";
 import { allDocuments } from "../data/documents";
 import { getAllSections } from "../data/organization";
 import { allGuides } from "../data/guides"; 
+import { columnArchives } from "../data/columns";
+import { COMPANIES } from "../data/companies";
+import { allActionPlans } from "../data/actionPlans";
 
 import { 
   Search, Clock, ExternalLink, ChevronRight, 
   AlertCircle, Bell, FileText, Users, ArrowUpRight, 
-  LayoutGrid, Headset, GraduationCap 
+  LayoutGrid, Headset, GraduationCap, Newspaper, Building2, Target
 } from "lucide-react";
 
 const ALL_SECTIONS = getAllSections();
@@ -25,9 +28,10 @@ interface SearchResultsProps {
   query: string;
   setActiveTab: (tab: string) => void;
   setActiveSectionId?: (id: string) => void;
+  setActiveCompanyAbbr?: (abbr: string) => void;
 }
 
-export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTab, setActiveSectionId }) => {
+export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTab, setActiveSectionId, setActiveCompanyAbbr }) => {
   const q = (query || "").toLowerCase().trim();
 
   const foundGuides = useMemo(() =>
@@ -58,12 +62,25 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
     PORTAL_ITEMS.filter(item => item.title.toLowerCase().includes(q))
   , [q]);
 
+  const foundColumns = useMemo(() =>
+    (columnArchives || []).filter(item => [item.title, item.category, item.author].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundCompanies = useMemo(() =>
+    (COMPANIES || []).filter(item => [item.abbr, item.full, item.desc].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
+  const foundActionPlans = useMemo(() =>
+    (allActionPlans || []).filter(item => [item.title, item.description, item.owner, item.category].some(t => t?.toLowerCase().includes(q)))
+  , [q]);
+
   if (!q) return null;
 
   // 💡 合計カウントの計算（安全な項目のみ）
   const totalCount = foundDeadlines.length + foundNews.length + foundLinks.length + 
                    foundDocs.length + foundTeams.length + foundCommon.length + 
-                   foundGuides.length;
+                   foundGuides.length + foundColumns.length + 
+                   foundCompanies.length + foundActionPlans.length;
 
   return (
     <div className="page-main-container font-sans text-left">
@@ -250,6 +267,75 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                       {team.id} <span className="ml-2 opacity-50">| {team.name}</span>
                     </h4>
                     <ChevronRight size={18} className="text-slate-200 group-hover:translate-x-1" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 8. コラム (Column) */}
+          {foundColumns.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-teal-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <Newspaper size={14} /> Column ({foundColumns.length})
+              </h3>
+              <div className="standard-card">
+                {foundColumns.map((col) => (
+                  <div key={`col-${col.id}`} onClick={() => setActiveTab("column")} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-teal-50 text-teal-600">
+                      <Newspaper size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow text-left">
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{col.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{col.date} • {col.category}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 9. 関連会社紹介 (Companies) */}
+          {foundCompanies.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-violet-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <Building2 size={14} /> Related Companies ({foundCompanies.length})
+              </h3>
+              <div className="standard-card">
+                {foundCompanies.map((company) => (
+                  <div key={`co-${company.abbr}`} onClick={() => setActiveCompanyAbbr?.(company.abbr)} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-violet-50 text-violet-600">
+                      <Building2 size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow text-left">
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{company.abbr} <span className="font-medium text-sm opacity-60">{company.full}</span></h4>
+                      <p className="text-[11px] text-slate-400 leading-snug line-clamp-2">{company.desc}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 10. アクションプラン (Action Plans) */}
+          {foundActionPlans.length > 0 && (
+            <section className="space-y-4">
+              <h3 className="text-[10px] font-black text-amber-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                <Target size={14} /> Action Plans ({foundActionPlans.length})
+              </h3>
+              <div className="standard-card">
+                {foundActionPlans.map((plan) => (
+                  <div key={`ap-${plan.id}`} onClick={() => setActiveTab("actionplan")} className="standard-list-row group cursor-pointer">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-amber-50 text-amber-600">
+                      <Target size={18} />
+                    </div>
+                    <div className="flex flex-col flex-grow text-left">
+                      <h4 className="text-[17px] font-black text-(--gs-text-primary)">{plan.title}</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{plan.fiscalYear}年度 • {plan.category} • {plan.status}</p>
+                    </div>
+                    <ChevronRight size={18} className="text-slate-200" />
                   </div>
                 ))}
               </div>

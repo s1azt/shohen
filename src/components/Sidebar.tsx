@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2 } from "lucide-react";
+import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target } from "lucide-react";
 import { THEMES } from "../data/themes";
 import { externalLinks } from "../data/links";
+import { COMPANIES } from "../data/companies";
 import { columnArchives } from "../data/columns";
 import { allDocuments } from "../data/documents";
 import { isWithinDays, isBeforeUntil, COLUMN_NEW_DAYS } from "../utils/newBadge";
@@ -9,24 +10,31 @@ import { isWithinDays, isBeforeUntil, COLUMN_NEW_DAYS } from "../utils/newBadge"
 interface SidebarProps {
   setActiveTab: (tab: string) => void;
   setActiveSectionId: (id: string) => void;
+  activeCompanyAbbr?: string;
+  setActiveCompanyAbbr?: (abbr: string) => void;
   themeName?: string;
   setThemeName?: (name: string) => void;
   customColor?: string;
   setCustomColor?: (color: string) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSectionId, themeName, setThemeName, customColor, setCustomColor }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSectionId, activeCompanyAbbr, setActiveCompanyAbbr, themeName, setThemeName, customColor, setCustomColor }) => {
   const [time, setTime] = useState(new Date());
   const [showSupport, setShowSupport] = useState(false);
   const [showCompanies, setShowCompanies] = useState(false);
+  const companyRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
 
-  const COMPANIES = [
-    { abbr: "YAW", full: "ヤマトオートワークス株式会社", desc: "ヤマトグループの車両・施設管理会社。クロネコヤマトを支える車両整備や物流機器（ロールボックスパレット）のメンテナンスを担当。" },
-    { abbr: "BC", full: "ボックスチャーター株式会社", desc: "キャスター付き鉄製カゴ車（ボックス）単位で輸送する「JITBOXチャーター便」のフランチャイザー事業会社。" },
-    { abbr: "YBC", full: "ヤマトボックスチャーター株式会社", desc: "JITBOXチャーター便を中心に、小ロットから大型貨物まで柔軟に対応するヤマトグループの運送会社。" },
-    { abbr: "YCF", full: "ヤマトクレジットファイナンス株式会社", desc: "ヤマトグループの金融・決済専門会社。「クロネコ掛け払い」など物流と連携した与信・決済サービスで顧客の事業成長を支援。" },
-    { abbr: "ASC", full: "アートセッティングデリバリー株式会社", desc: "アート引越センターのグループ企業。2人1組の配送ネットワークを基盤に、家具・家電の輸送から開梱・設置・廃材回収までをワンセットで提供。" },
-  ];
+  // 関連会社が外部から指定されたら accordion を開いてスクロール
+  useEffect(() => {
+    if (activeCompanyAbbr) {
+      setShowCompanies(true);
+      setTimeout(() => {
+        companyRefs.current[activeCompanyAbbr]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 150);
+    }
+  }, [activeCompanyAbbr]);
+
+
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -102,6 +110,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
           </div>
           <ChevronRight size={14} className="text-slate-200" />
         </button>
+
+        <button onClick={() => setActiveTab("actionplan")} className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
+              <Target size={20} />
+            </div>
+            <span className="text-[15px] font-black text-(--gs-text-primary)">アクションプラン</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-200" />
+        </button>
 </div>
         
       {/* 4. 部会資料バナー */}
@@ -143,15 +161,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
 
         {showCompanies && (
           <div className="bg-(--gs-card-bg) border border-slate-100 rounded-3xl p-3 shadow-xl animate-in slide-in-from-top-2 duration-200 space-y-2">
-            {COMPANIES.map((c) => (
-              <div key={c.abbr} className="px-3 py-3 rounded-2xl border border-slate-100 bg-slate-50/50">
-                <div className="flex items-baseline gap-2 mb-1">
-                  <span className="text-[13px] font-black text-(--gs-accent)">{c.abbr}</span>
-                  <span className="text-[10px] font-bold text-(--gs-text-primary)/50 leading-tight">{c.full}</span>
+            {COMPANIES.map((c) => {
+              const isHighlighted = activeCompanyAbbr === c.abbr;
+              return (
+                <div
+                  key={c.abbr}
+                  ref={el => { companyRefs.current[c.abbr] = el; }}
+                  className={`px-3 py-3 rounded-2xl border transition-all ${
+                    isHighlighted
+                      ? "border-(--gs-accent) bg-(--gs-accent)/5 ring-1 ring-(--gs-accent)/30"
+                      : "border-transparent bg-slate-50/50 hover:bg-(--gs-accent)/5 hover:border-(--gs-accent)/30"
+                  }`}
+                >
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className={`text-[13px] font-black ${ isHighlighted ? "text-(--gs-accent)" : "text-(--gs-accent)" }`}>{c.abbr}</span>
+                    <span className="text-[10px] font-bold text-(--gs-text-primary)/50 leading-tight">{c.full}</span>
+                  </div>
+                  <p className="text-[11px] leading-relaxed text-(--gs-text-primary)/60">{c.desc}</p>
                 </div>
-                <p className="text-[11px] leading-relaxed text-(--gs-text-primary)/60">{c.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

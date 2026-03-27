@@ -143,10 +143,13 @@ async function main() {
         if (cat) skippedCategories.add(cat);
         continue;
       }
+      const title = item.title || '';
+      // 「再掲」を含むタイトルはスキップ
+      if (title.includes('再掲')) continue;
       candidates.push({
         date,
         category: cat,
-        title: item.title || '',
+        title,
         color: getColor(catNorm, item.imp),
         url: resolveUrl(item.url),
       });
@@ -173,10 +176,21 @@ async function main() {
   }
 
   // ── C: 件数制限（日付降順で上位MAX_ITEMS件）──
+  // ID は日付＋タイトルから生成した安定したハッシュ値を使用
+  // （連番だと再取得のたびにIDがずれて既読管理が崩れるため）
+  function stableId(date, title) {
+    let hash = 0;
+    const str = date + title;
+    for (let i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
+    }
+    return Math.abs(hash);
+  }
+
   const limited = approved
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, MAX_ITEMS)
-    .map((item, idx) => ({ id: idx + 1, ...item }));
+    .map((item) => ({ id: stableId(item.date, item.title), ...item }));
 
   // TypeScript ファイルとして出力
   const now = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });

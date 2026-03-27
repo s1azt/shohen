@@ -1,10 +1,14 @@
 ﻿import React, { useState } from "react";
 import { columnArchives } from "../data/columns";
-import { ChevronRight, Newspaper, ExternalLink, Calendar } from "lucide-react";
+import { ChevronRight, Newspaper, ExternalLink, Star } from "lucide-react";
 import { isWithinDays, COLUMN_NEW_DAYS } from "../utils/newBadge";
+
+const CATEGORIES = ["すべて", "GOOD NEWS", "ITトレンド"] as const;
+type CategoryFilter = typeof CATEGORIES[number];
 
 export const Column: React.FC = () => {
   const [selectedColumnId, setSelectedColumnId] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("すべて");
 
   // 記事詳細表示
   if (selectedColumnId) {
@@ -57,9 +61,15 @@ export const Column: React.FC = () => {
   }
 
   // 記事一覧表示
-  const latestColumn = columnArchives[0];
+  const filteredColumns = activeCategory === "すべて"
+    ? [...columnArchives].sort((a, b) => b.date.localeCompare(a.date))
+    : [...columnArchives]
+        .filter(c => c.category === activeCategory)
+        .sort((a, b) => b.date.localeCompare(a.date));
+  const latestColumn = filteredColumns[0];
+
   return (
-    <div className="space-y-10 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-500">
       <header className="flex items-center justify-between border-b border-[#cbd5c0] pb-4">
         <h2 className="text-2xl font-black text-[#3e4a36] flex items-center gap-3">
           <Newspaper className="text-[#6b7a5f]" /> 今週のコラム
@@ -67,7 +77,21 @@ export const Column: React.FC = () => {
         <span className="text-xs font-bold text-[#6b7a5f] uppercase tracking-widest">Archives</span>
       </header>
 
+      {/* カテゴリタブ */}
+      <div className="category-tab-container">
+        {CATEGORIES.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`category-tab-button ${activeCategory === cat ? "tab-active-normal" : "tab-inactive"}`}
+          >
+            {cat === "GOOD NEWS" && <Star size={12} className="inline mr-1" />}{cat}
+          </button>
+        ))}
+      </div>
+
       {/* 最新の注目記事 */}
+      {latestColumn ? (
       <div 
         onClick={() => setSelectedColumnId(latestColumn.id)}
         className="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-[#cbd5c0] cursor-pointer group hover:shadow-md transition-all flex flex-col md:flex-row h-auto md:h-80"
@@ -91,10 +115,14 @@ export const Column: React.FC = () => {
           </div>
         </div>
       </div>
+      ) : (
+        <div className="text-center py-20 text-[#6b7a5f] font-bold opacity-50">該当する記事がありません</div>
+      )}
 
       {/* 過去記事アーカイブ */}
+      {filteredColumns.length > 1 && (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {columnArchives.slice(1).map((col) => (
+        {filteredColumns.slice(1).map((col) => (
           <div 
             key={col.id} 
             onClick={() => setSelectedColumnId(col.id)}
@@ -102,7 +130,7 @@ export const Column: React.FC = () => {
           >
             <div className="flex items-center gap-4 mb-3">
               <div className="bg-white p-3 rounded-2xl text-[#6b7a5f] shadow-sm group-hover:scale-110 transition-transform">
-                <Newspaper size={24} />
+                {col.category === "GOOD NEWS" ? <Star size={24} /> : <Newspaper size={24} />}
               </div>
               <div>
                 <p className="text-[10px] text-[#6b7a5f] font-bold opacity-60">{col.date}</p>
@@ -121,6 +149,7 @@ export const Column: React.FC = () => {
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 };

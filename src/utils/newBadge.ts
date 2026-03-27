@@ -5,7 +5,7 @@
  */
 
 /** お知らせページ・ホームのNEW表示日数 */
-export const NEWS_NEW_DAYS = 1;
+export const NEWS_NEW_DAYS = 3;
 
 /** 締め切りページのNEW表示日数 */
 export const DEADLINE_NEW_DAYS = 1;

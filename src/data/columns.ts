@@ -1,9 +1,23 @@
 //今週のコラム
 
-export const columnArchives = [
+export type ColumnCategory = "ITトレンド" | "GOOD NEWS";
+
+export interface ColumnArticle {
+  id: number;
+  date: string;
+  category: ColumnCategory;
+  title: string;
+  tags: string[];
+  image: string;
+  content: string;
+  author: string;
+}
+
+export const columnArchives: ColumnArticle[] = [
  {
     id: 1,
     date: "2026-01-21",
+    category: "ITトレンド" as ColumnCategory,
     title: "「AIエージェント」が変える仕事の未来",
     tags: ["#AIエージェント", "#業務効率化"],
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1470&q=80",
@@ -19,6 +33,7 @@ export const columnArchives = [
   {
     id: 2,
     date: "2026-01-14",
+    category: "ITトレンド" as ColumnCategory,
     title: "2026年のサイバーセキュリティ予測",
     tags: ["#セキュリティ", "#トレンド"],
     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1470&q=80",
@@ -33,6 +48,7 @@ export const columnArchives = [
   {
     id: 3,
     date: "2026-01-07",
+    category: "ITトレンド" as ColumnCategory,
     title: "ハイブリッドワークを支える最新NW技術",
     tags: ["#ネットワーク", "#リモートワーク"],
     image: "https://images.unsplash.com/photo-1558494949-ef0109121c04?auto=format&fit=crop&w=1470&q=80",
@@ -47,6 +63,7 @@ export const columnArchives = [
   {
     id: 4,
     date: "2025-12-24",
+    category: "ITトレンド" as ColumnCategory,
     title: "開発者必見：2026年のプログラミング言語動向",
     tags: ["#開発", "#プログラミング"],
     image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1470&q=80",
@@ -60,6 +77,7 @@ export const columnArchives = [
   {
     id: 5,
     date: "2025-12-17",
+    category: "ITトレンド" as ColumnCategory,
     title: "仕事の生産性を高めるデジタル・デトックスのすすめ",
     tags: ["#生産性", "#メンタルヘルス"],
     image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1470&q=80",
@@ -74,6 +92,7 @@ export const columnArchives = [
   {
     id: 6,
     date: "2025-12-10",
+    category: "ITトレンド" as ColumnCategory,
     title: "クラウドコスト最適化（FinOps）の重要性",
     tags: ["#クラウド", "#コスト削減"],
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1470&q=80",
@@ -84,5 +103,15 @@ export const columnArchives = [
 これらをデータに基づいて定期的に見直すことは、単なる節約ではなく「攻めのIT投資」のための原資を作る活動です。
 部内でもクラウドコストのモニタリングを強化し、透明性の高い運用を目指していきます。`,
     author: "クラウド運用ユニット"
+  },
+  {
+    id: 7,
+    date: "2026-03-27",
+    category: "GOOD NEWS" as ColumnCategory,
+    title: "サンプル：〇〇プロジェクトがお客様から高評価をいただきました",
+    tags: ["#表彰", "#チームの成果"],
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1470&q=80",
+    content: `（GOOD NEWSの内容をここに入力してください）`,
+    author: "編集部"
   }
 ];

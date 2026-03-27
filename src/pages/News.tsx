@@ -2,15 +2,17 @@
 import { Bell, Search, ArrowUpRight } from "lucide-react";
 import { allNews } from "../data/news";
 import { isWithinDays, NEWS_NEW_DAYS } from "../utils/newBadge";
+import { useReadNews } from "../utils/useReadNews";
 
 export const News: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("一覧");
+  const { isRead, markAsRead } = useReadNews();
 
   const categories = ["一覧", "セキュリティ/危機管理", "社内業務", "人事関連", "教育/研修関連", "その他"];
   const OTHER_CATEGORIES = ["社内行事", "通達", "お知らせ"];
   
-  const isNewPost = (dateStr: string) => isWithinDays(dateStr, NEWS_NEW_DAYS);
+  const isNewPost = (dateStr: string, id: string | number) => !isRead(id) && isWithinDays(dateStr, NEWS_NEW_DAYS);
 
   const filteredNews = useMemo(() => {
     const lq = searchTerm.toLowerCase();
@@ -76,7 +78,7 @@ export const News: React.FC = () => {
       <div className="standard-card">
         {filteredNews.length > 0 ? (
           filteredNews.map((item) => (
-            <a key={item.id} href={item.url} target="_blank" rel="noreferrer" className="standard-list-row group">
+            <a key={item.id} href={item.url} target="_blank" rel="noreferrer" onClick={() => markAsRead(item.id)} className="standard-list-row group">
               <div className="flex items-center gap-4 w-32 shrink-0">
                 <div className="text-[12px] font-bold text-slate-400 font-mono tracking-tighter tabular-nums">{item.date}</div>
               </div>
@@ -88,7 +90,7 @@ export const News: React.FC = () => {
                 }`}>
                   {item.category}
                 </span>
-                {isNewPost(item.date) && (
+                {isNewPost(item.date, item.id) && (
                   <div className="flex items-center gap-1 shrink-0">
                     <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
                     <span className="w-1 h-1 rounded-full bg-orange-500 animate-pulse"></span>

@@ -69,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({
             type="text"
             // 💡 動的なプレースホルダーを適用
             placeholder={placeholder || "情報を検索..."}
-            className="w-full py-3.5 px-6 rounded-xl text-sm border border-(--gs-on-primary)/30 shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all outline-none font-bold bg-white/95 text-(--gs-primary) placeholder:text-slate-400 focus:ring-emerald-400/50"
+            className="w-full py-3.5 px-6 rounded-xl text-sm border border-(--gs-on-primary)/30 shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all outline-none font-bold bg-white/95 text-(--gs-accent) placeholder:text-slate-400 focus:ring-emerald-400/50"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

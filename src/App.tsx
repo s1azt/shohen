@@ -60,6 +60,7 @@ import { Column } from "./pages/Column";
 import { News } from "./pages/News"; 
 import { Construction } from "./pages/Construction";
 import { Documents } from "./pages/Documents"; 
+import { ActionPlanPage } from "./pages/ActionPlan";
 
 // 雨エフェクト：ランダム値をコンポーネント外で固定し再レンダリングでリセットされない
 const RAIN_DROPS = [...Array(15)].map(() => ({
@@ -80,9 +81,17 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchExecutionQuery, setSearchExecutionQuery] = useState("");
-  const [activeSectionId, setActiveSectionId] = useState("HC10");
+  const [activeSectionId, setActiveSectionId] = useState("");
+  const [activeCompanyAbbr, setActiveCompanyAbbr] = useState("");
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [constructionTarget, setConstructionTarget] = useState("");
+
+  // 関連会社ハイライトは一時的 — 2.5秒後に自動解除
+  useEffect(() => {
+    if (!activeCompanyAbbr) return;
+    const timer = setTimeout(() => setActiveCompanyAbbr(""), 2500);
+    return () => clearTimeout(timer);
+  }, [activeCompanyAbbr]);
 
   // テーマカラー管理
   const [themeName, setThemeName] = useState(() => localStorage.getItem('gs-theme') || 'green');
@@ -99,7 +108,8 @@ export default function App() {
       dark = adjustHex(customColor, -15);
       const [, , l] = hexToHsl(customColor);
       onPrimary = l > 55 ? '#1a1a1a' : '#ffffff';
-      accent = l > 55 ? customColor : adjustHex(customColor, -10);
+      // 明るいカスタムカラーはアクセントを十分に暗くして視認性を確保
+      accent = l > 55 ? adjustHex(customColor, -(l - 30)) : adjustHex(customColor, -10);
       localStorage.setItem('gs-custom-color', customColor);
     } else {
       const t = THEMES.find(t => t.id === themeName) || THEMES[0];
@@ -153,7 +163,7 @@ export default function App() {
 
   const validTabs = [
     "home", "deadlines", "news", "links", "team", "guide", 
-    "documents", "syohen", "column", "construction", "search"
+    "documents", "syohen", "column", "construction", "search", "actionplan"
   ];
 
   // 💡 プレースホルダーの動的切り替え
@@ -189,11 +199,13 @@ export default function App() {
         placeholder={searchPlaceholder}
       />
 
-      <div className="container mx-auto flex flex-col md:flex-row items-start gap-12 px-6 pb-20 relative z-10">
-        <div className="w-full md:w-80 flex-shrink-0 md:sticky md:top-8 h-fit">
+      <div className="container mx-auto flex flex-col lg:flex-row items-start gap-8 xl:gap-12 px-4 sm:px-6 pb-20 relative z-10">
+        <div className="w-full lg:w-72 xl:w-80 flex-shrink-0 lg:sticky lg:top-8 h-fit">
           <Sidebar 
             setActiveTab={setActiveTab} 
-            setActiveSectionId={setActiveSectionId} 
+            setActiveSectionId={setActiveSectionId}
+            activeCompanyAbbr={activeCompanyAbbr}
+            setActiveCompanyAbbr={setActiveCompanyAbbr}
             themeName={themeName}
             setThemeName={setThemeName}
             customColor={customColor}
@@ -214,7 +226,8 @@ export default function App() {
           {activeTab === "syohen" && <Syohen />}
           {activeTab === "column" && <Column />} 
           {activeTab === "construction" && <Construction target={constructionTarget} />}
-          {activeTab === "search" && <SearchResults query={searchExecutionQuery} setActiveTab={setActiveTab} />}
+          {activeTab === "actionplan" && <Construction target="アクションプラン" />}
+          {activeTab === "search" && <SearchResults query={searchExecutionQuery} setActiveTab={setActiveTab} setActiveSectionId={setActiveSectionId} setActiveCompanyAbbr={setActiveCompanyAbbr} />}
 
           {!validTabs.includes(activeTab) && <NotFound setActiveTab={setActiveTab} />}
         </main>

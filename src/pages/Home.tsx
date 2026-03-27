@@ -1,11 +1,13 @@
 ﻿import React, { useMemo } from "react";
 import { 
   Activity, Calendar, ClipboardList, Zap, 
-  GraduationCap, ChevronRight
+  GraduationCap, ChevronRight, Target
 } from "lucide-react";
 import { allNews } from "../data/news";
 import { externalLinks } from "../data/links";
 import { isWithinDays, NEWS_NEW_DAYS } from "../utils/newBadge";
+import { useReadNews } from "../utils/useReadNews";
+import { allActionPlans } from "../data/actionPlans";
 
 const QUICK_ACCESS_LINKS: { label: string; sub: string; Icon: React.FC<{ size?: number; strokeWidth?: number }>; url: string }[] = [
   { label: "勤怠・日報",  sub: "Attendance",  Icon: Activity,     url: externalLinks.homeQuickAccess.attendance },
@@ -20,9 +22,17 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
+  const { isRead, markAsRead } = useReadNews();
+
   const latestNews = useMemo(() =>
     [...(allNews || [])]
       .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 3)
+  , []);
+
+  const activeActionPlans = useMemo(() =>
+    allActionPlans
+      .filter(p => p.status === "進行中")
       .slice(0, 3)
   , []);
 
@@ -86,14 +96,15 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
         
         <div className="divide-y divide-slate-100">
           {latestNews.map((news, i) => {
-            const isNew = isWithinDays(news.date, NEWS_NEW_DAYS);
+            const isNew = !isRead(news.id) && isWithinDays(news.date, NEWS_NEW_DAYS);
 
             return (
               <a 
                 key={news.id}
                 href={news.url} 
                 target="_blank" 
-                rel="noreferrer" 
+                rel="noreferrer"
+                onClick={() => markAsRead(news.id)} 
                 className="py-6 first:pt-0 last:pb-0 group flex items-center gap-8 transition-all"
               >
                 <div className="text-[12px] font-bold text-slate-400 tabular-nums w-24 shrink-0">{news.date}</div>
@@ -116,6 +127,41 @@ export const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
           })}
         </div>
       </section>
+
+      {/* 4. ACTION PLAN ウィジェット */}
+      {activeActionPlans.length > 0 && (
+        <section className="rounded-[3rem] p-10 border shadow-sm space-y-8 bg-(--gs-card-bg) border-slate-100">
+          <div className="flex items-center justify-between px-2">
+            <div className="flex items-center gap-4">
+              <div className="w-2 h-8 rounded-full bg-(--gs-accent)" />
+              <h2 className="text-2xl font-black tracking-tighter text-(--gs-text-primary)">アクションプラン</h2>
+            </div>
+            <button onClick={() => setActiveTab("actionplan")} className="text-[10px] font-black uppercase tracking-[0.2em] text-(--gs-accent) hover:underline">
+              一覧を見る ↗
+            </button>
+          </div>
+          <div className="space-y-3">
+            {activeActionPlans.map(plan => (
+              <div key={plan.id} className="flex items-center gap-4 py-4 border-b border-slate-50 last:border-none">
+                {/* プログレスサークル */}
+                <div className="relative w-11 h-11 shrink-0">
+                  <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f1f5f9" strokeWidth="3" />
+                    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" strokeWidth="3"
+                      strokeDasharray={`${plan.progress} ${100 - plan.progress}`} strokeLinecap="round" />
+                  </svg>
+                  <span className="absolute inset-0 flex items-center justify-center text-[9px] font-black text-(--gs-text-primary)">{plan.progress}%</span>
+                </div>
+                <div className="flex-grow min-w-0">
+                  <div className="text-[15px] font-black truncate text-(--gs-text-primary)">{plan.title}</div>
+                  <div className="text-[11px] text-slate-400 font-bold">{plan.owner} · 目標 {plan.targetDate}</div>
+                </div>
+                <Target size={16} className="text-slate-200 shrink-0" />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 };
