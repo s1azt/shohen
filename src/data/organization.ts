@@ -202,7 +202,7 @@ export const organizationData = {
             teams: [
               { id: "HD70-MG1-T1", name: "品質・自動化チーム", leader: "石鍋 伸悟", members: 5, description: "" },
               { id: "HD70-MG1-T2", name: "監視運営チーム", leader: "横田 誠一", members: 4, description: ""},
-              { id: "HD70-MG1-T3", name: "サポートデスク運営", leader: "木下 竜次", members: 6, description: "" }
+              { id: "HD70-MG1-T3", name: "サポートデスク運営チーム", leader: "木下 竜次", members: 6, description: "" }
             ]
           }
         ]

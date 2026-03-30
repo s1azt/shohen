@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target } from "lucide-react";
+import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target, PenLine } from "lucide-react";
 import { THEMES } from "../data/themes";
 import { externalLinks } from "../data/links";
 import { COMPANIES } from "../data/companies";
@@ -103,7 +103,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
             <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
               <MessageSquare size={20} />
             </div>
-            <span className="text-[15px] font-black text-(--gs-text-primary)">今週のコラム</span>
+            <span className="text-[15px] font-black text-(--gs-text-primary)">コラム</span>
             {isColumnNew && (
               <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
             )}
@@ -259,6 +259,47 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
           </div>
         </div>
       )}
+
+      {/* コンテンツ募集バナー */}
+      <div className="rounded-[2rem] border-2 border-dashed border-(--gs-accent)/30 p-5 space-y-3 bg-(--gs-accent)/3">
+        <div className="flex items-center gap-2 mb-1">
+          <PenLine size={14} className="text-(--gs-accent)" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-(--gs-accent)">Contents Wanted</span>
+        </div>
+        <p className="text-[12px] font-bold text-(--gs-text-primary)/70 leading-relaxed">
+          コンテンツ作りにご協力ください！
+        </p>
+        <div className="space-y-2">
+          {externalLinks.contentRecruitment.teamProfile ? (
+            <button
+              onClick={() => window.open(externalLinks.contentRecruitment.teamProfile, "_blank")}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-(--gs-card-bg) border border-(--gs-accent)/20 hover:bg-(--gs-accent)/5 transition-all group text-left"
+            >
+              <span className="text-[12px] font-black text-(--gs-text-primary)">📝 チーム紹介文を書く</span>
+              <ChevronRight size={12} className="text-slate-300 group-hover:text-(--gs-accent)" />
+            </button>
+          ) : (
+            <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
+              <span className="text-[12px] font-black text-slate-400">📝 チーム紹介文を書く</span>
+              <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
+            </div>
+          )}
+          {externalLinks.contentRecruitment.column ? (
+            <button
+              onClick={() => window.open(externalLinks.contentRecruitment.column, "_blank")}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-(--gs-card-bg) border border-(--gs-accent)/20 hover:bg-(--gs-accent)/5 transition-all group text-left"
+            >
+              <span className="text-[12px] font-black text-(--gs-text-primary)">✍️ コラムを投稿する</span>
+              <ChevronRight size={12} className="text-slate-300 group-hover:text-(--gs-accent)" />
+            </button>
+          ) : (
+            <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
+              <span className="text-[12px] font-black text-slate-400">✍️ コラムを投稿する</span>
+              <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
+            </div>
+          )}
+        </div>
+      </div>
     </aside>
   );
 };

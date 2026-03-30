@@ -77,5 +77,11 @@ export const externalLinks = {
     telework: "http://dominoap.nekonet.co.jp/tyo/tyo0993.nsf/MainFrame?OpenFrameSet", 
     wiki: "http://gs.nekonet.co.jp/GS_wiki/",
     training: "https://clipline.jp/training/#/", // E-learn
-  }
+  },
+
+  // コンテンツ募集用スプレッドシート（URLを設定してください）
+  contentRecruitment: {
+    teamProfile: "https://docs.google.com/spreadsheets/d/1PJSpJRJEJ3pw5Rx-TsjgjozhtbOFS2UV2JSAz1GqwRo/edit?gid=302703426#gid=302703426",   // チーム紹介文募集用スプレッドシートURL
+    column: "",        // コラム募集用スプレッドシートURL
+  },
 };
