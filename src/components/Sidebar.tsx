@@ -6,6 +6,7 @@ import { COMPANIES } from "../data/companies";
 import { columnArchives } from "../data/columns";
 import { allDocuments } from "../data/documents";
 import { isWithinDays, isBeforeUntil, COLUMN_NEW_DAYS } from "../utils/newBadge";
+import { useReadNews } from "../utils/useReadNews";
 
 interface SidebarProps {
   setActiveTab: (tab: string) => void;
@@ -46,7 +47,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
 
   // 今週のコラム NEW判定
   const latestColumn = columnArchives[0];
-  const isColumnNew = isWithinDays(latestColumn?.date, COLUMN_NEW_DAYS);
+  const { isRead: isColumnRead } = useReadNews();
+  const isColumnNew = isWithinDays(latestColumn?.date, COLUMN_NEW_DAYS) && !isColumnRead(`col-${latestColumn?.id}`);
 
   // 部会資料アーカイブ NEW判定
   const bukaDoc = allDocuments.find(d => d.id === 1);
@@ -289,12 +291,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
               onClick={() => window.open(externalLinks.contentRecruitment.column, "_blank")}
               className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-(--gs-card-bg) border border-(--gs-accent)/20 hover:bg-(--gs-accent)/5 transition-all group text-left"
             >
-              <span className="text-[12px] font-black text-(--gs-text-primary)">✍️ コラムを投稿する</span>
+              <span className="text-[12px] font-black text-(--gs-text-primary)">✍️ コラムを寄稿する</span>
               <ChevronRight size={12} className="text-slate-300 group-hover:text-(--gs-accent)" />
             </button>
           ) : (
             <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
-              <span className="text-[12px] font-black text-slate-400">✍️ コラムを投稿する</span>
+              <span className="text-[12px] font-black text-slate-400">✍️ コラムを寄稿する</span>
+              <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
+            </div>
+          )}
+          {externalLinks.contentRecruitment.location ? (
+            <button
+              onClick={() => window.open(externalLinks.contentRecruitment.location, "_blank")}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-(--gs-card-bg) border border-(--gs-accent)/20 hover:bg-(--gs-accent)/5 transition-all group text-left"
+            >
+              <span className="text-[12px] font-black text-(--gs-text-primary)">📍 拠点別情報を投稿する</span>
+              <ChevronRight size={12} className="text-slate-300 group-hover:text-(--gs-accent)" />
+            </button>
+          ) : (
+            <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
+              <span className="text-[12px] font-black text-slate-400">📍 拠点別情報を投稿する</span>
               <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
             </div>
           )}

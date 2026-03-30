@@ -94,7 +94,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
               <h2 className="header-title-main text-(--gs-text-primary)">
                 「{query}」の検索結果
               </h2>
-              <div className="flex items-center gap-3 mt-4 opacity-40 italic">
+              <div className="flex items-center gap-3 mt-4 opacity-40">
                 <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
                 <p className="header-subtitle-sub uppercase tracking-[0.4em]">Global Search</p>
               </div>

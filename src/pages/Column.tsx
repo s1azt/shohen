@@ -2,13 +2,20 @@
 import { columnArchives } from "../data/columns";
 import { ChevronRight, Newspaper, ExternalLink, Star } from "lucide-react";
 import { isWithinDays, COLUMN_NEW_DAYS } from "../utils/newBadge";
+import { useReadNews } from "../utils/useReadNews";
 
-const CATEGORIES = ["すべて", "GOOD NEWS", "ITトレンド"] as const;
+const CATEGORIES = ["すべて", "GOOD NEWS", "ITトレンド", "宣伝", "その他"] as const;
 type CategoryFilter = typeof CATEGORIES[number];
 
 export const Column: React.FC = () => {
-  const [selectedColumnId, setSelectedColumnId] = useState<number | null>(null);
+  const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("すべて");
+  const { isRead, markAsRead } = useReadNews();
+
+  const handleOpenColumn = (id: string) => {
+    setSelectedColumnId(id);
+    markAsRead(`col-${id}`);
+  };
 
   // 記事詳細表示
   if (selectedColumnId) {
@@ -48,7 +55,7 @@ export const Column: React.FC = () => {
             </div>
 
             <div className="mt-12 pt-8 border-t border-[#cbd5c0]/30 flex items-center">
-              <div className="w-12 h-12 rounded-2xl bg-[#6b7a5f] flex items-center justify-center text-white font-black mr-4 shadow-sm">IT</div>
+              <div className="w-12 h-12 rounded-2xl bg-[#6b7a5f] flex items-center justify-center text-white font-black mr-4 shadow-sm">{col.author.charAt(0)}</div>
               <div>
                 <p className="font-bold text-[#3e4a36]">{col.author}</p>
                 <p className="text-xs text-[#6b7a5f]">Group Systems Dept. Professional Column</p>
@@ -60,22 +67,32 @@ export const Column: React.FC = () => {
     );
   }
 
-  // 記事一覧表示
+  // 記事一覧表示（archived: true は一覧から除外。検索ではヒットします）
+  const visibleColumns = columnArchives.filter(c => !c.archived);
   const filteredColumns = activeCategory === "すべて"
-    ? [...columnArchives].sort((a, b) => b.date.localeCompare(a.date))
-    : [...columnArchives]
+    ? [...visibleColumns].sort((a, b) => b.date.localeCompare(a.date))
+    : [...visibleColumns]
         .filter(c => c.category === activeCategory)
         .sort((a, b) => b.date.localeCompare(a.date));
   const latestColumn = filteredColumns[0];
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      <header className="flex items-center justify-between border-b border-[#cbd5c0] pb-4">
-        <h2 className="text-2xl font-black text-[#3e4a36] flex items-center gap-3">
-          <Newspaper className="text-[#6b7a5f]" /> 今週のコラム
-        </h2>
-        <span className="text-xs font-bold text-[#6b7a5f] uppercase tracking-widest">Archives</span>
+    <div className="page-main-container font-sans">
+      <header className="header-underline-bold mb-4 border-(--gs-accent)">
+        <div className="flex items-center gap-7 text-left pb-2">
+          <div className="header-icon-squircle bg-(--gs-accent)">
+            <Newspaper size={32} strokeWidth={1.5} />
+          </div>
+          <div>
+            <h2 className="header-title-main text-(--gs-text-primary)">コラム</h2>
+            <div className="flex items-center gap-3 mt-4">
+              <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
+              <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40">Column Archives</p>
+            </div>
+          </div>
+        </div>
       </header>
+      <div className="space-y-8">
 
       {/* カテゴリタブ */}
       <div className="category-tab-container">
@@ -93,7 +110,7 @@ export const Column: React.FC = () => {
       {/* 最新の注目記事 */}
       {latestColumn ? (
       <div 
-        onClick={() => setSelectedColumnId(latestColumn.id)}
+        onClick={() => handleOpenColumn(latestColumn.id)}
         className="bg-white rounded-[2rem] shadow-sm overflow-hidden border border-[#cbd5c0] cursor-pointer group hover:shadow-md transition-all flex flex-col md:flex-row h-auto md:h-80"
       >
         <div className="md:w-1/2 overflow-hidden">
@@ -101,7 +118,7 @@ export const Column: React.FC = () => {
         </div>
         <div className="md:w-1/2 p-8 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-3">
-            {isWithinDays(latestColumn.date, COLUMN_NEW_DAYS) && (
+            {isWithinDays(latestColumn.date, COLUMN_NEW_DAYS) && !isRead(`col-${latestColumn.id}`) && (
               <span className="bg-red-100 text-red-600 text-[10px] font-black px-2 py-0.5 rounded-full">NEW</span>
             )}
             <span className="text-[#6b7a5f] text-xs font-bold">{latestColumn.date}</span>
@@ -125,7 +142,7 @@ export const Column: React.FC = () => {
         {filteredColumns.slice(1).map((col) => (
           <div 
             key={col.id} 
-            onClick={() => setSelectedColumnId(col.id)}
+            onClick={() => handleOpenColumn(col.id)}
             className="bg-[#f4f7f0] p-6 rounded-3xl border border-[#cbd5c0] cursor-pointer hover:bg-white hover:shadow-sm transition-all group"
           >
             <div className="flex items-center gap-4 mb-3">
@@ -150,6 +167,7 @@ export const Column: React.FC = () => {
         ))}
       </div>
       )}
+      </div>
     </div>
   );
 };

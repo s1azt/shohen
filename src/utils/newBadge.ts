@@ -11,7 +11,7 @@ export const NEWS_NEW_DAYS = 3;
 export const DEADLINE_NEW_DAYS = 1;
 
 /** コラム・サイドバーのNEW表示日数 */
-export const COLUMN_NEW_DAYS = 3;
+export const COLUMN_NEW_DAYS = 7;
 
 /**
  * 指定した日付が今日から `days` 日以内かどうかを返す

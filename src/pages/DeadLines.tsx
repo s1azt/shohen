@@ -42,7 +42,7 @@ export const Deadlines: React.FC = () => {
             </h2>
             <div className="flex items-center gap-3 mt-4">
               <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
-              <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Strategic Control</p>
+              <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40">Strategic Control</p>
             </div>
           </div>
         </div>

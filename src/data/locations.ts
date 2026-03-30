@@ -9,7 +9,7 @@ export const locationData: { [key: string]: any } = {
     status: "construction",
     description: "東陽町オフィスの詳細情報は現在準備中です。",
   },
-  "大阪": {
+  "守口": {
     status: "ready",
     title: "HC60 リリース・インフラ情報 連携自動化",
     description: "リリース管理統合システム等をデータソースとし、HC60関連のリリース情報とインフラ情報を運用アカウントのカレンダーへ自動連携。メンバーがGoogleカレンダー上で最新のイベント情報をリアルタイムに参照できる環境を構築しました。",

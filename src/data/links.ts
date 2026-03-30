@@ -82,6 +82,7 @@ export const externalLinks = {
   // コンテンツ募集用スプレッドシート（URLを設定してください）
   contentRecruitment: {
     teamProfile: "https://docs.google.com/spreadsheets/d/1PJSpJRJEJ3pw5Rx-TsjgjozhtbOFS2UV2JSAz1GqwRo/edit?gid=302703426#gid=302703426",   // チーム紹介文募集用スプレッドシートURL
-    column: "",        // コラム募集用スプレッドシートURL
+    column: "https://docs.google.com/spreadsheets/d/1cQIZzNZELahzhgV080nxzlNjhcXKit7Ulad51NuVOLs/edit?gid=0#gid=0",        // コラム募集用スプレッドシートURL
+    location: "https://docs.google.com/spreadsheets/d/1fOd_V1zOSR7d_vb3rv7AlzoZRQYK57P4F2Jw9awpaJ4/edit?gid=512064765#gid=512064765",      // 拠点別情報募集用スプレッドシートURL
   },
 };

@@ -123,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* ドロップダウン */}
             {showLocationDropdown && (
               <div className="absolute top-full left-0 w-52 shadow-[0_20px_60px_rgba(0,0,0,0.4)] border-t-2 animate-in fade-in slide-in-from-top-2 duration-200 bg-white border-(--gs-accent) text-(--gs-accent)">
-                {["晴海", "東陽町", "大阪"].map((loc) => (
+                {["晴海", "東陽町", "守口"].map((loc) => (
                   <button 
                     key={loc}
                     onClick={() => { 

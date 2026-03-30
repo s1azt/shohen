@@ -33,7 +33,7 @@ export const Documents: React.FC = () => {
               </h2>
               <div className="flex items-center gap-3 mt-4">
                 <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
-                <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40 italic">Documents</p>
+                <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40">Documents</p>
               </div>
             </div>
           </div>
