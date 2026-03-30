@@ -40,6 +40,7 @@ export const linkCollection: LinkItem[] = [
   { id: "D-14", title: "UI/UX支援ポータル", url: "https://sites.google.com/nekonet.co.jp/hc70-uiux-portal", desc: "UI/UXデザインガイド・改善支援", category: "development" },
   { id: "D-16", title: "UXUI Labo", url: "http://192.168.8.205/wordpress/UIUX-LAB/docs/index.html", desc: "UX/UI推進活動・ドキュメント・イベント情報", category: "development" },
   { id: "D-15", title: "資産管理ポータル", url: "https://sites.google.com/nekonet.co.jp/hc10-asset/home", desc: "HC10資産管理ポータル", category: "development" },
+  { id: "D-17", title: "商談案件ダッシュボード", url: "http://192.168.8.205/wordpress/hc70-syodan/hc70-shodan.html", desc: "商談案件の状況確認・進捗管理ビューアー", category: "development" },
 
   // 晴海オフィス関連 (L-xxx)
   { id: "L-01", title: "晴海Z棟運用ルール", url: "http://jinji-intra.nekonet.co.jp/category/%E3%80%90%E5%BB%BA%E7%89%A9%E8%A8%AD%E5%82%99%E3%80%91%E6%99%B4%E6%B5%B7z%E6%A3%9F.html", desc: "オフィス運用ルール・建物設備ガイド", category: "life" },

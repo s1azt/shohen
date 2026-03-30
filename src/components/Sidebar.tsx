@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target, PenLine } from "lucide-react";
+import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target, PenLine, BarChart2 } from "lucide-react";
 import { THEMES } from "../data/themes";
 import { externalLinks } from "../data/links";
 import { COMPANIES } from "../data/companies";
@@ -100,6 +100,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         </button>
       
 
+        <button onClick={() => setActiveTab("actionplan")} className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
+              <Target size={20} />
+            </div>
+            <span className="text-[15px] font-black text-(--gs-text-primary)">アクションプラン</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-200" />
+        </button>
+
+        <button onClick={() => window.open("http://192.168.8.205/wordpress/hc70-syodan/hc70-shodan.html", "_blank")} className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
+              <BarChart2 size={20} />
+            </div>
+            <span className="text-[15px] font-black text-(--gs-text-primary)">商談案件ダッシュボード</span>
+          </div>
+          <ChevronRight size={14} className="text-slate-200" />
+        </button>
+
         <button onClick={() => setActiveTab("column")} className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
@@ -109,16 +129,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
             {isColumnNew && (
               <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
             )}
-          </div>
-          <ChevronRight size={14} className="text-slate-200" />
-        </button>
-
-        <button onClick={() => setActiveTab("actionplan")} className="w-full flex items-center justify-between p-4 bg-(--gs-card-bg) hover:bg-slate-50 rounded-2xl border border-slate-100 shadow-sm transition-all group text-left">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-500 group-hover:bg-(--gs-primary) group-hover:text-(--gs-on-primary) transition-all">
-              <Target size={20} />
-            </div>
-            <span className="text-[15px] font-black text-(--gs-text-primary)">アクションプラン</span>
           </div>
           <ChevronRight size={14} className="text-slate-200" />
         </button>
