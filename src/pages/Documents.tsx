@@ -1,5 +1,5 @@
 ﻿import React, { useState, useMemo } from "react";
-import { FileText, Search, Folder, ArrowUpRight } from "lucide-react";
+import { FileText, Search, ArrowUpRight } from "lucide-react";
 import { allDocuments } from "../data/documents";
 
 const DOCUMENT_CATEGORIES = ["一覧", ...Array.from(new Set(allDocuments.map(doc => doc.category)))];
@@ -19,27 +19,14 @@ export const Documents: React.FC = () => {
   }, [searchTerm, activeTab]);
 
   return (
-    <div className="page-main-container">
-      {/* 1. ヘッダー：タイトルと検索窓のみに整理 */}
-      <header className="header-underline-bold mb-4 border-(--gs-accent)">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 pb-2">
-          <div className="flex items-center gap-7 text-left">
-            <div className="header-icon-squircle bg-(--gs-accent)">
-              <Folder size={32} strokeWidth={1.5} />
-            </div>
-            <div>
-              <h2 className="header-title-main text-(--gs-text-primary)">
-                ドキュメント
-              </h2>
-              <div className="flex items-center gap-3 mt-4">
-                <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
-                <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40">Documents</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 検索窓：ヘッダーの右側に配置 */}
-          <div className="relative w-full md:w-80 group pb-1">
+    <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-1000 pb-10 px-4">
+      
+      {/* 1. インテリジェント・検索 & フィルタバー */}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
+          
+          {/* 検索入力エリア */}
+          <div className="relative w-full md:w-80 group">
             <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
               <Search 
                 className="text-slate-300 group-focus-within:text-(--gs-accent)" 
@@ -49,73 +36,83 @@ export const Documents: React.FC = () => {
             </div>
             <input 
               type="text" 
-              placeholder="ドキュメント内検索" 
-              className="w-full pl-12 pr-6 py-3.5 rounded-2xl font-bold text-[12px] outline-none border bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) focus:ring-4 focus:ring-emerald-50/50"
+              placeholder="ドキュメント名で検索..." 
+              className="w-full pl-12 pr-6 py-3.5 rounded-[1.6rem] font-bold text-[13px] outline-none border bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) shadow-sm focus:ring-4 focus:ring-(--gs-accent)/5 focus:border-(--gs-accent)/20 transition-all"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-        </div>
-      </header>
 
-      {/* 2. カテゴリータブ：ヘッダーの下（境界線の外）に配置 */}
-      <div className="category-tab-container mb-8">
-        {DOCUMENT_CATEGORIES.map(cat => (
-          <button 
-            key={cat} 
-            onClick={() => setActiveTab(cat)} 
-            className={`category-tab-button ${activeTab === cat ? "tab-active-normal" : "tab-inactive"}`}
-          >
-            {cat}
-          </button>
-        ))}
+          {/* カテゴリー切り替えエリア */}
+          <div className="flex bg-slate-100/80 p-1.5 rounded-[1.6rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm">
+            {DOCUMENT_CATEGORIES.map(cat => (
+              <button 
+                key={cat} 
+                onClick={() => setActiveTab(cat)} 
+                className={`flex-1 min-w-[90px] py-2.5 px-5 rounded-[1.2rem] font-black text-[12px] tracking-widest transition-all duration-300 ${
+                  activeTab === cat 
+                    ? "bg-white text-(--gs-accent) shadow-md transform scale-[1.02]" 
+                    : "text-slate-400 hover:text-slate-600 hover:bg-white/40"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* 3. ドキュメントリスト（島形式） */}
-      <div className="standard-card overflow-hidden shadow-xl border-none divide-y bg-(--gs-card-bg) border-transparent divide-slate-50">
+      {/* 2. ドキュメントリスト（島形式カード） */}
+      <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-50 divide-y bg-(--gs-card-bg) divide-slate-50">
         {filteredDocs.length > 0 ? (
           filteredDocs.map((doc) => (
             <div 
               key={doc.id} 
               onClick={() => window.open(doc.url, '_blank')}
-              className="flex items-center justify-between p-6 group cursor-pointer hover:bg-slate-50/80"
+              className="flex items-center justify-between p-6 group cursor-pointer hover:bg-slate-50/80 transition-colors"
             >
               <div className="flex items-center gap-6 min-w-0">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-slate-50 text-slate-400 group-hover:bg-(--gs-accent) group-hover:text-white">
-                  <FileText size={20} strokeWidth={2} />
+                {/* アイコン */}
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 bg-slate-50 text-slate-400 group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-6">
+                  <FileText size={22} strokeWidth={2} />
                 </div>
                 
+                {/* テキスト情報 */}
                 <div className="text-left min-w-0">
                   <div className="flex items-center gap-3 mb-1">
-                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">
+                    <span className="text-[10px] font-black text-(--gs-accent) uppercase tracking-widest leading-none bg-(--gs-accent)/5 px-2 py-1 rounded">
                       {doc.category}
                     </span>
                     {doc.updateDate && (
-                      <span className="text-[9px] font-bold text-slate-300 tabular-nums leading-none">
-                        • Updated: {doc.updateDate}
+                      <span className="text-[10px] font-bold text-slate-300 tabular-nums leading-none">
+                        Updated: {doc.updateDate}
                       </span>
                     )}
                   </div>
-                  <h4 className="text-[17px] font-black tracking-tight truncate leading-tight group-hover:translate-x-1 text-(--gs-text-primary)">
+                  <h4 className="text-[17px] font-black tracking-tight truncate leading-tight group-hover:translate-x-1 transition-transform text-(--gs-text-primary)">
                     {doc.title}
                   </h4>
                 </div>
               </div>
               
-              <div className="flex items-center gap-8 shrink-0">
-                <div className="p-2.5 rounded-lg group-hover:translate-x-1 text-slate-300 group-hover:bg-(--gs-accent) group-hover:text-white">
-                  <ArrowUpRight size={18} strokeWidth={3} />
+              {/* アクションボタン */}
+              <div className="flex items-center gap-4 shrink-0 pl-4">
+                <div className="p-2.5 rounded-xl text-slate-200 group-hover:bg-(--gs-accent) group-hover:text-white transition-all">
+                  <ArrowUpRight size={20} strokeWidth={3} />
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <div className="py-32 text-center text-slate-400 italic text-[12px] font-bold uppercase tracking-widest">
-            No documents found
+          <div className="py-32 text-center">
+            <div className="inline-flex p-6 rounded-full bg-slate-50 mb-4">
+              <Search size={32} className="text-slate-200" />
+            </div>
+            <p className="text-slate-400 italic text-[13px] font-black uppercase tracking-widest">
+              No documents found
+            </p>
           </div>
         )}
       </div>
-
-
     </div>
   );
 };

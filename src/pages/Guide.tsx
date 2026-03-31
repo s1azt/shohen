@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { BookOpen, Clock, Clipboard, Server, MessageSquare, ShieldCheck } from "lucide-react";
+import { Clock, Clipboard, Server, MessageSquare, ShieldCheck } from "lucide-react";
 import { allGuides } from "../data/guides";
 
 const COLOR_SCHEMES: Record<number, { light: string; icon: string; line: string }> = {
@@ -14,79 +14,69 @@ const ICON_MAP: Record<string, React.FC<{ size?: number }>> = {
 };
 
 export const Guide: React.FC = () => {
-
   return (
-    <div className="page-main-container">
-      {/* 共通ヘッダー規格 */}
-      <header className="header-underline-bold border-[#064e3b]">
-        <div className="flex flex-col md:flex-row justify-between items-end">
-          <div className="flex items-center gap-7">
-            <div className="header-icon-squircle bg-[#064e3b]">
-              <BookOpen size={32} strokeWidth={1.5} />
-            </div>
-            <div className="text-left">
-              <h2 className="header-title-main text-(--gs-text-primary)">
-                新人ガイド
-              </h2>
-              <div className="flex items-center gap-3 mt-4">
-                <div className="h-[2px] w-6 bg-[#064e3b]"></div>
-                <p className="header-subtitle-sub opacity-50">Operational Standards</p>
-              </div>
-            </div>
-          </div>
-          <div className="pb-1 hidden md:block">
-            <div className="flex items-center gap-3 px-5 py-2 rounded-xl border bg-white border-slate-200 text-slate-400">
-              <ShieldCheck size={16} strokeWidth={2.5} />
-              <span className="text-[10px] font-black uppercase tracking-widest leading-none">Internal Use Only</span>
-            </div>
-          </div>
+    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-1000 pb-10 px-4">
+      
+      {/* 1. ステータスバー（ヘッダーの代わり） */}
+      <div className="flex justify-center sm:justify-end">
+        <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-[1.4rem] border bg-white/80 border-slate-200 text-slate-400 shadow-sm backdrop-blur-sm">
+          <ShieldCheck size={16} strokeWidth={2.5} className="text-(--gs-accent)" />
+          <span className="text-[11px] font-[1000] uppercase tracking-[0.2em] leading-none">
+            Internal Operational Standards
+          </span>
         </div>
-      </header>
+      </div>
 
+      {/* 2. ガイドカードグリッド */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {allGuides.map((guide) => {
           const scheme = COLOR_SCHEMES[guide.id] || COLOR_SCHEMES[101];
+          const Icon = ICON_MAP[guide.iconName];
+          
           return (
             <div 
               key={guide.id} 
-              className={`standard-card shadow-xl border-none flex flex-col hover:shadow-2xl hover:-translate-y-1 bg-(--gs-card-bg)`}
+              className="group relative rounded-[2.5rem] border-none flex flex-col shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 bg-(--gs-card-bg) overflow-hidden"
             >
+              {/* 装飾アクセントライン */}
+              <div className={`h-2 w-full ${scheme.line} opacity-50`} />
+
               {/* カードヘッダー */}
-              <div className="p-8 pb-4 flex items-center gap-6">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${scheme.icon} ${scheme.light}`}>
-                  {(() => { const Icon = ICON_MAP[guide.iconName]; return Icon ? <Icon size={20} /> : null; })()}
+              <div className="p-10 pb-6 flex items-center gap-6">
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border transition-transform duration-500 group-hover:rotate-12 ${scheme.icon} ${scheme.light}`}>
+                  {Icon && <Icon size={24} />}
                 </div>
                 <div className="text-left">
-                  <h3 className="text-[22px] font-[1000] tracking-tight leading-none text-(--gs-text-primary)">
+                  <h3 className="text-[24px] font-[1000] tracking-tight leading-tight text-(--gs-text-primary)">
                     {guide.title}
                   </h3>
-                  <p className={`text-[9px] font-black uppercase tracking-[0.25em] mt-2.5 ${scheme.light}`}>
+                  <p className={`text-[10px] font-black uppercase tracking-[0.3em] mt-2.5 opacity-70 ${scheme.light}`}>
                     Category Intelligence
                   </p>
                 </div>
               </div>
 
               {/* カードコンテンツ */}
-              <div className="px-8 pb-12 flex-grow">
-                <p className="text-[12.5px] font-medium leading-relaxed mb-10 opacity-60 italic text-slate-500">
+              <div className="px-10 pb-12 flex-grow">
+                <p className="text-[14px] font-medium leading-relaxed mb-10 text-slate-500/80 italic">
                   {guide.description}
                 </p>
                 
-                {/* 繊細なタイムライン構造 */}
+                {/* タイムライン構造 */}
                 <div className="relative ml-1 space-y-7">
                   {/* 縦のガイド線 */}
                   <div className={`absolute left-3 top-2 bottom-2 w-px ${scheme.line}`} />
                   
                   {guide.steps.map((step, idx) => (
-                    <div key={idx} className="relative flex items-start gap-6 group/item">
+                    <div key={idx} className="relative flex items-start gap-7 group/item">
                       {/* インデックス番号 */}
-                      <div className={`relative z-10 w-6 h-6 rounded-lg flex items-center justify-center text-[9px] font-[1000] border bg-white border-slate-100 ${scheme.light} group-hover/item:border-slate-300`}>
+                      <div className={`relative z-10 w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-[1000] border transition-all duration-300 bg-white border-slate-100 ${scheme.light} group-hover/item:scale-125 group-hover/item:border-(--gs-accent) shadow-sm`}>
                         {idx + 1}
                       </div>
                       
                       {/* ステップ内容 */}
-                      <div className="pt-0.5 flex-grow">
-                        <span className="text-[15px] font-semibold tracking-tight leading-relaxed text-(--gs-text-primary) opacity-90 group-hover/item:opacity-100 group-hover/item:text-black">
+                      <div className="pt-0.5 flex-grow text-left">
+                        <span className="text-[15px] font-bold tracking-tight leading-relaxed text-(--gs-text-primary)/80 group-hover/item:text-(--gs-text-primary) transition-colors">
                           {step}
                         </span>
                       </div>
