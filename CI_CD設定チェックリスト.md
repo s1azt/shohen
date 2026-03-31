@@ -9,9 +9,14 @@
 - [ ] sshdサービスが起動している
 - [ ] sshdサービスが自動起動に設定されている
 
+**注意**: 古いOS（Windows Server 2016など）では手動インストールが必要です。  
+詳細は[クイックスタート_CICD設定.md](./クイックスタート_CICD設定.md)の「方法C」を参照してください。
+
 確認コマンド:
 ```powershell
 Get-Service sshd
+# または
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*'
 ```
 
 ### 2. ファイアウォール設定

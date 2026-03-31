@@ -30,17 +30,35 @@ Write-Host ""
 
 # 1. OpenSSH Serverのインストール確認とインストール
 Write-Host "[1/7] OpenSSH Serverのインストール確認..." -ForegroundColor Yellow
-$sshServer = Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*'
 
-if ($sshServer.State -eq "Installed") {
-    Write-Host "✅ OpenSSH Serverは既にインストールされています" -ForegroundColor Green
+# sshdサービスが既に存在するかチェック（手動インストール済みの場合）
+$sshdService = Get-Service sshd -ErrorAction SilentlyContinue
+if ($sshdService) {
+    Write-Host "✅ OpenSSH Serverは既にインストールされています（サービス検出）" -ForegroundColor Green
 } else {
-    Write-Host "📦 OpenSSH Serverをインストール中..." -ForegroundColor Yellow
+    # Windows 10 1809以降 / Windows Server 2019以降の場合
     try {
-        Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-        Write-Host "✅ OpenSSH Serverのインストールが完了しました" -ForegroundColor Green
+        $sshServer = Get-WindowsCapability -Online -ErrorAction Stop | Where-Object Name -like 'OpenSSH.Server*'
+        
+        if ($sshServer.State -eq "Installed") {
+            Write-Host "✅ OpenSSH Serverは既にインストールされています" -ForegroundColor Green
+        } else {
+            Write-Host "📦 OpenSSH Serverをインストール中..." -ForegroundColor Yellow
+            Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+            Write-Host "✅ OpenSSH Serverのインストールが完了しました" -ForegroundColor Green
+        }
     } catch {
-        Write-Host "❌ OpenSSH Serverのインストールに失敗しました: $_" -ForegroundColor Red
+        Write-Host "⚠️ Get-WindowsCapabilityコマンドが使用できません（古いOSの可能性）" -ForegroundColor Yellow
+        Write-Host "" -ForegroundColor Yellow
+        Write-Host "古いOS（Windows Server 2016など）では、手動でOpenSSHをインストールする必要があります：" -ForegroundColor Yellow
+        Write-Host "1. https://github.com/PowerShell/Win32-OpenSSH/releases から OpenSSH-Win64.zip をダウンロード" -ForegroundColor Gray
+        Write-Host "2. 解凍して C:\Program Files\OpenSSH に配置" -ForegroundColor Gray
+        Write-Host "3. cd 'C:\Program Files\OpenSSH' で移動" -ForegroundColor Gray
+        Write-Host "4. powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1 を実行" -ForegroundColor Gray
+        Write-Host "5. Start-Service sshd でサービス起動" -ForegroundColor Gray
+        Write-Host "6. Set-Service -Name sshd -StartupType 'Automatic' で自動起動設定" -ForegroundColor Gray
+        Write-Host "" -ForegroundColor Yellow
+        Write-Host "手動インストール後、このスクリプトを再実行してください。" -ForegroundColor Yellow
         exit 1
     }
 }

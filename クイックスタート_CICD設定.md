@@ -18,16 +18,55 @@
 
 Windowsサーバーで**PowerShellを管理者権限で開き**、以下を実行します。
 
-```powershell
-# スクリプトのダウンロード（リポジトリをクローンしている場合）
-cd C:\path\to\gs_intra_new
-.\scripts\setup-windows-cicd.ps1 -DeployUserName "deploy_user" -DeployPath "C:\inetpub\gs_intra"
+**方法A: 自動セットアップスクリプトを使用（推奨）**
 
-# または手動でOpenSSH Serverをインストール
+```powershell
+# リポジトリをクローンしている場合
+cd C:\Bitnami\wordpress\apps\wordpress\htdocs\gs-intra-new
+.\scripts\setup-windows-cicd.ps1 -DeployUserName "deploy_user" -DeployPath "C:\inetpub\gs_intra"
+```
+
+**方法B: 手動でOpenSSH Serverをインストール（Windows 10 1809以降 / Windows Server 2019以降）**
+
+```powershell
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 Start-Service sshd
 Set-Service -Name sshd -StartupType 'Automatic'
 ```
+
+**方法C: 手動インストール（古いOS: Windows Server 2016など）**
+
+古いOSでは `Add-WindowsCapability` コマンドが使えないため、以下の手順で手動インストールします。
+
+1. **OpenSSH バイナリのダウンロード**  
+   [PowerShell/Win32-OpenSSH Releases](https://github.com/PowerShell/Win32-OpenSSH/releases) から最新のZIPファイル（64bit版: `OpenSSH-Win64.zip`）をダウンロードします。
+
+2. **ファイルの配置**  
+   ダウンロードしたZIPファイルを解凍し、フォルダを `C:\Program Files\OpenSSH` に配置します。
+
+3. **インストールと起動**
+
+```powershell
+# 配置したフォルダに移動
+cd "C:\Program Files\OpenSSH"
+
+# インストールスクリプトを実行
+powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+
+# ファイアウォールルールの追加
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+
+# サービスの起動
+Start-Service sshd
+
+# 自動起動に設定
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# インストールの確認
+Get-Service sshd
+```
+
+---
 
 #### 1.2 デプロイユーザーの作成（スクリプトを使わない場合）
 

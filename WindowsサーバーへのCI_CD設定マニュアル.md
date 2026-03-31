@@ -17,6 +17,8 @@
 
 PowerShellを**管理者権限**で開き、以下のコマンドを実行します。
 
+#### 方法A: Windows 10 (1809以降) / Windows Server 2019以降の場合
+
 ```powershell
 # OpenSSH Serverがインストールされているか確認
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*'
@@ -33,6 +35,59 @@ Get-NetFirewallRule -Name *ssh*
 
 # もしファイアウォールルールがない場合は手動で追加
 # New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+```
+
+#### 方法B: 古いOS (Windows Server 2016など) の場合 - 手動インストール
+
+古いOSでは `Add-WindowsCapability` コマンドが使えないため、手動でインストールします。
+
+**1. OpenSSH バイナリのダウンロード**
+
+Win32-OpenSSH の公式GitHubリリースページにアクセスし、最新のZIPファイルをダウンロードします。
+- 配布元: [PowerShell/Win32-OpenSSH Releases](https://github.com/PowerShell/Win32-OpenSSH/releases)
+- 64bit版: `OpenSSH-Win64.zip`
+- 32bit版: `OpenSSH-Win32.zip`
+
+**2. ファイルの配置**
+
+```powershell
+# ダウンロードしたZIPファイルを解凍し、C:\Program Files に配置
+# 例: C:\Program Files\OpenSSH にssh.exe、sshd.exeなどが入っている状態にする
+
+# 配置例（解凍済みのフォルダを移動）
+# Move-Item -Path "C:\Downloads\OpenSSH-Win64" -Destination "C:\Program Files\OpenSSH"
+```
+
+**3. インストールスクリプトの実行**
+
+```powershell
+# 配置したフォルダに移動
+cd "C:\Program Files\OpenSSH"
+
+# 実行ポリシーを一時的に変更してインストールスクリプトを実行
+powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+
+# PATH環境変数に追加（オプション）
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\Program Files\OpenSSH", "Machine")
+
+# サービスの起動
+Start-Service sshd
+
+# 自動起動に設定
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# ファイアウォールルールの追加
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+```
+
+**4. インストールの確認**
+
+```powershell
+# sshdサービスの状態を確認
+Get-Service sshd
+
+# SSH接続のテスト
+Test-NetConnection -ComputerName localhost -Port 22
 ```
 
 ### 1.2 デプロイ用ユーザーの作成（推奨）
@@ -456,6 +511,26 @@ jobs:
 ---
 
 ## 7. トラブルシューティング
+
+### 問題: "Add-WindowsCapability" コマンドが使えない / OpenSSHのインストールに失敗
+
+**原因**: 古いOS（Windows Server 2016など）では `Add-WindowsCapability` コマンドがサポートされていない
+
+**解決方法**: 手動でOpenSSHをインストールしてください
+
+1. [Win32-OpenSSH Releases](https://github.com/PowerShell/Win32-OpenSSH/releases)から最新版をダウンロード
+2. ZIPを解凍して `C:\Program Files\OpenSSH` に配置
+3. 管理者権限のPowerShellで以下を実行:
+
+```powershell
+cd "C:\Program Files\OpenSSH"
+powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
+Start-Service sshd
+Set-Service -Name sshd -StartupType 'Automatic'
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+```
+
+詳細は本マニュアルの「1.1 OpenSSH Serverのインストール - 方法B」を参照してください。
 
 ### 問題: "Permission denied (publickey)"
 
