@@ -7,32 +7,18 @@ export const Construction: React.FC<{ target: string }> = ({ target }) => {
 
   return (
     <div className="page-main-container">
-      {/* 💡 極太アンダーラインヘッダー：拠点名をそのままタイトル規格に */}
-      <header className="header-underline-bold border-(--gs-accent)">
-        <div className="flex flex-col md:flex-row justify-between items-end">
-          <div className="flex items-center gap-7">
-            <div className="header-icon-squircle bg-(--gs-accent)">
-              <MapPin size={32} strokeWidth={1.5} />
-            </div>
-            <div className="text-left">
-              <h2 className="header-title-main text-(--gs-text-primary)">
-                {target}
-              </h2>
-              <div className="flex items-center gap-3 mt-4">
-                <div className="h-[2px] w-6 bg-(--gs-accent)"></div>
-                <p className="header-subtitle-sub">Location Intelligence</p>
-              </div>
-            </div>
-          </div>
-          <div className="pb-1">
-            {info.publishedAt && (
-              <span className="text-[11px] font-bold text-(--gs-text-primary)/40 tracking-widest">
-                掲載日: {info.publishedAt.replace(/-/g, "/")}
-              </span>
-            )}
-          </div>
+      {/* 拠点ラベル */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <MapPin size={14} className="text-(--gs-accent)" />
+          <span className="text-[13px] font-black text-(--gs-text-primary) tracking-widest">{target}</span>
         </div>
-      </header>
+        {info.publishedAt && (
+          <span className="text-[12px] font-bold text-(--gs-text-primary)/40 tracking-widest">
+            掲載日: {info.publishedAt.replace(/-/g, "/")}
+          </span>
+        )}
+      </div>
 
       {/* 💡 浮かび上がる「島」 */}
       {info.status === "ready" ? (
@@ -47,7 +33,7 @@ export const Construction: React.FC<{ target: string }> = ({ target }) => {
               {info.description}
             </p>
             <div className="p-10 rounded-[3rem] border shadow-inner bg-slate-50 border-slate-100 text-(--gs-accent)">
-              <div className="flex items-center gap-4 mb-6 text-[11px] font-[1000] uppercase tracking-[0.3em] opacity-60">
+              <div className="flex items-center gap-4 mb-6 text-[12px] font-[1000] uppercase tracking-[0.3em] opacity-60">
                 <Trophy size={24} strokeWidth={1.5} /> Improvement Impact
               </div>
               <p className="text-2xl font-black italic leading-tight">

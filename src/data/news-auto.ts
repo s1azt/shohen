@@ -1,6 +1,6 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/3/31 15:51:44
+// 最終取得: 2026/3/31 17:00:01
 
 export const autoNews = [
   {
@@ -58,5 +58,29 @@ export const autoNews = [
     "title": "人事発令の件（2026年4月1日付）(社報）",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/8530D3881E58E53849258DCA000A60BF"
+  },
+  {
+    "id": 1423495387,
+    "date": "2026.03.30",
+    "category": "人事関連",
+    "title": "【働き方創造委員会】第12回（3月26日開催）の資料を掲載致しました",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://jinji-intra.nekonet.co.jp/category/list/kaikaku.html"
+  },
+  {
+    "id": 523981935,
+    "date": "2026.03.30",
+    "category": "社内業務",
+    "title": "【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4459070DBD4CA29A49258DC7003D612D"
+  },
+  {
+    "id": 1511250911,
+    "date": "2026.03.27",
+    "category": "セキュリティ/危機管理",
+    "title": "【重要】Tera Term拡張ツール「LogMeTT」の利用停止およびアンインストールのお願い",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/B2495444057B610549258DC7000C652D"
   }
 ];

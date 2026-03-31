@@ -85,7 +85,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
   return (
     <div className="page-main-container font-sans text-left">
       <header className="header-underline-bold border-(--gs-accent)">
-        <div className="flex flex-col md:flex-row justify-between items-end pb-1 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-end gap-4">
           <div className="flex items-center gap-7 text-left">
             <div className="header-icon-squircle bg-(--gs-accent)">
               <Search size={32} strokeWidth={1.5} className="text-white" />
@@ -102,7 +102,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           </div>
           <div className="px-8 py-3 rounded-3xl border bg-[#f4f7f0] border-[#cbd5c0]/50">
             <span className="text-4xl font-black tracking-tighter tabular-nums text-(--gs-accent)">{totalCount}</span>
-            <span className="text-[10px] font-black text-slate-400 uppercase ml-2 tracking-widest">Hits Found</span>
+            <span className="text-[12px] font-black text-slate-400 uppercase ml-2 tracking-widest">Hits Found</span>
           </div>
         </div>
       </header>
@@ -117,7 +117,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 1. 新人ガイド (Guide) */}
           {foundGuides.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <GraduationCap size={14} /> Newcomer Guide ({foundGuides.length})
               </h3>
               <div className="standard-card">
@@ -139,7 +139,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 2. お知らせ (News) */}
           {foundNews.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-emerald-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Bell size={14} /> News Updates ({foundNews.length})
               </h3>
               <div className="standard-card">
@@ -150,7 +150,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black text-(--gs-text-primary)">{item.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.date} • {item.category}</p>
+                      <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{item.date} • {item.category}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -162,7 +162,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 3. 締め切り (Deadlines) */}
           {foundDeadlines.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-orange-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-orange-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Clock size={14} /> Deadlines ({foundDeadlines.length})
               </h3>
               <div className="standard-card">
@@ -173,7 +173,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black text-(--gs-text-primary)">{item.title}</h4>
-                      <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Due: {item.date} • {item.dept}</p>
+                      <p className="text-[12px] font-bold text-orange-500 uppercase tracking-widest">Due: {item.date} • {item.dept}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -185,7 +185,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 4. リンク集 (Links) */}
           {foundLinks.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-blue-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <ExternalLink size={14} /> Links ({foundLinks.length})
               </h3>
               <div className="standard-card">
@@ -196,7 +196,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow min-w-0 text-left">
                       <h4 className="text-[17px] font-black truncate text-(--gs-text-primary)">{link.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">{link.category} • {link.desc}</p>
+                      <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest truncate">{link.category} • {link.desc}</p>
                     </div>
                     <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
                   </a>
@@ -208,7 +208,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 5. ドキュメント (Documents) */}
           {foundDocs.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-indigo-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <FileText size={14} /> Documents ({foundDocs.length})
               </h3>
               <div className="standard-card">
@@ -219,7 +219,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black text-(--gs-text-primary)">{doc.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{doc.category}</p>
+                      <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{doc.category}</p>
                     </div>
                     <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
                   </a>
@@ -231,7 +231,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 6. ポータル & サポート */}
           {foundCommon.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] ml-2 flex items-center gap-2 text-slate-500">
+              <h3 className="text-[12px] font-black uppercase tracking-[0.3em] ml-2 flex items-center gap-2 text-slate-500">
                 <LayoutGrid size={14} /> Portal & Support ({foundCommon.length})
               </h3>
               <div className="standard-card">
@@ -242,7 +242,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black tracking-tight text-(--gs-text-primary)">{item.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</p>
+                      <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</p>
                     </div>
                     <ArrowUpRight size={18} className="text-slate-200 group-hover:text-(--gs-accent)" />
                   </a>
@@ -254,7 +254,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 7. チーム紹介 (Organization) */}
           {foundTeams.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-slate-900 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Users size={14} /> Organization ({foundTeams.length})
               </h3>
               <div className="standard-card">
@@ -276,7 +276,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 8. コラム (Column) */}
           {foundColumns.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-teal-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-teal-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Newspaper size={14} /> Column ({foundColumns.length})
               </h3>
               <div className="standard-card">
@@ -287,7 +287,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black text-(--gs-text-primary)">{col.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{col.date} • {col.category}</p>
+                      <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{col.date} • {col.category}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -299,7 +299,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 9. 関連会社紹介 (Companies) */}
           {foundCompanies.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-violet-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-violet-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Building2 size={14} /> Related Companies ({foundCompanies.length})
               </h3>
               <div className="standard-card">
@@ -310,7 +310,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black text-(--gs-text-primary)">{company.abbr} <span className="font-medium text-sm opacity-60">{company.full}</span></h4>
-                      <p className="text-[11px] text-slate-400 leading-snug line-clamp-2">{company.desc}</p>
+                      <p className="text-[12px] text-slate-400 leading-snug line-clamp-2">{company.desc}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -322,7 +322,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
           {/* 10. アクションプラン (Action Plans) */}
           {foundActionPlans.length > 0 && (
             <section className="space-y-4">
-              <h3 className="text-[10px] font-black text-amber-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+              <h3 className="text-[12px] font-black text-amber-600 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                 <Target size={14} /> Action Plans ({foundActionPlans.length})
               </h3>
               <div className="standard-card">
@@ -333,7 +333,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
                     </div>
                     <div className="flex flex-col flex-grow text-left">
                       <h4 className="text-[17px] font-black text-(--gs-text-primary)">{plan.title}</h4>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{plan.fiscalYear}年度 • {plan.category} • {plan.status}</p>
+                      <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{plan.fiscalYear}年度 • {plan.category} • {plan.status}</p>
                     </div>
                     <ChevronRight size={18} className="text-slate-200" />
                   </div>
@@ -345,7 +345,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, setActiveTa
         </div>
       )}
 
-      <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.5em] pt-20 opacity-40">
+      <p className="text-center text-[12px] font-bold text-slate-400 uppercase tracking-[0.5em] pt-20 opacity-40">
         End of Global Search Result
       </p>
     </div>

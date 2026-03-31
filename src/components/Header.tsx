@@ -1,5 +1,6 @@
 ﻿import React from "react";
-import { Search, Home, Link as IconLink, Users, GraduationCap, MoreHorizontal, MapPin, Info, FileText } from "lucide-react";
+// 💡 X アイコンを追加
+import { Search, Home, Link as IconLink, Users, GraduationCap, MoreHorizontal, MapPin, Info, FileText, X } from "lucide-react";
 
 const MENU_ITEMS: { id: string; label: string; Icon: React.FC<{ size?: number }> }[] = [
   { id: "home",      label: "ホーム",       Icon: Home },
@@ -69,10 +70,25 @@ export const Header: React.FC<HeaderProps> = ({
             type="text"
             // 💡 動的なプレースホルダーを適用
             placeholder={placeholder || "情報を検索..."}
-            className="w-full py-3.5 px-6 rounded-xl text-sm border border-(--gs-on-primary)/30 shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all outline-none font-bold bg-white/95 text-(--gs-accent) placeholder:text-slate-400 focus:ring-emerald-400/50"
+            // 💡 クリアボタン用の右余白(pr-14)を確保
+            className="w-full py-3.5 pl-6 pr-14 rounded-xl text-sm border border-(--gs-on-primary)/30 shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all outline-none font-bold bg-white/95 text-(--gs-accent) placeholder:text-slate-400 focus:ring-emerald-400/50"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+
+          {/* 💡 クリアボタン（バツ印）：入力がある時だけ表示 */}
+          {searchQuery && (
+            <button
+              type="button" // form送信を防止
+              onClick={() => setSearchQuery("")}
+              className="absolute right-12 top-1/2 -translate-y-1/2 p-1 rounded-md text-slate-300 hover:text-(--gs-accent) hover:bg-slate-100 transition-all"
+              aria-label="検索内容をクリア"
+            >
+              <X size={16} strokeWidth={3} />
+            </button>
+          )}
+
+          {/* 検索実行ボタン（虫眼鏡） */}
           <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2 transition-colors text-(--gs-accent) hover:text-(--gs-primary-light)">
             <Search size={20} strokeWidth={3} />
           </button>
