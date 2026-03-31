@@ -1,11 +1,10 @@
 ﻿import React, { useState, useMemo } from "react";
-import { Bell, Search, ArrowUpRight } from "lucide-react";
+import { Bell, ArrowUpRight } from "lucide-react";
 import { allNews } from "../data/news";
 import { isWithinDays, NEWS_NEW_DAYS } from "../utils/newBadge";
 import { useReadNews } from "../utils/useReadNews";
 
 export const News: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("一覧");
   const { isRead, markAsRead } = useReadNews();
 
@@ -15,55 +14,32 @@ export const News: React.FC = () => {
   const isNewPost = (dateStr: string, id: string | number) => !isRead(id) && isWithinDays(dateStr, NEWS_NEW_DAYS);
 
   const filteredNews = useMemo(() => {
-    const lq = searchTerm.toLowerCase();
     return (allNews || []).filter(item => {
-      const matchesSearch = item.title.toLowerCase().includes(lq);
       const matchesCategory = activeCategory === "一覧"
         || (activeCategory === "その他" ? OTHER_CATEGORIES.includes(item.category) : item.category === activeCategory);
-      return matchesSearch && matchesCategory;
+      return matchesCategory;
     }).sort((a, b) => b.date.localeCompare(a.date));
-  }, [searchTerm, activeCategory]);
+  }, [activeCategory]);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-1000 pb-10 px-4">
+    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-1000 pb-10 px-4">
       
-      {/* 1. インテリジェント・検索 & フィルタバー */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col xl:flex-row gap-4 items-center">
-          
-          {/* 検索入力エリア */}
-          <div className="relative w-full xl:w-80 group">
-            <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-              <Search 
-                className="text-slate-300 group-focus-within:text-(--gs-accent)" 
-                size={16} 
-                strokeWidth={3} 
-              />
-            </div>
-            <input 
-              type="text" 
-              placeholder="お知らせを検索..." 
-              className="w-full pl-12 pr-6 py-3.5 rounded-[1.6rem] font-bold text-[13px] outline-none border bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) shadow-sm focus:ring-4 focus:ring-(--gs-accent)/5 transition-all"
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-
-          {/* カテゴリー切り替えエリア */}
-          <div className="flex bg-slate-100/80 p-1.5 rounded-[1.8rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm">
-            {categories.map(cat => (
-              <button 
-                key={cat} 
-                onClick={() => setActiveCategory(cat)} 
-                className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-[1.4rem] font-black text-[12px] tracking-widest transition-all duration-300 ${
-                  activeCategory === cat 
-                    ? "bg-white text-(--gs-accent) shadow-md transform scale-[1.02]" 
-                    : "text-slate-400 hover:text-slate-600 hover:bg-white/40"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      {/* 1. カテゴリー選択ナビゲーション（検索バーを削除し、タブを主役に） */}
+      <div className="flex justify-center">
+        <div className="flex bg-slate-100/80 p-1.5 rounded-[2rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm shadow-sm">
+          {categories.map(cat => (
+            <button 
+              key={cat} 
+              onClick={() => setActiveCategory(cat)} 
+              className={`flex-1 min-w-[130px] py-3 px-6 rounded-[1.6rem] font-black text-[13px] tracking-widest transition-all duration-300 ${
+                activeCategory === cat 
+                  ? "bg-white text-(--gs-accent) shadow-md transform scale-[1.02]" 
+                  : "text-slate-400 hover:text-slate-600 hover:bg-white/40"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </div>
 

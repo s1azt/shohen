@@ -1,5 +1,5 @@
 ﻿import React, { useState, useMemo } from "react";
-import { Search, ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { linkCollection } from "../data/links";
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -19,68 +19,44 @@ const COLOR_MAP: Record<string, { bg: string; text: string; border: string; icon
 };
 
 export const Links: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("一覧");
 
   const categories = ["一覧", "勤怠・業務管理", "開発・運用関連", "晴海オフィス関連", "人材育成関連"] as const;
 
   const filteredLinks = useMemo(() => {
-    const lq = searchTerm.toLowerCase();
     const activeKey = CATEGORY_MAP[activeCategory];
     return (linkCollection || []).filter(link => {
-      const matchesSearch = link.title.toLowerCase().includes(lq) || link.desc.toLowerCase().includes(lq);
       const matchesCategory = activeKey === "一覧" || link.category === activeKey;
-      return matchesSearch && matchesCategory;
+      return matchesCategory;
     });
-  }, [searchTerm, activeCategory]);
+  }, [activeCategory]);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-1000 pb-10 px-4">
+    <div className="max-w-6xl mx-auto space-y-10 animate-in fade-in duration-1000 pb-10 px-4">
       
-      {/* 1. インテリジェント・ナビゲーション & 検索バー */}
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col xl:flex-row gap-5 items-center">
-          
-          {/* 検索入力 */}
-          <div className="relative w-full xl:w-80 group">
-            <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-              <Search 
-                className="text-slate-300 group-focus-within:text-(--gs-accent)" 
-                size={16} 
-                strokeWidth={3} 
-              />
-            </div>
-            <input 
-              type="text" 
-              placeholder="リンクを検索..." 
-              className="w-full pl-12 pr-6 py-3.5 rounded-[1.6rem] font-bold text-[13px] outline-none border bg-(--gs-card-bg) border-slate-100 text-(--gs-text-primary) shadow-sm focus:ring-4 focus:ring-(--gs-accent)/5 transition-all"
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-
-          {/* カテゴリー選択タブ */}
-          <div className="flex bg-slate-100/80 p-1.5 rounded-[1.8rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm">
-            {categories.map(cat => (
-              <button 
-                key={cat} 
-                onClick={() => setActiveCategory(cat)} 
-                className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-[1.4rem] font-black text-[12px] tracking-widest transition-all duration-300 ${
-                  activeCategory === cat 
-                    ? "bg-white text-(--gs-accent) shadow-md transform scale-[1.02]" 
-                    : "text-slate-400 hover:text-slate-600 hover:bg-white/40"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      {/* 1. カテゴリーナビゲーション（検索バーを削除し、フルワイドに） */}
+      <div className="flex justify-center">
+        <div className="flex bg-slate-100/80 p-1.5 rounded-[2rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm shadow-sm">
+          {categories.map(cat => (
+            <button 
+              key={cat} 
+              onClick={() => setActiveCategory(cat)} 
+              className={`flex-1 min-w-[150px] py-3.5 px-6 rounded-[1.6rem] font-black text-[13px] tracking-widest transition-all duration-300 ${
+                activeCategory === cat 
+                  ? "bg-white text-(--gs-accent) shadow-md transform scale-[1.02]" 
+                  : "text-slate-400 hover:text-slate-600 hover:bg-white/40"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* 2. コンテンツ表示エリア */}
       
       {/* --- リスト形式（「一覧」選択時） --- */}
-      <div className={`${activeCategory !== "一覧" ? "hidden" : ""} rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-50 divide-y bg-(--gs-card-bg) divide-slate-50`}>
+      <div className={`${activeCategory !== "一覧" ? "hidden" : ""} rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-50 divide-y bg-(--gs-card-bg) divide-slate-100/50`}>
         {filteredLinks.map((link) => {
           const colors = COLOR_MAP[link.category] || COLOR_MAP.work;
           return (
@@ -89,27 +65,27 @@ export const Links: React.FC = () => {
               href={link.url} 
               target="_blank" 
               rel="noreferrer" 
-              className={`flex items-center justify-between p-5 px-8 group no-underline transition-colors ${colors.accent} hover:bg-slate-50/80`}
+              className={`flex items-center justify-between p-6 px-8 group no-underline transition-colors ${colors.accent} hover:bg-slate-50/80`}
             >
               <div className="flex items-center gap-6 min-w-0">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 bg-white shadow-sm ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300`}>
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 bg-white shadow-sm ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300`}>
                   <ExternalLink size={20} strokeWidth={2} />
                 </div>
                 <div className="text-left min-w-0">
-                  <span className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1 block ${colors.text}`}>
+                  <span className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1.5 block ${colors.text}`}>
                     {link.category}
                   </span>
-                  <h4 className="text-[16px] font-black tracking-tight truncate leading-tight text-(--gs-text-primary)">
+                  <h4 className="text-[17px] font-black tracking-tight truncate leading-tight text-(--gs-text-primary)">
                     {link.title}
                   </h4>
                 </div>
               </div>
               <div className="flex items-center gap-6 shrink-0 pl-4">
-                <p className="hidden lg:block text-[12px] font-medium text-slate-400 truncate opacity-70 max-w-[350px]">
+                <p className="hidden lg:block text-[13px] font-medium text-slate-400 truncate opacity-70 max-w-[400px]">
                   {link.desc}
                 </p>
                 <div className={`p-2.5 rounded-xl transition-all duration-300 ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white group-hover:translate-x-1`}>
-                  <ArrowUpRight size={18} strokeWidth={3} />
+                  <ArrowUpRight size={20} strokeWidth={3} />
                 </div>
               </div>
             </a>
@@ -118,7 +94,7 @@ export const Links: React.FC = () => {
       </div>
 
       {/* --- カード形式（個別カテゴリ選択時） --- */}
-      <div className={`${activeCategory === "一覧" ? "hidden" : ""} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}>
+      <div className={`${activeCategory === "一覧" ? "hidden" : ""} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500`}>
         {filteredLinks.map((link) => {
           const colors = COLOR_MAP[link.category] || COLOR_MAP.work;
           return (
@@ -132,22 +108,22 @@ export const Links: React.FC = () => {
               <div className={`h-1.5 w-full ${colors.iconBg} opacity-50`} />
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-6">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-6`}>
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-6 shadow-sm`}>
                     <ExternalLink size={24} />
                   </div>
-                  <ArrowUpRight size={20} strokeWidth={3} className="text-slate-200 group-hover:text-(--gs-accent) transition-colors" />
+                  <ArrowUpRight size={22} strokeWidth={3} className="text-slate-200 group-hover:text-(--gs-accent) transition-colors" />
                 </div>
                 
-                <h4 className="text-[18px] font-black tracking-tight leading-tight mb-3 text-(--gs-text-primary)">
+                <h4 className="text-[19px] font-black tracking-tight leading-tight mb-4 text-(--gs-text-primary)">
                   {link.title}
                 </h4>
                 
-                <p className="text-[13px] font-medium leading-relaxed line-clamp-3 mb-6 text-(--gs-text-primary)/50">
+                <p className="text-[14px] font-medium leading-relaxed line-clamp-3 mb-8 text-(--gs-text-primary)/60">
                   {link.desc}
                 </p>
 
-                <div className="mt-auto pt-5 border-t border-dashed border-slate-100">
-                  <span className={`text-[10px] font-black uppercase tracking-[0.2em] bg-slate-50 px-2 py-1 rounded ${colors.text}`}>
+                <div className="mt-auto pt-6 border-t border-dashed border-slate-100">
+                  <span className={`text-[11px] font-black uppercase tracking-[0.2em] bg-slate-50 px-3 py-1.5 rounded-lg ${colors.text}`}>
                     {activeCategory}
                   </span>
                 </div>
@@ -157,20 +133,9 @@ export const Links: React.FC = () => {
         })}
       </div>
 
-      {/* 3. 検索結果なし・フッター */}
-      {filteredLinks.length === 0 && (
-        <div className="py-32 text-center">
-          <div className="inline-flex p-6 rounded-full bg-slate-50 mb-4 text-slate-200">
-            <ExternalLink size={40} />
-          </div>
-          <p className="text-slate-400 italic text-[13px] font-black uppercase tracking-widest">
-            No assets found
-          </p>
-        </div>
-      )}
-
+      {/* 3. フッター装飾 */}
       <div className="pt-16 pb-4">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-4" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-8" />
         <p className="text-center text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">
           Strategic Link Assets End
         </p>
