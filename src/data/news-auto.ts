@@ -1,86 +1,62 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/3/30 10:00:01
+// 最終取得: 2026/3/31 15:51:44
 
 export const autoNews = [
   {
-    "id": 1423495387,
-    "date": "2026.03.30",
-    "category": "人事関連",
-    "title": "【働き方創造委員会】第12回（3月26日開催）の資料を掲載致しました",
-    "color": "text-pink-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://jinji-intra.nekonet.co.jp/category/list/kaikaku.html"
-  },
-  {
-    "id": 523981935,
-    "date": "2026.03.30",
+    "id": 1035372656,
+    "date": "2026.03.31",
     "category": "社内業務",
-    "title": "【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4459070DBD4CA29A49258DC7003D612D"
+    "title": "Domino新組織対応のお知らせ 【4/10(金)17:50～実施】",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/04621D4276AE298949258DCB00086420"
   },
   {
-    "id": 427062778,
-    "date": "2026.03.27",
+    "id": 385482858,
+    "date": "2026.03.31",
+    "category": "人事関連",
+    "title": "失効年休利用条件の緩和について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/2E80B4711193E6CB49258DC600400E5D"
+  },
+  {
+    "id": 312694837,
+    "date": "2026.03.31",
+    "category": "人事関連",
+    "title": "就職等によりご家族を扶養から外す手続について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/91FF2DA0F63EBD3249258DC6003DDF90"
+  },
+  {
+    "id": 554668524,
+    "date": "2026.03.30",
     "category": "セキュリティ/危機管理",
-    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(3/27 2件)",
+    "title": "(完)【脆弱性対応TWなど社外からシンクラへ接続している方は確認必須】シンクラ通信機器の緊急メンテ",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4FA02123C8E8F50349258DCA0014F64F"
+  },
+  {
+    "id": 1238019689,
+    "date": "2026.03.30",
+    "category": "セキュリティ/危機管理",
+    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(3/30 1件)",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
   },
   {
-    "id": 1511250911,
-    "date": "2026.03.27",
-    "category": "セキュリティ/危機管理",
-    "title": "【重要】Tera Term拡張ツール「LogMeTT」の利用停止およびアンインストールのお願い",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/B2495444057B610549258DC7000C652D"
+    "id": 2075411729,
+    "date": "2026.03.30",
+    "category": "教育/研修関連",
+    "title": "【Gemini通信】Gemini × マーケター：多様化するマーケティング業務に対応するAI活用術",
+    "color": "text-orange-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/A46FDB4DCACDA50A49258DC6002D146E"
   },
   {
-    "id": 206521021,
-    "date": "2026.03.27",
-    "category": "セキュリティ/危機管理",
-    "title": "（3/26新規）【Firefox 即時対応必須】アップデート実施をお願いします",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/12c5dn2yy73jDm3TH0fvn8vgGBIZJL93c/view?usp=drive_link"
-  },
-  {
-    "id": 1004337773,
-    "date": "2026.03.26",
+    "id": 53027024,
+    "date": "2026.03.30",
     "category": "人事関連",
-    "title": "【重要】クロネコマイページの家族異動届申請について",
+    "title": "人事発令の件（2026年4月1日付）(社報）",
     "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/31770717B7C1543F49258DC6001CDA80"
-  },
-  {
-    "id": 1329503698,
-    "date": "2026.03.26",
-    "category": "セキュリティ/危機管理",
-    "title": "Symantecの定義ファイルを更新してください",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://ungi.nekonet.co.jp/security/virus/download.html"
-  },
-  {
-    "id": 89208879,
-    "date": "2026.03.26",
-    "category": "人事関連",
-    "title": "《2025年度下期》目標達成度評価実施のご案内",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C96226947B2E3EA249258DBD00262F3B"
-  },
-  {
-    "id": 1057357037,
-    "date": "2026.03.25",
-    "category": "人事関連",
-    "title": "スキル評価結果を公開しました",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C14463C75BF7781149258DC4001D5AE5"
-  },
-  {
-    "id": 1570052429,
-    "date": "2026.03.25",
-    "category": "人事関連",
-    "title": "入学祝金支給のお知らせ",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/06BE8E09C6B016CD49258DC30004CEF4"
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/8530D3881E58E53849258DCA000A60BF"
   }
 ];
