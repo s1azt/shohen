@@ -211,6 +211,6 @@ export const organizationData = {
   }
 };
 
-export const getAllSections = () => organizationData.director.sections;
-export const getSectionById = (id: string) => 
-  organizationData.director.sections.find(s => s.id === id);
+export const getAllSections = (): Section[] => organizationData.director.sections as Section[];
+export const getSectionById = (id: string): Section | undefined =>
+  organizationData.director.sections.find(s => s.id === id) as Section | undefined;
