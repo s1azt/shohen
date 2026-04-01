@@ -4,7 +4,8 @@
     title: "〇〇", 
     category: "〇〇", 
     url: "https://〇〇.com", 
-    updateDate: "2025-08-14" 
+    updateDate: "2025-08-14",
+    newUntil: "2025-08-17"  // ← NEW表示の終了日（省略可）
   },
  */
 
@@ -14,7 +15,8 @@ export const allDocuments = [
     title: "部会資料", 
     category: "部会", 
     url: "http://dominoap.nekonet.co.jp/tyo/tyo1304.nsf/", 
-    updateDate: "2026-01-15" 
+    updateDate: "2026-01-15",
+    newUntil: undefined as string | undefined
   },
   { 
     id: 2, 
@@ -60,68 +62,61 @@ export const allDocuments = [
   },
   { 
     id: 8, 
-    title: "ユニット長向けの収支勉強会", 
+    title: "ユニット長向け勉強会資料", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/1vyBvab2N0qiwt6ftGRUgOpneL3LLNK-h/view?usp=sharing", 
+    url: "https://drive.google.com/file/d/1EB4VY_glbidqjeaN42I6brrqU8TmKeyX/view?usp=drive_link", 
     updateDate: "2025-09-12" 
   },
   { 
     id: 9, 
     title: "バックオフィス業務のDX対応事例", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/1DdVVcJSsYKNW5M3UNB_NzS_DXdxnTRHs/view?usp=sharing", 
+    url: "https://drive.google.com/file/d/17x58zEQVGsCUpjcYMAIbQ35xqZrj4zmv/view?usp=drive_link", 
     updateDate: "2025-09-12" 
   },
- { 
+ 
+ 
+  { 
     id: 10, 
     title: "【10月度部会】GSキャリア支援施策について", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/14tmRaNl7ehUCHOxFgQt2-_ZKeAtMZKX4/view?usp=sharing", 
-    updateDate: "2026-03/26" 
+    url: "https://drive.google.com/file/d/1NvlIaFwqQt7aAIJbMQDL_5vo3y9tIXtK/view?usp=drive_link", 
+    updateDate: "2025-10-01" 
   },
   { 
     id: 11, 
     title: "20250805_キャリアカフェ実施内容（ITスペシャリスト）", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/10Ty_0xnDp4_jfMaizkl7RUi4NOAP9Mj-/view?usp=sharing", 
-    updateDate: "2025-08/05" 
+    url: "https://drive.google.com/file/d/1DxXNG0RMu9bezhfWcHdfebCL-kQkBU71/view?usp=drive_link", 
+    updateDate: "2025-08-05" 
   },
   { 
     id: 12, 
-    title: "20250820_キャリアカフェ実施内容（ITサービスマネージャー） (1)", 
+    title: "20250820_キャリアカフェ実施内容（ITサービスマネージャー）", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/1QHy3ep1L2HeVZCW-qT5bzui6CtBbk7_R/view?usp=sharing", 
-    updateDate: "2025-08/20" 
+    url: "https://drive.google.com/file/d/12Ww-NEQR_WBELzxM8Fo9M2E4GLx7ZqNr/view?usp=drive_link", 
+    updateDate: "2025-08-20" 
   },
   { 
     id: 13, 
     title: "20250825_キャリアカフェ実施内容（テクニカルセールス）", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/1C0GKxNq92Nxla5kGEcLCG5gaWW0L18z9/view?usp=sharing", 
-    updateDate: "2025-08/25" 
+    url: "https://drive.google.com/file/d/1xPm7YcbFaIybhsBWrUIoSZmrEukKM_ae/view?usp=drive_link", 
+    updateDate: "2025-08-25" 
   },
   { 
     id: 14, 
     title: "20250827・29_キャリアカフェ実施内容（プロダクトスペシャリスト）", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/1fKgpnf2q3_HAYfR3tZcGhJsOQ8L9aG15/view?usp=sharing", 
-    updateDate: "2025-08/29" 
+    url: "https://drive.google.com/file/d/1gW9uQrjPgJpINnuST-p1RWW7B15H9Wfy/view?usp=drive_link", 
+    updateDate: "2025-08-29" 
   },
   { 
     id: 15, 
-    title: "20250827・29_キャリアカフェ実施内容（プロジェクトマネージャー）", 
+    title: "20250829_キャリアカフェ実施内容（プロジェクトマネージャー）", 
     category: "施策・研修情報", 
-    url: "https://drive.google.com/file/d/1BkKs7mtrsPlxxrJEKC25EJmjMaPXoXYp/view?usp=sharing", 
-    updateDate: "2025-08/29" 
-  },
- /*
-  { 
-    id: 10, 
-    title: "キャリアカフェ", 
-    category: "施策・研修情報", 
-    url: "https://〇〇.com", 
-    updateDate: "2025-09-12" 
+    url: "https://drive.google.com/file/d/1wJbZRXScKl6f3T8QWwD-pyRHnESqZ53S/view?usp=drive_link", 
+    updateDate: "2025-08-29" 
   },
 
-  */
 ];
