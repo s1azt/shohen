@@ -93,7 +93,29 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
               今しばらくお待ちください。
             </p>
           </div>
-          
+
+          {/* PDF リンク */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { label: "HC10", url: "https://drive.google.com/file/d/1fO_t4eYfrdPoCvcDAeFsmqBkCpDXJ2dN/view?usp=drive_link" },
+              { label: "HC60", url: "https://drive.google.com/file/d/1gj0Kh1LH7WvCTX-rTjYZCcDLukqyiam0/view?usp=drive_link" },
+              { label: "HC70", url: "https://drive.google.com/file/d/1ludoOsPtJpgCM-uj6WWyklh6xEnOuNpd/view?usp=drive_link" },
+              { label: "HD10", url: "https://drive.google.com/file/d/1ZtjiJz7m6wigAPYfrKfWq6XHJ5-NAYMA/view?usp=drive_link" },
+              { label: "HD70", url: "https://drive.google.com/file/d/1unZp6NnhcANa3X4M-vMPjkk25dj7ijy-/view?usp=drive_link" },
+            ].map(({ label, url }) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-2xl border border-(--gs-accent)/20 bg-(--gs-accent)/5 hover:bg-(--gs-accent)/10 transition-all text-(--gs-accent) font-black text-[13px] tracking-widest no-underline"
+              >
+                <FileText size={15} />
+                {label} 体制図PDF
+              </a>
+            ))}
+          </div>
+
           <div className="flex gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-(--gs-accent) animate-bounce [animation-delay:-0.3s]" />
             <div className="w-1.5 h-1.5 rounded-full bg-(--gs-accent) animate-bounce [animation-delay:-0.15s]" />
