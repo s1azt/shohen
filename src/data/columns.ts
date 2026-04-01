@@ -22,7 +22,7 @@ export const columnArchives: ColumnArticle[] = [
     category: "宣伝" as ColumnCategory,
     title: "本日からGSイントラが新しくなります！",
     tags: ["#リニューアル", "#お知らせ"],
-    image: "/images/column-renewal.jpg",
+    image: "./images/column-renewal.jpg",
     content: `私たちCチームは、小変活動の一環としてGSイントラのリニューアルに取り組みました。
 目指したのは、情報の探しやすさはもちろん、毎日開くのが少し楽しみになる場所です。
 

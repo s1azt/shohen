@@ -2,6 +2,31 @@
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { linkCollection } from "../data/links";
 
+const getFaviconUrl = (url: string) => {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+  } catch {
+    return null;
+  }
+};
+
+const LinkFavicon: React.FC<{ url: string; size?: number; className?: string }> = ({ url, size = 20, className = "" }) => {
+  const [failed, setFailed] = React.useState(false);
+  const faviconUrl = getFaviconUrl(url);
+  if (!faviconUrl || failed) return <ExternalLink size={size} strokeWidth={2} />;
+  return (
+    <img
+      src={faviconUrl}
+      width={size}
+      height={size}
+      className={`object-contain ${className}`}
+      onError={() => setFailed(true)}
+      alt=""
+    />
+  );
+};
+
 const CATEGORY_MAP: Record<string, string> = {
   "一覧": "一覧",
   "勤怠・業務管理": "work",
@@ -69,7 +94,7 @@ export const Links: React.FC = () => {
             >
               <div className="flex items-center gap-6 min-w-0">
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 bg-white shadow-sm ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300`}>
-                  <ExternalLink size={20} strokeWidth={2} />
+                  <LinkFavicon url={link.url} size={20} />
                 </div>
                 <div className="text-left min-w-0">
                   <span className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1.5 block ${colors.text}`}>
@@ -109,7 +134,7 @@ export const Links: React.FC = () => {
               <div className="p-8 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-6">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-6 shadow-sm`}>
-                    <ExternalLink size={24} />
+                    <LinkFavicon url={link.url} size={24} />
                   </div>
                   <ArrowUpRight size={22} strokeWidth={3} className="text-slate-200 group-hover:text-(--gs-accent) transition-colors" />
                 </div>

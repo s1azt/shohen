@@ -1,6 +1,21 @@
 ﻿import React from "react";
 import { User, Phone, Mail, Edit3, ChevronRight } from "lucide-react";
 
+const FormsFavicon: React.FC = () => {
+  const [failed, setFailed] = React.useState(false);
+  if (failed) return <Edit3 size={22} />;
+  return (
+    <img
+      src="https://www.google.com/s2/favicons?domain=forms.gle&sz=32"
+      width={22}
+      height={22}
+      className="object-contain"
+      onError={() => setFailed(true)}
+      alt=""
+    />
+  );
+};
+
 interface FooterProps {
   isRaining?: boolean;
 }
@@ -83,6 +98,11 @@ export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
           </div>
         </div>
 
+        
+
+
+
+
         {/* 修正依頼ボタン */}
         <div className="w-full md:w-auto">
           <button 
@@ -100,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
                   ? 'bg-yellow-400/20 text-yellow-400 group-hover:bg-yellow-400 group-hover:text-[#0a0f1a]' 
                   : 'bg-(--gs-on-primary)/20 text-(--gs-on-primary) group-hover:bg-(--gs-on-primary) group-hover:text-(--gs-primary)'
               }`}>
-                <Edit3 size={22} />
+                <FormsFavicon />
               </div>
               <div>
                 <div className="text-[15px] font-black leading-none mb-1.5 tracking-tight font-sans">修正・更新を依頼する</div>
