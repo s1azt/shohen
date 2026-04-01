@@ -43,6 +43,20 @@ export const News: React.FC = () => {
         </div>
       </div>
 
+      {/* 全社イントラ案内 */}
+      <a
+        href="http://tokyo.nekonet.co.jp/menu/"
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-4 px-6 py-4 rounded-2xl border border-(--gs-accent)/20 bg-(--gs-accent)/5 hover:bg-(--gs-accent)/10 transition-colors group"
+      >
+        <Bell size={18} className="text-(--gs-accent) shrink-0" />
+        <p className="text-[13px] font-black text-(--gs-text-primary) flex-grow">
+※反映にタイムラグが生じる場合があります。お急ぎの方や全件確認したい方は、<span className="text-(--gs-accent) underline underline-offset-2">全社イントラのお知らせページ</span>もあわせてご確認ください
+        </p>
+        <ArrowUpRight size={16} className="text-(--gs-accent) shrink-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+      </a>
+
       {/* 2. お知らせリスト（島形式カード） */}
       <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-50 divide-y bg-(--gs-card-bg) divide-slate-100/50">
         {filteredNews.length > 0 ? (

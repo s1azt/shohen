@@ -46,7 +46,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
           <div className="text-left text-white">
             <div className="text-[13px] font-black uppercase tracking-widest leading-none mb-1.5 text-white/80">部長</div>
             <div className="text-xl sm:text-2xl font-black tracking-tighter leading-none">
-              {IS_UNDER_CONSTRUCTION ? "???" : organizationData.director.name}
+              {IS_UNDER_CONSTRUCTION ? "鯨井 利毅": organizationData.director.name}
             </div>
           </div>
         </div>
@@ -97,11 +97,11 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
           {/* PDF リンク */}
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { label: "HC10", url: "https://drive.google.com/file/d/1fO_t4eYfrdPoCvcDAeFsmqBkCpDXJ2dN/view?usp=drive_link" },
-              { label: "HC60", url: "https://drive.google.com/file/d/1gj0Kh1LH7WvCTX-rTjYZCcDLukqyiam0/view?usp=drive_link" },
-              { label: "HC70", url: "https://drive.google.com/file/d/1ludoOsPtJpgCM-uj6WWyklh6xEnOuNpd/view?usp=drive_link" },
-              { label: "HD10", url: "https://drive.google.com/file/d/1ZtjiJz7m6wigAPYfrKfWq6XHJ5-NAYMA/view?usp=drive_link" },
-              { label: "HD70", url: "https://drive.google.com/file/d/1unZp6NnhcANa3X4M-vMPjkk25dj7ijy-/view?usp=drive_link" },
+              { label: "HC10", url: "https://drive.google.com/file/d/11ojNFwmjj3Z95dTBJ3OFCAE5KF7hj1zY/view?usp=drive_link" },
+              { label: "HC60", url: "https://drive.google.com/file/d/1ihaVVMDnAwrFHAyxukyntSp_nZQsl_Mf/view?usp=drive_link" },
+              { label: "HC70", url: "https://drive.google.com/file/d/1D2-udNLmKNtoI5-x3Vt3BMZCkYvhPf63/view?usp=drive_link" },
+              { label: "HD10", url: "https://drive.google.com/file/d/1KtYv0vxwfQntZhHt8PGGECFkndvPLeSt/view?usp=drive_link" },
+              { label: "HD70", url: "https://drive.google.com/file/d/1I6x_rNEJTynDjs9DqhsH1nPSrl_PEZWK/view?usp=drive_link" },
             ].map(({ label, url }) => (
               <a
                 key={label}

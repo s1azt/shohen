@@ -42,7 +42,7 @@ export const organizationData = {
         name: "HC10",
         smg: "星崎 修司",
         //description: "システム設計・開発部門。システムアーキテクチャの設計からUI/UX、モバイル開発まで幅広く担当。",
-        pdfUrl: "https://drive.google.com/file/d/1C_2a2B4le1Z-gmYxKRncCe4In6vBsKyd/view",
+        pdfUrl: "https://drive.google.com/file/d/11ojNFwmjj3Z95dTBJ3OFCAE5KF7hj1zY/view?usp=drive_link",
         directMembers: [],
         managers: [
           {
@@ -74,7 +74,7 @@ export const organizationData = {
         name: "HC60",
         smg: "",
        // description: "データ基盤とバックエンド開発部門。データベース設計、API開発、自動化基盤の構築を担当。",
-        pdfUrl: "https://drive.google.com/file/d/18kjEhWoa0aQD1G2kGvvZoxi4tLzlba1T/view",
+        pdfUrl: "https://drive.google.com/file/d/1ihaVVMDnAwrFHAyxukyntSp_nZQsl_Mf/view?usp=drive_link",
         directMembers: [],
         managers: [
           {
@@ -97,7 +97,7 @@ export const organizationData = {
         name: "HC70",
         smg: "金子 弘嗣",
         //description: "プロジェクト管理・品質保証・運用部門。プロジェクト全体の進行管理と品質向上を担当。",
-        pdfUrl: "https://drive.google.com/file/d/194tY_gPIeW-GIK-8DMi4uuusaU6Gg4QU/view",
+        pdfUrl: "https://drive.google.com/file/d/1D2-udNLmKNtoI5-x3Vt3BMZCkYvhPf63/view?usp=drive_link",
         directMembers: [
           { id: "HC70-DM1", name: "井戸 志具馬", role: "テクニカルスペシャリスト", description: "高度な技術課題の解決とアーキテクチャ設計のサポートを担当。" }
         ],
@@ -172,7 +172,7 @@ export const organizationData = {
         name: "HD10",
         smg: "岩井 卓也",
         //description: "サービス企画・開発部門。新規サービスの企画からリサーチ、開発までを一貫して担当。",
-        pdfUrl: "https://drive.google.com/file/d/1ps8E9tpXB_jfPsepurDv3JJ-bsEn3p00/view",
+        pdfUrl: "https://drive.google.com/file/d/1KtYv0vxwfQntZhHt8PGGECFkndvPLeSt/view?usp=drive_link",
         directMembers: [],
         managers: [
           {
@@ -192,7 +192,7 @@ export const organizationData = {
         name: "HD70",
         smg: "行田 拓史",
         //description: "先端技術研究開発部門。AIやデータサイエンス、最新技術の調査研究を担当。",
-        pdfUrl: "https://drive.google.com/file/d/1YRtZ6BvclHZhG3ahVyHy_N3TnzjMD-8s/view",
+        pdfUrl: "https://drive.google.com/file/d/1I6x_rNEJTynDjs9DqhsH1nPSrl_PEZWK/view?usp=drive_link",
         directMembers: [],
         managers: [
           {

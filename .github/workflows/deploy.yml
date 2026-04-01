@@ -2,9 +2,10 @@ name: Deploy to Windows Server
 
 # mainブランチへのpush時に実行
 on:
-  push:
-    branches:
-      - main  # ブランチ名がmasterの場合は変更してください
+  workflow_dispatch:  # 手動実行のみ（自動デプロイを一時停止中）
+  # push:
+  #   branches:
+  #     - main
 
 # 環境変数の設定
 env:
