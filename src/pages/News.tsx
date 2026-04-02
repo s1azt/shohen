@@ -52,7 +52,7 @@ export const News: React.FC = () => {
       >
         <Bell size={18} className="text-(--gs-accent) shrink-0" />
         <p className="text-[13px] font-black text-(--gs-text-primary) flex-grow">
-※反映にタイムラグが生じる場合があります。お急ぎの方や全件確認したい方は、<span className="text-(--gs-accent) underline underline-offset-2">全社イントラのお知らせページ</span>もあわせてご確認ください
+※反映にタイムラグが生じる場合があります。お急ぎの方や全件確認したい方は、<span className="text-(--gs-accent) underline underline-offset-2">全社イントラのお知らせページ</span>もあわせてご確認ください。
         </p>
         <ArrowUpRight size={16} className="text-(--gs-accent) shrink-0 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
       </a>
