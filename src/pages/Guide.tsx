@@ -21,7 +21,7 @@ export const Guide: React.FC = () => {
       <div className="flex justify-center sm:justify-end">
         <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-[1.4rem] border bg-white/80 border-slate-200 text-slate-400 shadow-sm backdrop-blur-sm">
           <ShieldCheck size={16} strokeWidth={2.5} className="text-(--gs-accent)" />
-          <span className="text-[11px] font-[1000] uppercase tracking-[0.2em] leading-none">
+          <span className="text-[12px] font-[1000] uppercase tracking-[0.2em] leading-none">
             Internal Operational Standards
           </span>
         </div>
@@ -50,7 +50,7 @@ export const Guide: React.FC = () => {
                   <h3 className="text-[24px] font-[1000] tracking-tight leading-tight text-(--gs-text-primary)">
                     {guide.title}
                   </h3>
-                  <p className={`text-[10px] font-black uppercase tracking-[0.3em] mt-2.5 opacity-70 ${scheme.light}`}>
+                  <p className={`text-[12px] font-black uppercase tracking-[0.3em] mt-2.5 opacity-70 ${scheme.light}`}>
                     Category Intelligence
                   </p>
                 </div>
@@ -70,7 +70,7 @@ export const Guide: React.FC = () => {
                   {guide.steps.map((step, idx) => (
                     <div key={idx} className="relative flex items-start gap-7 group/item">
                       {/* インデックス番号 */}
-                      <div className={`relative z-10 w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-[1000] border transition-all duration-300 bg-white border-slate-100 ${scheme.light} group-hover/item:scale-125 group-hover/item:border-(--gs-accent) shadow-sm`}>
+                      <div className={`relative z-10 w-6 h-6 rounded-lg flex items-center justify-center text-[12px] font-[1000] border transition-all duration-300 bg-white border-slate-100 ${scheme.light} group-hover/item:scale-125 group-hover/item:border-(--gs-accent) shadow-sm`}>
                         {idx + 1}
                       </div>
                       

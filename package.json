@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "fetch-news": "node scripts/fetch-news.mjs",
-    "fetch-news:auto": "node scripts/fetch-news.mjs --auto"
+    "fetch-news:auto": "node scripts/fetch-news.mjs --auto",
+    "fetch-deadlines": "node scripts/fetch-deadlines.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",

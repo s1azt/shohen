@@ -1,10 +1,11 @@
 ﻿import React from "react";
 // 💡 X アイコンを追加
-import { Search, Home, Link as IconLink, Users, GraduationCap, MoreHorizontal, MapPin, Info, FileText, X } from "lucide-react";
+import { Search, Home, Link as IconLink, Users, GraduationCap, MoreHorizontal, MapPin, Info, FileText, X, Clock } from "lucide-react";
 
 const MENU_ITEMS: { id: string; label: string; Icon: React.FC<{ size?: number }> }[] = [
   { id: "home",      label: "ホーム",       Icon: Home },
   { id: "news",      label: "お知らせ",     Icon: Info },
+  { id: "deadlines", label: "締め切り",     Icon: Clock },
   { id: "links",     label: "リンク集",     Icon: IconLink },
   { id: "team",      label: "チーム紹介",   Icon: Users },
   { id: "guide",     label: "新人ガイド",   Icon: GraduationCap },
@@ -59,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
           <h1 className="text-4xl font-black text-(--gs-on-primary) tracking-tighter  relative z-10">
             グループシステム部イントラサイト <span className="text-(--gs-on-primary)/50"></span>
           </h1>
-          <p className="text-(--gs-on-primary)/50 text-[10px] font-bold uppercase tracking-[0.5em] mt-1 ml-1 relative z-10">
+          <p className="text-(--gs-on-primary)/50 text-[12px] font-bold uppercase tracking-[0.5em] mt-1 ml-1 relative z-10">
             Group Systems Department
           </p>
         </div>
@@ -147,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
                       setActiveTab("construction"); 
                       setShowLocationDropdown(false); 
                     }}
-                    className="w-full px-7 py-5 text-left text-[11px] font-black border-b last:border-0 transition-all uppercase tracking-[0.2em] border-slate-50 hover:bg-slate-50 text-(--gs-accent)"
+                    className="w-full px-7 py-5 text-left text-[12px] font-black border-b last:border-0 transition-all uppercase tracking-[0.2em] border-slate-50 hover:bg-slate-50 text-(--gs-accent)"
                   >
                     {loc}
                   </button>

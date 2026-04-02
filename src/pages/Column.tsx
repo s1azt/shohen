@@ -119,7 +119,7 @@ export const Column: React.FC = () => {
         <div className="md:w-1/2 p-8 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-3">
             {isWithinDays(latestColumn.date, COLUMN_NEW_DAYS) && !isRead(`col-${latestColumn.id}`) && (
-              <span className="bg-red-100 text-red-600 text-[10px] font-black px-2 py-0.5 rounded-full">NEW</span>
+              <span className="bg-red-100 text-red-600 text-[12px] font-black px-2 py-0.5 rounded-full">NEW</span>
             )}
             <span className="text-[#6b7a5f] text-xs font-bold">{latestColumn.date}</span>
           </div>
@@ -150,7 +150,7 @@ export const Column: React.FC = () => {
                 {col.category === "GOOD NEWS" ? <Star size={24} /> : <Newspaper size={24} />}
               </div>
               <div>
-                <p className="text-[10px] text-[#6b7a5f] font-bold opacity-60">{col.date}</p>
+                <p className="text-[12px] text-[#6b7a5f] font-bold opacity-60">{col.date}</p>
                 <h4 className="font-bold text-[#3e4a36] line-clamp-1 group-hover:text-[#6b7a5f] transition-colors">{col.title}</h4>
               </div>
             </div>
@@ -158,7 +158,7 @@ export const Column: React.FC = () => {
             <div className="flex items-center justify-between">
               <div className="flex gap-2">
                 {col.tags.slice(0, 1).map(tag => (
-                  <span key={tag} className="text-[9px] bg-white text-[#6b7a5f] px-2 py-0.5 rounded border border-[#cbd5c0]">{tag}</span>
+                  <span key={tag} className="text-[12px] bg-white text-[#6b7a5f] px-2 py-0.5 rounded border border-[#cbd5c0]">{tag}</span>
                 ))}
               </div>
               <ExternalLink size={14} className="text-[#cbd5c0] group-hover:text-[#6b7a5f]" />

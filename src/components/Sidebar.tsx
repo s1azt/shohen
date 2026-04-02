@@ -127,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
             </div>
             <span className="text-[15px] font-black text-(--gs-text-primary)">コラム</span>
             {isColumnNew && (
-              <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
+              <span className="text-[12px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
             )}
           </div>
           <ChevronRight size={14} className="text-slate-200" />
@@ -144,13 +144,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
             <div className="p-1.5 rounded-lg bg-(--gs-on-primary)/10">
               <FileBox size={14} className="text-(--gs-on-primary)" />
             </div>
-            <span className="text-[9px] font-[1000] uppercase tracking-[0.2em] opacity-60">Strategic Docs</span>
+            <span className="text-[12px] font-[1000] uppercase tracking-[0.2em] opacity-60">Strategic Docs</span>
             {isBukaNew && (
-              <span className="text-[9px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
+              <span className="text-[12px] font-[1000] px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm">NEW</span>
             )}
           </div>
           <h4 className="text-[20px] font-black leading-tight mb-1">部会資料アーカイブ</h4>
-          <p className="text-[9px] font-bold opacity-50 flex items-center gap-1 uppercase tracking-widest">
+          <p className="text-[12px] font-bold opacity-50 flex items-center gap-1 uppercase tracking-widest">
            
           </p>
         </div>
@@ -161,7 +161,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
       <div className="space-y-2">
         <button
           onClick={() => setShowCompanies(!showCompanies)}
-          className={`w-full p-4 rounded-[2rem] transition-all font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-between gap-2 shadow-lg ${
+          className={`w-full p-4 rounded-[2rem] transition-all font-black text-[12px] uppercase tracking-[0.2em] flex items-center justify-between gap-2 shadow-lg ${
             showCompanies ? "bg-white text-(--gs-accent) border-2 border-(--gs-accent)" : "bg-(--gs-primary) text-(--gs-on-primary)"
           }`}
         >
@@ -187,9 +187,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
                 >
                   <div className="flex items-baseline gap-2 mb-1">
                     <span className={`text-[13px] font-black ${ isHighlighted ? "text-(--gs-accent)" : "text-(--gs-accent)" }`}>{c.abbr}</span>
-                    <span className="text-[10px] font-bold text-(--gs-text-primary)/50 leading-tight">{c.full}</span>
+                    <span className="text-[12px] font-bold text-(--gs-text-primary)/50 leading-tight">{c.full}</span>
                   </div>
-                  <p className="text-[11px] leading-relaxed text-(--gs-text-primary)/60">{c.desc}</p>
+                  <p className="text-[12px] leading-relaxed text-(--gs-text-primary)/60">{c.desc}</p>
                 </div>
               );
             })}
@@ -201,7 +201,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
       <div className="space-y-2">
         <button 
           onClick={() => setShowSupport(!showSupport)}
-          className={`w-full p-4 rounded-[2rem] transition-all font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-between gap-2 shadow-lg ${
+          className={`w-full p-4 rounded-[2rem] transition-all font-black text-[12px] uppercase tracking-[0.2em] flex items-center justify-between gap-2 shadow-lg ${
             showSupport ? "bg-white text-(--gs-accent) border-2 border-(--gs-accent)" : "bg-(--gs-primary) text-(--gs-on-primary)"
           }`}
         >
@@ -217,7 +217,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
               <button
                 key={i}
                 onClick={() => window.open(link.url, "_blank")}
-                className="w-full text-left px-4 py-3 text-[11px] font-black text-(--gs-text-primary) hover:bg-slate-50 hover:text-slate-700 rounded-xl transition-all border-b border-slate-50 last:border-none flex items-center justify-between group"
+                className="w-full text-left px-4 py-3 text-[12px] font-black text-(--gs-text-primary) hover:bg-slate-50 hover:text-slate-700 rounded-xl transition-all border-b border-slate-50 last:border-none flex items-center justify-between group"
               >
                 {link.label}
                 <ChevronRight size={12} className="text-slate-200 group-hover:text-slate-400" />
@@ -231,7 +231,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         <div className="rounded-2xl p-4 border bg-(--gs-card-bg) border-slate-100">
           <div className="flex items-center gap-2 mb-3">
             <Palette size={12} className="text-slate-400" />
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">テーマカラー</span>
+            <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest">テーマカラー</span>
           </div>
           <div className="flex gap-2 flex-wrap">
             {THEMES.map(t => (
@@ -276,7 +276,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
       <div className="rounded-[2rem] border-2 border-dashed border-(--gs-accent)/30 p-5 space-y-3 bg-(--gs-accent)/3">
         <div className="flex items-center gap-2 mb-1">
           <PenLine size={14} className="text-(--gs-accent)" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-(--gs-accent)">Contents Wanted</span>
+          <span className="text-[12px] font-black uppercase tracking-[0.2em] text-(--gs-accent)">Contents Wanted</span>
         </div>
         <p className="text-[12px] font-bold text-(--gs-text-primary)/70 leading-relaxed">
           コンテンツ作りにご協力ください！
@@ -293,7 +293,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
           ) : (
             <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
               <span className="text-[12px] font-black text-slate-400">📝 チーム紹介文を書く</span>
-              <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
+              <span className="text-[12px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
             </div>
           )}
           {externalLinks.contentRecruitment.column ? (
@@ -307,7 +307,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
           ) : (
             <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
               <span className="text-[12px] font-black text-slate-400">✍️ コラムを寄稿する</span>
-              <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
+              <span className="text-[12px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
             </div>
           )}
           {externalLinks.contentRecruitment.location ? (
@@ -321,7 +321,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
           ) : (
             <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-100 opacity-50">
               <span className="text-[12px] font-black text-slate-400">📍 拠点別情報を投稿する</span>
-              <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
+              <span className="text-[12px] font-bold text-slate-300 uppercase tracking-widest">準備中</span>
             </div>
           )}
         </div>

@@ -79,7 +79,7 @@ export const News: React.FC = () => {
               {/* コンテンツエリア */}
               <div className="flex items-center gap-4 flex-grow min-w-0 text-left">
                 {/* カテゴリーバッジ */}
-                <span className={`text-[9px] font-[1000] px-3 py-1.5 rounded-lg uppercase tracking-widest border shrink-0 transition-all ${
+                <span className={`text-[12px] font-[1000] px-3 py-1.5 rounded-lg uppercase tracking-widest border shrink-0 transition-all ${
                   item.category === "セキュリティ/危機管理" 
                     ? "bg-red-50 text-red-600 border-red-100 shadow-sm group-hover:bg-red-600 group-hover:text-white" 
                     : "bg-slate-50 text-slate-500 border-slate-200 group-hover:bg-(--gs-accent)/10 group-hover:text-(--gs-accent) group-hover:border-(--gs-accent)/20"
@@ -90,7 +90,7 @@ export const News: React.FC = () => {
                 {/* NEWバッジ */}
                 {isNewPost(item.date, item.id) && (
                   <div className="flex items-center gap-1.5 shrink-0">
-                    <span className="text-[10px] font-black px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm animate-pulse">NEW</span>
+                    <span className="text-[12px] font-black px-2 py-0.5 rounded italic bg-orange-500 text-white shadow-sm animate-pulse">NEW</span>
                   </div>
                 )}
 
@@ -121,7 +121,7 @@ export const News: React.FC = () => {
       {/* フッター装飾 */}
       <div className="pt-12 pb-4">
         <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-6" />
-        <p className="text-center text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">
+        <p className="text-center text-[12px] font-black text-slate-300 uppercase tracking-[0.5em]">
           Corporate Communication Endpoint
         </p>
       </div>

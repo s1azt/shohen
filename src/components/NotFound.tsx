@@ -47,7 +47,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ setActiveTab }) => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
           <button
             onClick={() => setActiveTab("home")}
-            className="group flex items-center gap-3 px-10 py-4 bg-(--gs-accent) text-white rounded-2xl font-black text-[11px] tracking-[0.2em] hover:bg-(--gs-accent)/80 transition-all shadow-2xl active:scale-95"
+            className="group flex items-center gap-3 px-10 py-4 bg-(--gs-accent) text-white rounded-2xl font-black text-[12px] tracking-[0.2em] hover:bg-(--gs-accent)/80 transition-all shadow-2xl active:scale-95"
           >
             <Home size={16} />
             BACK TO SURFACE
@@ -55,7 +55,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ setActiveTab }) => {
           
           <button
             onClick={() => window.history.back()}
-            className="flex items-center gap-2 px-6 py-4 text-slate-400 hover:text-[#064e3b] font-black text-[10px] tracking-widest transition-colors"
+            className="flex items-center gap-2 px-6 py-4 text-slate-400 hover:text-[#064e3b] font-black text-[12px] tracking-widest transition-colors"
           >
             <ArrowLeft size={14} />
             PREVIOUS PAGE

@@ -77,7 +77,7 @@ export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
         <div className="flex flex-col gap-5 text-left w-full md:w-auto">
           <div className="flex items-center gap-3">
             <div className={`w-1.5 h-5 rounded-full transition-colors duration-[3000ms] ${isRaining ? 'bg-yellow-400' : 'bg-(--gs-on-primary)/70'}`} />
-            <h3 className={`text-[11px] font-black uppercase tracking-[0.3em] transition-colors duration-[3000ms] ${isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)/70'}`}>
+            <h3 className={`text-[12px] font-black uppercase tracking-[0.3em] transition-colors duration-[3000ms] ${isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)/70'}`}>
               Support Desk {isRaining && " - Meow Mode"}
             </h3>
           </div>
@@ -124,7 +124,7 @@ export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
               </div>
               <div>
                 <div className="text-[15px] font-black leading-none mb-1.5 tracking-tight font-sans">修正・更新を依頼する</div>
-                <div className={`text-[10px] font-black uppercase tracking-[0.2em] opacity-60 font-sans ${
+                <div className={`text-[12px] font-black uppercase tracking-[0.2em] opacity-60 font-sans ${
                   isRaining ? 'text-yellow-400' : 'text-(--gs-on-primary)'
                 }`}>Update Request</div>
               </div>
@@ -135,7 +135,7 @@ export const Footer: React.FC<FooterProps> = ({ isRaining }) => {
       </div>
 
       <div className="w-full bg-black/20 py-5 border-t border-white/5 text-center relative group/footer cursor-default overflow-hidden">
-        <p className="text-[10px] font-bold text-(--gs-on-primary)/10 uppercase tracking-[0.5em] group-hover/footer:text-(--gs-on-primary)/30 transition-all duration-700 font-sans">
+        <p className="text-[12px] font-bold text-(--gs-on-primary)/10 uppercase tracking-[0.5em] group-hover/footer:text-(--gs-on-primary)/30 transition-all duration-700 font-sans">
           &copy; 2026 Group Systems Department. All Rights Reserved.
         </p>
         <div className="absolute right-12 bottom-[-25px] group-hover/footer:bottom-4 transition-all duration-[1500ms] ease-out opacity-0 group-hover/footer:opacity-40 text-2xl pointer-events-none select-none">

@@ -97,7 +97,7 @@ export const Links: React.FC = () => {
                   <LinkFavicon url={link.url} size={20} />
                 </div>
                 <div className="text-left min-w-0">
-                  <span className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1.5 block ${colors.text}`}>
+                  <span className={`text-[12px] font-black uppercase tracking-widest leading-none mb-1.5 block ${colors.text}`}>
                     {link.category}
                   </span>
                   <h4 className="text-[17px] font-black tracking-tight truncate leading-tight text-(--gs-text-primary)">
@@ -106,7 +106,7 @@ export const Links: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center gap-6 shrink-0 pl-4">
-                <p className="hidden lg:block text-[13px] font-medium text-slate-400 truncate opacity-70 max-w-[400px]">
+                <p className="hidden lg:block text-[13px] font-medium text-slate-500 truncate opacity-90 max-w-[400px]">
                   {link.desc}
                 </p>
                 <div className={`p-2.5 rounded-xl transition-all duration-300 ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white group-hover:translate-x-1`}>
@@ -131,24 +131,24 @@ export const Links: React.FC = () => {
               className="group flex flex-col rounded-[2.5rem] border border-slate-100 hover:border-(--gs-accent)/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl no-underline text-left relative overflow-hidden bg-(--gs-card-bg)"
             >
               <div className={`h-1.5 w-full ${colors.iconBg} opacity-50`} />
-              <div className="p-8 flex flex-col flex-grow">
-                <div className="flex justify-between items-start mb-6">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-6 shadow-sm`}>
-                    <LinkFavicon url={link.url} size={24} />
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="flex justify-between items-start mb-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-6 shadow-sm`}>
+                    <LinkFavicon url={link.url} size={20} />
                   </div>
-                  <ArrowUpRight size={22} strokeWidth={3} className="text-slate-200 group-hover:text-(--gs-accent) transition-colors" />
+                  <ArrowUpRight size={18} strokeWidth={3} className="text-slate-400 group-hover:text-(--gs-accent) transition-colors" />
                 </div>
                 
-                <h4 className="text-[19px] font-black tracking-tight leading-tight mb-4 text-(--gs-text-primary)">
+                <h4 className="text-[19px] font-black tracking-tight leading-tight mb-3 text-(--gs-text-primary)">
                   {link.title}
                 </h4>
                 
-                <p className="text-[14px] font-medium leading-relaxed line-clamp-3 mb-8 text-(--gs-text-primary)/60">
+                <p className="text-[14px] font-medium leading-relaxed line-clamp-2 mb-5 text-(--gs-text-primary)/60">
                   {link.desc}
                 </p>
 
-                <div className="mt-auto pt-6 border-t border-dashed border-slate-100">
-                  <span className={`text-[11px] font-black uppercase tracking-[0.2em] bg-slate-50 px-3 py-1.5 rounded-lg ${colors.text}`}>
+                <div className="mt-auto pt-4 border-t border-dashed border-slate-100">
+                  <span className={`text-[12px] font-black uppercase tracking-[0.2em] bg-slate-50 px-3 py-1 rounded-lg ${colors.text}`}>
                     {activeCategory}
                   </span>
                 </div>
@@ -161,7 +161,7 @@ export const Links: React.FC = () => {
       {/* 3. フッター装飾 */}
       <div className="pt-16 pb-4">
         <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-8" />
-        <p className="text-center text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">
+        <p className="text-center text-[12px] font-black text-slate-500 uppercase tracking-[0.5em]">
           Strategic Link Assets End
         </p>
       </div>

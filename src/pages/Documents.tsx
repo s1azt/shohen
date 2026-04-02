@@ -55,11 +55,11 @@ export const Documents: React.FC = () => {
                 {/* テキスト情報 */}
                 <div className="text-left min-w-0">
                   <div className="flex items-center gap-3 mb-1.5">
-                    <span className="text-[10px] font-black text-(--gs-accent) uppercase tracking-widest leading-none bg-(--gs-accent)/5 px-2.5 py-1 rounded-md border border-(--gs-accent)/10">
+                    <span className="text-[12px] font-black text-(--gs-accent) uppercase tracking-widest leading-none bg-(--gs-accent)/5 px-2.5 py-1 rounded-md border border-(--gs-accent)/10">
                       {doc.category}
                     </span>
                     {doc.updateDate && (
-                      <span className="text-[10px] font-bold text-slate-300 tabular-nums leading-none">
+                      <span className="text-[12px] font-bold text-slate-300 tabular-nums leading-none">
                         Updated: {doc.updateDate}
                       </span>
                     )}
@@ -93,7 +93,7 @@ export const Documents: React.FC = () => {
       {/* フッター装飾 */}
       <div className="pt-12 pb-4">
         <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-6" />
-        <p className="text-center text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">
+        <p className="text-center text-[12px] font-black text-slate-300 uppercase tracking-[0.5em]">
           Internal Document Assets End
         </p>
       </div>

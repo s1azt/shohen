@@ -57,7 +57,7 @@ export const Syohen: React.FC = () => {
 
               <div className="p-10 pt-8 flex-grow">
                 <div className="flex justify-between items-start mb-8">
-                  <div className="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border bg-(--gs-primary)/5 text-(--gs-text-primary)/60 border-(--gs-primary)/10">
+                  <div className="px-4 py-1.5 rounded-full text-[12px] font-black uppercase tracking-[0.2em] border bg-(--gs-primary)/5 text-(--gs-text-primary)/60 border-(--gs-primary)/10">
                     {activity.category}
                   </div>
                   <TrendingUp size={20} className="text-slate-200 group-hover:text-(--gs-accent) transition-colors duration-500" />
@@ -73,8 +73,8 @@ export const Syohen: React.FC = () => {
                       <Users size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-(--gs-text-primary)/50">{activity.team}</p>
-                      <p className="text-[9px] font-bold text-(--gs-text-primary)/50">{activity.members?.join(' · ')}</p>
+                      <p className="text-[12px] font-black uppercase tracking-widest text-(--gs-text-primary)/50">{activity.team}</p>
+                      <p className="text-[12px] font-bold text-(--gs-text-primary)/50">{activity.members?.join(' · ')}</p>
                     </div>
                   </div>
 
@@ -97,7 +97,7 @@ export const Syohen: React.FC = () => {
                 <div className="px-10 pb-10">
                   <button 
                     onClick={() => window.open(activity.pdfUrl, "_blank")}
-                    className="w-full py-5 rounded-2xl flex items-center justify-center gap-4 text-[11px] font-black uppercase tracking-[0.3em] group/btn bg-(--gs-accent) text-white hover:bg-(--gs-accent)/80 shadow-lg shadow-black/10 transition-all duration-300"
+                    className="w-full py-5 rounded-2xl flex items-center justify-center gap-4 text-[12px] font-black uppercase tracking-[0.3em] group/btn bg-(--gs-accent) text-white hover:bg-(--gs-accent)/80 shadow-lg shadow-black/10 transition-all duration-300"
                   >
                     View Report 
                     <ArrowUpRight size={16} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />

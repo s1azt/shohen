@@ -137,16 +137,16 @@ export const ActionPlanPage: React.FC = () => {
                         strokeLinecap="round"
                       />
                     </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-(--gs-text-primary)">
+                    <span className="absolute inset-0 flex items-center justify-center text-[12px] font-black text-(--gs-text-primary)">
                       {plan.progress}%
                     </span>
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${STATUS_STYLE[plan.status]}`}>
+                      <span className={`text-[12px] font-black px-2 py-0.5 rounded border ${STATUS_STYLE[plan.status]}`}>
                         {plan.status}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{plan.category}</span>
+                      <span className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{plan.category}</span>
                     </div>
                     <h4 className="font-black text-[16px] tracking-tight text-(--gs-text-primary) truncate">{plan.title}</h4>
                   </div>
@@ -166,7 +166,7 @@ export const ActionPlanPage: React.FC = () => {
                       <p className="text-[14px] leading-relaxed text-(--gs-text-primary)/60 mb-4">{plan.description}</p>
                       {/* プログレスバー */}
                       <div className="mb-4">
-                        <div className="flex justify-between text-[11px] font-black text-(--gs-text-primary)/50 mb-1">
+                        <div className="flex justify-between text-[12px] font-black text-(--gs-text-primary)/50 mb-1">
                           <span>進捗</span><span>{plan.progress}%</span>
                         </div>
                         <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
