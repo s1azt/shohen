@@ -12,7 +12,7 @@ if errorlevel 1 goto error
 echo [3/3] Git push...
 git pull --rebase
 if errorlevel 1 goto error
-git add src/data/news-auto.ts docs/
+git add -A src/data/news-auto.ts docs/
 git diff --cached --quiet && (
   echo No changes. Skipping push.
   goto end
