@@ -2,15 +2,15 @@
 cd /d C:\gs-intra-new
 
 echo [1/4] Git pull...
-git pull --rebase
+git pull --rebase --autostash
 if errorlevel 1 goto error
 
 echo [2/4] Fetching news...
-node scripts/fetch-news.mjs --auto
+CALL node scripts/fetch-news.mjs --auto
 if errorlevel 1 goto error
 
 echo [3/4] Building...
-npm run build
+CALL npm run build
 if errorlevel 1 goto error
 
 echo [4/4] Git push...
