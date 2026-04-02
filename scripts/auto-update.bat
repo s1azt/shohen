@@ -13,11 +13,7 @@ echo [3/3] Git push...
 git pull --rebase
 if errorlevel 1 goto error
 git add -A src/data/news-auto.ts docs/
-git diff --cached --quiet && (
-  echo No changes. Skipping push.
-  goto end
-)
-git commit -m "auto: news update %date% %time%"
+git commit --allow-empty -m "auto: news update %date% %time%"
 git push
 if errorlevel 1 goto error
 
