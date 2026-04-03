@@ -10,7 +10,7 @@ export const syohen2024: SyohenActivity[] = [
     description: "若手社員（新卒入社で1～4年目の正社員）による先輩向け座談会の制度構築。",
     results: "若手の発信する文化の浸透や学習の場となり、アイディアの創造に貢献。",
     technologies: ["GitHub Actions", "Docker", "Terraform"],
-    pdfUrl: "https://drive.google.com/file/d/1jNfOVBYm2poaCsE_oAJ33KTCgKclOEBJ/view"
+    pdfUrl: "https://drive.google.com/file/d/1xsc4u9DwtgaDf1gHV-Bu72mvJ8BuPzRN/view?usp=drive_link"
   },
   {
     id: 202402,
@@ -21,7 +21,7 @@ export const syohen2024: SyohenActivity[] = [
     description: "グループシステム部のメール管理の課題を解決するアプリを開発。",
     results: "期日をAIで読み取り、Todoリスト化。メールの要約やメール自動作成で業務改善。",
     technologies: ["AI", "メール"],
-    pdfUrl: "https://drive.google.com/file/d/1-2NH970l2hyZ-CtCULU1OxcJJINk6JNt/view"
+    pdfUrl: "https://drive.google.com/file/d/1Ee4kCuq788kXNt4q0maQq1QqpthrpMpv/view?usp=drive_link"
   },
   {
     id: 202403,
@@ -32,6 +32,6 @@ export const syohen2024: SyohenActivity[] = [
     description: "VR機器とウェアラブル端末を用いた運動促進ソリューションを提案。",
     results: "アンケート調査における「普段から運動している人」の割合を、3年後に現在の50%から80%へ増加させることを目指す。",
     technologies: ["運動", "VR"],
-    pdfUrl: "https://drive.google.com/file/d/1UZ4B_6yXYwjUa3yljfkPwo2CMYe_q-Bd/view"
+    pdfUrl: "https://drive.google.com/file/d/1SopB5PyHASs4HyjQMf4F7T56R2J7v0Rx/view?usp=drive_link"
   },
 ];

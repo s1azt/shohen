@@ -1,6 +1,6 @@
 // このファイルは scripts/fetch-deadlines.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/2 11:06:35
+// 最終取得: 2026/4/3 9:03:24
 
 import type { DeadlineItem } from "./deadlines";
 

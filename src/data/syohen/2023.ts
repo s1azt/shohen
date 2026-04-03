@@ -10,7 +10,7 @@ export const syohen2023: SyohenActivity[] = [
     description: "ネットワークが広がり、年次を超えて新しい提案が生まれる環境を創出。",
     results: "コミュニケーションを促し、若い人材に知見やノウハウが共有されていく環境作りに貢献。",
     technologies: ["knowledge", "communication" ],
-    pdfUrl: "https://drive.google.com/file/d/1qiTLiGr4xgkjE1ggXExICxUR0yfiPe9G/view"
+    pdfUrl: "https://drive.google.com/file/d/18xeP6SVaEBUUTXotebVmGGqIsxos3C2y/view?usp=drive_link"
   },
   {
     id: 202302,
@@ -21,6 +21,6 @@ export const syohen2023: SyohenActivity[] = [
     description: "グループシステム部内共通のSQLチューニング教材の作成。",
     results: "社員のSQLスキルアップを支援。",
     technologies: ["SQL", "スキル"],
-    pdfUrl: "https://drive.google.com/file/d/1PDeoVNeoYw-WKn3c-cjToYqzjiptcF78/view"
+    pdfUrl: "https://drive.google.com/file/d/1bqM_lEq3t58KYRCprB03PXitj1I73tRM/view?usp=drive_link"
   },
 ];

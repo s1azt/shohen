@@ -1,0 +1,45 @@
+[1/4] Git pull...
+Already up to date.
+[2/4] Fetching news...
+
+取得中: http://tokyo.nekonet.co.jp/menu/whats_json.js?callback=callback&_=1775106279935
+モード: 自動（全件取得）
+
+【参考】今回スキップしたカテゴリ名（実際のJSONPの値）:
+  - 「経営方針/制度」
+  - 「総務・ファシリティ関連」
+  - 「業務システム」
+  - 「ＣＳＲ関連」
+  - 「健康関連」
+  - 「営業情報」
+  - 「調達関連」
+  - 「品質管理関連」
+  - 「採用関連」
+  - 「福利厚生」
+  - 「申請/予約」
+追加したい場合はALLOWED_CATEGORIESに追記してください。
+
+✅ 10 件 → src/data/news-auto.ts を更新しました
+[3/4] Building...
+
+> @figma/my-make-file@0.0.1 build
+> vite build
+
+[36mvite v6.3.5 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 1634 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdocs/[22m[32mindex.html                 [39m[1m[2m  1.11 kB[22m[1m[22m[2m │ gzip:  0.71 kB[22m
+[2mdocs/[22m[35massets/index-CkZfR5F3.css  [39m[1m[2m122.85 kB[22m[1m[22m[2m │ gzip: 19.63 kB[22m
+[2mdocs/[22m[36massets/index-CdIEXM8K.js   [39m[1m[2m282.47 kB[22m[1m[22m[2m │ gzip: 83.04 kB[22m
+[32m✓ built in 2.15s[39m
+[4/4] Git push...
+warning: in the working copy of 'docs/assets/index-CdIEXM8K.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/assets/index-CkZfR5F3.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/news-auto.ts', LF will be replaced by CRLF the next time Git touches it
+[main e7b2916] auto: news update 2026/04/02 14:04:43.49
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+To https://github.com/s1azt/shohen.git
+   f783122..e7b2916  main -> main
+Done.

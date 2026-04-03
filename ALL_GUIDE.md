@@ -80,6 +80,6 @@ git push origin main
 * `C:¥Bitnami¥wordpress¥apps¥wordpress¥htdocs¥gs-intra-new¥docs`
 
 
-3. **公開確認**: [UXUI浸透活動ポータル](http://192.168.8.205/wordpress/gs-intra-new/index.html)
+3. **公開確認**: [UXUI浸透活動ポータル](http://192.168.8.205/wordpress/gs-intra-new/docs/index.html)
 
 ---

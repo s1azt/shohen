@@ -48,23 +48,23 @@ export const organizationData = {
           {
             id: "HC10-MG1",
             name: "倉澤 昭博",
-            role: "技術マネージャー",
+            //role: "技術マネージャー",
             description: "バックエンドとインフラを中心とした技術チームを統括。",
             teams: [
-              { id: "HC10-MG1-T1", name: "収支管理組織運営チーム", leader: "高橋 仁", members: 5, description: "" },
-              { id: "HC10-MG1-T2", name: "営業管理請求管理チーム", leader: "板橋 美智子", members: 6, description: "" },
-              { id: "HC10-MG1-T3", name: "デジタル業務変革チーム", leader: "髙井 勇輝", members: 4, description: "" }
+              { id: "HC10-MG1-T1", name: "収支管理運営チーム", leader: "高橋 仁", members: 5, description: "" },
+              { id: "HC10-MG1-T2", name: "請求管理チーム", leader: "板橋 美智子", members: 1, description: "" },
+              { id: "HC10-MG1-T3", name: "グループDX推進チーム", leader: "髙井 勇輝", members: 3, description: "" }
             ]
           },
           {
             id: "HC10-MG2",
             name: "古田 祥市",
-            role: "フロントエンド開発マネージャー",
+            //role: "フロントエンド開発マネージャー",
             description: "UI/UXとフロントエンド開発チームを統括。",
             teams: [
-              { id: "HC10-MG2-T1", name: "資産・委託管理チーム", leader: "澤田 ひとみ", members: 4, description: "" },
-              { id: "HC10-MG2-T2", name: "働き方改革チーム", leader: "堀川 沙智", members: 6, description: "" },
-              { id: "HC10-MG2-T3", name: "デジタル技術推進チーム", leader: "國友 輝美", members: 5, description: "" }
+              { id: "HC10-MG2-T1", name: "資産・委託管理チーム", leader: "澤田 ひとみ", members: 1, description: "" },
+              { id: "HC10-MG2-T2", name: "デジタル技術推進チーム", leader: "高橋 仁", members: 2, description: "" },
+              { id: "HC10-MG2-T3", name: "働き方改革チーム", leader: "堀川 沙智", members: 4, description: "" }
             ]
           }
         ]
@@ -80,7 +80,7 @@ export const organizationData = {
           {
             id: "HC60-MG1",
             name: "四方 裕之",
-            role: "バックエンド開発マネージャー",
+           // role: "バックエンド開発マネージャー",
             description: "バックエンドシステムとデータ基盤の開発・運用チームを統括。",
             teams: [
               { id: "HC60-MG1-T1", name: "オンラインチーム", leader: "近藤 雅人", members: 5, description: "基幹オンラインシステムなどの開発・運用・監視を担当。" },
@@ -105,7 +105,7 @@ export const organizationData = {
           {
             id: "HC70-MG1",
             name: "石上 博丈",
-            role: "管理マネージャー",
+            //role: "管理マネージャー",
             teams: [
               { id: "HC70-MG1-T1", name: "企画チーム", leader: "山口 康信", members: 2, description: "", group: "企画・管理" },
               { id: "HC70-MG1-T2", name: "ＰＭＯチーム", leader: "坂井 信介", members: 2, description: "", group: "企画・管理" }
@@ -114,7 +114,7 @@ export const organizationData = {
           {
             id: "HC70-MG2",
             name: "吾田 秀樹",
-            role: "リリース管理マネージャー",
+          //  role: "リリース管理マネージャー",
             teams: [
               { id: "HC70-MG2-T1", name: "健保、団体チーム", leader: "山岸 大介", members: 4, description: "", group: "健保・UXUI推進" },
               { id: "HC70-MG2-T2", name: "UI/UX推進チーム", leader: "堤 圭佑", members: 2, description: "", group: "健保・UXUI推進" }
@@ -123,7 +123,7 @@ export const organizationData = {
           {
             id: "HC70-MG3",
             name: "中野 智士",
-            role: "カスタマーサクセスマネージャー",
+           // role: "カスタマーサクセスマネージャー",
             teams: [
               { id: "HC70-MG3-T1", name: "YAW基幹系企画開発チーム", leader: "室伏 邦博", members: 3, description: "", group: "YAW" },
               { id: "HC70-MG3-T2", name: "YAWサービス系企画開発チーム", leader: "加藤 佳紀", members: 3, description: "", group: "YAW" }
@@ -132,7 +132,7 @@ export const organizationData = {
           {
             id: "HC70-MG4",
             name: "今井田 悠",
-            role: "データアナリティクスマネージャー",
+            //role: "データアナリティクスマネージャー",
             teams: [
               { id: "HC70-MG4-T1", name: "YAWサービス系運用チーム", leader: "山﨑 恭伯", members: 6, description: "", group: "YAW" }
             ]

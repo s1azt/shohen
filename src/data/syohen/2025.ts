@@ -10,7 +10,7 @@ export const syohen2025: SyohenActivity[] = [
     description: "情報の散在や暗黙知による情報収集の心理的負担の減少を目指す活動。",
     results: "情報検索コストを大幅削減し、1人当たり年間2400分の時間創出が目標。",
     technologies: ["QAST", "API Integration"],
-    pdfUrl: "https://docs.google.com/presentation/d/1VePSGwiEpSkRuMbphs_KgS6KKgqcG6ajUjPVS6QH0IQ/edit?slide=id.g3a12d2c0b67_4_51#slide=id.g3a12d2c0b67_4_51"
+    pdfUrl: "https://drive.google.com/file/d/1JI1xQCCPNUTJ1yb3KN2zFbHITHuAvOO6/view?usp=drive_link"
   },
   {
     id: 202502,
@@ -21,7 +21,7 @@ export const syohen2025: SyohenActivity[] = [
     description: "Googleカレンダーと連携した会議室空き状況一覧・予約アプリを、ノーコードツールのAppSheetで実現。",
     results: "プロジェクトの目的は、会議室予約の「ムダ」「ストレス」を解消し、業務効率と生産性の向上を目指す。",
     technologies: ["ノーコード", "AppSheet"],
-    pdfUrl: "https://drive.google.com/file/d/1DMaR5s0RqueM-q2ub4DRJ8G8D7J2-2hl/view"
+    pdfUrl: "https://drive.google.com/file/d/17-RFNjluHN2qyjeolxsM3rAs4_H81sgS/view?usp=drive_link"
   },
   {
     id: 202503,
@@ -32,6 +32,6 @@ export const syohen2025: SyohenActivity[] = [
     description: "GSイントラサイトの訪問者数増加を目指す活動。",
     results: "読まれるコンテンツにできるように頑張ります",
     technologies: ["GitHub", "Figma"],
-    pdfUrl: "https://drive.google.com/file/d/1ey8tC5QG_rJg-AlAHhh6Ar5P3NTEMQDY/view"
+    pdfUrl: "https://drive.google.com/file/d/1TSM6D7MuBkg7NFOLZpIHoqb4wbnEC33t/view?usp=drive_link"
   },
 ];
