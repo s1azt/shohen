@@ -11,7 +11,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        run: git config --global http.sslVerify false
+        shell: cmd
+      - uses: actions/checkout@v4
 
       - name: Deploy files via SCP
         shell: powershell
