@@ -24,7 +24,7 @@ jobs:
         run: |
           # パスをシングルクォート（'）で囲むように修正しました
           $PrivateKeyPath = 'C:\gs_intra_new_key\github_deploy_key'
-          $TargetServer = 'Administrator@192.168.8.205:C:/inetpub/gs_intra'
+          $TargetServer = 'Administrator@192.168.8.205:C:/Bitnami/wordpress/apps/wordpress/htdocs/gs-intra-new'
           
           # SCPコマンドの実行
           # ターゲットパスのバックスラッシュをスラッシュ（/）にすると転送トラブルが減ります
