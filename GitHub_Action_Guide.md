@@ -55,7 +55,7 @@ icacls $keyPath
 ローカルPCをランナーとしてGitHubに登録し、Windowsサービスとして組み込みます。
 
 1. GitHubの対象リポジトリを開き、**[Settings] > [Actions] > [Runners]** へ移動します。
-2. **[New self-hosted runner]** をクリックし、OSに **[Windows]** を選択します。
+2. **[New self-hosted runner]** をクリックし、OSに **[Windows]** を選択します。（New self-hosted runnerが表示されない場合は管理者に確認！）
 3. ローカルPCでPowerShellを開き、画面に表示されている `Download` の手順に従い、ランナーを展開します（例：`C:\actions-runner`）。
 4. 続けて、画面の `Configure` に記載されているコマンドを実行します。
    ```powershell
