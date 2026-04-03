@@ -24,4 +24,4 @@ jobs:
           $TargetServer = "Administrator@192.168.8.205:C:/inetpub/gs_intra"
           
           # -o StrictHostKeyChecking=no は、初回接続時の yes/no 確認をスキップするオプションです
-          scp -i $PrivateKeyPath -o StrictHostKeyChecking=no -r .\* $TargetServer
+          scp -B -i $PrivateKeyPath -o StrictHostKeyChecking=no -r .\* $TargetServer
