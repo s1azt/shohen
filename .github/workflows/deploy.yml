@@ -28,4 +28,4 @@ jobs:
           
           # SCPコマンドの実行
           # ターゲットパスのバックスラッシュをスラッシュ（/）にすると転送トラブルが減ります
-          scp -v -B -i "$PrivateKeyPath" -o StrictHostKeyChecking=no -r ./* $TargetServer
+          scp -B -i "$PrivateKeyPath" -o StrictHostKeyChecking=no -r ./* $TargetServer
