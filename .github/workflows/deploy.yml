@@ -10,18 +10,22 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout code
+      - name: Git SSL Verify Disable
         run: git config --global http.sslVerify false
         shell: cmd
-      - uses: actions/checkout@v4
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          clean: true
 
       - name: Deploy files via SCP
         shell: powershell
-        # scpコマンドを使って、ローカルPCに落ちてきたコードを社内サーバーへ転送する
         run: |
-          # ↓秘密鍵のパスは、あなたのローカルPCの実際のユーザー名に合わせて書き換えてください
-          $PrivateKeyPath = `C:\gs_intra_new_key\github_deploy_key`
-          $TargetServer = `Administrator@192.168.8.205:C:\inetpub\gs_intra`
+          # パスをシングルクォート（'）で囲むように修正しました
+          $PrivateKeyPath = 'C:\gs_intra_new_key\github_deploy_key'
+          $TargetServer = 'Administrator@192.168.8.205:C:/inetpub/gs_intra'
           
-          # -o StrictHostKeyChecking=no は、初回接続時の yes/no 確認をスキップするオプションです
-          scp -v -B -i $PrivateKeyPath -o StrictHostKeyChecking=no -r .\* $TargetServer
+          # SCPコマンドの実行
+          # ターゲットパスのバックスラッシュをスラッシュ（/）にすると転送トラブルが減ります
+          scp -v -B -i "$PrivateKeyPath" -o StrictHostKeyChecking=no -r ./* $TargetServer
