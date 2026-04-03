@@ -20,8 +20,8 @@ jobs:
         # scpコマンドを使って、ローカルPCに落ちてきたコードを社内サーバーへ転送する
         run: |
           # ↓秘密鍵のパスは、あなたのローカルPCの実際のユーザー名に合わせて書き換えてください
-          $PrivateKeyPath = "C:\gs_intra_new_key\github_deploy_key"
-          $TargetServer = "Administrator@192.168.8.205:C:/inetpub/gs_intra"
+          $PrivateKeyPath = `C:\gs_intra_new_key\github_deploy_key`
+          $TargetServer = `Administrator@192.168.8.205:C:\inetpub\gs_intra`
           
           # -o StrictHostKeyChecking=no は、初回接続時の yes/no 確認をスキップするオプションです
           scp -v -B -i $PrivateKeyPath -o StrictHostKeyChecking=no -r .\* $TargetServer
