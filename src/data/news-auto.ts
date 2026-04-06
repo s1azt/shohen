@@ -1,8 +1,24 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/6 9:00:03
+// 最終取得: 2026/4/6 13:30:02
 
 export const autoNews = [
+  {
+    "id": 371140474,
+    "date": "2026.04.06",
+    "category": "人事関連",
+    "title": " （4/9(木)17:00まで）【契約社員システム】2026年4月度給与反映分のマスタ更新について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/461B35888042922949258DCA00322DBD/"
+  },
+  {
+    "id": 1628448371,
+    "date": "2026.04.06",
+    "category": "人事関連",
+    "title": "【正社員】4月度住所・通勤費申請の申請期日について（4/9(木)12:00まで）",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/CDEBA375A99010B049258DCA0031D583/"
+  },
   {
     "id": 693687882,
     "date": "2026.04.06",
@@ -66,21 +82,5 @@ export const autoNews = [
     "title": "【Gemini通信】Gemini × 営業：明日から使える、成果が上がる Gemini 営業術",
     "color": "text-orange-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/2B06E08B7CA2422E49258DCD000A3A24"
-  },
-  {
-    "id": 682932445,
-    "date": "2026.04.02",
-    "category": "人事関連",
-    "title": "55期有休取得80％促進の取組について",
-    "color": "text-pink-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DC0FA0D91F37676A49258DCD0005674D"
-  },
-  {
-    "id": 1927377077,
-    "date": "2026.04.02",
-    "category": "セキュリティ/危機管理",
-    "title": "Symantecの定義ファイルを更新してください",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://ungi.nekonet.co.jp/security/virus/download.html"
   }
 ];
