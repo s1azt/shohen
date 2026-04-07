@@ -201,7 +201,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                                   <div className="min-w-0">
                                     <h4 className="font-black text-xl tracking-tight mb-1 truncate text-(--gs-text-primary)">{team.name}</h4>
                                     <div className="flex items-center gap-2">
-                                      <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">リーダー: {team.leader}</span>
+                                      <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">ユニット長: {team.leader}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -218,11 +218,15 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                                   <div className="px-10 pb-10 text-left">
                                     <div className="pt-6 border-t space-y-5 border-slate-50">
                                       <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
-                                      <div className="flex items-center gap-3">
-                                        <span className="text-[14px] font-black px-3 py-1 rounded-lg uppercase tracking-widest bg-(--gs-accent)/10 text-(--gs-accent)">
-                                          {team.members} Members
-                                        </span>
+                                      <div className="space-y-3">
                                         <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
+                                        <div className="flex flex-wrap gap-2">
+                                          {(Array.isArray(team.members) ? team.members : []).map((memberName) => (
+                                            <span key={memberName} className="text-[13px] font-bold px-3 py-1.5 rounded-lg bg-(--gs-accent)/10 text-(--gs-accent)">
+                                              {memberName}
+                                            </span>
+                                          ))}
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -259,7 +263,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                               <div className="min-w-0">
                                 <h4 className="font-black text-xl tracking-tight mb-1 truncate text-(--gs-text-primary)">{team.name}</h4>
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">リーダー: {team.leader}</span>
+                                  <span className="text-[14px] font-bold text-(--gs-text-primary)/50 uppercase tracking-widest">ユニット長: {team.leader}</span>
                                 </div>
                               </div>
                             </div>
@@ -276,11 +280,15 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                               <div className="px-10 pb-10 text-left">
                                 <div className="pt-6 border-t space-y-5 border-slate-50">
                                   <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
-                                  <div className="flex items-center gap-3">
-                                    <span className="text-[14px] font-black px-3 py-1 rounded-lg uppercase tracking-widest bg-(--gs-accent)/10 text-(--gs-accent)">
-                                      {team.members} Members
-                                    </span>
+                                  <div className="space-y-3">
                                     <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
+                                    <div className="flex flex-wrap gap-2">
+                                      {(Array.isArray(team.members) ? team.members : []).map((memberName) => (
+                                        <span key={memberName} className="text-[13px] font-bold px-3 py-1.5 rounded-lg bg-(--gs-accent)/10 text-(--gs-accent)">
+                                          {memberName}
+                                        </span>
+                                      ))}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
