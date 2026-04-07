@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/6 13:30:02
+// 最終取得: 2026/4/7 9:00:02
 
 export const autoNews = [
+  {
+    "id": 2122245762,
+    "date": "2026.04.06",
+    "category": "セキュリティ/危機管理",
+    "title": "(4/6追記) 【即時対応必須】ブラウザのアップデート実施をお願いします",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1dUFK2_HG_VSvHLo4pnIcyceRY9TNUzY8/view"
+  },
   {
     "id": 371140474,
     "date": "2026.04.06",
@@ -58,14 +66,6 @@ export const autoNews = [
     "title": "【SyncTrust運用】55期上期組織変更について",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/058B394DFF0EBD6C49258DCD0033B14D"
-  },
-  {
-    "id": 653242782,
-    "date": "2026.04.02",
-    "category": "セキュリティ/危機管理",
-    "title": "(4/2新規) 【即時対応必須】ブラウザのアップデート実施をお願いします",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1vU0B9MYYeOE0a9V-IuodLhP_KUVlGd54/view?usp=drive_link"
   },
   {
     "id": 1133899673,
