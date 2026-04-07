@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/7 9:00:02
+// 最終取得: 2026/4/7 13:30:02
 
 export const autoNews = [
+  {
+    "id": 2082591556,
+    "date": "2026.04.07",
+    "category": "社内業務",
+    "title": "【本日18時まで】【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4459070DBD4CA29A49258DC7003D612D"
+  },
   {
     "id": 2122245762,
     "date": "2026.04.06",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "【社内クラウドサービス】組織改正への対応について",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/08B5F0A3D5423BD049258DCD001CB0DA"
-  },
-  {
-    "id": 648140128,
-    "date": "2026.04.02",
-    "category": "教育/研修関連",
-    "title": "【Gemini通信】Gemini × 営業：明日から使える、成果が上がる Gemini 営業術",
-    "color": "text-orange-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/2B06E08B7CA2422E49258DCD000A3A24"
   }
 ];
