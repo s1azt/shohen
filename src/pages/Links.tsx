@@ -47,6 +47,9 @@ export const Links: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("一覧");
 
   const categories = ["一覧", "勤怠・業務管理", "開発・運用関連", "晴海オフィス関連", "人材育成関連"] as const;
+  
+  // 一覧表示時に並べる4つの実体カテゴリー
+  const columnCategories = ["勤怠・業務管理", "開発・運用関連", "晴海オフィス関連", "人材育成関連"] as const;
 
   const filteredLinks = useMemo(() => {
     const activeKey = CATEGORY_MAP[activeCategory];
@@ -57,9 +60,9 @@ export const Links: React.FC = () => {
   }, [activeCategory]);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-10 animate-in fade-in duration-1000 pb-10 px-4">
+    <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-1000 pb-10 px-4">
       
-      {/* 1. カテゴリーナビゲーション（検索バーを削除し、フルワイドに） */}
+      {/* 1. カテゴリーナビゲーション */}
       <div className="flex justify-center">
         <div className="flex bg-slate-100/80 p-1.5 rounded-[2rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm shadow-sm">
           {categories.map(cat => (
@@ -80,45 +83,56 @@ export const Links: React.FC = () => {
 
       {/* 2. コンテンツ表示エリア */}
       
-      {/* --- リスト形式（「一覧」選択時） --- */}
-      <div className={`${activeCategory !== "一覧" ? "hidden" : ""} rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-50 divide-y bg-(--gs-card-bg) divide-slate-100/50`}>
-        {filteredLinks.map((link) => {
-          const colors = COLOR_MAP[link.category] || COLOR_MAP.work;
+      {/* --- カテゴリ別4列表示（「一覧」選択時） --- */}
+      <div className={`${activeCategory !== "一覧" ? "hidden" : ""} grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start animate-in fade-in duration-500`}>
+        {columnCategories.map((catName) => {
+          const catKey = CATEGORY_MAP[catName];
+          const links = (linkCollection || []).filter(l => l.category === catKey);
+          const colors = COLOR_MAP[catKey] || COLOR_MAP.work;
+          
           return (
-            <a 
-              key={link.id} 
-              href={link.url} 
-              target="_blank" 
-              rel="noreferrer" 
-              className={`flex items-center justify-between p-6 px-8 group no-underline transition-colors ${colors.accent} hover:bg-slate-50/80`}
-            >
-              <div className="flex items-center gap-6 min-w-0">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 bg-white shadow-sm ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300`}>
-                  <LinkFavicon url={link.url} size={20} />
-                </div>
-                <div className="text-left min-w-0">
-                  <span className={`text-[12px] font-black uppercase tracking-widest leading-none mb-1.5 block ${colors.text}`}>
-                    {link.category}
-                  </span>
-                  <h4 className="text-[17px] font-black tracking-tight truncate leading-tight text-(--gs-text-primary)">
-                    {link.title}
-                  </h4>
-                </div>
+            <div key={catName} className="space-y-4">
+              {/* 列ヘッダー */}
+              <div className="flex items-center gap-2 px-2 border-b border-slate-100 pb-2">
+                <div className={`w-1 h-4 rounded-full`} style={{backgroundColor: `var(--gs-accent)`}} />
+                <h3 className="font-black text-[14px] tracking-tight text-(--gs-text-primary) uppercase">
+                  {catName}
+                </h3>
               </div>
-              <div className="flex items-center gap-6 shrink-0 pl-4">
-                <p className="hidden lg:block text-[13px] font-medium text-slate-500 truncate opacity-90 max-w-[400px]">
-                  {link.desc}
-                </p>
-                <div className={`p-2.5 rounded-xl transition-all duration-300 ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white group-hover:translate-x-1`}>
-                  <ArrowUpRight size={20} strokeWidth={3} />
-                </div>
+
+              {/* コンパクトなリンクカードリスト（一覧性を高めるため） */}
+              <div className="space-y-2">
+                {links.map((link) => (
+                  <a 
+                    key={link.id} 
+                    href={link.url} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className={`flex items-center gap-3 p-3 rounded-2xl bg-(--gs-card-bg) border border-slate-100 hover:border-(--gs-accent)/30 hover:shadow-md transition-all group no-underline`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${colors.iconBg} ${colors.icon} group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 shadow-sm`}>
+                      <LinkFavicon url={link.url} size={16} />
+                    </div>
+                    <div className="min-w-0 flex-grow text-left">
+                      <h4 className="text-[13px] font-bold tracking-tight truncate text-(--gs-text-primary) group-hover:text-(--gs-accent)">
+                        {link.title}
+                      </h4>
+                    </div>
+                    <ArrowUpRight size={14} className="text-slate-300 group-hover:text-(--gs-accent) shrink-0 transition-colors" />
+                  </a>
+                ))}
+                {links.length === 0 && (
+                  <div className="py-4 text-center text-slate-300 text-[11px] font-bold italic">
+                    No Links
+                  </div>
+                )}
               </div>
-            </a>
+            </div>
           );
         })}
       </div>
 
-      {/* --- カード形式（個別カテゴリ選択時） --- */}
+      {/* --- カード形式（個別カテゴリ選択時：以前のデザインを維持） --- */}
       <div className={`${activeCategory === "一覧" ? "hidden" : ""} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500`}>
         {filteredLinks.map((link) => {
           const colors = COLOR_MAP[link.category] || COLOR_MAP.work;
