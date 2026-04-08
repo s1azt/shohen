@@ -1,23 +1,31 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/8 9:00:02
+// 最終取得: 2026/4/8 13:30:03
 
 export const autoNews = [
   {
-    "id": 190243528,
-    "date": "2026.04.07",
-    "category": "社内業務",
-    "title": "新販売管理システムの説明会実施について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/81600DA0A34BA2BF49258DD20034FD15"
+    "id": 1230677765,
+    "date": "2026.04.08",
+    "category": "セキュリティ/危機管理",
+    "title": "フィッシングメール情報を更新しました ※要Chromeアクセス",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/phising-info?usp=sharing"
   },
   {
-    "id": 595865166,
-    "date": "2026.04.07",
+    "id": 899244259,
+    "date": "2026.04.08",
     "category": "社内業務",
-    "title": "【4/8　18時まで】【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
+    "title": "【本日18時まで】【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4459070DBD4CA29A49258DC7003D612D"
+  },
+  {
+    "id": 533129845,
+    "date": "2026.04.08",
+    "category": "人事関連",
+    "title": " （4/9(木)17:00〆）【契約社員システム】2026年4月度給与反映分のマスタ更新について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/461B35888042922949258DCA00322DBD/"
   },
   {
     "id": 1834605515,
@@ -34,22 +42,6 @@ export const autoNews = [
     "title": "(4/6追記) 【即時対応必須】ブラウザのアップデート実施をお願いします",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1dUFK2_HG_VSvHLo4pnIcyceRY9TNUzY8/view"
-  },
-  {
-    "id": 371140474,
-    "date": "2026.04.06",
-    "category": "人事関連",
-    "title": " （4/9(木)17:00まで）【契約社員システム】2026年4月度給与反映分のマスタ更新について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/461B35888042922949258DCA00322DBD/"
-  },
-  {
-    "id": 1628448371,
-    "date": "2026.04.06",
-    "category": "人事関連",
-    "title": "【正社員】4月度住所・通勤費申請の申請期日について（4/9(木)12:00まで）",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/CDEBA375A99010B049258DCA0031D583/"
   },
   {
     "id": 693687882,
@@ -82,5 +74,13 @@ export const autoNews = [
     "title": "【2026年度上期資格奨励金】 対象資格が決定しました",
     "color": "text-pink-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/28EC910FDB8B977749258DCD001707AD"
+  },
+  {
+    "id": 34375555,
+    "date": "2026.04.02",
+    "category": "社内業務",
+    "title": "【SyncTrust運用】55期上期組織変更について",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/058B394DFF0EBD6C49258DCD0033B14D"
   }
 ];
