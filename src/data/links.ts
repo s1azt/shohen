@@ -68,6 +68,13 @@ export const externalLinks = {
     { label: "YSDAD関連", url: "http://ungi.nekonet.co.jp/manual/ysdad/ysdad.html" },
     { label: "シンクライアント関連", url: "http://ungi.nekonet.co.jp/manual/blade/tellist/TelList4Thinclient_HTML.html" },
     { label: "インターネット接続関連", url: "http://ungi.nekonet.co.jp/security/url/index.htm" },
+    {
+      label: "LINE WORKS申請",
+      url: "",
+      desc: "ファイルサーバーにある同意書記入の上、\nPDFへ変換したものをメールにてご提出ください。",
+      contact: "長井（HC70 / m.nagai@nekonet.co.jp）",
+      filePath: "\\\\tynfsv20\\SA12\\40_管理\\201_LINE_WORKS管理\\7_（ユーザ向け）申請書",
+    },
   ],
 
   // ホーム画面のクイックアクセス用

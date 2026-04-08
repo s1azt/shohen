@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect } from "react";
-import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target, PenLine, BarChart2 } from "lucide-react";
+import { createPortal } from "react-dom";
+import { MessageSquare, Map, ChevronRight, ChevronDown, Headset, FileBox, Palette, Building2, Target, PenLine, BarChart2, X, Mail, FolderOpen } from "lucide-react";
 import { THEMES } from "../data/themes";
 import { externalLinks } from "../data/links";
 import { COMPANIES } from "../data/companies";
@@ -22,6 +23,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSectionId, activeCompanyAbbr, setActiveCompanyAbbr, themeName, setThemeName, customColor, setCustomColor }) => {
   const [time, setTime] = useState(new Date());
   const [showSupport, setShowSupport] = useState(false);
+  const [modalItem, setModalItem] = useState<{ label: string; desc?: string; contact?: string; filePath?: string } | null>(null);
   const [showCompanies, setShowCompanies] = useState(false);
   const companyRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -67,6 +69,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
   */
 
   return (
+    <>
     <aside className="w-full space-y-4 animate-in fade-in duration-500 font-sans">
       
       {/* 1. CLOCK */}
@@ -216,7 +219,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
             {externalLinks.support.map((link, i) => (
               <button
                 key={i}
-                onClick={() => window.open(link.url, "_blank")}
+                onClick={() =>
+                  (link as any).desc
+                    ? setModalItem(link as any)
+                    : window.open(link.url, "_blank")
+                }
                 className="w-full text-left px-4 py-3 text-[12px] font-black text-(--gs-text-primary) hover:bg-slate-50 hover:text-slate-700 rounded-xl transition-all border-b border-slate-50 last:border-none flex items-center justify-between group"
               >
                 {link.label}
@@ -327,5 +334,61 @@ export const Sidebar: React.FC<SidebarProps> = ({ setActiveTab, setActiveSection
         </div>
       </div>
     </aside>
-  );
+
+    {modalItem && createPortal(
+      <div
+        className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+        style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)" }}
+        onClick={() => setModalItem(null)}
+      >
+        <div
+          className="bg-white rounded-3xl w-full max-w-xl shadow-2xl animate-in zoom-in-95 fade-in duration-200 overflow-hidden"
+          onClick={e => e.stopPropagation()}
+        >
+          {/* ヘッダー */}
+          <div className="flex items-center justify-between px-7 pt-7 pb-5">
+            <h2 className="text-[20px] font-black text-(--gs-text-primary)">{modalItem.label}</h2>
+            <button
+              onClick={() => setModalItem(null)}
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 transition-all flex-shrink-0"
+            >
+              <X size={16} className="text-slate-500" />
+            </button>
+          </div>
+
+          <div className="px-7 pb-7 space-y-5">
+            {/* 文言 */}
+            {modalItem.desc && (
+              <div className="p-5 bg-slate-50 rounded-2xl">
+                <p className="text-[15px] text-(--gs-text-primary) leading-relaxed whitespace-pre-line">{modalItem.desc}</p>
+              </div>
+            )}
+
+            {/* ファイルサーバーパス */}
+            {modalItem.filePath && (
+              <div>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <FolderOpen size={15} className="text-(--gs-accent)" />
+                  <span className="text-[12px] font-black uppercase tracking-widest text-(--gs-accent)">申請者向けファイルサーバー</span>
+                </div>
+                <p className="font-mono text-[13px] text-slate-600 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 whitespace-nowrap overflow-x-auto leading-relaxed select-all">{modalItem.filePath}</p>
+              </div>
+            )}
+
+            {/* 提出・お問い合わせ先 */}
+            {modalItem.contact && (
+              <div>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <Mail size={15} className="text-(--gs-accent)" />
+                  <span className="text-[12px] font-black uppercase tracking-widest text-(--gs-accent)">提出・お問い合わせ先</span>
+                </div>
+                <p className="text-[15px] font-bold text-(--gs-text-primary) px-1">{modalItem.contact}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>,
+      document.body
+    )}
+  </>);
 };
