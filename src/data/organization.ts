@@ -48,23 +48,23 @@ export const organizationData = {
           {
             id: "HC10-MG1",
             name: "倉澤 昭博",
-            //role: "技術マネージャー",
-            description: "バックエンドとインフラを中心とした技術チームを統括。",
+            role: "マネージャー",
+            //description: "バックエンドとインフラを中心とした技術チームを統括。",
             teams: [
-              { id: "HC10-MG1-T1", name: "収支管理・運営ユニット", leader: "澤木", members: ["田中", "人見"], description: "GS部の財務省。いや、会社の銀行といっても過言ではありません。大きなお金を取り扱うチームであり、会社に与える影響も大きいため間違いも許されません。会社経営の基盤であり、出発（計画）であり、結果（実算）であり。それを管理するチームです。" },
-              { id: "HC10-MG1-T2", name: "請求管理ユニット", leader: "板橋 美智子", members: ["高橋(希)"], description: "" },
-              { id: "HC10-MG1-T3", name: "グループDX推進ユニット", leader: "髙井 勇輝", members: ["飯田", "小林", "中村(未)"], description: "" }
+              { id: "HC10-MG1-T1", name: "収支管理・運営ユニット", leader: "澤木 茜", members: ["田中 千鶴", "人見 澄"], description: "GS部の財務省。いや、会社の銀行といっても過言ではありません。大きなお金を取り扱うチームであり、会社に与える影響も大きいため間違いも許されません。会社経営の基盤であり、出発（計画）であり、結果（実算）であり。それを管理するチームです。" },
+              { id: "HC10-MG1-T2", name: "請求管理ユニット", leader: "板橋 美智子", members: ["髙橋 希"], description: "" },
+              { id: "HC10-MG1-T3", name: "グループDX推進ユニット", leader: "髙井 勇輝", members: ["飯田 正憲", "小林 明子", "中村 未優"], description: "" }
             ]
           },
           {
             id: "HC10-MG2",
             name: "古田 祥市",
-            //role: "フロントエンド開発マネージャー",
-            description: "UI/UXとフロントエンド開発チームを統括。",
+            role: "マネージャー",
+            //description: "UI/UXとフロントエンド開発チームを統括。",
             teams: [
-              { id: "HC10-MG2-T1", name: "資産・委託管理ユニット", leader: "澤田 ひとみ", members: ["常光"], description: "" },
-              { id: "HC10-MG2-T2", name: "デジタル業務変革ユニット", leader: "高橋 仁", members: ["小棒", "川越"], description: "" },
-              { id: "HC10-MG2-T3", name: "働き方改革ユニット", leader: "堀川 沙智", members: ["舟根", "梅澤", "粟飯原", "礒沼"], description: "" }
+              { id: "HC10-MG2-T1", name: "資産・委託管理ユニット", leader: "澤田 ひとみ", members: ["常光 泰吉"], description: "" },
+              { id: "HC10-MG2-T2", name: "デジタル業務変革ユニット", leader: "高橋 仁", members: ["小椋 良樹", "川越 彩乃"], description: "" },
+              { id: "HC10-MG2-T3", name: "働き方改革ユニット", leader: "堀川 沙智", members: ["舟根 まどか", "梅澤 久美子", "粟飯原 叶幸", "礒沼 純"], description: "" }
             ]
           }
         ]
@@ -80,7 +80,7 @@ export const organizationData = {
           {
             id: "HC60-MG1",
             name: "四方 裕之",
-           // role: "バックエンド開発マネージャー",
+           role: "マネージャー",
             description: "バックエンドシステムとデータ基盤の開発・運用チームを統括。",
             teams: [
               { id: "HC60-MG1-T1", name: "Biz①ユニット", leader: "伊藤 宗慶", members: ["福井 健人", "堀内 勇貴", "岸木 港都", "萩森 結斗", "藤野 煖馬"], description: "Biz/BOSS/DLバッチシステムなどの開発・運用・監視を担当。" },
@@ -105,7 +105,7 @@ export const organizationData = {
           {
             id: "HC70-MG1",
             name: "石上 博丈",
-            //role: "管理マネージャー",
+            role: "マネージャー",
             teams: [
               { id: "HC70-MG1-T1", name: "企画ユニット", leader: "山口 康信", members: ["鈴木 雅晴", "種田 佳奈子", "富岡 観月"], description: "", group: "企画・管理" },
               { id: "HC70-MG1-T2", name: "ＰＭＯユニット", leader: "坂井 信介", members: ["斉藤 由太", "中村 香菜"], description: "", group: "企画・管理" }
@@ -114,7 +114,7 @@ export const organizationData = {
           {
             id: "HC70-MG2",
             name: "吾田 秀樹",
-          //  role: "リリース管理マネージャー",
+          role: "マネージャー",
             teams: [
               { id: "HC70-MG2-T1", name: "健保、団体ユニット", leader: "山岸 大介", members: ["田邸 茂樹", "菅岸 靖敏", "大坪 寛伍"], description: "", group: "健保・UXUI推進" },
               { id: "HC70-MG2-T2", name: "UI/UX推進ユニット", leader: "堤 圭佑", members: ["小林 萌香", "サーメル サルメ"], description: "", group: "健保・UXUI推進" }
@@ -123,7 +123,7 @@ export const organizationData = {
           {
             id: "HC70-MG3",
             name: "中野 智士",
-           // role: "カスタマーサクセスマネージャー",
+           role: "マネージャー",
             teams: [
               { id: "HC70-MG3-T1", name: "YAW基幹系企画開発ユニット", leader: "室伏 邦博", members: ["小林 海部", "原 百花"], description: "", group: "YAW" },
               { id: "HC70-MG3-T2", name: "YAWサービス系企画開発ユニット", leader: "加藤 佳紀", members: ["篠田 陽介", "高橋 湧稀"], description: "", group: "YAW" }
@@ -132,7 +132,7 @@ export const organizationData = {
           {
             id: "HC70-MG4",
             name: "今井田 悠",
-            //role: "データアナリティクスマネージャー",
+            role: "マネージャー",
             teams: [
               { id: "HC70-MG4-T1", name: "YAW基幹系運用ユニット", leader: "秋元 健史", members: ["新藤 剛", "中田 美沙", "熊谷 研哉", "坂本 宏太"], description: "", group: "YAW" },
               { id: "HC70-MG4-T2", name: "YAWサービス系運用ユニット", leader: "岩瀬 高広", members: ["山﨑 恭伯", "山田 桃子", "長井 都珠"], description: "", group: "YAW" }
@@ -178,11 +178,11 @@ export const organizationData = {
           {
             id: "HD10-MG1",
             name: "山田 真一",
-            role: "サービス開発マネージャー",
+            role: "マネージャー",
             teams: [
-              { id: "HD10-MG1-T1", name: "機販サプライユニット", leader: "湯上 恵利佳", members: ["佐々木", "多田", "松田", "山口"], description: "" },
-              { id: "HD10-MG1-T2", name: "情報系NWユニット", leader: "小野崎 竜也", members: ["白石", "原田", "西", "髙橋"], description: "" },
-              { id: "HD10-MG1-T3", name: "保守ユニット", leader: "中村 都", members: ["西脇", "堂園", "宗木"], description: "" }
+              { id: "HD10-MG1-T1", name: "機販サプライユニット", leader: "湯上 恵利佳", members: ["佐々木 優子", "多田 千聖", "松田 葵", "山口 将孝"], description: "" },
+              { id: "HD10-MG1-T2", name: "情報系NWユニット", leader: "小野崎 竜也", members: ["白石 裕一朗", "原田 駿", "西 萌海", "髙橋 侑希"], description: "" },
+              { id: "HD10-MG1-T3", name: "保守ユニット", leader: "中村 都", members: ["西脇 征也", "堂園 悠作", "宗木 沙織"], description: "" }
             ]
           }
         ]
@@ -198,7 +198,7 @@ export const organizationData = {
           {
             id: "HD70-MG1",
             name: "新井 隆文",
-            role: "研究開発マネージャー",
+            role: "マネージャー",
             teams: [
               { id: "HD70-MG1-T1", name: "可視化推進ユニット", leader: "石鍋 伸悟", members: ["森川 葉子", "谷島 直穂", "海老原 慎也", "渡邉 莉子"], description: "" },
               { id: "HD70-MG1-T2", name: "監視ユニット", leader: "横田 誠一", members: ["松永 成剛", "福家 学"], description: "" },
