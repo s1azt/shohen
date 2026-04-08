@@ -1,15 +1,31 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/7 13:30:02
+// 最終取得: 2026/4/8 9:00:02
 
 export const autoNews = [
   {
-    "id": 2082591556,
+    "id": 190243528,
     "date": "2026.04.07",
     "category": "社内業務",
-    "title": "【本日18時まで】【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
+    "title": "新販売管理システムの説明会実施について",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/81600DA0A34BA2BF49258DD20034FD15"
+  },
+  {
+    "id": 595865166,
+    "date": "2026.04.07",
+    "category": "社内業務",
+    "title": "【4/8　18時まで】【第55期】【工番棚卸】組織変更に伴う各マスタ登録内容の変更処理について",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4459070DBD4CA29A49258DC7003D612D"
+  },
+  {
+    "id": 1834605515,
+    "date": "2026.04.07",
+    "category": "セキュリティ/危機管理",
+    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/7 1件)",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
   },
   {
     "id": 2122245762,
@@ -66,21 +82,5 @@ export const autoNews = [
     "title": "【2026年度上期資格奨励金】 対象資格が決定しました",
     "color": "text-pink-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/28EC910FDB8B977749258DCD001707AD"
-  },
-  {
-    "id": 34375555,
-    "date": "2026.04.02",
-    "category": "社内業務",
-    "title": "【SyncTrust運用】55期上期組織変更について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/058B394DFF0EBD6C49258DCD0033B14D"
-  },
-  {
-    "id": 1133899673,
-    "date": "2026.04.02",
-    "category": "社内業務",
-    "title": "【社内クラウドサービス】組織改正への対応について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/08B5F0A3D5423BD049258DCD001CB0DA"
   }
 ];
