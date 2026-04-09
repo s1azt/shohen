@@ -26,6 +26,7 @@ export interface Section {
   id: string;
   name: string;
   smg: string;
+  smgLabel?: string;
   description: string;
   pdfUrl: string; // 💡 追加：PDFのリンクを一括管理
   directMembers: DirectMember[];
@@ -74,11 +75,12 @@ export const organizationData = {
       {
         id: "HC60",
         name: "HC60",
-        smg: "",
+        smg: "四方 裕之",
+        smgLabel: "マネージャー",
        // description: "データ基盤とバックエンド開発部門。データベース設計、API開発、自動化基盤の構築を担当。",
         pdfUrl: "https://drive.google.com/file/d/1ihaVVMDnAwrFHAyxukyntSp_nZQsl_Mf/view?usp=drive_link",
         directMembers: [
-          { id: "HC60-DM1", name: "山口 光一郎", role: "MG直下", description: "" },
+          { id: "HC60-DM1", name: "山口 光一郎", role: "", description: "" },
           { id: "HC60-DM2", name: "浜野 朗", role: "", description: "" },
           { id: "HC60-DM3", name: "西本 和宏", role: "", description: "" }
         ],
