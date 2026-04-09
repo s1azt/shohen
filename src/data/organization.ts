@@ -43,7 +43,9 @@ export const organizationData = {
         smg: "星崎 修司",
         //description: "システム設計・開発部門。システムアーキテクチャの設計からUI/UX、モバイル開発まで幅広く担当。",
         pdfUrl: "https://drive.google.com/file/d/11ojNFwmjj3Z95dTBJ3OFCAE5KF7hj1zY/view?usp=drive_link",
-        directMembers: [],
+        directMembers: [
+          { id: "HC10-DM1", name: "星野 斉", role: "", description: "" }
+        ],
         managers: [
           {
             id: "HC10-MG1",
@@ -75,7 +77,11 @@ export const organizationData = {
         smg: "",
        // description: "データ基盤とバックエンド開発部門。データベース設計、API開発、自動化基盤の構築を担当。",
         pdfUrl: "https://drive.google.com/file/d/1ihaVVMDnAwrFHAyxukyntSp_nZQsl_Mf/view?usp=drive_link",
-        directMembers: [],
+        directMembers: [
+          { id: "HC60-DM1", name: "山口 光一郎", role: "", description: "" },
+          { id: "HC60-DM2", name: "浜野 朗", role: "", description: "" },
+          { id: "HC60-DM3", name: "西本 和宏", role: "", description: "" }
+        ],
         managers: [
           {
             id: "HC60-MG1",
@@ -83,7 +89,7 @@ export const organizationData = {
            role: "マネージャー",
             description: "バックエンドシステムとデータ基盤の開発・運用チームを統括。",
             teams: [
-              { id: "HC60-MG1-T1", name: "Biz①ユニット", leader: "伊藤 宗慶", members: ["福井 健人", "堀内 勇貴", "岸木 港都", "萩森 結斗", "藤野 煖馬"], description: "Biz/BOSS/DLバッチシステムなどの開発・運用・監視を担当。" },
+              { id: "HC60-MG1-T1", name: "Biz①ユニット", leader: "伊藤 宗慶", members: ["福井 健人", "堀内 勇貴", "岸木 港都", "萩森 結斗", "藤野 奨馬"], description: "Biz/BOSS/DLバッチシステムなどの開発・運用・監視を担当。" },
               { id: "HC60-MG1-T2", name: "Biz②ユニット", leader: "西村 武士", members: ["川上 博幸", "伊藤 哲也", "長谷川 大策", "藤井 ひなた"], description: "Biz/BOSS/DLバッチシステムなどの開発・運用・監視を担当。" },
               { id: "HC60-MG1-T3", name: "オンラインユニット", leader: "近藤 雅人", members: ["日根野 智之", "川端 健史", "東野 舞馬"], description: "基幹オンラインシステムなどの開発・運用・監視を担当。" },
               { id: "HC60-MG1-T4", name: "沖縄BPユニット", leader: "井塚 寛章", members: ["松村 麻里", "久堀 慎也", "根来 佑樹", "山村 知諒"], description: "沖縄基幹バッチシステムなどの開発・運用・監視、OYT営業活動を担当。" },
@@ -99,7 +105,7 @@ export const organizationData = {
         //description: "プロジェクト管理・品質保証・運用部門。プロジェクト全体の進行管理と品質向上を担当。",
         pdfUrl: "https://drive.google.com/file/d/1D2-udNLmKNtoI5-x3Vt3BMZCkYvhPf63/view?usp=drive_link",
         directMembers: [
-          { id: "HC70-DM1", name: "井戸 志具馬", role: "", description: "高度な技術課題の解決とアーキテクチャ設計のサポートを担当。" }
+          { id: "HC70-DM1", name: "井戸 志具馬", role: "", description: "" }
         ],
         managers: [
           {
@@ -161,6 +167,7 @@ export const organizationData = {
             id: "HC70-MG7",
             name: "荒井 洋輔",
             role: "マネージャー",
+            description: "MG直下: 安木 啓介",
             teams: [
               { id: "HC70-MG7-T1", name: "ASC企画開発・運用ユニット", leader: "丸山 隼一", members: ["斎藤 裕樹", "出来 太一", "鈴木 亜侑", "川本 京花", "工藤 巧"], description: "", group: "ASC" }
             ]

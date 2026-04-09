@@ -4,7 +4,7 @@ import { getAllSections, getSectionById, organizationData } from "../data/organi
 import { Users, ChevronDown, FileText, UserCheck, LayoutGrid, HardHat, Timer } from "lucide-react";
 
 // --- 工事中フラグ (体制発表後にここを false にすれば元に戻ります) ---
-const IS_UNDER_CONSTRUCTION = true;
+const IS_UNDER_CONSTRUCTION = false;
 
 interface TeamProps {
   activeSectionId: string;
@@ -220,6 +220,9 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                                       <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
                                       <div className="space-y-3">
                                         <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
+                                        {manager.description && (
+                                          <p className="text-[13px] font-medium text-(--gs-text-primary)/50 px-3">{manager.description}</p>
+                                        )}
                                         <div className="flex flex-wrap gap-2">
                                           {(Array.isArray(team.members) ? team.members : []).map((memberName) => (
                                             <span key={memberName} className="text-[13px] font-bold px-3 py-1.5 rounded-lg bg-(--gs-accent)/10 text-(--gs-accent)">
@@ -282,6 +285,9 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                                   <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
                                   <div className="space-y-3">
                                     <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
+                                    {manager.description && (
+                                      <p className="text-[13px] font-medium text-(--gs-text-primary)/50 px-3">{manager.description}</p>
+                                    )}
                                     <div className="flex flex-wrap gap-2">
                                       {(Array.isArray(team.members) ? team.members : []).map((memberName) => (
                                         <span key={memberName} className="text-[13px] font-bold px-3 py-1.5 rounded-lg bg-(--gs-accent)/10 text-(--gs-accent)">
