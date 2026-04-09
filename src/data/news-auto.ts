@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/8 13:30:03
+// 最終取得: 2026/4/9 9:00:02
 
 export const autoNews = [
+  {
+    "id": 1665860314,
+    "date": "2026.04.08",
+    "category": "セキュリティ/危機管理",
+    "title": "（4/8新規）【Firefox 即時対応必須】アップデート実施をお願いします",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1DXNxlElkaqNhUyZEecBRvTMaROP2-Ncb/view?usp=drive_link"
+  },
   {
     "id": 1230677765,
     "date": "2026.04.08",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "【2026年度上期資格奨励金】 対象資格が決定しました",
     "color": "text-pink-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/28EC910FDB8B977749258DCD001707AD"
-  },
-  {
-    "id": 34375555,
-    "date": "2026.04.02",
-    "category": "社内業務",
-    "title": "【SyncTrust運用】55期上期組織変更について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/058B394DFF0EBD6C49258DCD0033B14D"
   }
 ];
