@@ -78,7 +78,7 @@ export const organizationData = {
        // description: "データ基盤とバックエンド開発部門。データベース設計、API開発、自動化基盤の構築を担当。",
         pdfUrl: "https://drive.google.com/file/d/1ihaVVMDnAwrFHAyxukyntSp_nZQsl_Mf/view?usp=drive_link",
         directMembers: [
-          { id: "HC60-DM1", name: "山口 光一郎", role: "", description: "" },
+          { id: "HC60-DM1", name: "山口 光一郎", role: "MG直下", description: "" },
           { id: "HC60-DM2", name: "浜野 朗", role: "", description: "" },
           { id: "HC60-DM3", name: "西本 和宏", role: "", description: "" }
         ],
@@ -91,7 +91,7 @@ export const organizationData = {
             teams: [
               { id: "HC60-MG1-T1", name: "Biz①ユニット", leader: "伊藤 宗慶", members: ["福井 健人", "堀内 勇貴", "岸木 港都", "萩森 結斗", "藤野 奨馬"], description: "Biz/BOSS/DLバッチシステムなどの開発・運用・監視を担当。" },
               { id: "HC60-MG1-T2", name: "Biz②ユニット", leader: "西村 武士", members: ["川上 博幸", "伊藤 哲也", "長谷川 大策", "藤井 ひなた"], description: "Biz/BOSS/DLバッチシステムなどの開発・運用・監視を担当。" },
-              { id: "HC60-MG1-T3", name: "オンラインユニット", leader: "近藤 雅人", members: ["日根野 智之", "川端 健史", "東野 舞馬"], description: "基幹オンラインシステムなどの開発・運用・監視を担当。" },
+              { id: "HC60-MG1-T3", name: "オンラインユニット", leader: "近藤 雅人", members: ["日根野 智之", "川端 健史", "東野 舜馬"], description: "基幹オンラインシステムなどの開発・運用・監視を担当。" },
               { id: "HC60-MG1-T4", name: "沖縄BPユニット", leader: "井塚 寛章", members: ["松村 麻里", "久堀 慎也", "根来 佑樹", "山村 知諒"], description: "沖縄基幹バッチシステムなどの開発・運用・監視、OYT営業活動を担当。" },
               { id: "HC60-MG1-T5", name: "EDI/NSユニット", leader: "福村 広信", members: ["寺田 貴夫", "藤後 善幸", "梶原 輝美"], description: "EDI/NS監視などの受付・運用・監視を担当。" }
             ]

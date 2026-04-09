@@ -139,6 +139,12 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                       <UserCheck size={14} className="text-(--gs-accent)" />
                       <span className="text-[14px] font-black text-(--gs-text-primary)/70">シニアマネージャー: {currentSection.smg || "未設定"}</span>
                     </div>
+                    {currentSection.directMembers && currentSection.directMembers.length > 0 && currentSection.directMembers.map((dm) => (
+                      <div key={dm.id} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border bg-slate-50 border-slate-100">
+                        <UserCheck size={14} className="text-(--gs-accent)" />
+                        <span className="text-[14px] font-black text-(--gs-text-primary)/70">{dm.name}</span>
+                      </div>
+                    ))}
                     <a 
                       href={currentSection.pdfUrl} 
                       target="_blank" 
