@@ -107,7 +107,7 @@ export const organizationData = {
             name: "石上 博丈",
             role: "マネージャー",
             teams: [
-              { id: "HC70-MG1-T1", name: "企画ユニット", leader: "山口 康信", members: ["鈴木 雅晴", "種田 佳奈子", "富岡 観月"], description: "", group: "企画・管理" },
+              { id: "HC70-MG1-T1", name: "企画ユニット", leader: "山口 康信", members: ["鈴木 雅晴", "種田 佳奈子", "冨岡 観月"], description: "", group: "企画・管理" },
               { id: "HC70-MG1-T2", name: "ＰＭＯユニット", leader: "坂井 信介", members: ["斉藤 由太", "中村 香菜"], description: "", group: "企画・管理" }
             ]
           },
@@ -116,7 +116,7 @@ export const organizationData = {
             name: "吾田 秀樹",
           role: "マネージャー",
             teams: [
-              { id: "HC70-MG2-T1", name: "健保、団体ユニット", leader: "山岸 大介", members: ["田邸 茂樹", "菅岸 靖敏", "大坪 寛伍"], description: "", group: "健保・UXUI推進" },
+              { id: "HC70-MG2-T1", name: "健保、団体ユニット", leader: "山岸 大介", members: ["田邸 茂樹", "峯岸 靖敏", "大坪 寛侑"], description: "", group: "健保・UXUI推進" },
               { id: "HC70-MG2-T2", name: "UI/UX推進ユニット", leader: "堤 圭佑", members: ["小林 萌香", "サーメル サルメ"], description: "", group: "健保・UXUI推進" }
             ]
           },
@@ -125,7 +125,7 @@ export const organizationData = {
             name: "中野 智士",
            role: "マネージャー",
             teams: [
-              { id: "HC70-MG3-T1", name: "YAW基幹系企画開発ユニット", leader: "室伏 邦博", members: ["小林 海部", "原 百花"], description: "", group: "YAW" },
+              { id: "HC70-MG3-T1", name: "YAW基幹系企画開発ユニット", leader: "室伏 邦博", members: ["小林 海都", "原 百花"], description: "", group: "YAW" },
               { id: "HC70-MG3-T2", name: "YAWサービス系企画開発ユニット", leader: "加藤 佳紀", members: ["篠田 陽介", "高橋 湧稀"], description: "", group: "YAW" }
             ]
           },
@@ -145,12 +145,12 @@ export const organizationData = {
             teams: [
               { id: "HC70-MG5-T1", name: "BC企画開発ユニット", leader: "須藤 亮太", members: ["鈴木 幹浩", "淺井 航志", "杉村 篤哉", "正治 悠真", "中村 未優"], description: "", group: "BC / YBC / YCF" },
               { id: "HC70-MG5-T2", name: "YBC企画開発ユニット", leader: "平山 正夫", members: ["黒羽根 靖哲", "冨永 慎太郎"], description: "", group: "BC / YBC / YCF" },
-              { id: "HC70-MG5-T3", name: "YCF企画開発ユニット", leader: "小川 博義", members: ["金子 良太", "開田 朱馬", "多田 廻真"], description: "", group: "BC / YBC / YCF" }
+              { id: "HC70-MG5-T3", name: "YCF企画開発ユニット", leader: "小川 博義", members: ["金子 良太", "開田 朱馬", "多田 颯真"], description: "", group: "BC / YBC / YCF" }
             ]
           },
           {
             id: "HC70-MG6",
-            name: "関 佐里奈",
+            name: "関 佑里奈",
             role: "マネージャー",
             teams: [
               { id: "HC70-MG6-T1", name: "BC/YBC運用ユニット", leader: "高橋 理奈", members: ["志賀 瑞果", "前原 蓮", "藤田 彩花"], description: "", group: "BC / YBC / YCF" },
@@ -162,7 +162,7 @@ export const organizationData = {
             name: "荒井 洋輔",
             role: "マネージャー",
             teams: [
-              { id: "HC70-MG7-T1", name: "ASC企画開発・運用ユニット", leader: "丸山 隼一", members: ["斎藤 裕樹", "出来 太一", "鈴木 亜伸", "川本 京花", "工藤 巧"], description: "", group: "ASC" }
+              { id: "HC70-MG7-T1", name: "ASC企画開発・運用ユニット", leader: "丸山 隼一", members: ["斎藤 裕樹", "出来 太一", "鈴木 亜侑", "川本 京花", "工藤 巧"], description: "", group: "ASC" }
             ]
           }
         ]
