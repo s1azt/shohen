@@ -151,7 +151,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                     </div>
                     {currentSection.directMembers && currentSection.directMembers.length > 0 && (
                       <div className="flex flex-wrap items-center gap-2 pl-4 border-l-2 border-(--gs-accent)/30">
-                        <span className="text-[12px] font-bold text-(--gs-accent)/70">{currentSection.smgLabel || "SMG"}直属</span>
+                        <span className="text-[12px] font-bold text-(--gs-accent)/70">{currentSection.smgLabel || "シニアマネージャー"}直属</span>
                         {currentSection.directMembers.map((dm) => (
                           <div key={dm.id} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border bg-slate-50 border-slate-100">
                             <UserCheck size={14} className="text-(--gs-accent)" />
