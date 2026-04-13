@@ -1,8 +1,32 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/13 9:00:03
+// 最終取得: 2026/4/13 13:30:02
 
 export const autoNews = [
+  {
+    "id": 135128518,
+    "date": "2026.04.13",
+    "category": "社内業務",
+    "title": " 【完了】Domino新組織対応のお知らせ 【4/10(金)17:50～実施】",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/04621D4276AE298949258DCB00086420"
+  },
+  {
+    "id": 895556229,
+    "date": "2026.04.13",
+    "category": "社内業務",
+    "title": "完了_【ソフトウェアライセンス管理】組織改正対応のお知らせ_本日9:00-11:00",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/EEF4B230AFE98C5949258DCE0024172E"
+  },
+  {
+    "id": 1010539438,
+    "date": "2026.04.13",
+    "category": "セキュリティ/危機管理",
+    "title": "【今週も安全・快適に！】ブラウザを最新にしてリフレッシュ★",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DBF0B548474A858949258DA70083B71D"
+  },
   {
     "id": 337811452,
     "date": "2026.04.13",
@@ -58,29 +82,5 @@ export const autoNews = [
     "title": "【UX/UI推進活動】全社向け（開発職除く）UXUI活用・意識調査アンケート結果公開",
     "color": "text-orange-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://192.168.8.205/wordpress/UIUX-LAB/docs/survey-results3.html"
-  },
-  {
-    "id": 192731991,
-    "date": "2026.04.10",
-    "category": "社内業務",
-    "title": "【業務連絡】文書管理システム：東陽町オフィスへの文書スキャン依頼受付再開のお知らせ",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/32A3892DF6FE9D1549258DD3002FC287"
-  },
-  {
-    "id": 507884789,
-    "date": "2026.04.09",
-    "category": "教育/研修関連",
-    "title": "【Gemini通信】自動で情報収集！Gemini「予約アクション」の活用術",
-    "color": "text-orange-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/7E613978E0D6E09749258DD30029D2F6"
-  },
-  {
-    "id": 712026706,
-    "date": "2026.04.09",
-    "category": "セキュリティ/危機管理",
-    "title": "Symantecの定義ファイルを更新してください",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://ungi.nekonet.co.jp/security/virus/download.html"
   }
 ];
