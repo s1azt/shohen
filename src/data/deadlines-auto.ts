@@ -8,7 +8,7 @@ export const autoDeadlines: DeadlineItem[] = [
   {
     "id": 1378474706,
     "title": "4月23日 経営戦略会議 議案募集の件　[締切：4月14日]",
-    "date": "2026.04.23",
+    "date": "2026.04.14",
     "updateDate": "2026.04.09",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/1616CDDF00BE64A249258DD3000DB026",
     "bg": "bg-[#fff5f5]",
