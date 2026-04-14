@@ -1,8 +1,32 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/13 13:30:02
+// 最終取得: 2026/4/14 9:00:03
 
 export const autoNews = [
+  {
+    "id": 1391972099,
+    "date": "2026.04.13",
+    "category": "社内業務",
+    "title": "【復旧】Gmailでのメール送受信の遅延について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4B5AD0E048E9957649258DD8002D6764"
+  },
+  {
+    "id": 1176005686,
+    "date": "2026.04.13",
+    "category": "人事関連",
+    "title": "【通達】契約社員採用時における対応事項について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/A4E6F0FDABCB457549258DD80025115D"
+  },
+  {
+    "id": 1133002364,
+    "date": "2026.04.13",
+    "category": "セキュリティ/危機管理",
+    "title": "（4/13新規）【MSEdge＆Chrome即時対応必須】アップデート実施をお願いします",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/11xavVZmY5Y3DnU87B_47nbJlgj6cU-ky/view?usp=drive_link"
+  },
   {
     "id": 135128518,
     "date": "2026.04.13",
@@ -58,29 +82,5 @@ export const autoNews = [
     "title": "＆lt;完了＆gt;【社内クラウドサービス】組織改正への対応について",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/08B5F0A3D5423BD049258DCD001CB0DA"
-  },
-  {
-    "id": 1342384176,
-    "date": "2026.04.10",
-    "category": "社内業務",
-    "title": "【実算】３月度確定のお知らせ",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/FE05CDA1BE329D8549258DD500485008"
-  },
-  {
-    "id": 12349113,
-    "date": "2026.04.10",
-    "category": "人事関連",
-    "title": "55期上期　社会保険関連年間スケジュールを更新しました",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/8EED70B6C5BA277149258DD400386455"
-  },
-  {
-    "id": 760052195,
-    "date": "2026.04.10",
-    "category": "教育/研修関連",
-    "title": "【UX/UI推進活動】全社向け（開発職除く）UXUI活用・意識調査アンケート結果公開",
-    "color": "text-orange-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://192.168.8.205/wordpress/UIUX-LAB/docs/survey-results3.html"
   }
 ];
