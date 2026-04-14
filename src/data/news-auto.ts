@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/14 9:00:03
+// 最終取得: 2026/4/14 13:30:02
 
 export const autoNews = [
+  {
+    "id": 914329615,
+    "date": "2026.04.14",
+    "category": "社内業務",
+    "title": "【4月】勤怠締めにおける前月分の日報修正が可能な期間のお知らせ",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/F0AEF7DDE67DE06C49258DD80003ABE2"
+  },
   {
     "id": 1391972099,
     "date": "2026.04.13",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "【Dr.Sum】最新情報更新のお知らせ",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/5001E3A315BB08A049258DD70082159F"
-  },
-  {
-    "id": 667109370,
-    "date": "2026.04.11",
-    "category": "社内業務",
-    "title": "＆lt;完了＆gt;【社内クラウドサービス】組織改正への対応について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/08B5F0A3D5423BD049258DCD001CB0DA"
   }
 ];
