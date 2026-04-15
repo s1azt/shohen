@@ -66,6 +66,13 @@ export const Deadlines: React.FC = () => {
 
       {/* カードリスト */}
       <div className="rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-50 divide-y bg-(--gs-card-bg) divide-slate-100/50">
+        {filteredDeadlines.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-20 gap-4 text-slate-400">
+            <CheckCircle size={48} strokeWidth={1.5} className="text-slate-300" />
+            <p className="text-[15px] font-black tracking-widest uppercase">現在、締め切りはありません</p>
+            <p className="text-[12px] font-bold tracking-wider opacity-60">No upcoming deadlines</p>
+          </div>
+        )}
         {filteredDeadlines.map((item) => {
           const status = getDeadlineStatus(item.date);
           const isNew = isNewItem(item.updateDate, item.id);

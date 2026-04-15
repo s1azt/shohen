@@ -1,6 +1,14 @@
 @echo off
 cd /d C:\gs-intra-new
 
+:: mainブランチ以外にいる場合はmainに切り替える
+for /f %%i in ('git branch --show-current') do set BRANCH=%%i
+if not "%BRANCH%"=="main" (
+  echo Current branch is "%BRANCH%". Switching to main...
+  git checkout main
+  if errorlevel 1 goto error
+)
+
 echo [1/4] Git pull...
 git pull --rebase --autostash
 if errorlevel 1 goto error

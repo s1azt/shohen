@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect } from "react";
 import { getAllSections, getSectionById, organizationData } from "../data/organization";
+import { teamDescriptions } from "../data/organization-descriptions-auto";
 // 💡 HardHat と Timer をインポートに追加しました
 import { Users, ChevronDown, FileText, UserCheck, LayoutGrid, HardHat, Timer } from "lucide-react";
 
@@ -230,7 +231,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                                 <div className="overflow-hidden">
                                   <div className="px-10 pb-10 text-left">
                                     <div className="pt-6 border-t space-y-5 border-slate-50">
-                                      <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
+                                      <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{teamDescriptions[team.id] ?? team.description}</p>
                                       <div className="space-y-3">
                                         <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
                                         {manager.description && (
@@ -295,7 +296,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                             <div className="overflow-hidden">
                               <div className="px-10 pb-10 text-left">
                                 <div className="pt-6 border-t space-y-5 border-slate-50">
-                                  <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{team.description}</p>
+                                  <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{teamDescriptions[team.id] ?? team.description}</p>
                                   <div className="space-y-3">
                                     <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
                                     {manager.description && (

@@ -1,8 +1,24 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/15 9:00:02
+// 最終取得: 2026/4/15 13:47:14
 
 export const autoNews = [
+  {
+    "id": 639922005,
+    "date": "2026.04.15",
+    "category": "人事関連",
+    "title": "人員配置図（2026年4月1日現在）公開の件",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/67D0FA9AE51FEC6349258DDA00170896"
+  },
+  {
+    "id": 782345065,
+    "date": "2026.04.15",
+    "category": "セキュリティ/危機管理",
+    "title": "フィッシングメール情報を更新しました ※要Chromeアクセス",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/phising-info?usp=sharing"
+  },
   {
     "id": 1793248461,
     "date": "2026.04.14",
@@ -18,14 +34,6 @@ export const autoNews = [
     "title": "【4月】勤怠締めにおける前月分の日報修正が可能な期間のお知らせ",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/F0AEF7DDE67DE06C49258DD80003ABE2"
-  },
-  {
-    "id": 1391972099,
-    "date": "2026.04.13",
-    "category": "社内業務",
-    "title": "【復旧】Gmailでのメール送受信の遅延について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4B5AD0E048E9957649258DD8002D6764"
   },
   {
     "id": 1176005686,
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "【完了】【第55期】組織変更に伴う各マスタ登録内容の変更処理について",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C0C906A27955DAD249258DCC000795E7"
-  },
-  {
-    "id": 728532854,
-    "date": "2026.04.13",
-    "category": "人事関連",
-    "title": "社員活動情報システム　利用再開後の注意事項について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/E5A0FCDD922A342249258DD70082704F/"
   }
 ];
