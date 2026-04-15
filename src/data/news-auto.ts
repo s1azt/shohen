@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/14 13:30:02
+// 最終取得: 2026/4/15 9:00:02
 
 export const autoNews = [
+  {
+    "id": 1793248461,
+    "date": "2026.04.14",
+    "category": "セキュリティ/危機管理",
+    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/14 1件)",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
+  },
   {
     "id": 914329615,
     "date": "2026.04.14",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "社員活動情報システム　利用再開後の注意事項について",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/E5A0FCDD922A342249258DD70082704F/"
-  },
-  {
-    "id": 983738349,
-    "date": "2026.04.13",
-    "category": "社内業務",
-    "title": "【Dr.Sum】最新情報更新のお知らせ",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/5001E3A315BB08A049258DD70082159F"
   }
 ];
