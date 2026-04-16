@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# 【運用ガイド】
+# 1. このワークフローは 'develop' ブランチにプッシュすると作動し、テスト環境を更新します。
+# 2. テスト環境 (gs-intra-neo) で確認後、本番へ反映したい場合は GitHub で 
+#    develop -> main への Pull Request を作成し、マージしてください。
+# 3. サーバー情報:
+#    - IP: 192.168.8.205
+#    - User: VPC-901-100566\Administrator
+#    - Pass: HWYL3A6Sy2
+# -----------------------------------------------------------------------
+
+name: Deploy to STAGING (Test Environment)
+
+on:
+  push:
+    branches: [ develop ] # developブランチに更新があった時だけ動く
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Git SSL Verify Disable
+        run: git config --global http.sslVerify false
+        shell: cmd
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          clean: true
+
+      - name: Deploy files to STAGING via SCP
+        shell: powershell
+        run: |
+          $PrivateKeyPath = 'C:\gs_intra_new_key\github_deploy_key'
+          # 検証用環境のパス (gs-intra-neo) を設定
+          # ここにプロジェクト全体を転送することで、サーバー側の docs フォルダが更新されます
+          $TargetServer = 'Administrator@192.168.8.205:C:/Bitnami/wordpress/apps/wordpress/htdocs/gs-intra-neo'
+          
+          scp -B -i "$PrivateKeyPath" -o StrictHostKeyChecking=no -r ./* $TargetServer
