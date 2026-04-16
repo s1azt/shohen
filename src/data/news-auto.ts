@@ -1,19 +1,43 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/16 9:06:44
+// 最終取得: 2026/4/16 13:39:25
 
 export const autoNews = [
   {
-    "id": 865811158,
-    "date": "2026.04.15",
+    "id": 951183288,
+    "date": "2026.04.16",
+    "category": "人事関連",
+    "title": "正社員勤務表の締め状況について（4/16 11:30時点）",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/A992492EBDE3AB5A49258DDB000DD53B/"
+  },
+  {
+    "id": 2106225165,
+    "date": "2026.04.16",
+    "category": "教育/研修関連",
+    "title": "【Gemini通信】Gemini と NotebookLM の連携で AI がもっと「あなた専用」に",
+    "color": "text-orange-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/0FCEA6D86E3ABA5349258DDB0004BAA5"
+  },
+  {
+    "id": 896830965,
+    "date": "2026.04.16",
     "category": "人事関連",
     "title": "(契約社員)2026年4月度勤怠・給与締めについて",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DA75FE4791CE783049258DDA002A62A3/"
   },
   {
-    "id": 2101530131,
-    "date": "2026.04.15",
+    "id": 685691003,
+    "date": "2026.04.16",
+    "category": "人事関連",
+    "title": "人事発令の件（2026年4月16日付）(社報）",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/A3F85DA712705B2D49258DD90012A852"
+  },
+  {
+    "id": 116227822,
+    "date": "2026.04.16",
     "category": "人事関連",
     "title": "【正社員】2026年4月度勤怠締めご協力のお願い",
     "color": "text-red-500",
@@ -58,29 +82,5 @@ export const autoNews = [
     "title": "【復旧】Gmailでのメール送受信の遅延について",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4B5AD0E048E9957649258DD8002D6764"
-  },
-  {
-    "id": 1176005686,
-    "date": "2026.04.13",
-    "category": "人事関連",
-    "title": "【通達】契約社員採用時における対応事項について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/A4E6F0FDABCB457549258DD80025115D"
-  },
-  {
-    "id": 1133002364,
-    "date": "2026.04.13",
-    "category": "セキュリティ/危機管理",
-    "title": "（4/13新規）【MSEdge＆Chrome即時対応必須】アップデート実施をお願いします",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/11xavVZmY5Y3DnU87B_47nbJlgj6cU-ky/view?usp=drive_link"
-  },
-  {
-    "id": 135128518,
-    "date": "2026.04.13",
-    "category": "社内業務",
-    "title": " 【完了】Domino新組織対応のお知らせ 【4/10(金)17:50～実施】",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/04621D4276AE298949258DCB00086420"
   }
 ];
