@@ -1,8 +1,24 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/15 13:47:14
+// 最終取得: 2026/4/16 9:06:44
 
 export const autoNews = [
+  {
+    "id": 865811158,
+    "date": "2026.04.15",
+    "category": "人事関連",
+    "title": "(契約社員)2026年4月度勤怠・給与締めについて",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DA75FE4791CE783049258DDA002A62A3/"
+  },
+  {
+    "id": 2101530131,
+    "date": "2026.04.15",
+    "category": "人事関連",
+    "title": "【正社員】2026年4月度勤怠締めご協力のお願い",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D5AF1CE5D6EF73DC49258DDA002A295C/"
+  },
   {
     "id": 639922005,
     "date": "2026.04.15",
@@ -36,6 +52,14 @@ export const autoNews = [
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/F0AEF7DDE67DE06C49258DD80003ABE2"
   },
   {
+    "id": 1391972099,
+    "date": "2026.04.13",
+    "category": "社内業務",
+    "title": "【復旧】Gmailでのメール送受信の遅延について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4B5AD0E048E9957649258DD8002D6764"
+  },
+  {
     "id": 1176005686,
     "date": "2026.04.13",
     "category": "人事関連",
@@ -58,29 +82,5 @@ export const autoNews = [
     "title": " 【完了】Domino新組織対応のお知らせ 【4/10(金)17:50～実施】",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/04621D4276AE298949258DCB00086420"
-  },
-  {
-    "id": 895556229,
-    "date": "2026.04.13",
-    "category": "社内業務",
-    "title": "完了_【ソフトウェアライセンス管理】組織改正対応のお知らせ_本日9:00-11:00",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/EEF4B230AFE98C5949258DCE0024172E"
-  },
-  {
-    "id": 1010539438,
-    "date": "2026.04.13",
-    "category": "セキュリティ/危機管理",
-    "title": "【今週も安全・快適に！】ブラウザを最新にしてリフレッシュ★",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DBF0B548474A858949258DA70083B71D"
-  },
-  {
-    "id": 337811452,
-    "date": "2026.04.13",
-    "category": "社内業務",
-    "title": "【完了】【第55期】組織変更に伴う各マスタ登録内容の変更処理について",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C0C906A27955DAD249258DCC000795E7"
   }
 ];
