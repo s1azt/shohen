@@ -1,17 +1,17 @@
 @echo off
 cd /d C:\gs-intra-new
 
-:: ログファイルの設定（直近30件分を保持）
+:: Log file settings (keep last 30 runs)
 set LOG_FILE=C:\gs-intra-new\scripts\auto-update.log
 echo ======================================== >> "%LOG_FILE%"
-echo 開始: %date% %time% >> "%LOG_FILE%"
+echo Start: %date% %time% >> "%LOG_FILE%"
 
-:: mainブランチ以外にいる場合はmainに切り替える
+:: Switch to main branch if not already on it
 for /f %%i in ('git branch --show-current') do set BRANCH=%%i
-echo ブランチ: %BRANCH% >> "%LOG_FILE%"
+echo Branch: %BRANCH% >> "%LOG_FILE%"
 if not "%BRANCH%"=="main" (
   echo Current branch is "%BRANCH%". Switching to main...
-  echo [branch] mainに切り替え中... >> "%LOG_FILE%"
+  echo [branch] Switching to main... >> "%LOG_FILE%"
   git checkout main >> "%LOG_FILE%" 2>&1
   if errorlevel 1 goto error
 )
@@ -40,10 +40,10 @@ if errorlevel 1 goto error
 
 :end
 echo Done.
-echo 完了: %date% %time% >> "%LOG_FILE%"
+echo Done: %date% %time% >> "%LOG_FILE%"
 exit /b 0
 
 :error
 echo Error occurred.
-echo [ERROR] 失敗: %date% %time% >> "%LOG_FILE%"
+echo [ERROR] Failed: %date% %time% >> "%LOG_FILE%"
 exit /b 1
