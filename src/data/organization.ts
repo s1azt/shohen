@@ -116,7 +116,7 @@ export const organizationData = {
             role: "マネージャー",
             teams: [
               { id: "HC70-MG1-T1", name: "企画ユニット", leader: "山口 康信", members: ["鈴木 雅晴", "種田 佳奈子", "冨岡 観月"], description: "", group: "企画・管理" },
-              { id: "HC70-MG1-T2", name: "ＰＭＯユニット", leader: "坂井 信介", members: ["斉藤 由太", "中村 香菜"], description: "", group: "企画・管理" }
+              { id: "HC70-MG1-T2", name: "ＰＭＯユニット", leader: "坂井 信介", members: ["斉藤 由太", "中村 香菜"], description: "ＨＣ７０の企画・開発・運用に関して横断的に支援していくチームです。\n[PMOユニットのサイトはこちら](https://sites.google.com/nekonet.co.jp/hc70-pmo/)", group: "企画・管理" }
             ]
           },
           {
@@ -133,7 +133,7 @@ export const organizationData = {
             name: "中野 智士",
            role: "マネージャー",
             teams: [
-              { id: "HC70-MG3-T1", name: "YAW基幹系企画開発ユニット", leader: "室伏 邦博", members: ["小林 海都", "原 百花"], description: "", group: "YAW" },
+              { id: "HC70-MG3-T1", name: "YAW基幹系企画開発ユニット", leader: "室伏 邦博", members: ["小林 海都", "原 百花"], description: "1.WAP(内勤支援システム・整備支援システム・整備サポートシステム・燃料点検システム・経営情報システム・合計請求書システム)\n2.回送出張システム\n3.部品管理システム\n4.FM業務システム（ファシリティメンテナンス・ボックスメンテナンス）を使用し、ヤマトオートワークス様の基幹業務を支えるシステム企画・開発業務を担っております。", group: "YAW" },
               { id: "HC70-MG3-T2", name: "YAWサービス系企画開発ユニット", leader: "加藤 佳紀", members: ["篠田 陽介", "高橋 湧稀"], description: "", group: "YAW" }
             ]
           },

@@ -7,6 +7,26 @@ import { Users, ChevronDown, FileText, UserCheck, LayoutGrid, HardHat, Timer } f
 // --- 工事中フラグ (体制発表後にここを false にすれば元に戻ります) ---
 const IS_UNDER_CONSTRUCTION = false;
 
+// Markdownリンク [text](url) を <a> タグに変換して表示するコンポーネント
+const DescriptionWithLinks: React.FC<{ text: string; className?: string }> = ({ text, className }) => {
+  const parts = text.split(/\[([^\]]+)\]\(([^)]+)\)/);
+  return (
+    <p className={className} style={{ whiteSpace: "pre-line" }}>
+      {parts.map((part, i) => {
+        if (i % 3 === 1) {
+          // リンクテキスト
+          const url = parts[i + 1];
+          return <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="text-(--gs-accent) underline hover:opacity-70">{part}</a>;
+        } else if (i % 3 === 2) {
+          // URL部分はスキップ
+          return null;
+        }
+        return part;
+      })}
+    </p>
+  );
+};
+
 interface TeamProps {
   activeSectionId: string;
 }
@@ -231,7 +251,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                                 <div className="overflow-hidden">
                                   <div className="px-10 pb-10 text-left">
                                     <div className="pt-6 border-t space-y-5 border-slate-50">
-                                      <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{teamDescriptions[team.id] ?? team.description}</p>
+                                      <DescriptionWithLinks text={teamDescriptions[team.id] ?? team.description} className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60" />
                                       <div className="space-y-3">
                                         <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
                                         {manager.description && (
@@ -296,7 +316,7 @@ export const Team: React.FC<TeamProps> = ({ activeSectionId: initialId }) => {
                             <div className="overflow-hidden">
                               <div className="px-10 pb-10 text-left">
                                 <div className="pt-6 border-t space-y-5 border-slate-50">
-                                  <p className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60">{teamDescriptions[team.id] ?? team.description}</p>
+                                  <DescriptionWithLinks text={teamDescriptions[team.id] ?? team.description} className="text-base font-medium leading-relaxed text-(--gs-text-primary)/60" />
                                   <div className="space-y-3">
                                     <span className="text-[14px] font-black text-(--gs-text-primary)/50 px-3 py-1 uppercase tracking-widest">マネージャー: {manager.name}</span>
                                     {manager.description && (
