@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/16 13:39:25
+// 最終取得: 2026/4/17 9:00:02
 
 export const autoNews = [
+  {
+    "id": 1345764273,
+    "date": "2026.04.16",
+    "category": "社内業務",
+    "title": "【4/22（水）17:00～】定期点検に伴う社内システム停止のお知らせ",
+    "color": "text-slate-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/16168B2ABADCE5C449258DDB001D1A9B"
+  },
   {
     "id": 951183288,
     "date": "2026.04.16",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "【4月】勤怠締めにおける前月分の日報修正が可能な期間のお知らせ",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/F0AEF7DDE67DE06C49258DD80003ABE2"
-  },
-  {
-    "id": 1391972099,
-    "date": "2026.04.13",
-    "category": "社内業務",
-    "title": "【復旧】Gmailでのメール送受信の遅延について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4B5AD0E048E9957649258DD8002D6764"
   }
 ];
