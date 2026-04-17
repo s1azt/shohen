@@ -1,8 +1,24 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/17 9:00:02
+// 最終取得: 2026/4/17 13:30:03
 
 export const autoNews = [
+  {
+    "id": 735828918,
+    "date": "2026.04.17",
+    "category": "セキュリティ/危機管理",
+    "title": "(4/17新規)【即時対応必須】Chromeブラウザのアップデート実施をお願いします。",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1UiKbj8hWv5DEfQyksYgRLpBcHSg1_B53/view?usp=drive_link"
+  },
+  {
+    "id": 637614099,
+    "date": "2026.04.17",
+    "category": "セキュリティ/危機管理",
+    "title": "【重要】Googleパスワードマネージャーからの「パスワード漏洩通知」への対応について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C8D1D20C559CC13649258DDC000478AC"
+  },
   {
     "id": 1345764273,
     "date": "2026.04.16",
@@ -66,21 +82,5 @@ export const autoNews = [
     "title": "フィッシングメール情報を更新しました ※要Chromeアクセス",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/phising-info?usp=sharing"
-  },
-  {
-    "id": 1793248461,
-    "date": "2026.04.14",
-    "category": "セキュリティ/危機管理",
-    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/14 1件)",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
-  },
-  {
-    "id": 914329615,
-    "date": "2026.04.14",
-    "category": "社内業務",
-    "title": "【4月】勤怠締めにおける前月分の日報修正が可能な期間のお知らせ",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/F0AEF7DDE67DE06C49258DD80003ABE2"
   }
 ];
