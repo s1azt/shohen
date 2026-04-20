@@ -1,8 +1,32 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/17 13:30:03
+// 最終取得: 2026/4/20 9:00:03
 
 export const autoNews = [
+  {
+    "id": 1327390994,
+    "date": "2026.04.20",
+    "category": "セキュリティ/危機管理",
+    "title": "【今週も安全・快適に！】ブラウザを最新にしてリフレッシュ★",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DBF0B548474A858949258DA70083B71D"
+  },
+  {
+    "id": 279176534,
+    "date": "2026.04.19",
+    "category": "人事関連",
+    "title": "職種別集計表の公開について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/88DF0495C914380549258DDE0043E4C1"
+  },
+  {
+    "id": 992475833,
+    "date": "2026.04.17",
+    "category": "セキュリティ/危機管理",
+    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/17 1件)",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
+  },
   {
     "id": 735828918,
     "date": "2026.04.17",
@@ -58,29 +82,5 @@ export const autoNews = [
     "title": "人事発令の件（2026年4月16日付）(社報）",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/A3F85DA712705B2D49258DD90012A852"
-  },
-  {
-    "id": 116227822,
-    "date": "2026.04.16",
-    "category": "人事関連",
-    "title": "【正社員】2026年4月度勤怠締めご協力のお願い",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D5AF1CE5D6EF73DC49258DDA002A295C/"
-  },
-  {
-    "id": 639922005,
-    "date": "2026.04.15",
-    "category": "人事関連",
-    "title": "人員配置図（2026年4月1日現在）公開の件",
-    "color": "text-pink-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/67D0FA9AE51FEC6349258DDA00170896"
-  },
-  {
-    "id": 782345065,
-    "date": "2026.04.15",
-    "category": "セキュリティ/危機管理",
-    "title": "フィッシングメール情報を更新しました ※要Chromeアクセス",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/phising-info?usp=sharing"
   }
 ];
