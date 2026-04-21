@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/21 9:00:03
+// 最終取得: 2026/4/21 13:30:02
 
 export const autoNews = [
+  {
+    "id": 1547974424,
+    "date": "2026.04.21",
+    "category": "人事関連",
+    "title": "《2026度上期》目標達成度課題設定実施のご案内",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/6C68AE22BF0C832D49258DDF003156C5"
+  },
   {
     "id": 1327390994,
     "date": "2026.04.20",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "(契約社員)2026年4月度勤怠・給与締めについて",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DA75FE4791CE783049258DDA002A62A3/"
-  },
-  {
-    "id": 685691003,
-    "date": "2026.04.16",
-    "category": "人事関連",
-    "title": "人事発令の件（2026年4月16日付）(社報）",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/A3F85DA712705B2D49258DD90012A852"
   }
 ];
