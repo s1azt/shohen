@@ -52,6 +52,9 @@ Ctrl＋C で停止
 ### GitHubへの登録
 
 ```bash
+# ビルド
+npm run build
+
 # 変更資産の追加
 git add .
 
