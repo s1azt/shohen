@@ -116,7 +116,7 @@ export const organizationData = {
             role: "マネージャー",
             teams: [
               { id: "HC70-MG1-T1", name: "企画ユニット", leader: "山口 康信", members: ["鈴木 雅晴", "種田 佳奈子", "冨岡 観月"], description: "", group: "企画・管理" },
-              { id: "HC70-MG1-T2", name: "ＰＭＯユニット", leader: "坂井 信介", members: ["斉藤 由太", "中村 香菜"], description: "ＨＣ７０の企画・開発・運用に関して横断的に支援していくチームです。\n[PMOユニットのサイトはこちら](https://sites.google.com/nekonet.co.jp/hc70-pmo/)", group: "企画・管理" }
+              { id: "HC70-MG1-T2", name: "ＰＭＯユニット", leader: "坂井 信介", members: ["斉藤 由太", "中村 香菜"], description: "ＨＣ７０の企画・開発・運用に関して横断的に各ソリューションチームを支援していくチームです。\n具体的な関わり方としては、見積審査や工程完了チェックや各ソリューションの案件状況を把握して適宜各チームを支援していきます。\n[PMOユニットのサイトはこちら](https://sites.google.com/nekonet.co.jp/hc70-pmo/)", group: "企画・管理" }
             ]
           },
           {
