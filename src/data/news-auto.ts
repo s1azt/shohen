@@ -1,8 +1,24 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/21 13:30:02
+// 最終取得: 2026/4/22 9:00:04
 
 export const autoNews = [
+  {
+    "id": 131301139,
+    "date": "2026.04.21",
+    "category": "セキュリティ/危機管理",
+    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/21 3件)",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
+  },
+  {
+    "id": 357579856,
+    "date": "2026.04.21",
+    "category": "人事関連",
+    "title": "5月度_有休取得推奨日、会議入れないDAYについて(5/15,5/29)",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D7C5B27EC927F8C449258DE0002F36FC"
+  },
   {
     "id": 1547974424,
     "date": "2026.04.21",
@@ -28,14 +44,6 @@ export const autoNews = [
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/88DF0495C914380549258DDE0043E4C1"
   },
   {
-    "id": 992475833,
-    "date": "2026.04.17",
-    "category": "セキュリティ/危機管理",
-    "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/17 1件)",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
-  },
-  {
     "id": 735828918,
     "date": "2026.04.17",
     "category": "セキュリティ/危機管理",
@@ -50,14 +58,6 @@ export const autoNews = [
     "title": "【重要】Googleパスワードマネージャーからの「パスワード漏洩通知」への対応について",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C8D1D20C559CC13649258DDC000478AC"
-  },
-  {
-    "id": 1345764273,
-    "date": "2026.04.16",
-    "category": "社内業務",
-    "title": "【4/22（水）17:00～】定期点検に伴う社内システム停止のお知らせ",
-    "color": "text-slate-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/16168B2ABADCE5C449258DDB001D1A9B"
   },
   {
     "id": 951183288,
