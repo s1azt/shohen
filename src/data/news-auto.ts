@@ -1,15 +1,31 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/22 13:30:05
+// 最終取得: 2026/4/23 9:00:02
 
 export const autoNews = [
   {
-    "id": 1386982486,
+    "id": 1891541765,
     "date": "2026.04.22",
     "category": "社内業務",
-    "title": "【本日実施】【4/22（水）17:00～】定期点検に伴う社内システム停止のお知らせ",
+    "title": "定期点検完了のお知らせ",
     "color": "text-slate-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/16168B2ABADCE5C449258DDB001D1A9B"
+  },
+  {
+    "id": 418905827,
+    "date": "2026.04.22",
+    "category": "人事関連",
+    "title": "通勤のみに自家用車両を利用している場合の指定書類の提出について（申請DB新設のお知らせ）",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/542FAAA29FCBB1F449258DDC002802E7/"
+  },
+  {
+    "id": 556004850,
+    "date": "2026.04.22",
+    "category": "セキュリティ/危機管理",
+    "title": "【脆弱性対応】シンクラ通信機器メンテナンスのご案内",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/4FA02123C8E8F50349258DCA0014F64F"
   },
   {
     "id": 334012365,
@@ -66,21 +82,5 @@ export const autoNews = [
     "title": "(4/17新規)【即時対応必須】Chromeブラウザのアップデート実施をお願いします。",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1UiKbj8hWv5DEfQyksYgRLpBcHSg1_B53/view?usp=drive_link"
-  },
-  {
-    "id": 637614099,
-    "date": "2026.04.17",
-    "category": "セキュリティ/危機管理",
-    "title": "【重要】Googleパスワードマネージャーからの「パスワード漏洩通知」への対応について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/C8D1D20C559CC13649258DDC000478AC"
-  },
-  {
-    "id": 951183288,
-    "date": "2026.04.16",
-    "category": "人事関連",
-    "title": "正社員勤務表の締め状況について（4/16 11:30時点）",
-    "color": "text-pink-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/A992492EBDE3AB5A49258DDB000DD53B/"
   }
 ];
