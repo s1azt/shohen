@@ -1,8 +1,16 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/23 9:00:02
+// 最終取得: 2026/4/23 13:30:04
 
 export const autoNews = [
+  {
+    "id": 352420490,
+    "date": "2026.04.23",
+    "category": "セキュリティ/危機管理",
+    "title": "Symantecの定義ファイルを更新してください",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://ungi.nekonet.co.jp/security/virus/download.html"
+  },
   {
     "id": 1891541765,
     "date": "2026.04.22",
@@ -74,13 +82,5 @@ export const autoNews = [
     "title": "職種別集計表の公開について",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/88DF0495C914380549258DDE0043E4C1"
-  },
-  {
-    "id": 735828918,
-    "date": "2026.04.17",
-    "category": "セキュリティ/危機管理",
-    "title": "(4/17新規)【即時対応必須】Chromeブラウザのアップデート実施をお願いします。",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1UiKbj8hWv5DEfQyksYgRLpBcHSg1_B53/view?usp=drive_link"
   }
 ];
