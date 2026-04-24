@@ -1,8 +1,40 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/24 9:00:03
+// 最終取得: 2026/4/24 13:30:04
 
 export const autoNews = [
+  {
+    "id": 326410126,
+    "date": "2026.04.24",
+    "category": "人事関連",
+    "title": "2025年度業績表彰式典開催および社長賞決定の件",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/32BA00C257CED24A49258DE10023A84E"
+  },
+  {
+    "id": 1103548283,
+    "date": "2026.04.24",
+    "category": "人事関連",
+    "title": "スキル審査及び役職任用による処遇・新給与通知書公開の件",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/6C64E47987BA519249258DE2003A21D1"
+  },
+  {
+    "id": 188638418,
+    "date": "2026.04.24",
+    "category": "人事関連",
+    "title": "雇用保険料率、介護保険料率変更について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DC737581B18AF6AD49258DD3000D746D"
+  },
+  {
+    "id": 795091875,
+    "date": "2026.04.24",
+    "category": "セキュリティ/危機管理",
+    "title": "(4/23新規)【即時対応必須】ブラウザのアップデート実施をお願いします。",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1O8LiyVwT2gFX7QtQwc0mmWcW0Qzz56Tk/view?usp=drive_link"
+  },
   {
     "id": 352420490,
     "date": "2026.04.23",
@@ -50,37 +82,5 @@ export const autoNews = [
     "title": "【要Chromeアクセス】重要度の高い脆弱性情報を更新しました(4/21 3件)",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/security-portal/要確認脆弱性情報"
-  },
-  {
-    "id": 357579856,
-    "date": "2026.04.21",
-    "category": "人事関連",
-    "title": "5月度_有休取得推奨日、会議入れないDAYについて(5/15,5/29)",
-    "color": "text-pink-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D7C5B27EC927F8C449258DE0002F36FC"
-  },
-  {
-    "id": 1547974424,
-    "date": "2026.04.21",
-    "category": "人事関連",
-    "title": "《2026度上期》目標達成度課題設定実施のご案内",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/6C68AE22BF0C832D49258DDF003156C5"
-  },
-  {
-    "id": 1327390994,
-    "date": "2026.04.20",
-    "category": "セキュリティ/危機管理",
-    "title": "【今週も安全・快適に！】ブラウザを最新にしてリフレッシュ★",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/DBF0B548474A858949258DA70083B71D"
-  },
-  {
-    "id": 279176534,
-    "date": "2026.04.19",
-    "category": "人事関連",
-    "title": "職種別集計表の公開について",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/88DF0495C914380549258DDE0043E4C1"
   }
 ];
