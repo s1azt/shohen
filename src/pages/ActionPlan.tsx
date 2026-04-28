@@ -92,15 +92,6 @@ export const ActionPlanPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* 進捗バー */}
-                <div className="space-y-2 mb-6">
-                  <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all duration-700 bg-(--gs-accent)"
-                      style={{ width: `${plan.progress}%` }}
-                    />
-                  </div>
-                </div>
 
                 {/* カードフッター */}
                 <div className="mt-auto pt-5 border-t border-dashed border-slate-100 flex justify-between items-end">
