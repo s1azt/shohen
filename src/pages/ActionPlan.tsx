@@ -1,55 +1,31 @@
-import React, { useState, useMemo, useEffect } from "react";
-import { Target, ChevronDown, ChevronUp } from "lucide-react";
-import { allActionPlans, ActionPlan } from "../data/actionPlans";
+import React, { useState, useMemo } from "react";
+import { Target, ArrowUpRight, Activity } from "lucide-react";
+import { allActionPlans } from "../data/actionPlans";
 
-const FISCAL_YEARS = Array.from(new Set(allActionPlans.map(p => p.fiscalYear))).sort((a, b) => b - a);
-const LATEST_FISCAL_YEAR = FISCAL_YEARS[0];
-const STATUSES = ["すべて", "進行中", "計画中", "完了"] as const;
-
-const STATUS_STYLE: Record<ActionPlan["status"], string> = {
-  "進行中": "bg-blue-50 text-blue-700 border-blue-100",
-  "完了":   "bg-green-50 text-green-700 border-green-100",
-  "計画中": "bg-amber-50 text-amber-700 border-amber-100",
-};
-
-const PROGRESS_COLOR: Record<ActionPlan["status"], string> = {
-  "進行中": "bg-blue-500",
-  "完了":   "bg-green-500",
-  "計画中": "bg-amber-400",
-};
+// 固定カテゴリの定義
+const CATEGORIES = [
+  "一覧",
+  "事業方針",
+  "AI駆動開発",
+  "UIUX",
+  "運用最適",
+  "[運用]リリース手順の標準化",
+  "Iac"
+] as const;
 
 export const ActionPlanPage: React.FC = () => {
-  const [fiscalYear, setFiscalYear] = useState(LATEST_FISCAL_YEAR);
-  const [statusFilter, setStatusFilter] = useState("すべて");
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("一覧");
 
-  // 選択年度のカテゴリを動的に生成
-  const categories = useMemo(() => {
-    const plans = allActionPlans.filter(p => p.fiscalYear === fiscalYear);
-    return ["すべて", ...Array.from(new Set(plans.map(p => p.category)))];
-  }, [fiscalYear]);
-  const [categoryFilter, setCategoryFilter] = useState("すべて");
-
-  // 年度切替時のみカテゴリ・ステータスをリセット
-  useEffect(() => {
-    setCategoryFilter("すべて");
-    setStatusFilter("すべて");
-    setExpandedId(null);
-  }, [fiscalYear]);
-
-  const filtered = useMemo(() =>
-    allActionPlans
-      .filter(p => p.fiscalYear === fiscalYear)
-      .filter(p => statusFilter === "すべて" || p.status === statusFilter)
-  , [fiscalYear, statusFilter]);
-
-  const displayPlans = useMemo(() =>
-    filtered.filter(p => categoryFilter === "すべて" || p.category === categoryFilter)
-  , [filtered, categoryFilter]);
+  // フィルタリングロジック（カテゴリのみで判定）
+  const displayPlans = useMemo(() => {
+    return allActionPlans
+      .filter(p => activeCategory === "一覧" || p.category === activeCategory);
+  }, [activeCategory]);
 
   return (
-    <div className="page-main-container">
-      {/* ヘッダー */}
+    <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-1000 pb-10 px-4">
+      
+      {/* ページタイトルセクション */}
       <header className="header-underline-bold mb-4 border-(--gs-accent)">
         <div className="flex items-center gap-7 text-left pb-2">
           <div className="header-icon-squircle bg-(--gs-accent)">
@@ -57,137 +33,108 @@ export const ActionPlanPage: React.FC = () => {
           </div>
           <div>
             <h2 className="header-title-main text-(--gs-text-primary)">アクションプラン</h2>
-            <div className="flex items-center gap-3 mt-4">
-              <div className="h-[2px] w-6 bg-(--gs-accent)" />
-              <p className="header-subtitle-sub uppercase tracking-[0.4em] opacity-40">Action Plan</p>
-            </div>
           </div>
         </div>
       </header>
 
-      {/* 年度タブ */}
-      <div className="category-tab-container mb-4">
-        {FISCAL_YEARS.map(fy => (
-          <button
-            key={fy}
-            onClick={() => { setFiscalYear(fy); setStatusFilter("すべて"); setExpandedId(null); }}
-            className={`category-tab-button ${fiscalYear === fy ? "tab-active-normal" : "tab-inactive"}`}
-          >
-            {fy}年度
-          </button>
-        ))}
-      </div>
-
-      {/* カテゴリタブ */}
-      <div className="category-tab-container mb-4">
-        {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setCategoryFilter(cat)}
-            className={`category-tab-button ${categoryFilter === cat ? "tab-active-normal" : "tab-inactive"}`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* ステータスタブ */}
-      <div className="category-tab-container mb-8">
-        {STATUSES.map(s => (
-          <button
-            key={s}
-            onClick={() => setStatusFilter(s)}
-            className={`category-tab-button ${statusFilter === s ? "tab-active-normal" : "tab-inactive"}`}
-          >
-            {s}
-          </button>
-        ))}
-      </div>
-
-      {/* 一覧 */}
-      <div className="space-y-3">
-        {displayPlans.length === 0 && (
-          <div className="text-center py-20 text-slate-400 font-bold">該当するアクションプランがありません</div>
-        )}
-        {displayPlans.map(plan => {
-          const isExpanded = expandedId === plan.id;
-          return (
-            <div
-              key={plan.id}
-              className={`rounded-[2rem] border overflow-hidden transition-all ${
-                isExpanded
-                  ? "border-(--gs-accent) shadow-xl bg-(--gs-card-bg)"
-                  : "border-slate-100 bg-(--gs-card-bg) hover:border-(--gs-accent)/30"
+      {/* 1. カテゴリーナビゲーション */}
+      {/* w-full と flex-1 を組み合わせることで、右端の余白を消し、下のグリッド幅と一致させます */}
+      <div className="flex justify-center">
+        <div className="flex bg-slate-100/80 p-1.5 rounded-[2rem] border border-slate-200 w-full overflow-x-auto scrollbar-hide backdrop-blur-sm shadow-sm gap-1">
+          {CATEGORIES.map(cat => (
+            <button 
+              key={cat} 
+              onClick={() => setActiveCategory(cat)} 
+              className={`flex-1 shrink-0 min-w-max py-3.5 px-6 rounded-[1.6rem] font-black text-[13px] tracking-widest transition-all duration-300 whitespace-nowrap ${
+                activeCategory === cat 
+                  ? "bg-white text-(--gs-accent) shadow-md transform scale-[1.02] z-10" 
+                  : "text-slate-400 hover:text-slate-600 hover:bg-white/40"
               }`}
             >
-              <button
-                onClick={() => setExpandedId(isExpanded ? null : plan.id)}
-                className="w-full p-6 flex items-center justify-between text-left gap-4 group"
-              >
-                <div className="flex items-start gap-4 flex-grow min-w-0">
-                  {/* プログレスサークル */}
-                  <div className="relative w-12 h-12 shrink-0">
-                    <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                      <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f1f5f9" strokeWidth="3" />
-                      <circle
-                        cx="18" cy="18" r="15.9" fill="none"
-                        stroke={plan.status === "完了" ? "#22c55e" : plan.status === "進行中" ? "#3b82f6" : "#fbbf24"}
-                        strokeWidth="3"
-                        strokeDasharray={`${plan.progress} ${100 - plan.progress}`}
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-[12px] font-black text-(--gs-text-primary)">
-                      {plan.progress}%
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 2. アクションプラン・グリッド（カード形式） */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {displayPlans.length > 0 ? (
+          displayPlans.map((plan) => (
+            <div 
+              key={plan.id}
+              onClick={() => plan.url && window.open(plan.url, '_blank')}
+              className="group flex flex-col rounded-[2.5rem] border border-slate-100 bg-(--gs-card-bg) hover:border-(--gs-accent)/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer relative overflow-hidden text-left"
+            >
+              {/* カード上部のアクセントライン */}
+              <div className="h-1.5 w-full bg-(--gs-accent) opacity-20 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="p-7 flex flex-col h-full">
+                {/* ステータス & 進捗バッジ */}
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest leading-none px-2.5 py-1 rounded-md border border-(--gs-accent)/10 bg-(--gs-accent)/5 text-(--gs-accent)">
+                      {plan.status}
+                    </span>
+                    <span className="text-[11px] font-bold text-slate-300 uppercase tracking-widest">
+                      {plan.category}
                     </span>
                   </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className={`text-[12px] font-black px-2 py-0.5 rounded border ${STATUS_STYLE[plan.status]}`}>
-                        {plan.status}
-                      </span>
-                      <span className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">{plan.category}</span>
-                    </div>
-                    <h4 className="font-black text-[16px] tracking-tight text-(--gs-text-primary) truncate">{plan.title}</h4>
+                </div>
+
+                {/* タイトル & 説明 */}
+                <div className="flex-grow">
+                  <h4 className="text-[19px] font-black tracking-tight leading-tight mb-3 text-(--gs-text-primary) group-hover:text-(--gs-accent) transition-colors">
+                    {plan.title}
+                  </h4>
+                  <p className="text-[14px] font-medium leading-relaxed text-slate-500 line-clamp-3 mb-6">
+                    {plan.description}
+                  </p>
+                </div>
+
+                {/* 進捗バー */}
+                <div className="space-y-2 mb-6">
+                  <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-700 bg-(--gs-accent)"
+                      style={{ width: `${plan.progress}%` }}
+                    />
                   </div>
                 </div>
-                <div className={`p-2 rounded-full shrink-0 ${
-                  isExpanded ? "bg-(--gs-accent) text-white" : "bg-slate-100 text-slate-400 group-hover:bg-slate-200"
-                }`}>
-                  {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </div>
-              </button>
 
-              {/* 展開詳細 */}
-              <div className={`grid transition-all duration-300 ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                <div className="overflow-hidden">
-                  <div className="px-8 pb-8 space-y-4 text-left">
-                    <div className="pt-4 border-t border-slate-50">
-                      <p className="text-[14px] leading-relaxed text-(--gs-text-primary)/60 mb-4">{plan.description}</p>
-                      {/* プログレスバー */}
-                      <div className="mb-4">
-                        <div className="flex justify-between text-[12px] font-black text-(--gs-text-primary)/50 mb-1">
-                          <span>進捗</span><span>{plan.progress}%</span>
-                        </div>
-                        <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
-                          <div
-                            className={`h-full rounded-full transition-all duration-500 ${PROGRESS_COLOR[plan.status]}`}
-                            style={{ width: `${plan.progress}%` }}
-                          />
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-4 text-[12px] font-bold text-(--gs-text-primary)/50">
-                        <span>担当: <span className="text-(--gs-text-primary)/80">{plan.owner}</span></span>
-                        <span>開始: <span className="text-(--gs-text-primary)/80">{plan.startDate}</span></span>
-                        <span>目標: <span className="text-(--gs-text-primary)/80">{plan.targetDate}</span></span>
-                      </div>
+                {/* カードフッター */}
+                <div className="mt-auto pt-5 border-t border-dashed border-slate-100 flex justify-between items-end">
+                  <div className="space-y-1">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-black text-slate-300 uppercase tracking-tighter">Owner</span>
+                      <span className="text-[13px] font-bold text-slate-600">{plan.owner}</span>
                     </div>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-(--gs-accent) group-hover:text-white transition-all duration-300 group-hover:rotate-12 shadow-sm">
+                    <ArrowUpRight size={20} strokeWidth={2.5} />
                   </div>
                 </div>
               </div>
             </div>
-          );
-        })}
+          ))
+        ) : (
+          <div className="col-span-full py-32 text-center">
+            <div className="inline-flex p-6 rounded-full bg-slate-50 mb-4">
+              <Activity size={32} className="text-slate-200" />
+            </div>
+            <p className="text-slate-400 italic text-[13px] font-black uppercase tracking-widest">
+              順次追加予定です。もうしばらくお待ちください。
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* 3. フッター装飾 */}
+      <div className="pt-16 pb-4">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-8" />
+        <p className="text-center text-[12px] font-black text-slate-500 uppercase tracking-[0.5em]">
+          Strategic Action Assets End
+        </p>
       </div>
     </div>
   );

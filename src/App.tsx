@@ -226,7 +226,7 @@ export default function App() {
           {activeTab === "syohen" && <Syohen />}
           {activeTab === "column" && <Column />} 
           {activeTab === "construction" && <Construction target={constructionTarget} />}
-          {activeTab === "actionplan" && <Construction target="アクションプラン" />}
+          {activeTab === "actionplan" && <ActionPlanPage target="アクションプラン" />}
           {activeTab === "search" && <SearchResults query={searchExecutionQuery} setActiveTab={setActiveTab} setActiveSectionId={setActiveSectionId} setActiveCompanyAbbr={setActiveCompanyAbbr} />}
 
           {!validTabs.includes(activeTab) && <NotFound setActiveTab={setActiveTab} />}
