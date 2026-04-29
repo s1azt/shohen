@@ -1,8 +1,24 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/28 13:30:03
+// 最終取得: 2026/4/29 16:53:11
 
 export const autoNews = [
+  {
+    "id": 641541777,
+    "date": "2026.04.28",
+    "category": "人事関連",
+    "title": "【ご注意ください】4月11日～4月16日退社の方の健康保険任意継続のお手続きについて",
+    "color": "text-pink-600",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/B21BD1E1622972B849258DE7002934F3"
+  },
+  {
+    "id": 1155741649,
+    "date": "2026.04.28",
+    "category": "教育/研修関連",
+    "title": "【申込開始】2026年度ビジネススキル研修実施のご案内",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D5DE0657A19B46D349258DE700270159"
+  },
   {
     "id": 789557574,
     "date": "2026.04.28",
@@ -66,21 +82,5 @@ export const autoNews = [
     "title": "(4/24新規)【即時対応必須】ブラウザのアップデート実施をお願いします。",
     "color": "text-red-500",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://drive.google.com/file/d/1v9qiUgahTyuUe6FEMTZ6uz3NNF-w4AXN/view?usp=drive_link"
-  },
-  {
-    "id": 1724154210,
-    "date": "2026.04.24",
-    "category": "人事関連",
-    "title": "【育児支援】「ベビーシッター割引券」・「ベビカム報告」のご案内",
-    "color": "text-pink-600",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/FBFDDE340877985E49258DDC001EADA9"
-  },
-  {
-    "id": 326410126,
-    "date": "2026.04.24",
-    "category": "人事関連",
-    "title": "2025年度業績表彰式典開催および社長賞決定の件",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0053.nsf/($All)/32BA00C257CED24A49258DE10023A84E"
   }
 ];
