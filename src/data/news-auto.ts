@@ -1,8 +1,48 @@
 // このファイルは scripts/fetch-news.mjs によって自動生成されます
 // 手動で編集しないでください（上書きされます）
-// 最終取得: 2026/4/30 9:01:44
+// 最終取得: 2026/4/30 16:53:18
 
 export const autoNews = [
+  {
+    "id": 1753054989,
+    "date": "2026.04.30",
+    "category": "教育/研修関連",
+    "title": "【Gemini通信】面倒なデータ整理は Gemini にお任せ！AI 関数でスプレッドシートをフル活",
+    "color": "text-orange-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/77CA50B07C4CBC5649258DE7001A6C1D"
+  },
+  {
+    "id": 1974866266,
+    "date": "2026.04.30",
+    "category": "セキュリティ/危機管理",
+    "title": "Symantecの定義ファイルを更新してください",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://ungi.nekonet.co.jp/security/virus/download.html"
+  },
+  {
+    "id": 1363330443,
+    "date": "2026.04.30",
+    "category": "セキュリティ/危機管理",
+    "title": "ProtectCatにおける一部レガシーOSのサポート終了について",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/0C4410315620281649258DE9000A9F54"
+  },
+  {
+    "id": 2124424176,
+    "date": "2026.04.30",
+    "category": "セキュリティ/危機管理",
+    "title": "フィッシングメール情報を更新しました ※要Chromeアクセス",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=https://sites.google.com/nekonet.co.jp/phising-info?usp=sharing"
+  },
+  {
+    "id": 1796671978,
+    "date": "2026.04.30",
+    "category": "教育/研修関連",
+    "title": "【申込受付中】2026年度ビジネススキル研修実施のご案内",
+    "color": "text-red-500",
+    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D5DE0657A19B46D349258DE700270159"
+  },
   {
     "id": 829961325,
     "date": "2026.04.29",
@@ -18,14 +58,6 @@ export const autoNews = [
     "title": "【ご注意ください】4月11日～4月16日退社の方の健康保険任意継続のお手続きについて",
     "color": "text-pink-600",
     "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/B21BD1E1622972B849258DE7002934F3"
-  },
-  {
-    "id": 1155741649,
-    "date": "2026.04.28",
-    "category": "教育/研修関連",
-    "title": "【申込開始】2026年度ビジネススキル研修実施のご案内",
-    "color": "text-red-500",
-    "url": "http://tokyo.nekonet.co.jp/menu/pageout.aspx?key=Whats&url=http://dominoap.nekonet.co.jp/all/all0088.nsf/($All)/D5DE0657A19B46D349258DE700270159"
   },
   {
     "id": 789557574,
